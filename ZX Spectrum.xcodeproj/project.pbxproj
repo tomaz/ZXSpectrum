@@ -13,6 +13,16 @@
 		737E93891E87D19D00128149 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737E93871E87D19D00128149 /* ViewController.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		737E99BE1E88401900128149 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 737E99BA1E88401800128149 /* spectrum.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 737E99AE1E88401800128149;
+			remoteInfo = spectrum;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		737E936E1E87D10E00128149 /* ZX Spectrum.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ZX Spectrum.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		737E93761E87D10E00128149 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -21,6 +31,7 @@
 		737E937D1E87D10E00128149 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
 		737E93861E87D19D00128149 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		737E93871E87D19D00128149 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		737E99BA1E88401800128149 /* spectrum.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = spectrum.xcodeproj; path = "ZX Spectrum/Common/spectrum/spectrum.xcodeproj"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +103,7 @@
 		737E938B1E87D24200128149 /* Third Party */ = {
 			isa = PBXGroup;
 			children = (
+				737E99BA1E88401800128149 /* spectrum.xcodeproj */,
 			);
 			name = "Third Party";
 			sourceTree = "<group>";
@@ -101,6 +113,14 @@
 			children = (
 			);
 			name = Helpers;
+			sourceTree = "<group>";
+		};
+		737E99BB1E88401800128149 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				737E99BF1E88401900128149 /* libspectrum.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -152,12 +172,28 @@
 			mainGroup = 737E93651E87D10E00128149;
 			productRefGroup = 737E936F1E87D10E00128149 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 737E99BB1E88401800128149 /* Products */;
+					ProjectRef = 737E99BA1E88401800128149 /* spectrum.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				737E936D1E87D10E00128149 /* ZX Spectrum */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		737E99BF1E88401900128149 /* libspectrum.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libspectrum.a;
+			remoteRef = 737E99BE1E88401900128149 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		737E936C1E87D10E00128149 /* Resources */ = {
