@@ -1,0 +1,360 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		737E93771E87D10E00128149 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 737E93751E87D10E00128149 /* Main.storyboard */; };
+		737E93791E87D10E00128149 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 737E93781E87D10E00128149 /* Assets.xcassets */; };
+		737E93881E87D19D00128149 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737E93861E87D19D00128149 /* AppDelegate.swift */; };
+		737E93891E87D19D00128149 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737E93871E87D19D00128149 /* ViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		737E936E1E87D10E00128149 /* ZX Spectrum.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ZX Spectrum.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		737E93761E87D10E00128149 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		737E93781E87D10E00128149 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../Assets.xcassets; sourceTree = "<group>"; };
+		737E937B1E87D10E00128149 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		737E937D1E87D10E00128149 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
+		737E93861E87D19D00128149 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		737E93871E87D19D00128149 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		737E936B1E87D10E00128149 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		737E93651E87D10E00128149 = {
+			isa = PBXGroup;
+			children = (
+				737E93701E87D10E00128149 /* ZX Spectrum */,
+				737E936F1E87D10E00128149 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		737E936F1E87D10E00128149 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				737E936E1E87D10E00128149 /* ZX Spectrum.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		737E93701E87D10E00128149 /* ZX Spectrum */ = {
+			isa = PBXGroup;
+			children = (
+				737E93851E87D16400128149 /* Common */,
+				737E93831E87D11900128149 /* Controller */,
+				737E93841E87D14400128149 /* Resources */,
+			);
+			path = "ZX Spectrum";
+			sourceTree = "<group>";
+		};
+		737E93831E87D11900128149 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				737E93861E87D19D00128149 /* AppDelegate.swift */,
+				737E93871E87D19D00128149 /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		737E93841E87D14400128149 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				737E93751E87D10E00128149 /* Main.storyboard */,
+				737E93781E87D10E00128149 /* Assets.xcassets */,
+				737E937A1E87D10E00128149 /* LaunchScreen.storyboard */,
+				737E937D1E87D10E00128149 /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		737E93851E87D16400128149 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				737E938E1E87D36300128149 /* Helpers */,
+				737E938B1E87D24200128149 /* Third Party */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		737E938B1E87D24200128149 /* Third Party */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Third Party";
+			sourceTree = "<group>";
+		};
+		737E938E1E87D36300128149 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		737E936D1E87D10E00128149 /* ZX Spectrum */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 737E93801E87D10E00128149 /* Build configuration list for PBXNativeTarget "ZX Spectrum" */;
+			buildPhases = (
+				737E936A1E87D10E00128149 /* Sources */,
+				737E936B1E87D10E00128149 /* Frameworks */,
+				737E936C1E87D10E00128149 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "ZX Spectrum";
+			productName = "ZX Spectrum";
+			productReference = 737E936E1E87D10E00128149 /* ZX Spectrum.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		737E93661E87D10E00128149 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0820;
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = "Gentle Bytes";
+				TargetAttributes = {
+					737E936D1E87D10E00128149 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = F7N66E384G;
+						LastSwiftMigration = 0820;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 737E93691E87D10E00128149 /* Build configuration list for PBXProject "ZX Spectrum" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 737E93651E87D10E00128149;
+			productRefGroup = 737E936F1E87D10E00128149 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				737E936D1E87D10E00128149 /* ZX Spectrum */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		737E936C1E87D10E00128149 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				737E93791E87D10E00128149 /* Assets.xcassets in Resources */,
+				737E93771E87D10E00128149 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		737E936A1E87D10E00128149 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				737E93891E87D19D00128149 /* ViewController.swift in Sources */,
+				737E93881E87D19D00128149 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		737E93751E87D10E00128149 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				737E93761E87D10E00128149 /* Base */,
+			);
+			name = Main.storyboard;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		737E937A1E87D10E00128149 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				737E937B1E87D10E00128149 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			path = ..;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		737E937E1E87D10E00128149 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		737E937F1E87D10E00128149 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		737E93811E87D10E00128149 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = F7N66E384G;
+				INFOPLIST_FILE = "ZX Spectrum/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gentlebytes.ZX-Spectrum";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		737E93821E87D10E00128149 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				DEVELOPMENT_TEAM = F7N66E384G;
+				INFOPLIST_FILE = "ZX Spectrum/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.gentlebytes.ZX-Spectrum";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		737E93691E87D10E00128149 /* Build configuration list for PBXProject "ZX Spectrum" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				737E937E1E87D10E00128149 /* Debug */,
+				737E937F1E87D10E00128149 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		737E93801E87D10E00128149 /* Build configuration list for PBXNativeTarget "ZX Spectrum" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				737E93811E87D10E00128149 /* Debug */,
+				737E93821E87D10E00128149 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 737E93661E87D10E00128149 /* Project object */;
+}
