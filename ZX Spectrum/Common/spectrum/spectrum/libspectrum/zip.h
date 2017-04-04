@@ -27,7 +27,7 @@
 #ifndef LIBSPECTRUM_ZIP_H
 #define LIBSPECTRUM_ZIP_H
 
-#include <libspectrum.h>
+#include "libspectrum.h"
 
 #define ZIP_DIRECTORY_INFO_SIG 0x06054b50
 #define ZIP_FILE_HEADER_SIG    0x02014b50

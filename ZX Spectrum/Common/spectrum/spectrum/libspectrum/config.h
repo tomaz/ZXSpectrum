@@ -20,7 +20,7 @@
 #define HAVE_LIB_AUDIOFILE 1
 
 /* Defined if we've got GLib */
-#define HAVE_LIB_GLIB 1
+//#define HAVE_LIB_GLIB 1
 
 /* Define to 1 if you have the <memory.h> header file. */
 #define HAVE_MEMORY_H 1

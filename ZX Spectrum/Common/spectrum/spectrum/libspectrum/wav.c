@@ -21,12 +21,12 @@
 
 */
 
-#include <config.h>
+#include "config.h"
 #include <string.h>
 
 #ifdef HAVE_LIB_AUDIOFILE
 
-#include <audiofile.h>
+#include "audiofile.h"
 
 #include "internals.h"
 #include "tape_block.h"

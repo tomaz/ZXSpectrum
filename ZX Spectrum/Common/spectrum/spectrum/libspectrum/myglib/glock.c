@@ -20,7 +20,7 @@
    BogDan Vatra <bogdan@kde.org>
 */
 
-#include <config.h>
+#include "config.h"
 
 #include <stdatomic.h>
 
