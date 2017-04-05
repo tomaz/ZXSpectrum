@@ -480,6 +480,8 @@ typedef enum libspectrum_class_t {
 
   LIBSPECTRUM_CLASS_DISK_DIDAKTIK,	/* Didaktik disk */
 
+  LIBSPECTRUM_CLASS_SCREENSHOT,		/* Screenshot */
+	
 } libspectrum_class_t;
 
 WIN32_DLL libspectrum_error
