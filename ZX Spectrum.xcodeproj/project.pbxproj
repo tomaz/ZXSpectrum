@@ -7,13 +7,66 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		73291ECA1E96637100940801 /* 48.rom in Resources */ = {isa = PBXBuildFile; fileRef = 73291EB51E96637100940801 /* 48.rom */; };
+		73291ECB1E96637100940801 /* 128-0.rom in Resources */ = {isa = PBXBuildFile; fileRef = 73291EB61E96637100940801 /* 128-0.rom */; };
+		73291ECC1E96637100940801 /* 128-1.rom in Resources */ = {isa = PBXBuildFile; fileRef = 73291EB71E96637100940801 /* 128-1.rom */; };
+		73291ECD1E96637100940801 /* plus2-0.rom in Resources */ = {isa = PBXBuildFile; fileRef = 73291EB81E96637100940801 /* plus2-0.rom */; };
+		73291ECE1E96637100940801 /* plus2-1.rom in Resources */ = {isa = PBXBuildFile; fileRef = 73291EB91E96637100940801 /* plus2-1.rom */; };
+		73291ECF1E96637100940801 /* plus3-0.rom in Resources */ = {isa = PBXBuildFile; fileRef = 73291EBA1E96637100940801 /* plus3-0.rom */; };
+		73291ED01E96637100940801 /* plus3-1.rom in Resources */ = {isa = PBXBuildFile; fileRef = 73291EBB1E96637100940801 /* plus3-1.rom */; };
+		73291ED11E96637100940801 /* plus3-2.rom in Resources */ = {isa = PBXBuildFile; fileRef = 73291EBC1E96637100940801 /* plus3-2.rom */; };
+		73291ED21E96637100940801 /* plus3-3.rom in Resources */ = {isa = PBXBuildFile; fileRef = 73291EBD1E96637100940801 /* plus3-3.rom */; };
+		73291ED31E96637100940801 /* plus3e-0.rom in Resources */ = {isa = PBXBuildFile; fileRef = 73291EBE1E96637100940801 /* plus3e-0.rom */; };
+		73291ED41E96637100940801 /* plus3e-1.rom in Resources */ = {isa = PBXBuildFile; fileRef = 73291EBF1E96637100940801 /* plus3e-1.rom */; };
+		73291ED51E96637100940801 /* plus3e-2.rom in Resources */ = {isa = PBXBuildFile; fileRef = 73291EC01E96637100940801 /* plus3e-2.rom */; };
+		73291ED61E96637100940801 /* plus3e-3.rom in Resources */ = {isa = PBXBuildFile; fileRef = 73291EC11E96637100940801 /* plus3e-3.rom */; };
+		73291ED71E96637100940801 /* plusd.rom in Resources */ = {isa = PBXBuildFile; fileRef = 73291EC21E96637100940801 /* plusd.rom */; };
+		73291ED81E96637100940801 /* disciple.rom in Resources */ = {isa = PBXBuildFile; fileRef = 73291EC31E96637100940801 /* disciple.rom */; };
+		73291ED91E96637100940801 /* se-0.rom in Resources */ = {isa = PBXBuildFile; fileRef = 73291EC41E96637100940801 /* se-0.rom */; };
+		73291EDA1E96637100940801 /* se-1.rom in Resources */ = {isa = PBXBuildFile; fileRef = 73291EC51E96637100940801 /* se-1.rom */; };
+		73291EDB1E96637100940801 /* speccyboot-1.4.rom in Resources */ = {isa = PBXBuildFile; fileRef = 73291EC61E96637100940801 /* speccyboot-1.4.rom */; };
+		73291EDC1E96637100940801 /* tc2048.rom in Resources */ = {isa = PBXBuildFile; fileRef = 73291EC71E96637100940801 /* tc2048.rom */; };
+		73291EDD1E96637100940801 /* tc2068-0.rom in Resources */ = {isa = PBXBuildFile; fileRef = 73291EC81E96637100940801 /* tc2068-0.rom */; };
+		73291EDE1E96637100940801 /* tc2068-1.rom in Resources */ = {isa = PBXBuildFile; fileRef = 73291EC91E96637100940801 /* tc2068-1.rom */; };
 		737E93771E87D10E00128149 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 737E93751E87D10E00128149 /* Main.storyboard */; };
 		737E93791E87D10E00128149 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 737E93781E87D10E00128149 /* Assets.xcassets */; };
 		737E93881E87D19D00128149 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737E93861E87D19D00128149 /* AppDelegate.swift */; };
 		737E93891E87D19D00128149 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737E93871E87D19D00128149 /* ViewController.swift */; };
+		739824841E93DC99005E6B14 /* libspectrum.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 737E99BF1E88401900128149 /* libspectrum.a */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		737E99BE1E88401900128149 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 737E99BA1E88401800128149 /* spectrum.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 737E99AE1E88401800128149;
+			remoteInfo = spectrum;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		73291EB51E96637100940801 /* 48.rom */ = {isa = PBXFileReference; lastKnownFileType = file; name = 48.rom; path = ../Common/spectrum/spectrum/fuse/roms/48.rom; sourceTree = "<group>"; };
+		73291EB61E96637100940801 /* 128-0.rom */ = {isa = PBXFileReference; lastKnownFileType = file; name = "128-0.rom"; path = "../Common/spectrum/spectrum/fuse/roms/128-0.rom"; sourceTree = "<group>"; };
+		73291EB71E96637100940801 /* 128-1.rom */ = {isa = PBXFileReference; lastKnownFileType = file; name = "128-1.rom"; path = "../Common/spectrum/spectrum/fuse/roms/128-1.rom"; sourceTree = "<group>"; };
+		73291EB81E96637100940801 /* plus2-0.rom */ = {isa = PBXFileReference; lastKnownFileType = file; name = "plus2-0.rom"; path = "../Common/spectrum/spectrum/fuse/roms/plus2-0.rom"; sourceTree = "<group>"; };
+		73291EB91E96637100940801 /* plus2-1.rom */ = {isa = PBXFileReference; lastKnownFileType = file; name = "plus2-1.rom"; path = "../Common/spectrum/spectrum/fuse/roms/plus2-1.rom"; sourceTree = "<group>"; };
+		73291EBA1E96637100940801 /* plus3-0.rom */ = {isa = PBXFileReference; lastKnownFileType = file; name = "plus3-0.rom"; path = "../Common/spectrum/spectrum/fuse/roms/plus3-0.rom"; sourceTree = "<group>"; };
+		73291EBB1E96637100940801 /* plus3-1.rom */ = {isa = PBXFileReference; lastKnownFileType = file; name = "plus3-1.rom"; path = "../Common/spectrum/spectrum/fuse/roms/plus3-1.rom"; sourceTree = "<group>"; };
+		73291EBC1E96637100940801 /* plus3-2.rom */ = {isa = PBXFileReference; lastKnownFileType = file; name = "plus3-2.rom"; path = "../Common/spectrum/spectrum/fuse/roms/plus3-2.rom"; sourceTree = "<group>"; };
+		73291EBD1E96637100940801 /* plus3-3.rom */ = {isa = PBXFileReference; lastKnownFileType = file; name = "plus3-3.rom"; path = "../Common/spectrum/spectrum/fuse/roms/plus3-3.rom"; sourceTree = "<group>"; };
+		73291EBE1E96637100940801 /* plus3e-0.rom */ = {isa = PBXFileReference; lastKnownFileType = file; name = "plus3e-0.rom"; path = "../Common/spectrum/spectrum/fuse/roms/plus3e-0.rom"; sourceTree = "<group>"; };
+		73291EBF1E96637100940801 /* plus3e-1.rom */ = {isa = PBXFileReference; lastKnownFileType = file; name = "plus3e-1.rom"; path = "../Common/spectrum/spectrum/fuse/roms/plus3e-1.rom"; sourceTree = "<group>"; };
+		73291EC01E96637100940801 /* plus3e-2.rom */ = {isa = PBXFileReference; lastKnownFileType = file; name = "plus3e-2.rom"; path = "../Common/spectrum/spectrum/fuse/roms/plus3e-2.rom"; sourceTree = "<group>"; };
+		73291EC11E96637100940801 /* plus3e-3.rom */ = {isa = PBXFileReference; lastKnownFileType = file; name = "plus3e-3.rom"; path = "../Common/spectrum/spectrum/fuse/roms/plus3e-3.rom"; sourceTree = "<group>"; };
+		73291EC21E96637100940801 /* plusd.rom */ = {isa = PBXFileReference; lastKnownFileType = file; name = plusd.rom; path = ../Common/spectrum/spectrum/fuse/roms/plusd.rom; sourceTree = "<group>"; };
+		73291EC31E96637100940801 /* disciple.rom */ = {isa = PBXFileReference; lastKnownFileType = file; name = disciple.rom; path = ../Common/spectrum/spectrum/fuse/roms/disciple.rom; sourceTree = "<group>"; };
+		73291EC41E96637100940801 /* se-0.rom */ = {isa = PBXFileReference; lastKnownFileType = file; name = "se-0.rom"; path = "../Common/spectrum/spectrum/fuse/roms/se-0.rom"; sourceTree = "<group>"; };
+		73291EC51E96637100940801 /* se-1.rom */ = {isa = PBXFileReference; lastKnownFileType = file; name = "se-1.rom"; path = "../Common/spectrum/spectrum/fuse/roms/se-1.rom"; sourceTree = "<group>"; };
+		73291EC61E96637100940801 /* speccyboot-1.4.rom */ = {isa = PBXFileReference; lastKnownFileType = file; name = "speccyboot-1.4.rom"; path = "../Common/spectrum/spectrum/fuse/roms/speccyboot-1.4.rom"; sourceTree = "<group>"; };
+		73291EC71E96637100940801 /* tc2048.rom */ = {isa = PBXFileReference; lastKnownFileType = file; name = tc2048.rom; path = ../Common/spectrum/spectrum/fuse/roms/tc2048.rom; sourceTree = "<group>"; };
+		73291EC81E96637100940801 /* tc2068-0.rom */ = {isa = PBXFileReference; lastKnownFileType = file; name = "tc2068-0.rom"; path = "../Common/spectrum/spectrum/fuse/roms/tc2068-0.rom"; sourceTree = "<group>"; };
+		73291EC91E96637100940801 /* tc2068-1.rom */ = {isa = PBXFileReference; lastKnownFileType = file; name = "tc2068-1.rom"; path = "../Common/spectrum/spectrum/fuse/roms/tc2068-1.rom"; sourceTree = "<group>"; };
 		737E936E1E87D10E00128149 /* ZX Spectrum.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ZX Spectrum.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		737E93761E87D10E00128149 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		737E93781E87D10E00128149 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../Assets.xcassets; sourceTree = "<group>"; };
@@ -21,6 +74,8 @@
 		737E937D1E87D10E00128149 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
 		737E93861E87D19D00128149 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		737E93871E87D19D00128149 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		737E99BA1E88401800128149 /* spectrum.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = spectrum.xcodeproj; path = "ZX Spectrum/Common/spectrum/spectrum.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		739824831E93DB71005E6B14 /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -28,12 +83,41 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				739824841E93DC99005E6B14 /* libspectrum.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		73291EB31E96635A00940801 /* ROMS */ = {
+			isa = PBXGroup;
+			children = (
+				73291EB51E96637100940801 /* 48.rom */,
+				73291EB61E96637100940801 /* 128-0.rom */,
+				73291EB71E96637100940801 /* 128-1.rom */,
+				73291EB81E96637100940801 /* plus2-0.rom */,
+				73291EB91E96637100940801 /* plus2-1.rom */,
+				73291EBA1E96637100940801 /* plus3-0.rom */,
+				73291EBB1E96637100940801 /* plus3-1.rom */,
+				73291EBC1E96637100940801 /* plus3-2.rom */,
+				73291EBD1E96637100940801 /* plus3-3.rom */,
+				73291EBE1E96637100940801 /* plus3e-0.rom */,
+				73291EBF1E96637100940801 /* plus3e-1.rom */,
+				73291EC01E96637100940801 /* plus3e-2.rom */,
+				73291EC11E96637100940801 /* plus3e-3.rom */,
+				73291EC21E96637100940801 /* plusd.rom */,
+				73291EC31E96637100940801 /* disciple.rom */,
+				73291EC41E96637100940801 /* se-0.rom */,
+				73291EC51E96637100940801 /* se-1.rom */,
+				73291EC61E96637100940801 /* speccyboot-1.4.rom */,
+				73291EC71E96637100940801 /* tc2048.rom */,
+				73291EC81E96637100940801 /* tc2068-0.rom */,
+				73291EC91E96637100940801 /* tc2068-1.rom */,
+			);
+			name = ROMS;
+			sourceTree = "<group>";
+		};
 		737E93651E87D10E00128149 = {
 			isa = PBXGroup;
 			children = (
@@ -72,6 +156,7 @@
 		737E93841E87D14400128149 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				73291EB31E96635A00940801 /* ROMS */,
 				737E93751E87D10E00128149 /* Main.storyboard */,
 				737E93781E87D10E00128149 /* Assets.xcassets */,
 				737E937A1E87D10E00128149 /* LaunchScreen.storyboard */,
@@ -92,6 +177,7 @@
 		737E938B1E87D24200128149 /* Third Party */ = {
 			isa = PBXGroup;
 			children = (
+				737E99BA1E88401800128149 /* spectrum.xcodeproj */,
 			);
 			name = "Third Party";
 			sourceTree = "<group>";
@@ -99,8 +185,17 @@
 		737E938E1E87D36300128149 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				739824831E93DB71005E6B14 /* BridgingHeader.h */,
 			);
 			name = Helpers;
+			sourceTree = "<group>";
+		};
+		737E99BB1E88401800128149 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				737E99BF1E88401900128149 /* libspectrum.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -152,6 +247,12 @@
 			mainGroup = 737E93651E87D10E00128149;
 			productRefGroup = 737E936F1E87D10E00128149 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 737E99BB1E88401800128149 /* Products */;
+					ProjectRef = 737E99BA1E88401800128149 /* spectrum.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				737E936D1E87D10E00128149 /* ZX Spectrum */,
@@ -159,13 +260,44 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		737E99BF1E88401900128149 /* libspectrum.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libspectrum.a;
+			remoteRef = 737E99BE1E88401900128149 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXResourcesBuildPhase section */
 		737E936C1E87D10E00128149 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73291ED41E96637100940801 /* plus3e-1.rom in Resources */,
+				73291ED91E96637100940801 /* se-0.rom in Resources */,
+				73291ED51E96637100940801 /* plus3e-2.rom in Resources */,
+				73291ECD1E96637100940801 /* plus2-0.rom in Resources */,
+				73291ECE1E96637100940801 /* plus2-1.rom in Resources */,
 				737E93791E87D10E00128149 /* Assets.xcassets in Resources */,
+				73291EDA1E96637100940801 /* se-1.rom in Resources */,
+				73291ED11E96637100940801 /* plus3-2.rom in Resources */,
+				73291ED81E96637100940801 /* disciple.rom in Resources */,
+				73291EDB1E96637100940801 /* speccyboot-1.4.rom in Resources */,
+				73291EDC1E96637100940801 /* tc2048.rom in Resources */,
+				73291ED01E96637100940801 /* plus3-1.rom in Resources */,
+				73291ED31E96637100940801 /* plus3e-0.rom in Resources */,
+				73291ECF1E96637100940801 /* plus3-0.rom in Resources */,
+				73291ECB1E96637100940801 /* 128-0.rom in Resources */,
+				73291ECC1E96637100940801 /* 128-1.rom in Resources */,
+				73291ED61E96637100940801 /* plus3e-3.rom in Resources */,
+				73291ED21E96637100940801 /* plus3-3.rom in Resources */,
+				73291EDD1E96637100940801 /* tc2068-0.rom in Resources */,
+				73291ED71E96637100940801 /* plusd.rom in Resources */,
 				737E93771E87D10E00128149 /* Main.storyboard in Resources */,
+				73291EDE1E96637100940801 /* tc2068-1.rom in Resources */,
+				73291ECA1E96637100940801 /* 48.rom in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,10 +442,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = F7N66E384G;
+				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/ZX Spectrum/Common/spectrum/spectrum\"/**";
 				INFOPLIST_FILE = "ZX Spectrum/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-lbz2",
+					"-lz",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gentlebytes.ZX-Spectrum";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ZX Spectrum/Common/BridgingHeader.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
@@ -325,10 +463,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = F7N66E384G;
+				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/ZX Spectrum/Common/spectrum/spectrum\"/**";
 				INFOPLIST_FILE = "ZX Spectrum/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-lbz2",
+					"-lz",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.gentlebytes.ZX-Spectrum";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ZX Spectrum/Common/BridgingHeader.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

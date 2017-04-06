@@ -9,17 +9,21 @@
 import UIKit
 
 class ViewController: UIViewController {
+	
+	private var emulator: Emulator!
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		// Do any additional setup after loading the view, typically from a nib.
+		
+		emulator = Emulator()!
+		
+		settings_defaults(&settings_current);
+
+		fuse_init(0, nil);
+		
+//		while true {
+//			RunLoop.current.run(mode: .defaultRunLoopMode, before: Date.distantFuture)
+//		}
 	}
-
-	override func didReceiveMemoryWarning() {
-		super.didReceiveMemoryWarning()
-		// Dispose of any resources that can be recreated.
-	}
-
-
 }
 
