@@ -97,8 +97,7 @@ static int display_updated = 0;
 #define MAX_UPDATE_RECT 300
 
 static void
-init_scalers( void )
-{
+init_scalers(void) {
   scaler_register_clear();
 
   scaler_register( SCALER_NORMAL );
@@ -130,9 +129,7 @@ init_scalers( void )
 }
 
 static int
-allocate_screen( Cocoa_Texture* new_screen, int height, int width,
-                 float scaling_factor )
-{
+allocate_screen(Cocoa_Texture* new_screen, int height, int width, float scaling_factor) {
 //  new_screen->image_width = width * scaling_factor;
 //  new_screen->image_height = height * scaling_factor;
 //
@@ -162,8 +159,7 @@ allocate_screen( Cocoa_Texture* new_screen, int height, int width,
 }
 
 static void
-free_screen( Cocoa_Texture* screen )
-{
+free_screen(Cocoa_Texture* screen) {
 //  if( screen->pixels ) {
 //    free( screen->pixels );
 //    screen->pixels = NULL;
@@ -175,8 +171,7 @@ free_screen( Cocoa_Texture* screen )
 }
 
 static int
-cocoadisplay_load_gfx_mode( void )
-{
+cocoadisplay_load_gfx_mode(void) {
 //  int error;
 //
 //  display_current_size = scaler_get_scaling_factor( current_scaler );
@@ -208,9 +203,7 @@ cocoadisplay_load_gfx_mode( void )
 }
 
 static void
-cocoadisplay_allocate_colours( int numColours, uint16_t *colour_values,
-                               uint16_t *bw_values )
-{
+cocoadisplay_allocate_colours(int numColours, uint16_t *colour_values, uint16_t *bw_values) {
 //  int i;
 //  uint8_t red, green, blue, grey;
 //
@@ -227,8 +220,7 @@ cocoadisplay_allocate_colours( int numColours, uint16_t *colour_values,
 }
 
 int
-uidisplay_init( int width, int height )
-{
+uidisplay_init(int width, int height) {
 //  cocoadisplay_allocate_colours( sizeof(colour_values) / sizeof(uint16_t),
 //                                 colour_values, bw_values );
 //
@@ -251,8 +243,7 @@ uidisplay_init( int width, int height )
 }
 
 int
-uidisplay_hotswap_gfx_mode( void )
-{
+uidisplay_hotswap_gfx_mode(void) {
 //  fuse_emulation_pause();
 //
 //  /* obtain lock for buffered screen */
@@ -275,8 +266,7 @@ uidisplay_hotswap_gfx_mode( void )
 
 /* Set one pixel in the display */
 void
-uidisplay_putpixel( int x, int y, int colour )
-{
+uidisplay_putpixel(int x, int y, int colour) {
 //  uint16_t *dest_base, *dest;
 //  uint16_t *palette_values = settings_current.bw_tv ? bw_values : colour_values;
 //
@@ -305,8 +295,7 @@ uidisplay_putpixel( int x, int y, int colour )
 /* Print the 8 pixels in `data' using ink colour `ink' and paper
    colour `paper' to the screen at ( (8*x) , y ) */
 void
-uidisplay_plot8( int x, int y, libspectrum_byte data,
-	         libspectrum_byte ink, libspectrum_byte paper )
+uidisplay_plot8(int x, int y, libspectrum_byte data, libspectrum_byte ink, libspectrum_byte paper)
 {
 //  uint16_t *dest;
 //  uint16_t *palette_values = settings_current.bw_tv ? bw_values : colour_values;
@@ -366,9 +355,8 @@ uidisplay_plot8( int x, int y, libspectrum_byte data,
 /* Print the 16 pixels in `data' using ink colour `ink' and paper
    colour `paper' to the screen at ( (16*x) , y ) */
 void
-uidisplay_plot16( int x, int y, libspectrum_word data,
-		  libspectrum_byte ink, libspectrum_byte paper )
-{
+uidisplay_plot16(int x, int y, libspectrum_word data, libspectrum_byte ink, libspectrum_byte paper) {
+	printf("    (%d,%d) d%d i%d p%d", x, y, data, ink, paper);
 //  uint16_t *dest_base, *dest;
 //  int i; 
 //  uint16_t *palette_values = settings_current.bw_tv ? bw_values : colour_values;
@@ -405,8 +393,7 @@ uidisplay_plot16( int x, int y, libspectrum_word data,
 }
 
 void
-copy_area( Cocoa_Texture *dest_screen, Cocoa_Texture *src_screen, PIG_rect *r )
-{
+copy_area(Cocoa_Texture *dest_screen, Cocoa_Texture *src_screen, PIG_rect *r) {
 //  int y;
 //
 //  for( y = r->y; y <= r->y + r->h; y++ ) {
@@ -420,8 +407,7 @@ copy_area( Cocoa_Texture *dest_screen, Cocoa_Texture *src_screen, PIG_rect *r )
 }
 
 void
-uidisplay_frame_end( void )
-{
+uidisplay_frame_end(void) {
 //  int i;
 //
 //  if( display_updated ) {
@@ -444,8 +430,8 @@ uidisplay_frame_end( void )
 }
 
 void
-uidisplay_area( int x, int y, int width, int height )
-{
+uidisplay_area(int x, int y, int width, int height) {
+	printf("display (%d,%d) %d x %d", x, y, width, height);
 //  PIG_rect r = { x, y, width, height };
 //
 //  display_updated = 1;
@@ -478,8 +464,7 @@ uidisplay_area( int x, int y, int width, int height )
 }
 
 int
-uidisplay_end( void )
-{
+uidisplay_end(void) {
 //  [buffered_screen_lock lock];
 //
 //  if( screen && screen->pixels ) {

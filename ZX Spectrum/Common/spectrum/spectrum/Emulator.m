@@ -109,7 +109,7 @@ static Emulator *instance = nil;
   fuse_exiting = 1;
 }
 
--(id) init
+-(instancetype) init
 {
   if ( instance ) {
     self = nil;

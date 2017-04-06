@@ -702,7 +702,7 @@ display_dirty64( libspectrum_word offset )
   for( i = 0; i < 8; i++ ) display_dirty_chunk( x, y + i );
 }
 
-inline void
+void
 display_parse_attr( libspectrum_byte attr,
 		    libspectrum_byte *ink, libspectrum_byte *paper )
 {

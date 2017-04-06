@@ -68,6 +68,8 @@ ui_statusbar_update( ui_statusbar_item item, ui_statusbar_state state )
 //    return 0;
 //
 //  }
+	
+	return 0;
 
   ui_error( UI_ERROR_ERROR, "Attempt to update unknown statusbar item %d",
             item );

@@ -2,6 +2,9 @@
 #ifndef ZX_Bridging_Header
 #define ZX_Bridging_Header
 
-#include "libspectrum.h"
+#import "Emulator.h"
+
+#include "fuse.h"
+#include "settings.h"
 
 #endif

@@ -63,7 +63,7 @@
 
 /* FIXME: Could do with a setSettings? maybe we just update settings when
    emulation is paused? */
--(id) init;
+-(instancetype) init;
 
 -(void) openFile:(const char *)filename;
 -(void) snapOpen:(const char *)filename;

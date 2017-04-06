@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		73291EE01E96697900940801 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73291EDF1E96697900940801 /* AudioToolbox.framework */; };
+		73958DA21E964DBA00A7AF42 /* DebuggerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73958DA11E964DBA00A7AF42 /* DebuggerController.m */; };
+		73958DA51E96547B00A7AF42 /* FuseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73958DA41E96547B00A7AF42 /* FuseController.m */; };
 		739824551E93DA8D005E6B14 /* bzip2.c in Sources */ = {isa = PBXBuildFile; fileRef = 739823D21E93DA8D005E6B14 /* bzip2.c */; };
 		739824561E93DA8D005E6B14 /* creator.c in Sources */ = {isa = PBXBuildFile; fileRef = 739823DD1E93DA8D005E6B14 /* creator.c */; };
 		739824571E93DA8D005E6B14 /* crypto.c in Sources */ = {isa = PBXBuildFile; fileRef = 739823DE1E93DA8D005E6B14 /* crypto.c */; };
@@ -229,7 +232,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		73291EDF1E96697900940801 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		73291EE51E96749200940801 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		737E99AE1E88401800128149 /* libspectrum.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libspectrum.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		73958DA01E964DBA00A7AF42 /* DebuggerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebuggerController.h; sourceTree = "<group>"; };
+		73958DA11E964DBA00A7AF42 /* DebuggerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DebuggerController.m; sourceTree = "<group>"; };
+		73958DA31E96547B00A7AF42 /* FuseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FuseController.h; sourceTree = "<group>"; };
+		73958DA41E96547B00A7AF42 /* FuseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FuseController.m; sourceTree = "<group>"; };
 		739823D21E93DA8D005E6B14 /* bzip2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bzip2.c; sourceTree = "<group>"; };
 		739823D51E93DA8D005E6B14 /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
 		739823DC1E93DA8D005E6B14 /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
@@ -611,6 +620,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73291EE01E96697900940801 /* AudioToolbox.framework in Frameworks */,
 				739829A31E9532E1005E6B14 /* Foundation.framework in Frameworks */,
 				7398299D1E952518005E6B14 /* UIKit.framework in Frameworks */,
 			);
@@ -807,6 +817,8 @@
 		739825091E9517DD005E6B14 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				73291EE51E96749200940801 /* AVFoundation.framework */,
+				73291EDF1E96697900940801 /* AudioToolbox.framework */,
 				739829A21E9532E1005E6B14 /* Foundation.framework */,
 				7398299C1E952518005E6B14 /* UIKit.framework */,
 				7398250A1E9517DD005E6B14 /* libz.tbd */,
@@ -1219,6 +1231,10 @@
 				7398299F1E9527DA005E6B14 /* settings_cocoa.h */,
 				739829901E95244E005E6B14 /* Emulator.h */,
 				739829911E95244E005E6B14 /* Emulator.m */,
+				73958DA31E96547B00A7AF42 /* FuseController.h */,
+				73958DA41E96547B00A7AF42 /* FuseController.m */,
+				73958DA01E964DBA00A7AF42 /* DebuggerController.h */,
+				73958DA11E964DBA00A7AF42 /* DebuggerController.m */,
 				739829931E952496005E6B14 /* CAMachines.h */,
 				739829941E952496005E6B14 /* CAMachines.m */,
 			);
@@ -1310,6 +1326,7 @@
 				7398294E1E9519C4005E6B14 /* ui.c in Sources */,
 				739828691E9519C3005E6B14 /* disassemble.c in Sources */,
 				739824F21E9511C9005E6B14 /* misc.c in Sources */,
+				73958DA51E96547B00A7AF42 /* FuseController.m in Sources */,
 				739824F91E9511C9005E6B14 /* modules.c in Sources */,
 				739824F01E9511C9005E6B14 /* loop.c in Sources */,
 				739828981E9519C3005E6B14 /* pentagon1024.c in Sources */,
@@ -1480,6 +1497,7 @@
 				739824721E93DA8D005E6B14 /* tape_set.c in Sources */,
 				739828F41E9519C3005E6B14 /* cocoascreenshot.m in Sources */,
 				739824811E93DA8D005E6B14 /* zxs.c in Sources */,
+				73958DA21E964DBA00A7AF42 /* DebuggerController.m in Sources */,
 				7398245D1E93DA8D005E6B14 /* make-perl.c in Sources */,
 				739824701E93DA8D005E6B14 /* tape_accessors.c in Sources */,
 				739828CB1E9519C3005E6B14 /* speccyboot.c in Sources */,
