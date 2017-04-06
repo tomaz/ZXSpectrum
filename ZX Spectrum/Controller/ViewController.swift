@@ -15,6 +15,8 @@ class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
+		SpectrumScreenView.hookToFuse()
+		
 		emulator = Emulator()!
 		
 		settings_defaults(&settings_current);

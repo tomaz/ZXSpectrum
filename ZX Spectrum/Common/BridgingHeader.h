@@ -6,5 +6,6 @@
 
 #include "fuse.h"
 #include "settings.h"
+#include "cocoadisplay.h"
 
 #endif

@@ -68,6 +68,47 @@ static int image_height;
 /* and a lock to protect it from concurrent access */
 NSLock *buffered_screen_lock = nil;
 
+display_init_function_type display_init_function = NULL;
+display_hotswap_gfx_mode_function_type display_hotswap_gfx_mode_function = NULL;
+display_putpixel_function_type display_putpixel_function = NULL;
+display_plot8_function_type display_plot8_function = NULL;
+display_plot16_function_type display_plot16_function = NULL;
+display_frame_end_function_type display_frame_end_function = NULL;
+display_area_function_type display_area_function = NULL;
+display_end_function_type display_end_function = NULL;
+
+void set_display_init_function(display_init_function_type function) {
+	display_init_function = function;
+}
+
+void set_display_hotswap_gfx_mode_function(display_hotswap_gfx_mode_function_type function) {
+	display_hotswap_gfx_mode_function = function;
+}
+
+void set_display_putpixel_function(display_putpixel_function_type function) {
+	display_putpixel_function = function;
+}
+
+void set_display_plot8_function(display_plot8_function_type function) {
+	display_plot8_function = function;
+}
+
+void set_display_plot16_function(display_plot16_function_type function) {
+	display_plot16_function = function;
+}
+
+void set_display_frame_end_function(display_frame_end_function_type function) {
+	display_frame_end_function = function;
+}
+
+void set_display_area_function(display_area_function_type function) {
+	display_area_function = function;
+}
+
+void set_display_end_function(display_end_function_type function) {
+	display_end_function = function;
+}
+
 /* Colours are in 1A 5R 5G 5B format */
 static uint16_t colour_values[] = {
   0x0000,
@@ -96,40 +137,40 @@ static int display_updated = 0;
    each frame. */
 #define MAX_UPDATE_RECT 300
 
-static void
-init_scalers(void) {
-  scaler_register_clear();
-
-  scaler_register( SCALER_NORMAL );
-  scaler_register( SCALER_PALTV );
-  if( machine_current->timex ) {
-    scaler_register( SCALER_TIMEXTV );
-  } else {
-    scaler_register( SCALER_TV2X );
-    scaler_register( SCALER_TV3X );
-    scaler_register( SCALER_PALTV2X );
-    scaler_register( SCALER_PALTV3X );
-    scaler_register( SCALER_2XSAI );
-    scaler_register( SCALER_SUPER2XSAI );
-    scaler_register( SCALER_SUPEREAGLE );
-    scaler_register( SCALER_ADVMAME2X );
-    scaler_register( SCALER_ADVMAME3X );
-    scaler_register( SCALER_DOTMATRIX );
-    scaler_register( SCALER_HQ2X );
-    scaler_register( SCALER_HQ3X );
-  }
-  
-  if( scaler_is_supported( current_scaler ) ) {
-    scaler_select_scaler( current_scaler );
-  } else {
-    scaler_select_scaler( SCALER_NORMAL );
-  }
-
-  scaler_select_bitformat( 555 );
-}
-
-static int
-allocate_screen(Cocoa_Texture* new_screen, int height, int width, float scaling_factor) {
+//static void
+//init_scalers(void) {
+//  scaler_register_clear();
+//
+//  scaler_register( SCALER_NORMAL );
+//  scaler_register( SCALER_PALTV );
+//  if( machine_current->timex ) {
+//    scaler_register( SCALER_TIMEXTV );
+//  } else {
+//    scaler_register( SCALER_TV2X );
+//    scaler_register( SCALER_TV3X );
+//    scaler_register( SCALER_PALTV2X );
+//    scaler_register( SCALER_PALTV3X );
+//    scaler_register( SCALER_2XSAI );
+//    scaler_register( SCALER_SUPER2XSAI );
+//    scaler_register( SCALER_SUPEREAGLE );
+//    scaler_register( SCALER_ADVMAME2X );
+//    scaler_register( SCALER_ADVMAME3X );
+//    scaler_register( SCALER_DOTMATRIX );
+//    scaler_register( SCALER_HQ2X );
+//    scaler_register( SCALER_HQ3X );
+//  }
+//  
+//  if( scaler_is_supported( current_scaler ) ) {
+//    scaler_select_scaler( current_scaler );
+//  } else {
+//    scaler_select_scaler( SCALER_NORMAL );
+//  }
+//
+//  scaler_select_bitformat( 555 );
+//}
+//
+//static int
+//allocate_screen(Cocoa_Texture* new_screen, int height, int width, float scaling_factor) {
 //  new_screen->image_width = width * scaling_factor;
 //  new_screen->image_height = height * scaling_factor;
 //
@@ -154,12 +195,12 @@ allocate_screen(Cocoa_Texture* new_screen, int height, int width, float scaling_
 //  }
 //
 //  new_screen->pitch = new_screen->full_width * sizeof(uint16_t);
-
-  return 0;
-}
-
-static void
-free_screen(Cocoa_Texture* screen) {
+//
+//  return 0;
+//}
+//
+//static void
+//free_screen(Cocoa_Texture* screen) {
 //  if( screen->pixels ) {
 //    free( screen->pixels );
 //    screen->pixels = NULL;
@@ -168,10 +209,10 @@ free_screen(Cocoa_Texture* screen) {
 //    pig_dirty_close( screen->dirty );
 //    screen->dirty = NULL;
 //  }
-}
-
-static int
-cocoadisplay_load_gfx_mode(void) {
+//}
+//
+//static int
+//cocoadisplay_load_gfx_mode(void) {
 //  int error;
 //
 //  display_current_size = scaler_get_scaling_factor( current_scaler );
@@ -198,12 +239,12 @@ cocoadisplay_load_gfx_mode(void) {
 //
 //  /* Create OpenGL textures for the image in DisplayOpenGLView */
 //  [[DisplayOpenGLView instance] createTexture:&buffered_screen];
-
-  return 0;
-}
-
-static void
-cocoadisplay_allocate_colours(int numColours, uint16_t *colour_values, uint16_t *bw_values) {
+//
+//  return 0;
+//}
+//
+//static void
+//cocoadisplay_allocate_colours(int numColours, uint16_t *colour_values, uint16_t *bw_values) {
 //  int i;
 //  uint8_t red, green, blue, grey;
 //
@@ -217,7 +258,7 @@ cocoadisplay_allocate_colours(int numColours, uint16_t *colour_values, uint16_t 
 //
 //    bw_values[i] = (grey << 10) | (grey << 5) | grey;
 //  }
-}
+//}
 
 int
 uidisplay_init(int width, int height) {
@@ -239,7 +280,7 @@ uidisplay_init(int width, int height) {
 //  /* We can now output error messages to our output device */
 //  display_ui_initialised = 1;
 
-  return 0;
+	return display_init_function(width, height);
 }
 
 int
@@ -261,12 +302,13 @@ uidisplay_hotswap_gfx_mode(void) {
 //
 //  fuse_emulation_unpause();
 	
-  return 0;
+  return display_hotswap_gfx_mode_function();
 }
 
 /* Set one pixel in the display */
 void
 uidisplay_putpixel(int x, int y, int colour) {
+	display_putpixel_function(x, y, colour);
 //  uint16_t *dest_base, *dest;
 //  uint16_t *palette_values = settings_current.bw_tv ? bw_values : colour_values;
 //
@@ -295,8 +337,8 @@ uidisplay_putpixel(int x, int y, int colour) {
 /* Print the 8 pixels in `data' using ink colour `ink' and paper
    colour `paper' to the screen at ( (8*x) , y ) */
 void
-uidisplay_plot8(int x, int y, libspectrum_byte data, libspectrum_byte ink, libspectrum_byte paper)
-{
+uidisplay_plot8(int x, int y, libspectrum_byte data, libspectrum_byte ink, libspectrum_byte paper) {
+	display_plot8_function(x, y, data, ink, paper);
 //  uint16_t *dest;
 //  uint16_t *palette_values = settings_current.bw_tv ? bw_values : colour_values;
 //
@@ -356,7 +398,7 @@ uidisplay_plot8(int x, int y, libspectrum_byte data, libspectrum_byte ink, libsp
    colour `paper' to the screen at ( (16*x) , y ) */
 void
 uidisplay_plot16(int x, int y, libspectrum_word data, libspectrum_byte ink, libspectrum_byte paper) {
-	printf("    (%d,%d) d%d i%d p%d", x, y, data, ink, paper);
+	display_plot16_function(x, y, data, ink, paper);
 //  uint16_t *dest_base, *dest;
 //  int i; 
 //  uint16_t *palette_values = settings_current.bw_tv ? bw_values : colour_values;
@@ -408,6 +450,7 @@ copy_area(Cocoa_Texture *dest_screen, Cocoa_Texture *src_screen, PIG_rect *r) {
 
 void
 uidisplay_frame_end(void) {
+	display_frame_end_function();
 //  int i;
 //
 //  if( display_updated ) {
@@ -431,7 +474,7 @@ uidisplay_frame_end(void) {
 
 void
 uidisplay_area(int x, int y, int width, int height) {
-	printf("display (%d,%d) %d x %d", x, y, width, height);
+	display_area_function(x, y, width, height);
 //  PIG_rect r = { x, y, width, height };
 //
 //  display_updated = 1;
@@ -465,6 +508,7 @@ uidisplay_area(int x, int y, int width, int height) {
 
 int
 uidisplay_end(void) {
+	display_end_function();
 //  [buffered_screen_lock lock];
 //
 //  if( screen && screen->pixels ) {
