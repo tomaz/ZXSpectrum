@@ -51,22 +51,22 @@ extern Cocoa_Texture buffered_screen;
 
 void copy_area( Cocoa_Texture *dest_screen, Cocoa_Texture *src_screen, PIG_rect *r );
 
-typedef int(*display_init_function_type)(int width, int height);
-typedef int(*display_hotswap_gfx_mode_function_type)(void);
-typedef void(*display_putpixel_function_type)(int x, int y, int colour);
-typedef void(*display_plot8_function_type)(int x, int y, libspectrum_byte data, libspectrum_byte ink, libspectrum_byte paper);
-typedef void(*display_plot16_function_type)(int x, int y, libspectrum_word data, libspectrum_byte ink, libspectrum_byte paper);
-typedef void(*display_area_function_type)(int x, int y, int width, int height);
-typedef void(*display_frame_end_function_type)(void);
-typedef void(*display_end_function_type)(void);
+typedef int(*display_init_function_type)(int width, int height, void *context);
+typedef int(*display_hotswap_gfx_mode_function_type)(void *context);
+typedef void(*display_putpixel_function_type)(int x, int y, int colour, void *context);
+typedef void(*display_plot8_function_type)(int x, int y, libspectrum_byte data, libspectrum_byte ink, libspectrum_byte paper, void *context);
+typedef void(*display_plot16_function_type)(int x, int y, libspectrum_word data, libspectrum_byte ink, libspectrum_byte paper, void *context);
+typedef void(*display_area_function_type)(int x, int y, int width, int height, void *context);
+typedef void(*display_frame_end_function_type)(void *context);
+typedef void(*display_end_function_type)(void *context);
 
-void set_display_init_function(display_init_function_type function);
-void set_display_hotswap_gfx_mode_function(display_hotswap_gfx_mode_function_type function);
-void set_display_putpixel_function(display_putpixel_function_type function);
-void set_display_plot8_function(display_plot8_function_type function);
-void set_display_plot16_function(display_plot16_function_type function);
-void set_display_area_function(display_area_function_type function);
-void set_display_frame_end_function(display_frame_end_function_type function);
-void set_display_end_function(display_end_function_type function);
+void set_display_init_function(void *context, display_init_function_type function);
+void set_display_hotswap_gfx_mode_function(void *context, display_hotswap_gfx_mode_function_type function);
+void set_display_putpixel_function(void *context, display_putpixel_function_type function);
+void set_display_plot8_function(void *context, display_plot8_function_type function);
+void set_display_plot16_function(void *context, display_plot16_function_type function);
+void set_display_area_function(void *context, display_area_function_type function);
+void set_display_frame_end_function(void *context, display_frame_end_function_type function);
+void set_display_end_function(void *context, display_end_function_type function);
 
 #endif			/* #ifndef FUSE_COCOADISPLAY_H */

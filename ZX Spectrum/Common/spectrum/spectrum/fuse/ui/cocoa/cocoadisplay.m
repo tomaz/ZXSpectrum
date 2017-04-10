@@ -47,12 +47,12 @@
 #include "uidisplay.h"
 #include "utils.h"
 
-/* The current size of the display (in units of DISPLAY_SCREEN_*) */
-static float display_current_size = 1.0f;
-
-static int image_width;
-static int image_height;
-
+///* The current size of the display (in units of DISPLAY_SCREEN_*) */
+//static float display_current_size = 1.0f;
+//
+//static int image_width;
+//static int image_height;
+//
 ///* Screen texture */
 //Cocoa_Texture* screen = NULL;
 //
@@ -64,9 +64,9 @@ static int image_height;
 //
 ///* Screen texture second buffer */
 //Cocoa_Texture buffered_screen;
-
-/* and a lock to protect it from concurrent access */
-NSLock *buffered_screen_lock = nil;
+//
+///* and a lock to protect it from concurrent access */
+//NSLock *buffered_screen_lock = nil;
 
 display_init_function_type display_init_function = NULL;
 display_hotswap_gfx_mode_function_type display_hotswap_gfx_mode_function = NULL;
@@ -77,66 +77,83 @@ display_frame_end_function_type display_frame_end_function = NULL;
 display_area_function_type display_area_function = NULL;
 display_end_function_type display_end_function = NULL;
 
-void set_display_init_function(display_init_function_type function) {
+void *display_init_context = NULL;
+void *display_hotswap_gfx_mode_context = NULL;
+void *display_putpixel_context = NULL;
+void *display_plot8_context = NULL;
+void *display_plot16_context = NULL;
+void *display_frame_end_context = NULL;
+void *display_area_context = NULL;
+void *display_end_context = NULL;
+
+void set_display_init_function(void *context, display_init_function_type function) {
 	display_init_function = function;
+	display_init_context = context;
 }
 
-void set_display_hotswap_gfx_mode_function(display_hotswap_gfx_mode_function_type function) {
+void set_display_hotswap_gfx_mode_function(void *context, display_hotswap_gfx_mode_function_type function) {
 	display_hotswap_gfx_mode_function = function;
+	display_hotswap_gfx_mode_context = context;
 }
 
-void set_display_putpixel_function(display_putpixel_function_type function) {
+void set_display_putpixel_function(void *context, display_putpixel_function_type function) {
 	display_putpixel_function = function;
+	display_putpixel_context = context;
 }
 
-void set_display_plot8_function(display_plot8_function_type function) {
+void set_display_plot8_function(void *context, display_plot8_function_type function) {
 	display_plot8_function = function;
+	display_plot8_context = context;
 }
 
-void set_display_plot16_function(display_plot16_function_type function) {
+void set_display_plot16_function(void *context, display_plot16_function_type function) {
 	display_plot16_function = function;
+	display_plot16_context = context;
 }
 
-void set_display_frame_end_function(display_frame_end_function_type function) {
+void set_display_frame_end_function(void *context, display_frame_end_function_type function) {
 	display_frame_end_function = function;
+	display_frame_end_context = context;
 }
 
-void set_display_area_function(display_area_function_type function) {
+void set_display_area_function(void *context, display_area_function_type function) {
 	display_area_function = function;
+	display_area_context = context;
 }
 
-void set_display_end_function(display_end_function_type function) {
+void set_display_end_function(void *context, display_end_function_type function) {
 	display_end_function = function;
+	display_end_context = context;
 }
 
-/* Colours are in 1A 5R 5G 5B format */
-static uint16_t colour_values[] = {
-  0x0000,
-  0x0017,
-  0x5c00,
-  0x5c17,
-  0x02e0,
-  0x02f7,
-  0x5ee0,
-  0x5ef7,
-  0x0000,
-  0x001f,
-  0x7c00,
-  0x7c1f,
-  0x03e0,
-  0x03ff,
-  0x7fe0,
-  0x7fff
-};
-
-static uint16_t bw_values[16];
-
-static int display_updated = 0;
-
-/* This is a rule of thumb for the maximum number of rects that can be updated
-   each frame. */
-#define MAX_UPDATE_RECT 300
-
+///* Colours are in 1A 5R 5G 5B format */
+//static uint16_t colour_values[] = {
+//  0x0000,
+//  0x0017,
+//  0x5c00,
+//  0x5c17,
+//  0x02e0,
+//  0x02f7,
+//  0x5ee0,
+//  0x5ef7,
+//  0x0000,
+//  0x001f,
+//  0x7c00,
+//  0x7c1f,
+//  0x03e0,
+//  0x03ff,
+//  0x7fe0,
+//  0x7fff
+//};
+//
+//static uint16_t bw_values[16];
+//
+//static int display_updated = 0;
+//
+///* This is a rule of thumb for the maximum number of rects that can be updated
+//   each frame. */
+//#define MAX_UPDATE_RECT 300
+//
 //static void
 //init_scalers(void) {
 //  scaler_register_clear();
@@ -280,7 +297,7 @@ uidisplay_init(int width, int height) {
 //  /* We can now output error messages to our output device */
 //  display_ui_initialised = 1;
 
-	return display_init_function(width, height);
+	return display_init_function(width, height, display_init_context);
 }
 
 int
@@ -302,13 +319,13 @@ uidisplay_hotswap_gfx_mode(void) {
 //
 //  fuse_emulation_unpause();
 	
-  return display_hotswap_gfx_mode_function();
+  return display_hotswap_gfx_mode_function(display_hotswap_gfx_mode_context);
 }
 
 /* Set one pixel in the display */
 void
 uidisplay_putpixel(int x, int y, int colour) {
-	display_putpixel_function(x, y, colour);
+	display_putpixel_function(x, y, colour, display_putpixel_context);
 //  uint16_t *dest_base, *dest;
 //  uint16_t *palette_values = settings_current.bw_tv ? bw_values : colour_values;
 //
@@ -338,7 +355,7 @@ uidisplay_putpixel(int x, int y, int colour) {
    colour `paper' to the screen at ( (8*x) , y ) */
 void
 uidisplay_plot8(int x, int y, libspectrum_byte data, libspectrum_byte ink, libspectrum_byte paper) {
-	display_plot8_function(x, y, data, ink, paper);
+	display_plot8_function(x, y, data, ink, paper, display_plot8_context);
 //  uint16_t *dest;
 //  uint16_t *palette_values = settings_current.bw_tv ? bw_values : colour_values;
 //
@@ -398,7 +415,7 @@ uidisplay_plot8(int x, int y, libspectrum_byte data, libspectrum_byte ink, libsp
    colour `paper' to the screen at ( (16*x) , y ) */
 void
 uidisplay_plot16(int x, int y, libspectrum_word data, libspectrum_byte ink, libspectrum_byte paper) {
-	display_plot16_function(x, y, data, ink, paper);
+	display_plot16_function(x, y, data, ink, paper, display_plot16_context);
 //  uint16_t *dest_base, *dest;
 //  int i; 
 //  uint16_t *palette_values = settings_current.bw_tv ? bw_values : colour_values;
@@ -450,7 +467,7 @@ copy_area(Cocoa_Texture *dest_screen, Cocoa_Texture *src_screen, PIG_rect *r) {
 
 void
 uidisplay_frame_end(void) {
-	display_frame_end_function();
+	display_frame_end_function(display_frame_end_context);
 //  int i;
 //
 //  if( display_updated ) {
@@ -474,7 +491,7 @@ uidisplay_frame_end(void) {
 
 void
 uidisplay_area(int x, int y, int width, int height) {
-	display_area_function(x, y, width, height);
+	display_area_function(x, y, width, height, display_area_context);
 //  PIG_rect r = { x, y, width, height };
 //
 //  display_updated = 1;
@@ -508,7 +525,7 @@ uidisplay_area(int x, int y, int width, int height) {
 
 int
 uidisplay_end(void) {
-	display_end_function();
+	display_end_function(display_end_context);
 //  [buffered_screen_lock lock];
 //
 //  if( screen && screen->pixels ) {
