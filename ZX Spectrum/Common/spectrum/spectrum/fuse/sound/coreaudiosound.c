@@ -32,7 +32,7 @@
 
 sfifo_t sound_fifo;
 
-/* Number of Spectrum frames audio latency to use */
+/// Number of Spectrum frames audio latency to use
 #define NUM_FRAMES 2
 
 static
@@ -43,64 +43,14 @@ OSStatus coreaudiowrite( void *inRefCon,
                          UInt32 inNumberFrames,                       
                          AudioBufferList *ioData );
 
-/* info about the format used for writing to output unit */
+/// info about the format used for writing to output unit
 static AudioStreamBasicDescription deviceFormat;
 
-/* converts from Fuse format (signed 16 bit ints) to CoreAudio format (floats)
- */
+/// converts from Fuse format (signed 16 bit ints) to CoreAudio format (floats)
 static AudioUnit gOutputUnit;
 
-/* Records sound writer status information */
+/// Records sound writer status information
 static int audio_output_started;
-
-//// get the default output device for the HAL
-//static int
-//get_default_output_device(AudioComponent* device) {
-//	AudioComponentDescription description;
-//	description.componentType = kAudioUnitType_Output;
-//	description.componentSubType = 0;
-//	description.componentManufacturer = kAudioUnitManufacturer_Apple;
-//	description.componentFlags = 0;
-//	description.componentFlagsMask = 0;
-//	
-//	AudioComponent result = NULL;
-//	while (!(result = AudioComponentFindNext(result, &description))) {
-//	}
-//
-//	if (result == NULL) {
-//		ui_error(UI_ERROR_ERROR, "Can't determine output device");
-//		return 1;
-//	}
-//	
-//	return 0;
-//}
-//
-///* get the nominal sample rate used by the supplied device */
-//static int
-//get_default_sample_rate( AudioDeviceID device, Float64 *rate )
-//{
-//  OSStatus err = kAudioHardwareNoError;
-//  UInt32 count;
-//
-//  AudioObjectPropertyAddress property_address = { 
-//    kAudioDevicePropertyNominalSampleRate,
-//    kAudioObjectPropertyScopeGlobal,
-//    kAudioObjectPropertyElementMaster
-//  }; 
-//
-//  /* get the default output device for the HAL */
-//  count = sizeof( *rate );
-//  err = AudioObjectGetPropertyData( device, &property_address, 0, NULL, &count,
-//                                    rate);
-//  if ( err != kAudioHardwareNoError ) {
-//    ui_error( UI_ERROR_ERROR,
-//              "get kAudioDevicePropertyNominalSampleRate error %ld",
-//              (long)err );
-//    return 1;
-//  }
-//
-//  return 0;
-//}
 
 int
 sound_lowlevel_init(const char *dev, int *freqptr, int *stereoptr) {
@@ -124,7 +74,7 @@ sound_lowlevel_init(const char *dev, int *freqptr, int *stereoptr) {
 	/* Open the default output unit */
 	AudioComponentDescription desc;
 	desc.componentType = kAudioUnitType_Output;
-	desc.componentSubType = kAudioUnitSubType_GenericOutput;
+	desc.componentSubType = kAudioUnitSubType_RemoteIO;
 	desc.componentManufacturer = kAudioUnitManufacturer_Apple;
 	desc.componentFlags = 0;
 	desc.componentFlagsMask = 0;
@@ -135,53 +85,41 @@ sound_lowlevel_init(const char *dev, int *freqptr, int *stereoptr) {
 		return 1;
 	}
 	
-//	UInt32 sampleRateSize = sizeof(Float64);
-//	err = AudioUnitGetProperty(gOutputUnit, kAudioUnitProperty_SampleRate, kAudioUnitScope_Output, 0, &deviceFormat.mSampleRate, &sampleRateSize);
-//	if (err) {
-//		ui_error(UI_ERROR_ERROR, "AudioUnitGetProperty-SR=%ld", (long)err);
-//		return 1;
-//	}
-//	*freqptr = deviceFormat.mSampleRate;
-
 	err = AudioComponentInstanceNew(comp, &gOutputUnit);
 	if (comp == NULL) {
 		ui_error(UI_ERROR_ERROR, "AudioComponentInstanceNew=%ld", (long)err);
 		return 1;
 	}
 
-	/* Set up a callback function to generate output to the output unit */
+	// Set up a callback function to generate output to the output unit
 	AURenderCallbackStruct input;
 	input.inputProc = coreaudiowrite;
 	input.inputProcRefCon = NULL;
-
 	err = AudioUnitSetProperty(gOutputUnit, kAudioUnitProperty_SetRenderCallback, kAudioUnitScope_Input, 0, &input, sizeof(input));
 	if (err) {
 		ui_error(UI_ERROR_ERROR, "AudioUnitSetProperty-CB=%ld", (long)err);
 		return 1;
 	}
 
+	// Setup stream format.
 	err = AudioUnitSetProperty(gOutputUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Input, 0, &deviceFormat, sizeof(AudioStreamBasicDescription));
 	if (err) {
 		ui_error(UI_ERROR_ERROR, "AudioUnitSetProperty-SF=%4.4s, %ld", (char*)&err, (long)err);
 		return 1;
 	}
 
+	// Initialize output unit.
 	err = AudioUnitInitialize(gOutputUnit);
 	if (err) {
 		ui_error(UI_ERROR_ERROR, "AudioUnitInitialize=%ld", (long)err);
 		return 1;
 	}
 
-	/* Adjust relative processor speed to deal with adjusting sound generation
-	frequency against emulation speed (more flexible than adjusting generated
-	sample rate) */
+	// Adjust relative processor speed to deal with adjusting sound generation frequency against emulation speed (more flexible than adjusting generated sample rate)
 	*freqptr = deviceFormat.mSampleRate;
 	hz = (float)sound_get_effective_processor_speed() / machine_current->timings.tstates_per_frame;
 	
-	/* Amount of audio data we will accumulate before yielding back to the OS.
-	Not much point having more than 100Hz playback, we probably get
-	downgraded by the OS as being a hog too (unlimited Hz limits playback
-	speed to about 2000% on my Mac, 100Hz allows up to 5000% for me) */
+	// Amount of audio data we will accumulate before yielding back to the OS. Not much point having more than 100Hz playback, we probably get downgraded by the OS as being a hog too
 	if (hz > 100.0) hz = 100.0;
 	int sound_framesize = deviceFormat.mSampleRate / hz;
 
