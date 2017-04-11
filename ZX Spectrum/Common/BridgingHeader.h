@@ -4,6 +4,7 @@
 
 #import "Emulator.h"
 #import "SpectrumDisplayController.h"
+#import "SpectrumInputController.h"
 
 #include "fuse.h"
 #include "settings.h"

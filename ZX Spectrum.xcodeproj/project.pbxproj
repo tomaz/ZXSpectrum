@@ -30,6 +30,7 @@
 		73291EDE1E96637100940801 /* tc2068-1.rom in Resources */ = {isa = PBXBuildFile; fileRef = 73291EC91E96637100940801 /* tc2068-1.rom */; };
 		7337874F1E9BE43F00C5C363 /* SpectrumDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7337874E1E9BE43F00C5C363 /* SpectrumDisplayController.m */; };
 		733787541E9CE36C00C5C363 /* ToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733787531E9CE36C00C5C363 /* ToolbarView.swift */; };
+		733787571E9CE99300C5C363 /* SpectrumInputController.m in Sources */ = {isa = PBXBuildFile; fileRef = 733787561E9CE99300C5C363 /* SpectrumInputController.m */; };
 		737E93771E87D10E00128149 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 737E93751E87D10E00128149 /* Main.storyboard */; };
 		737E93791E87D10E00128149 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 737E93781E87D10E00128149 /* Assets.xcassets */; };
 		737E93881E87D19D00128149 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737E93861E87D19D00128149 /* AppDelegate.swift */; };
@@ -74,6 +75,8 @@
 		7337874D1E9BE43F00C5C363 /* SpectrumDisplayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpectrumDisplayController.h; sourceTree = "<group>"; };
 		7337874E1E9BE43F00C5C363 /* SpectrumDisplayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpectrumDisplayController.m; sourceTree = "<group>"; };
 		733787531E9CE36C00C5C363 /* ToolbarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolbarView.swift; sourceTree = "<group>"; };
+		733787551E9CE99300C5C363 /* SpectrumInputController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpectrumInputController.h; sourceTree = "<group>"; };
+		733787561E9CE99300C5C363 /* SpectrumInputController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpectrumInputController.m; sourceTree = "<group>"; };
 		737E936E1E87D10E00128149 /* ZX Spectrum.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ZX Spectrum.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		737E93761E87D10E00128149 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		737E93781E87D10E00128149 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../Assets.xcassets; sourceTree = "<group>"; };
@@ -224,6 +227,8 @@
 				73DF22F41E997510002FA042 /* SpectrumPalette.swift */,
 				7337874D1E9BE43F00C5C363 /* SpectrumDisplayController.h */,
 				7337874E1E9BE43F00C5C363 /* SpectrumDisplayController.m */,
+				733787551E9CE99300C5C363 /* SpectrumInputController.h */,
+				733787561E9CE99300C5C363 /* SpectrumInputController.m */,
 			);
 			path = Spectrum;
 			sourceTree = "<group>";
@@ -339,6 +344,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				737E93891E87D19D00128149 /* ViewController.swift in Sources */,
+				733787571E9CE99300C5C363 /* SpectrumInputController.m in Sources */,
 				7337874F1E9BE43F00C5C363 /* SpectrumDisplayController.m in Sources */,
 				733787541E9CE36C00C5C363 /* ToolbarView.swift in Sources */,
 				737E93881E87D19D00128149 /* AppDelegate.swift in Sources */,
