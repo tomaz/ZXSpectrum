@@ -75,32 +75,32 @@ int controller_display_hotswap_gfx_mode_function(void *context) {
 
 void controller_display_putpixel_function(int x, int y, int colour, void *context) {
 	CGFloat scale = SCALE;
-//	if (scale == 2) {
-//		x <<= 1;
-//		y <<= 1;
-//	}
+	if (scale == 2) {
+		x <<= 1;
+		y <<= 1;
+	}
 	SpectrumDisplayController *controller = CONTROLLER;
 	[controller.handler spectrumDisplayController:controller drawPixelAt:CGPointMake(x, y) scale:scale color:colour];
 }
 
 void controller_display_plot8_function(int x, int y, libspectrum_byte data, libspectrum_byte ink, libspectrum_byte paper, void *context) {
 	CGFloat scale = SCALE;
-//	if (scale == 2) {
-//		x <<= 4;
-//		y <<= 1;
-//	} else {
-//		x <<= 3;
-//	}
+	if (scale == 2) {
+		x <<= 4;
+		y <<= 1;
+	} else {
+		x <<= 3;
+	}
 	SpectrumDisplayController *controller = CONTROLLER;
 	[controller.handler spectrumDisplayController:controller draw8PixelsAt:CGPointMake(x, y) scale:scale data:data ink:ink paper:paper];
 }
 
 void controller_display_plot16_function(int x, int y, libspectrum_word data, libspectrum_byte ink, libspectrum_byte paper, void *context) {
 	CGFloat scale = SCALE;
-//	if (scale == 2) {
-//		x <<= 4;
-//		y <<= 1;
-//	}
+	if (scale == 2) {
+		x <<= 4;
+		y <<= 1;
+	}
 	SpectrumDisplayController *controller = CONTROLLER;
 	[controller.handler spectrumDisplayController:controller draw16PixelsAt:CGPointMake(x, y) scale:scale data:data ink:ink paper:paper];
 }
