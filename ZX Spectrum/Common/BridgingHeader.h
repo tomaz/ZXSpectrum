@@ -3,6 +3,7 @@
 #define ZX_Bridging_Header
 
 #import "Emulator.h"
+#import "SpectrumDisplayController.h"
 
 #include "fuse.h"
 #include "settings.h"

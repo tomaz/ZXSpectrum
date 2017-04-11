@@ -28,12 +28,14 @@
 		73291EDC1E96637100940801 /* tc2048.rom in Resources */ = {isa = PBXBuildFile; fileRef = 73291EC71E96637100940801 /* tc2048.rom */; };
 		73291EDD1E96637100940801 /* tc2068-0.rom in Resources */ = {isa = PBXBuildFile; fileRef = 73291EC81E96637100940801 /* tc2068-0.rom */; };
 		73291EDE1E96637100940801 /* tc2068-1.rom in Resources */ = {isa = PBXBuildFile; fileRef = 73291EC91E96637100940801 /* tc2068-1.rom */; };
-		73291EEA1E9683EF00940801 /* SpectrumScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73291EE91E9683EF00940801 /* SpectrumScreenView.swift */; };
+		7337874F1E9BE43F00C5C363 /* SpectrumDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7337874E1E9BE43F00C5C363 /* SpectrumDisplayController.m */; };
 		737E93771E87D10E00128149 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 737E93751E87D10E00128149 /* Main.storyboard */; };
 		737E93791E87D10E00128149 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 737E93781E87D10E00128149 /* Assets.xcassets */; };
 		737E93881E87D19D00128149 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737E93861E87D19D00128149 /* AppDelegate.swift */; };
 		737E93891E87D19D00128149 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737E93871E87D19D00128149 /* ViewController.swift */; };
 		739824841E93DC99005E6B14 /* libspectrum.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 737E99BF1E88401900128149 /* libspectrum.a */; };
+		73DF22F31E997501002FA042 /* SpectrumScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DF22F21E997501002FA042 /* SpectrumScreenView.swift */; };
+		73DF22F51E997510002FA042 /* SpectrumPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DF22F41E997510002FA042 /* SpectrumPalette.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,7 +70,8 @@
 		73291EC71E96637100940801 /* tc2048.rom */ = {isa = PBXFileReference; lastKnownFileType = file; name = tc2048.rom; path = ../Common/spectrum/spectrum/fuse/roms/tc2048.rom; sourceTree = "<group>"; };
 		73291EC81E96637100940801 /* tc2068-0.rom */ = {isa = PBXFileReference; lastKnownFileType = file; name = "tc2068-0.rom"; path = "../Common/spectrum/spectrum/fuse/roms/tc2068-0.rom"; sourceTree = "<group>"; };
 		73291EC91E96637100940801 /* tc2068-1.rom */ = {isa = PBXFileReference; lastKnownFileType = file; name = "tc2068-1.rom"; path = "../Common/spectrum/spectrum/fuse/roms/tc2068-1.rom"; sourceTree = "<group>"; };
-		73291EE91E9683EF00940801 /* SpectrumScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpectrumScreenView.swift; sourceTree = "<group>"; };
+		7337874D1E9BE43F00C5C363 /* SpectrumDisplayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpectrumDisplayController.h; sourceTree = "<group>"; };
+		7337874E1E9BE43F00C5C363 /* SpectrumDisplayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpectrumDisplayController.m; sourceTree = "<group>"; };
 		737E936E1E87D10E00128149 /* ZX Spectrum.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ZX Spectrum.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		737E93761E87D10E00128149 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		737E93781E87D10E00128149 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../Assets.xcassets; sourceTree = "<group>"; };
@@ -78,6 +81,8 @@
 		737E93871E87D19D00128149 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		737E99BA1E88401800128149 /* spectrum.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = spectrum.xcodeproj; path = "ZX Spectrum/Common/spectrum/spectrum.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		739824831E93DB71005E6B14 /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
+		73DF22F21E997501002FA042 /* SpectrumScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpectrumScreenView.swift; sourceTree = "<group>"; };
+		73DF22F41E997510002FA042 /* SpectrumPalette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpectrumPalette.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				737E93851E87D16400128149 /* Common */,
+				73DF22F01E9974BC002FA042 /* Spectrum */,
 				737E93831E87D11900128149 /* Controller */,
 				737E93841E87D14400128149 /* Resources */,
 			);
@@ -151,7 +157,6 @@
 			children = (
 				737E93861E87D19D00128149 /* AppDelegate.swift */,
 				737E93871E87D19D00128149 /* ViewController.swift */,
-				73291EE91E9683EF00940801 /* SpectrumScreenView.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -199,6 +204,17 @@
 				737E99BF1E88401900128149 /* libspectrum.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		73DF22F01E9974BC002FA042 /* Spectrum */ = {
+			isa = PBXGroup;
+			children = (
+				73DF22F21E997501002FA042 /* SpectrumScreenView.swift */,
+				73DF22F41E997510002FA042 /* SpectrumPalette.swift */,
+				7337874D1E9BE43F00C5C363 /* SpectrumDisplayController.h */,
+				7337874E1E9BE43F00C5C363 /* SpectrumDisplayController.m */,
+			);
+			path = Spectrum;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -312,8 +328,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				737E93891E87D19D00128149 /* ViewController.swift in Sources */,
+				7337874F1E9BE43F00C5C363 /* SpectrumDisplayController.m in Sources */,
 				737E93881E87D19D00128149 /* AppDelegate.swift in Sources */,
-				73291EEA1E9683EF00940801 /* SpectrumScreenView.swift in Sources */,
+				73DF22F51E997510002FA042 /* SpectrumPalette.swift in Sources */,
+				73DF22F31E997501002FA042 /* SpectrumScreenView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
