@@ -7,9 +7,15 @@ import UIKit
 
 class ViewController: UIViewController {
 	
-	@IBOutlet private weak var spectrumView: SpectrumScreenView!
+	@IBOutlet fileprivate weak var spectrumView: SpectrumScreenView!
+	@IBOutlet fileprivate weak var controlsContainerView: UIView!
+	@IBOutlet fileprivate weak var keyboardResizerHeightContraint: NSLayoutConstraint!
+	
+	// MARK: - Data
 	
 	private var emulator: Emulator!
+	
+	// MARK: - Overriden functions
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -23,6 +29,9 @@ class ViewController: UIViewController {
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		
+		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
+		
 		spectrumView.hookToFuse()
 		fuse_init(0, nil);
 	}
@@ -30,8 +39,65 @@ class ViewController: UIViewController {
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		
+		NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillShow, object: nil)
+		NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillHide, object: nil)
+		
 		fuse_end()
 		spectrumView.unhookFromFuse()
 	}
 }
 
+// MARK: - Observations
+
+extension ViewController {
+	
+	@objc fileprivate func keyboardWillShow(notification: Notification) {
+		guard let info = notification.userInfo else {
+			return
+		}
+		
+		let size = (info[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue.size
+		let duration = (info[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
+		let curve = (info[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).intValue
+
+		UIView.beginAnimations("displayingKeyboard", context: nil)
+		UIView.setAnimationDuration(duration)
+		UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: curve)!)
+		
+		controlsContainerView.alpha = 0
+		keyboardResizerHeightContraint.constant = size.height - controlsContainerView.frame.height
+		
+		UIView.commitAnimations()
+	}
+	
+	@objc fileprivate func keyboardWillHide(notification: Notification) {
+		guard let info = notification.userInfo else {
+			return
+		}
+		
+		let duration = (info[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
+		let curve = (info[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).intValue
+		
+		UIView.beginAnimations("DismissingKeyboard", context: nil)
+		UIView.setAnimationDuration(duration)
+		UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: curve)!)
+		
+		controlsContainerView.alpha = 1
+		keyboardResizerHeightContraint.constant = 0
+		
+		UIView.commitAnimations()
+	}
+}
+
+// MARK: - User interface
+
+extension ViewController {
+	
+	@IBAction private func toggleKeyboard() {
+		if spectrumView.isFirstResponder {
+			spectrumView.resignFirstResponder()
+		} else {
+			spectrumView.becomeFirstResponder()
+		}
+	}
+}

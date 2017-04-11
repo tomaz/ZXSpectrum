@@ -52,6 +52,27 @@ class SpectrumScreenView: UIView {
 	}
 	
 	// MARK: - Overriden functions
+	
+	override var canBecomeFirstResponder: Bool {
+		return true
+	}
+}
+
+// MARK: - UIKeyInput
+
+extension SpectrumScreenView: UIKeyInput {
+	
+	var hasText: Bool {
+		return true
+	}
+	
+	func insertText(_ text: String) {
+		
+	}
+	
+	func deleteBackward() {
+		
+	}
 }
 
 // MARK: - Hooking and unhooking
@@ -185,7 +206,7 @@ extension SpectrumScreenView: SpectrumDisplayHandler {
 					shouldInterpolate: false,
 					intent: .defaultIntent) {
 					
-					let image = UIImage(cgImage: cgImage)
+					let image = UIImage(cgImage: cgImage, scale: UIScreen.main.scale, orientation: .up)
 					
 					imageView.image = image
 				}

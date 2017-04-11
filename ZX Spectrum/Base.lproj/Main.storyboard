@@ -21,20 +21,51 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v01-ct-F5k" customClass="SpectrumScreenView" customModule="ZX_Spectrum" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="PLa-Hz-iyJ">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v01-ct-F5k" customClass="SpectrumScreenView" customModule="ZX_Spectrum" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="597"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fC8-y7-uJO" userLabel="Keyboard Placeholder View">
+                                        <rect key="frame" x="0.0" y="597" width="375" height="0.0"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" id="en5-BN-8zT"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="l2P-Ip-v5x" customClass="ToolbarView" customModule="ZX_Spectrum" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="597" width="375" height="50"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OSr-o9-M55">
+                                                <rect key="frame" x="289" y="10" width="66" height="30"/>
+                                                <state key="normal" title="Keyboard"/>
+                                                <connections>
+                                                    <action selector="toggleKeyboard" destination="BYZ-38-t0r" eventType="touchUpInside" id="KTn-Sx-MuA"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="OSr-o9-M55" firstAttribute="centerY" secondItem="l2P-Ip-v5x" secondAttribute="centerY" id="25O-jf-LoQ"/>
+                                            <constraint firstAttribute="trailing" secondItem="OSr-o9-M55" secondAttribute="trailing" constant="20" symbolic="YES" id="xIq-xa-i0F"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="v01-ct-F5k" secondAttribute="trailing" id="KOc-t1-ETa"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="v01-ct-F5k" secondAttribute="bottom" id="LqI-Rp-YwU"/>
-                            <constraint firstItem="v01-ct-F5k" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ccJ-8M-xL7"/>
-                            <constraint firstItem="v01-ct-F5k" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="qJl-RI-Pqz"/>
+                            <constraint firstItem="PLa-Hz-iyJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="I6a-4C-N3h"/>
+                            <constraint firstItem="PLa-Hz-iyJ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="XaC-lu-Fuu"/>
+                            <constraint firstAttribute="trailing" secondItem="PLa-Hz-iyJ" secondAttribute="trailing" id="dvu-7G-Y3K"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="PLa-Hz-iyJ" secondAttribute="bottom" id="gzZ-aE-08p"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="controlsContainerView" destination="l2P-Ip-v5x" id="Lvg-oh-TfG"/>
+                        <outlet property="keyboardResizerHeightContraint" destination="en5-BN-8zT" id="gIQ-zJ-PTa"/>
                         <outlet property="spectrumView" destination="v01-ct-F5k" id="7B0-7s-iNl"/>
                     </connections>
                 </viewController>
