@@ -8,26 +8,11 @@
 
 @implementation SpectrumInputController
 
-- (void)inject:(char)key {
-	input_key simulated = key;
-	
-	switch (key) {
-		case '\n': simulated = INPUT_KEY_Return; break;
-	}
-	
-	// First key press.
+- (void)inject:(input_key)key pressed:(BOOL)pressed {
 	input_event_t event;
-	event.type = INPUT_EVENT_KEYPRESS;
-	event.types.key.spectrum_key = simulated;
+	event.type = pressed ? INPUT_EVENT_KEYPRESS : INPUT_EVENT_KEYRELEASE;
+	event.types.key.spectrum_key = key;
 	input_event(&event);
-	
-	// Then key release.
-	dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-		input_event_t release;
-		release.type = INPUT_EVENT_KEYRELEASE;
-		release.types.key.spectrum_key = simulated;
-		input_event(&release);
-	});
 }
 
 @end

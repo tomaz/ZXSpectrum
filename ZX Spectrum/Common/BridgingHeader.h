@@ -7,6 +7,7 @@
 #import "SpectrumInputController.h"
 
 #include "fuse.h"
+#include "keyboard.h"
 #include "settings.h"
 #include "cocoadisplay.h"
 

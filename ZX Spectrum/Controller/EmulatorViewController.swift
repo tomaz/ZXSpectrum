@@ -5,7 +5,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class EmulatorViewController: UIViewController {
 	
 	@IBOutlet fileprivate weak var spectrumView: SpectrumScreenView!
 	@IBOutlet fileprivate weak var controlsContainerView: UIView!
@@ -49,7 +49,7 @@ class ViewController: UIViewController {
 
 // MARK: - Observations
 
-extension ViewController {
+extension EmulatorViewController {
 	
 	@objc fileprivate func keyboardWillShow(notification: Notification) {
 		guard let info = notification.userInfo else {
@@ -60,12 +60,11 @@ extension ViewController {
 		let duration = (info[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
 		let curve = (info[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).intValue
 
-		UIView.beginAnimations("displayingKeyboard", context: nil)
+		UIView.beginAnimations("DisplayingKeyboard", context: nil)
 		UIView.setAnimationDuration(duration)
 		UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: curve)!)
 		
-		controlsContainerView.alpha = 0
-		keyboardResizerHeightContraint.constant = size.height - controlsContainerView.frame.height
+		keyboardResizerHeightContraint.constant = size.height
 		
 		UIView.commitAnimations()
 	}
@@ -82,7 +81,6 @@ extension ViewController {
 		UIView.setAnimationDuration(duration)
 		UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: curve)!)
 		
-		controlsContainerView.alpha = 1
 		keyboardResizerHeightContraint.constant = 0
 		
 		UIView.commitAnimations()
@@ -91,7 +89,7 @@ extension ViewController {
 
 // MARK: - User interface
 
-extension ViewController {
+extension EmulatorViewController {
 	
 	@IBAction private func toggleKeyboard() {
 		if spectrumView.isFirstResponder {

@@ -10,6 +10,6 @@
  */
 @interface SpectrumInputController : NSObject
 
-- (void)inject:(char)key;
+- (void)inject:(input_key)key pressed:(BOOL)pressed;
 
 @end

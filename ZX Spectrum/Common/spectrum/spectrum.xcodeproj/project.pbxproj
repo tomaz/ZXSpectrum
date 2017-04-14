@@ -613,6 +613,7 @@
 		7398299F1E9527DA005E6B14 /* settings_cocoa.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = settings_cocoa.h; path = fuse/fusepb/settings_cocoa.h; sourceTree = "<group>"; };
 		739829A11E953049005E6B14 /* widget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = widget.h; sourceTree = "<group>"; };
 		739829A21E9532E1005E6B14 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		73D955731EA0F204008D42C9 /* menu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = menu.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -862,6 +863,7 @@
 				739826961E9519C2005E6B14 /* memory.h */,
 				739826971E9519C2005E6B14 /* mempool.c */,
 				739826981E9519C2005E6B14 /* mempool.h */,
+				73D955731EA0F204008D42C9 /* menu.h */,
 				7398269D1E9519C2005E6B14 /* module.c */,
 				7398269E1E9519C2005E6B14 /* module.h */,
 				7398269F1E9519C2005E6B14 /* movie_tables.h */,

@@ -34,10 +34,12 @@
 		737E93771E87D10E00128149 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 737E93751E87D10E00128149 /* Main.storyboard */; };
 		737E93791E87D10E00128149 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 737E93781E87D10E00128149 /* Assets.xcassets */; };
 		737E93881E87D19D00128149 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737E93861E87D19D00128149 /* AppDelegate.swift */; };
-		737E93891E87D19D00128149 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737E93871E87D19D00128149 /* ViewController.swift */; };
+		737E93891E87D19D00128149 /* EmulatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737E93871E87D19D00128149 /* EmulatorViewController.swift */; };
 		739824841E93DC99005E6B14 /* libspectrum.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 737E99BF1E88401900128149 /* libspectrum.a */; };
 		73DF22F31E997501002FA042 /* SpectrumScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DF22F21E997501002FA042 /* SpectrumScreenView.swift */; };
 		73DF22F51E997510002FA042 /* SpectrumPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DF22F41E997510002FA042 /* SpectrumPalette.swift */; };
+		73E0F5F21E9FBC40003F8F4D /* ZX48KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E0F5F11E9FBC40003F8F4D /* ZX48KeyboardView.swift */; };
+		73E0F5F51E9FBC81003F8F4D /* ZX48KeyboardStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E0F5F41E9FBC81003F8F4D /* ZX48KeyboardStyleKit.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,11 +85,13 @@
 		737E937B1E87D10E00128149 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		737E937D1E87D10E00128149 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
 		737E93861E87D19D00128149 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		737E93871E87D19D00128149 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		737E93871E87D19D00128149 /* EmulatorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmulatorViewController.swift; sourceTree = "<group>"; };
 		737E99BA1E88401800128149 /* spectrum.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = spectrum.xcodeproj; path = "ZX Spectrum/Common/spectrum/spectrum.xcodeproj"; sourceTree = SOURCE_ROOT; };
-		739824831E93DB71005E6B14 /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BridgingHeader.h; sourceTree = "<group>"; };
+		739824831E93DB71005E6B14 /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BridgingHeader.h; path = ../BridgingHeader.h; sourceTree = "<group>"; };
 		73DF22F21E997501002FA042 /* SpectrumScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpectrumScreenView.swift; sourceTree = "<group>"; };
 		73DF22F41E997510002FA042 /* SpectrumPalette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpectrumPalette.swift; sourceTree = "<group>"; };
+		73E0F5F11E9FBC40003F8F4D /* ZX48KeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZX48KeyboardView.swift; sourceTree = "<group>"; };
+		73E0F5F41E9FBC81003F8F4D /* ZX48KeyboardStyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZX48KeyboardStyleKit.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +138,8 @@
 			isa = PBXGroup;
 			children = (
 				733787531E9CE36C00C5C363 /* ToolbarView.swift */,
+				73E0F5F11E9FBC40003F8F4D /* ZX48KeyboardView.swift */,
+				73E0F5F41E9FBC81003F8F4D /* ZX48KeyboardStyleKit.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -170,7 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				737E93861E87D19D00128149 /* AppDelegate.swift */,
-				737E93871E87D19D00128149 /* ViewController.swift */,
+				737E93871E87D19D00128149 /* EmulatorViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -209,7 +215,7 @@
 			children = (
 				739824831E93DB71005E6B14 /* BridgingHeader.h */,
 			);
-			name = Helpers;
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		737E99BB1E88401800128149 /* Products */ = {
@@ -343,7 +349,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				737E93891E87D19D00128149 /* ViewController.swift in Sources */,
+				73E0F5F21E9FBC40003F8F4D /* ZX48KeyboardView.swift in Sources */,
+				737E93891E87D19D00128149 /* EmulatorViewController.swift in Sources */,
+				73E0F5F51E9FBC81003F8F4D /* ZX48KeyboardStyleKit.swift in Sources */,
 				733787571E9CE99300C5C363 /* SpectrumInputController.m in Sources */,
 				7337874F1E9BE43F00C5C363 /* SpectrumDisplayController.m in Sources */,
 				733787541E9CE36C00C5C363 /* ToolbarView.swift in Sources */,

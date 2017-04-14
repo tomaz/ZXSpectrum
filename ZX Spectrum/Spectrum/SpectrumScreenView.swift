@@ -19,11 +19,11 @@ class SpectrumScreenView: UIView {
 	/// Current palette.
 	fileprivate lazy var palette = SpectrumPalette.colored
 	
+	/// Input view.
+	fileprivate lazy var keyboardView = ZX48KeyboardView()
+	
 	/// Display controller middleware between UI C API and view.
 	fileprivate lazy var displayController = SpectrumDisplayController()
-	
-	/// Input controller middleware between UIKit events and fuse input.
-	fileprivate lazy var inputController = SpectrumInputController()
 	
 	// MARK: - Subviews
 	
@@ -59,6 +59,10 @@ class SpectrumScreenView: UIView {
 	override var canBecomeFirstResponder: Bool {
 		return true
 	}
+	
+	override var inputView: UIView? {
+		return keyboardView
+	}
 }
 
 // MARK: - UIKeyInput
@@ -70,8 +74,6 @@ extension SpectrumScreenView: UIKeyInput {
 	}
 	
 	func insertText(_ text: String) {
-		let char = (text as NSString).character(at: 0)
-		inputController.inject(Int8(char))
 	}
 	
 	func deleteBackward() {
