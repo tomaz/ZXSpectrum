@@ -1,0 +1,5 @@
+github "wokalski/Diff.swift" "0.5.3"
+github "swisspol/GCDWebServer" "3.3.3"
+github "ReactiveKit/ReactiveKit" "v3.5.1"
+github "malcommac/SwiftRichString" "0.9.8"
+github "ReactiveKit/Bond" "6.2.4"
