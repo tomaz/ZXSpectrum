@@ -342,6 +342,13 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		737B56F91EA3F52900A260B9 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		737E93651E87D10E00128149 = {
 			isa = PBXGroup;
 			children = (
@@ -394,6 +401,7 @@
 		737E93851E87D16400128149 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				737B56F91EA3F52900A260B9 /* Extensions */,
 				737E938E1E87D36300128149 /* Helpers */,
 				737E938B1E87D24200128149 /* Third Party */,
 			);

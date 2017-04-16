@@ -4,16 +4,22 @@
 //
 
 import UIKit
+import Bond
+import ReactiveKit
 
 class EmulatorViewController: UIViewController {
 	
 	@IBOutlet fileprivate weak var spectrumView: SpectrumScreenView!
 	@IBOutlet fileprivate weak var controlsContainerView: UIView!
-	@IBOutlet fileprivate weak var keyboardResizerHeightContraint: NSLayoutConstraint!
+	@IBOutlet fileprivate weak var keyboardPlaceholderView: UIView!
+	
+	@IBOutlet fileprivate weak var tapeButton: UIButton!
+	@IBOutlet fileprivate weak var keyboardButton: UIButton!
 	
 	// MARK: - Data
 	
-	private var emulator: Emulator!
+	fileprivate var emulator: Emulator!
+	fileprivate let viewWillHideBag = DisposeBag()
 	
 	// MARK: - Overriden functions
 
@@ -21,81 +27,77 @@ class EmulatorViewController: UIViewController {
 		super.viewDidLoad()
 		
 		emulator = Emulator()!
-		
 		settings_defaults(&settings_current);
 		
+		setupTapeButtonTapSignal()
+		setupKeyboardButtonTapSignal()
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		
-		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
-		
 		spectrumView.hookToFuse()
 		fuse_init(0, nil);
+		
+		setupKeyboardWillShowNotificationSignal()
+		setupKeyboardWillHideNotificaitonSignal()
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		
-		NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillShow, object: nil)
-		NotificationCenter.default.removeObserver(self, name: Notification.Name.UIKeyboardWillHide, object: nil)
-		
 		fuse_end()
 		spectrumView.unhookFromFuse()
+		
+		// Dispose all observations that should only happen while view is visible.
+		viewWillHideBag.dispose()
 	}
 }
 
-// MARK: - Observations
+// MARK: - Signal handling
 
 extension EmulatorViewController {
 	
-	@objc fileprivate func keyboardWillShow(notification: Notification) {
-		guard let info = notification.userInfo else {
-			return
-		}
-		
-		let size = (info[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue.size
-		let duration = (info[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
-		let curve = (info[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).intValue
-
-		UIView.beginAnimations("DisplayingKeyboard", context: nil)
-		UIView.setAnimationDuration(duration)
-		UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: curve)!)
-		
-		keyboardResizerHeightContraint.constant = size.height
-		
-		UIView.commitAnimations()
+	fileprivate func setupTapeButtonTapSignal() {
+		tapeButton.reactive.tap.observe { event in
+			
+		}.dispose(in: reactive.bag)
 	}
 	
-	@objc fileprivate func keyboardWillHide(notification: Notification) {
-		guard let info = notification.userInfo else {
-			return
-		}
-		
-		let duration = (info[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
-		let curve = (info[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber).intValue
-		
-		UIView.beginAnimations("DismissingKeyboard", context: nil)
-		UIView.setAnimationDuration(duration)
-		UIView.setAnimationCurve(UIViewAnimationCurve(rawValue: curve)!)
-		
-		keyboardResizerHeightContraint.constant = 0
-		
-		UIView.commitAnimations()
+	fileprivate func setupKeyboardButtonTapSignal() {
+		keyboardButton.reactive.tap.observe { _ in
+			if self.spectrumView.isFirstResponder {
+				self.spectrumView.resignFirstResponder()
+			} else {
+				self.spectrumView.becomeFirstResponder()
+			}
+		}.dispose(in: reactive.bag)
 	}
-}
-
-// MARK: - User interface
-
-extension EmulatorViewController {
 	
-	@IBAction private func toggleKeyboard() {
-		if spectrumView.isFirstResponder {
-			spectrumView.resignFirstResponder()
-		} else {
-			spectrumView.becomeFirstResponder()
-		}
+	fileprivate func setupKeyboardWillShowNotificationSignal() {
+		NotificationCenter.default.reactive.notification(name: Notification.Name.UIKeyboardWillShow)
+			.map { $0.userInfo }
+			.ignoreNil()
+			.observeNext { info in
+				let duration = (info[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
+				
+				UIView.animate(withDuration: duration) {
+					self.keyboardPlaceholderView.isHidden = false
+				}
+			}.dispose(in: viewWillHideBag)
+		
+	}
+	
+	fileprivate func setupKeyboardWillHideNotificaitonSignal() {
+		NotificationCenter.default.reactive.notification(name: Notification.Name.UIKeyboardWillHide)
+			.map { $0.userInfo }
+			.ignoreNil()
+			.observeNext { info in
+				let duration = (info[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
+				
+				UIView.animate(withDuration: duration) {
+					self.keyboardPlaceholderView.isHidden = true
+				}
+			}.dispose(in: viewWillHideBag)
 	}
 }
