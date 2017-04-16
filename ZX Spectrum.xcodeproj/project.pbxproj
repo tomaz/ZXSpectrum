@@ -31,17 +31,32 @@
 		7337874F1E9BE43F00C5C363 /* SpectrumDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7337874E1E9BE43F00C5C363 /* SpectrumDisplayController.m */; };
 		733787541E9CE36C00C5C363 /* ToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733787531E9CE36C00C5C363 /* ToolbarView.swift */; };
 		733787571E9CE99300C5C363 /* SpectrumInputController.m in Sources */ = {isa = PBXBuildFile; fileRef = 733787561E9CE99300C5C363 /* SpectrumInputController.m */; };
+		736493311EA4CE7200EE697F /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7364932F1EA4CE7200EE697F /* Model.xcdatamodeld */; };
+		736493351EA4CEA100EE697F /* Managed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736493341EA4CEA100EE697F /* Managed.swift */; };
+		736493371EA4D02D00EE697F /* FileObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736493361EA4D02D00EE697F /* FileObject.swift */; };
+		736493391EA54B0D00EE697F /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736493381EA54B0D00EE697F /* Database.swift */; };
+		7364933B1EA54B2F00EE697F /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7364933A1EA54B2F00EE697F /* Logger.swift */; };
+		7364933D1EA54B6E00EE697F /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7364933C1EA54B6E00EE697F /* Functions.swift */; };
+		736493411EA5518200EE697F /* DependencyInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7364933F1EA5518200EE697F /* DependencyInjection.swift */; };
+		736493421EA5518200EE697F /* PersistentContainerConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736493401EA5518200EE697F /* PersistentContainerConsumer.swift */; };
 		737B56DD1EA3CE9F00A260B9 /* SwiftRichString.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 737B56D61EA3CE7400A260B9 /* SwiftRichString.framework */; };
 		737B56DE1EA3CE9F00A260B9 /* SwiftRichString.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 737B56D61EA3CE7400A260B9 /* SwiftRichString.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		737B56E21EA3CEAB00A260B9 /* GCDWebServers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 737B56C71EA3CE6B00A260B9 /* GCDWebServers.framework */; };
 		737B56E31EA3CEAB00A260B9 /* GCDWebServers.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 737B56C71EA3CE6B00A260B9 /* GCDWebServers.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		737B56E61EA3CEAB00A260B9 /* Bond.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 737B56AB1EA3CE6600A260B9 /* Bond.framework */; };
 		737B56E71EA3CEAB00A260B9 /* Bond.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 737B56AB1EA3CE6600A260B9 /* Bond.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		737B56FD1EA4009900A260B9 /* UIViewController+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737B56FC1EA4009900A260B9 /* UIViewController+ZXSpectrum.swift */; };
+		737B56FF1EA4033B00A260B9 /* UIGestureRecognizer+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737B56FE1EA4033B00A260B9 /* UIGestureRecognizer+ZXSpectrum.swift */; };
+		737B57041EA4122A00A260B9 /* FilesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737B57031EA4122A00A260B9 /* FilesViewController.swift */; };
 		737E93771E87D10E00128149 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 737E93751E87D10E00128149 /* Main.storyboard */; };
 		737E93791E87D10E00128149 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 737E93781E87D10E00128149 /* Assets.xcassets */; };
 		737E93881E87D19D00128149 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737E93861E87D19D00128149 /* AppDelegate.swift */; };
 		737E93891E87D19D00128149 /* EmulatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737E93871E87D19D00128149 /* EmulatorViewController.swift */; };
 		739824841E93DC99005E6B14 /* libspectrum.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 737E99BF1E88401900128149 /* libspectrum.a */; };
+		73DA64E81EA559D3008832AA /* Safari.tzx in Resources */ = {isa = PBXBuildFile; fileRef = 73DA64E71EA559D3008832AA /* Safari.tzx */; };
+		73DA64EA1EA55E81008832AA /* FilesViewController+Bond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DA64E91EA55E81008832AA /* FilesViewController+Bond.swift */; };
+		73DA64EC1EA56085008832AA /* Configurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DA64EB1EA56085008832AA /* Configurable.swift */; };
+		73DA64EE1EA5611E008832AA /* FileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DA64ED1EA5611E008832AA /* FileCollectionViewCell.swift */; };
 		73DF22F31E997501002FA042 /* SpectrumScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DF22F21E997501002FA042 /* SpectrumScreenView.swift */; };
 		73DF22F51E997510002FA042 /* SpectrumPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DF22F41E997510002FA042 /* SpectrumPalette.swift */; };
 		73E0F5F21E9FBC40003F8F4D /* ZX48KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E0F5F11E9FBC40003F8F4D /* ZX48KeyboardView.swift */; };
@@ -234,9 +249,20 @@
 		733787531E9CE36C00C5C363 /* ToolbarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolbarView.swift; sourceTree = "<group>"; };
 		733787551E9CE99300C5C363 /* SpectrumInputController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpectrumInputController.h; sourceTree = "<group>"; };
 		733787561E9CE99300C5C363 /* SpectrumInputController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpectrumInputController.m; sourceTree = "<group>"; };
+		736493301EA4CE7200EE697F /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		736493341EA4CEA100EE697F /* Managed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Managed.swift; sourceTree = "<group>"; };
+		736493361EA4D02D00EE697F /* FileObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileObject.swift; sourceTree = "<group>"; };
+		736493381EA54B0D00EE697F /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		7364933A1EA54B2F00EE697F /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		7364933C1EA54B6E00EE697F /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
+		7364933F1EA5518200EE697F /* DependencyInjection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DependencyInjection.swift; sourceTree = "<group>"; };
+		736493401EA5518200EE697F /* PersistentContainerConsumer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentContainerConsumer.swift; sourceTree = "<group>"; };
 		737B56A01EA3CE6500A260B9 /* Bond.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Bond.xcodeproj; path = Carthage/Checkouts/Bond/Bond.xcodeproj; sourceTree = SOURCE_ROOT; };
 		737B56B51EA3CE6B00A260B9 /* GCDWebServer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GCDWebServer.xcodeproj; path = Carthage/Checkouts/GCDWebServer/GCDWebServer.xcodeproj; sourceTree = SOURCE_ROOT; };
 		737B56CE1EA3CE7400A260B9 /* SwiftRichString.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwiftRichString.xcodeproj; path = Carthage/Checkouts/SwiftRichString/SwiftRichString/SwiftRichString.xcodeproj; sourceTree = SOURCE_ROOT; };
+		737B56FC1EA4009900A260B9 /* UIViewController+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+ZXSpectrum.swift"; sourceTree = "<group>"; };
+		737B56FE1EA4033B00A260B9 /* UIGestureRecognizer+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIGestureRecognizer+ZXSpectrum.swift"; sourceTree = "<group>"; };
+		737B57031EA4122A00A260B9 /* FilesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilesViewController.swift; sourceTree = "<group>"; };
 		737E936E1E87D10E00128149 /* ZX Spectrum.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ZX Spectrum.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		737E93761E87D10E00128149 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		737E93781E87D10E00128149 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../Assets.xcassets; sourceTree = "<group>"; };
@@ -246,6 +272,10 @@
 		737E93871E87D19D00128149 /* EmulatorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmulatorViewController.swift; sourceTree = "<group>"; };
 		737E99BA1E88401800128149 /* spectrum.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = spectrum.xcodeproj; path = "ZX Spectrum/Common/spectrum/spectrum.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		739824831E93DB71005E6B14 /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BridgingHeader.h; path = ../BridgingHeader.h; sourceTree = "<group>"; };
+		73DA64E71EA559D3008832AA /* Safari.tzx */ = {isa = PBXFileReference; lastKnownFileType = file; path = Safari.tzx; sourceTree = "<group>"; };
+		73DA64E91EA55E81008832AA /* FilesViewController+Bond.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FilesViewController+Bond.swift"; sourceTree = "<group>"; };
+		73DA64EB1EA56085008832AA /* Configurable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configurable.swift; sourceTree = "<group>"; };
+		73DA64ED1EA5611E008832AA /* FileCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileCollectionViewCell.swift; sourceTree = "<group>"; };
 		73DF22F21E997501002FA042 /* SpectrumScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpectrumScreenView.swift; sourceTree = "<group>"; };
 		73DF22F41E997510002FA042 /* SpectrumPalette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpectrumPalette.swift; sourceTree = "<group>"; };
 		73E0F5F11E9FBC40003F8F4D /* ZX48KeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZX48KeyboardView.swift; sourceTree = "<group>"; };
@@ -305,6 +335,26 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		7364931F1EA4CE3400EE697F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7364932F1EA4CE7200EE697F /* Model.xcdatamodeld */,
+				736493381EA54B0D00EE697F /* Database.swift */,
+				736493361EA4D02D00EE697F /* FileObject.swift */,
+				736493341EA4CEA100EE697F /* Managed.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		7364933E1EA5514200EE697F /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				7364933F1EA5518200EE697F /* DependencyInjection.swift */,
+				736493401EA5518200EE697F /* PersistentContainerConsumer.swift */,
+			);
+			path = Dependencies;
+			sourceTree = "<group>";
+		};
 		737B56A11EA3CE6500A260B9 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -345,8 +395,36 @@
 		737B56F91EA3F52900A260B9 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				737B56FC1EA4009900A260B9 /* UIViewController+ZXSpectrum.swift */,
+				737B56FE1EA4033B00A260B9 /* UIGestureRecognizer+ZXSpectrum.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		737B57001EA411DA00A260B9 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				737E93861E87D19D00128149 /* AppDelegate.swift */,
+			);
+			name = Application;
+			sourceTree = "<group>";
+		};
+		737B57011EA411E400A260B9 /* Emulator */ = {
+			isa = PBXGroup;
+			children = (
+				737E93871E87D19D00128149 /* EmulatorViewController.swift */,
+			);
+			name = Emulator;
+			sourceTree = "<group>";
+		};
+		737B57021EA411F100A260B9 /* Tapes */ = {
+			isa = PBXGroup;
+			children = (
+				737B57031EA4122A00A260B9 /* FilesViewController.swift */,
+				73DA64E91EA55E81008832AA /* FilesViewController+Bond.swift */,
+				73DA64ED1EA5611E008832AA /* FileCollectionViewCell.swift */,
+			);
+			name = Tapes;
 			sourceTree = "<group>";
 		};
 		737E93651E87D10E00128149 = {
@@ -371,6 +449,7 @@
 				737E93851E87D16400128149 /* Common */,
 				73DF22F01E9974BC002FA042 /* Spectrum */,
 				737E93831E87D11900128149 /* Controller */,
+				7364931F1EA4CE3400EE697F /* Model */,
 				733787521E9CE34E00C5C363 /* View */,
 				737E93841E87D14400128149 /* Resources */,
 			);
@@ -380,8 +459,9 @@
 		737E93831E87D11900128149 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				737E93861E87D19D00128149 /* AppDelegate.swift */,
-				737E93871E87D19D00128149 /* EmulatorViewController.swift */,
+				737B57001EA411DA00A260B9 /* Application */,
+				737B57011EA411E400A260B9 /* Emulator */,
+				737B57021EA411F100A260B9 /* Tapes */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -389,10 +469,11 @@
 		737E93841E87D14400128149 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				73DA64D71EA55998008832AA /* Files */,
 				73291EB31E96635A00940801 /* ROMS */,
 				737E93751E87D10E00128149 /* Main.storyboard */,
-				737E93781E87D10E00128149 /* Assets.xcassets */,
 				737E937A1E87D10E00128149 /* LaunchScreen.storyboard */,
+				737E93781E87D10E00128149 /* Assets.xcassets */,
 				737E937D1E87D10E00128149 /* Info.plist */,
 			);
 			path = Resources;
@@ -403,6 +484,7 @@
 			children = (
 				737B56F91EA3F52900A260B9 /* Extensions */,
 				737E938E1E87D36300128149 /* Helpers */,
+				7364933E1EA5514200EE697F /* Dependencies */,
 				737E938B1E87D24200128149 /* Third Party */,
 			);
 			path = Common;
@@ -422,6 +504,9 @@
 		737E938E1E87D36300128149 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				7364933A1EA54B2F00EE697F /* Logger.swift */,
+				7364933C1EA54B6E00EE697F /* Functions.swift */,
+				73DA64EB1EA56085008832AA /* Configurable.swift */,
 				739824831E93DB71005E6B14 /* BridgingHeader.h */,
 			);
 			path = Helpers;
@@ -433,6 +518,14 @@
 				737E99BF1E88401900128149 /* libspectrum.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		73DA64D71EA55998008832AA /* Files */ = {
+			isa = PBXGroup;
+			children = (
+				73DA64E71EA559D3008832AA /* Safari.tzx */,
+			);
+			name = Files;
 			sourceTree = "<group>";
 		};
 		73DF22F01E9974BC002FA042 /* Spectrum */ = {
@@ -673,6 +766,7 @@
 				73291ED21E96637100940801 /* plus3-3.rom in Resources */,
 				73291EDD1E96637100940801 /* tc2068-0.rom in Resources */,
 				73291ED71E96637100940801 /* plusd.rom in Resources */,
+				73DA64E81EA559D3008832AA /* Safari.tzx in Resources */,
 				737E93771E87D10E00128149 /* Main.storyboard in Resources */,
 				73291EDE1E96637100940801 /* tc2068-1.rom in Resources */,
 				73291ECA1E96637100940801 /* 48.rom in Resources */,
@@ -687,14 +781,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				73E0F5F21E9FBC40003F8F4D /* ZX48KeyboardView.swift in Sources */,
+				737B56FF1EA4033B00A260B9 /* UIGestureRecognizer+ZXSpectrum.swift in Sources */,
 				737E93891E87D19D00128149 /* EmulatorViewController.swift in Sources */,
+				736493411EA5518200EE697F /* DependencyInjection.swift in Sources */,
 				73E0F5F51E9FBC81003F8F4D /* ZX48KeyboardStyleKit.swift in Sources */,
+				737B57041EA4122A00A260B9 /* FilesViewController.swift in Sources */,
 				733787571E9CE99300C5C363 /* SpectrumInputController.m in Sources */,
+				737B56FD1EA4009900A260B9 /* UIViewController+ZXSpectrum.swift in Sources */,
 				7337874F1E9BE43F00C5C363 /* SpectrumDisplayController.m in Sources */,
+				7364933B1EA54B2F00EE697F /* Logger.swift in Sources */,
 				733787541E9CE36C00C5C363 /* ToolbarView.swift in Sources */,
+				736493371EA4D02D00EE697F /* FileObject.swift in Sources */,
+				7364933D1EA54B6E00EE697F /* Functions.swift in Sources */,
 				737E93881E87D19D00128149 /* AppDelegate.swift in Sources */,
 				73DF22F51E997510002FA042 /* SpectrumPalette.swift in Sources */,
+				736493351EA4CEA100EE697F /* Managed.swift in Sources */,
+				73DA64EC1EA56085008832AA /* Configurable.swift in Sources */,
+				736493421EA5518200EE697F /* PersistentContainerConsumer.swift in Sources */,
+				73DA64EE1EA5611E008832AA /* FileCollectionViewCell.swift in Sources */,
+				736493311EA4CE7200EE697F /* Model.xcdatamodeld in Sources */,
+				736493391EA54B0D00EE697F /* Database.swift in Sources */,
 				73DF22F31E997501002FA042 /* SpectrumScreenView.swift in Sources */,
+				73DA64EA1EA55E81008832AA /* FilesViewController+Bond.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -904,6 +1012,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		7364932F1EA4CE7200EE697F /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				736493301EA4CE7200EE697F /* Model.xcdatamodel */,
+			);
+			currentVersion = 736493301EA4CE7200EE697F /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 737E93661E87D10E00128149 /* Project object */;
 }

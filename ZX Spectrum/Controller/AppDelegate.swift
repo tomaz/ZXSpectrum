@@ -7,15 +7,33 @@
 //
 
 import UIKit
+import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var window: UIWindow?
 
+	fileprivate var database = Database()
+	fileprivate var persistentContainer: NSPersistentContainer!
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 		// Override point for customization after application launch.
+		Logger.initialize()
+		gmarker("INITIALIZED")
+
+		database.createPersistentContainer { container in
+			self.persistentContainer = container
+			
+			guard let storyboard = self.window?.rootViewController?.storyboard else {
+				fatalError("Storyboard not available!")
+			}
+			
+			let controller = storyboard.instantiateViewController(withIdentifier: "EmulatorScene")
+			self.inject(toController: controller)
+			self.window?.rootViewController = controller
+		}
+		
 		return true
 	}
 
@@ -44,3 +62,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+// MARK: - Dependencies
+
+extension AppDelegate: PersistentContainerProvider {
+	
+	func providePersistentContainer() -> NSPersistentContainer {
+		gdebug("Providing \(persistentContainer)")
+		return persistentContainer
+	}
+}

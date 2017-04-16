@@ -4,6 +4,7 @@
 //
 
 import UIKit
+import CoreData
 import Bond
 import ReactiveKit
 
@@ -18,43 +19,89 @@ class EmulatorViewController: UIViewController {
 	
 	// MARK: - Data
 	
+	fileprivate var persistentContainer: NSPersistentContainer!
+	
 	fileprivate var emulator: Emulator!
 	fileprivate let viewWillHideBag = DisposeBag()
 	
 	// MARK: - Overriden functions
 
 	override func viewDidLoad() {
+		gverbose("Loading")
+		
 		super.viewDidLoad()
 		
+		gdebug("Setting up emulator")
 		emulator = Emulator()!
 		settings_defaults(&settings_current);
 		
+		gdebug("Setting up view")
 		setupTapeButtonTapSignal()
 		setupKeyboardButtonTapSignal()
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
+		gverbose("Appearing")
+		
 		super.viewWillAppear(animated)
 		
+		gdebug("Starting emulator")
 		spectrumView.hookToFuse()
 		fuse_init(0, nil);
 		
+		gdebug("Preparing for appearance")
 		setupKeyboardWillShowNotificationSignal()
 		setupKeyboardWillHideNotificaitonSignal()
+		teardownTapOnBackgroundInteraction()
 	}
 	
 	override func viewWillDisappear(_ animated: Bool) {
+		gverbose("Dissapearing")
+		
 		super.viewWillDisappear(animated)
 		
+		gdebug("Stopping emulator")
 		fuse_end()
 		spectrumView.unhookFromFuse()
 		
-		// Dispose all observations that should only happen while view is visible.
+		gdebug("Preparing for dissapearance")
 		viewWillHideBag.dispose()
+	}
+	
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		setupTapOnBackgroundInteraction()
+		inject(toController: segue.destination)
 	}
 }
 
-// MARK: - Signal handling
+// MARK: - Dependencies
+
+extension EmulatorViewController: PersistentContainerProvider {
+	
+	func providePersistentContainer() -> NSPersistentContainer {
+		gdebug("Providing \(persistentContainer)")
+		return persistentContainer
+	}
+}
+
+extension EmulatorViewController: PersistentContainerConsumer {
+	
+	func configure(persistentContainer: NSPersistentContainer) {
+		gdebug("Configuring with \(persistentContainer)")
+		self.persistentContainer = persistentContainer
+	}
+}
+
+// MARK: - User interface
+
+extension EmulatorViewController {
+	
+	@IBAction func unwindToEmulatorViewController(segue: UIStoryboardSegue) {
+		// Nothing to do here, but the function is needed for unwinding segues.
+	}
+}
+
+// MARK: - Signals handling
 
 extension EmulatorViewController {
 	
