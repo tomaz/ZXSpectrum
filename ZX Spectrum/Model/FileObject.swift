@@ -8,8 +8,11 @@ import CoreData
 
 final class FileObject: NSManagedObject {
 
-	/// Path of the associated file. Note this is only filename and extension, without full path, use `url` to get full path to the tape file.
+	/// Path from base folder of the associated file (either main bundle or files, depending whether this is stock or uploaded file). Use `url` to get absolute path.
 	@NSManaged var path: String
+	
+	/// Filename of the object. Use `url` to get absolute path.
+	@NSManaged var filename: String
 	
 	/// Date file was added to library.
 	@NSManaged var added: Date
@@ -26,11 +29,21 @@ final class FileObject: NSManagedObject {
 			if isStock {
 				return Bundle.main.url(forResource: path, withExtension: nil)!
 			} else {
-				return Database.filesURL.appendingPathComponent(path)
+				return Database.filesURL.appendingPathComponent(path).appendingPathComponent(filename)
 			}
 		}
 		set {
-			path = newValue.lastPathComponent
+			path = newValue.deletingLastPathComponent().relativePath
+			filename = newValue.lastPathComponent
+		}
+	}
+	
+	/// Relative URL from base path.
+	var relativeURL: URL {
+		if path.isEmpty {
+			return URL(fileURLWithPath: filename)
+		} else {
+			return URL(fileURLWithPath: path).appendingPathComponent(filename)
 		}
 	}
 	
@@ -43,27 +56,13 @@ final class FileObject: NSManagedObject {
 	}
 }
 
-// MARK: - Managed
+// MARK: - Managed & Core Data helpers
 
 extension FileObject: Managed {
 	
 	static var defaultSortDescriptors: [NSSortDescriptor] {
 		return [
-			NSSortDescriptor(key: #keyPath(used), ascending: false),
-			NSSortDescriptor(key: #keyPath(added), ascending: false),
-			NSSortDescriptor(key: #keyPath(path), ascending: true),
+			NSSortDescriptor(key: #keyPath(filename), ascending: true),
 		]
-	}
-}
-
-// MARK: - Fetching
-
-extension FileObject {
-	
-	/**
-	Returns predicate that filters stock objects only.
-	*/
-	static var stockPredicate: NSPredicate {
-		return NSPredicate(format: "%K==true", #keyPath(isStock))
 	}
 }

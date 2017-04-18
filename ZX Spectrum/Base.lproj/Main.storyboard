@@ -138,7 +138,11 @@
                                 <segue destination="PnE-nR-USW" kind="unwind" unwindAction="unwindToEmulatorViewControllerWithSegue:" id="m6N-aa-jjk"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Upload" id="a8y-0H-gWk"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="uploadBarButtonItem" destination="a8y-0H-gWk" id="h7z-R7-RR2"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cx5-rD-cb5" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="PnE-nR-USW" userLabel="Exit" sceneMemberID="exit"/>

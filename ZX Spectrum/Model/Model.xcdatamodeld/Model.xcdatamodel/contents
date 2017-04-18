@@ -2,11 +2,12 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16E195" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="FileObject" representedClassName=".FileObject" syncable="YES">
         <attribute name="added" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="filename" attributeType="String" syncable="YES"/>
         <attribute name="isStock" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="path" attributeType="String" syncable="YES"/>
         <attribute name="used" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
     </entity>
     <elements>
-        <element name="FileObject" positionX="-63" positionY="-18" width="128" height="105"/>
+        <element name="FileObject" positionX="-63" positionY="-18" width="128" height="120"/>
     </elements>
 </model>

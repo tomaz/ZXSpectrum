@@ -20,8 +20,8 @@ protocol Managed: class, NSFetchRequestResult {
 	/// The important properties we should consider pre-fetching.
 	static var importantPropertiesToFetch: [String]? { get }
 	
-//	/// Returns default sorted fetch request for this managed object.
-//	static func sortedFetchRequest() -> NSFetchRequest<Self>
+	/// Returns default sorted fetch request for this managed object.
+	static func sortedFetchRequest() -> NSFetchRequest<Self>
 }
 
 extension Managed {
@@ -46,14 +46,14 @@ extension Managed where Self: NSManagedObject {
 		return entity().name!
 	}
 
-//	/**
-//	Helper function for using `defaultSortDescriptors` for fetching.
-//	*/
-//	static func sortedFetchRequest() -> NSFetchRequest<Self> {
-//		let result = NSFetchRequest<Self>(entityName: entityName)
-//		result.sortDescriptors = defaultSortDescriptors
-//		return result
-//	}
+	/**
+	Helper function for using `defaultSortDescriptors` for fetching.
+	*/
+	static func sortedFetchRequest() -> NSFetchRequest<Self> {
+		let result = NSFetchRequest<Self>(entityName: entityName)
+		result.sortDescriptors = defaultSortDescriptors
+		return result
+	}
 
 	/**
 	Finds the object matching given predicate, or creates one if not found, in the given context.
@@ -95,10 +95,10 @@ extension Managed where Self: NSManagedObject {
 	}
 	
 	/**
-	Fetches the objects in the given context.
+	Fetches the objects in the given context using `sortedFetchRequest()`.
 	*/
 	static func fetch(in context: NSManagedObjectContext, configure: ((NSFetchRequest<Self>) -> ())? = nil) -> [Self] {
-		let request = NSFetchRequest<Self>(entityName: Self.entityName)
+		let request = sortedFetchRequest()
 		configure?(request)
 		return try! context.fetch(request)
 	}

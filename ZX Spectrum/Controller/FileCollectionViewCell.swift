@@ -11,6 +11,6 @@ class FileCollectionViewCell: UICollectionViewCell, Configurable {
 	
 	func configure(object: FileObject) {
 		gdebug("Configuring with \(object)")
-		nameLabel.text = object.url.deletingPathExtension().lastPathComponent
+		nameLabel.text = object.filename
 	}
 }

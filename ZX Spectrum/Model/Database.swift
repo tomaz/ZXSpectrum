@@ -58,72 +58,68 @@ class Database {
 
 extension NSManagedObjectContext {
 	
-	/// Updates user tapes into current context. Returns number of imported tapes.
+	/**
+	Imports all new files into the context. Returns number of new files.
+	*/
 	@discardableResult
 	func importUploadedFiles(save: Bool = true) -> Int {
 		gdebug("Importing new uploaded files")
-//		let manager = FileManager.default
-//		
-//		// If uploads folder doesn't exist, ignore.
-//		if !manager.fileExists(atPath: Database.filesURL.path) {
-//			gdebug("Files folder doesn't exist, no need to check for new files")
-//			return 0
-//		}
-//		
-//		// Establish path to search in and perform search for all files.
-//		let files = try! manager.subpathsOfDirectory(atPath: Database.filesURL.path)
-//		gdebug("Found \(files.count) paths")
-//		
-//		// Add all newly found items.
-//		var group: GroupInfo? = nil
-//		var result = 0
-//		for file in files {
-//			if file.pathExtension != "tzx" {
-//				continue
-//			}
-//			
-//			gdebug("Found \(file)")
-//			let url = Database.filesURL.appendingPathComponent(file)
-//			let destinationURL = Database.tapesURL.appendingPathComponent(file.lastPathComponent) // Don't create subfolders on destination
-//			
-//			if manager.fileExists(atPath: destinationURL.path) {
-//				gdebug("File already exists, deleting existing")
-//				do {
-//					try manager.removeItem(at: destinationURL)
-//				} catch {
-//					gwarn("Failed removing \(destinationURL): \(error)")
-//					continue
-//				}
-//			}
-//			
-//			do {
-//				try manager.moveItem(at: url, to: destinationURL)
-//			} catch {
-//				gwarn("Failed moving \(file) from uploads: \(error)")
-//				continue
-//			}
-//			
-//			// Create user group if not available.
-//			if group == nil {
-//				group = GroupInfo.user(in: self)
-//			}
-//			
-//			// Create tape.
-//			let tape = TapeInfo(context: self)
-//			tape.path = destinationURL.lastPathComponent
-//			tape.group = group!
-//			
-//			// Increase number of imported files.
-//			result += 1
-//		}
-//		
-//		if save {
-//			gdebug("Saving")
-//			try! self.save()
-//		}
-//		
-//		return result
-		return 0
+		var result = 0
+
+		let manager = FileManager.default
+		let baseURL = Database.filesURL
+		
+		// If files path doesn't exist, ignore.
+		if !manager.fileExists(atPath: baseURL.path) {
+			gdebug("Files folder doesn't exist, no need to check for new files")
+			return result
+		}
+		
+		// Get existing file objects.
+		let existingObjectsArray = FileObject.fetch(in: self)
+		
+		// Prepare dictionary where keys are paths and values are objects themselves.
+		var existingObjects = [String: FileObject]()
+		for object in existingObjectsArray {
+			existingObjects[object.relativeURL.relativePath] = object
+		}
+		
+		// Perform search for all files.
+		let files = try! manager.subpathsOfDirectory(atPath: baseURL.path)
+		for file in files {
+			let absoluteURL = baseURL.appendingPathComponent(file)
+
+			// Ignore hidden files. This is mostly used on Simulator.
+			if absoluteURL.lastPathComponent.hasPrefix(".") {
+				continue
+			}
+
+			// Ignore folders.
+			if manager.isDirectory(at: absoluteURL.path) {
+				continue
+			}
+
+			// Ignore existing objects; if user uploaded different file with same name, we'll use the new file next time anyway.
+			if existingObjects[file] != nil {
+				continue
+			}
+
+			// Create new object.
+			gdebug("Detected new file \(file)")
+			let relativeURL = URL(fileURLWithPath: file)
+			let object = FileObject(context: self)
+			object.url = relativeURL
+			
+			// Increase number of imported objects.
+			result += 1
+		}
+		
+		if save {
+			gdebug("Saving")
+			try! self.save()
+		}
+		
+		return result
 	}
 }
 
@@ -137,13 +133,10 @@ extension NSManagedObjectContext {
 	fileprivate func importStockFiles() {
 		gdebug("Importing stock files")
 
-		// If we already have stock object(s) in database, ignore.
-		let count = FileObject.count(in: self) { request in
-			request.predicate = FileObject.stockPredicate
-		}
-		
-		guard count == 0 else {
-			gdebug("Found \(count) existing stock files in database")
+		// If we already have files in database, ignore.
+		let count = FileObject.count(in: self)
+		if count > 0 {
+			gdebug("Found \(count) existing files in database, no need to check for stock files")
 			return
 		}
 		
@@ -153,8 +146,10 @@ extension NSManagedObjectContext {
 		
 		for file in files {
 			let object = FileObject(context: self)
-			object.url = URL(fileURLWithPath: file)
+			let absoluteURL = URL(fileURLWithPath: file)
 			object.isStock = true
+			object.path = ""
+			object.filename = absoluteURL.lastPathComponent
 		}
 	}
 }
