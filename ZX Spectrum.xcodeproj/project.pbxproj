@@ -60,6 +60,7 @@
 		73DA64F41EA60485008832AA /* WebServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DA64F31EA60485008832AA /* WebServer.swift */; };
 		73DA64F61EA60627008832AA /* UIResponder+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DA64F51EA60627008832AA /* UIResponder+ZXSpectrum.swift */; };
 		73DA64F81EA613EF008832AA /* FileManager+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DA64F71EA613EF008832AA /* FileManager+ZXSpectrum.swift */; };
+		73DA64FC1EA65162008832AA /* IconsStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DA64FB1EA65162008832AA /* IconsStyleKit.swift */; };
 		73DF22F31E997501002FA042 /* SpectrumScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DF22F21E997501002FA042 /* SpectrumScreenView.swift */; };
 		73DF22F51E997510002FA042 /* SpectrumPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DF22F41E997510002FA042 /* SpectrumPalette.swift */; };
 		73E0F5F21E9FBC40003F8F4D /* ZX48KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E0F5F11E9FBC40003F8F4D /* ZX48KeyboardView.swift */; };
@@ -282,6 +283,7 @@
 		73DA64F31EA60485008832AA /* WebServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebServer.swift; sourceTree = "<group>"; };
 		73DA64F51EA60627008832AA /* UIResponder+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIResponder+ZXSpectrum.swift"; sourceTree = "<group>"; };
 		73DA64F71EA613EF008832AA /* FileManager+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileManager+ZXSpectrum.swift"; sourceTree = "<group>"; };
+		73DA64FB1EA65162008832AA /* IconsStyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IconsStyleKit.swift; sourceTree = "<group>"; };
 		73DF22F21E997501002FA042 /* SpectrumScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpectrumScreenView.swift; sourceTree = "<group>"; };
 		73DF22F41E997510002FA042 /* SpectrumPalette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpectrumPalette.swift; sourceTree = "<group>"; };
 		73E0F5F11E9FBC40003F8F4D /* ZX48KeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZX48KeyboardView.swift; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 			isa = PBXGroup;
 			children = (
 				733787531E9CE36C00C5C363 /* ToolbarView.swift */,
+				73DA64FB1EA65162008832AA /* IconsStyleKit.swift */,
 				73E0F5F11E9FBC40003F8F4D /* ZX48KeyboardView.swift */,
 				73E0F5F41E9FBC81003F8F4D /* ZX48KeyboardStyleKit.swift */,
 			);
@@ -809,6 +812,7 @@
 				73DA64EC1EA56085008832AA /* Configurable.swift in Sources */,
 				736493421EA5518200EE697F /* PersistentContainerConsumer.swift in Sources */,
 				73DA64EE1EA5611E008832AA /* FileTableViewCell.swift in Sources */,
+				73DA64FC1EA65162008832AA /* IconsStyleKit.swift in Sources */,
 				736493311EA4CE7200EE697F /* Model.xcdatamodeld in Sources */,
 				73DA64F61EA60627008832AA /* UIResponder+ZXSpectrum.swift in Sources */,
 				736493391EA54B0D00EE697F /* Database.swift in Sources */,

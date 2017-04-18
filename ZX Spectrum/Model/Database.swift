@@ -59,12 +59,12 @@ class Database {
 extension NSManagedObjectContext {
 	
 	/**
-	Imports all new files into the context. Returns number of new files.
+	Imports all new files into the context as well as deletes all obsolete files. Returns true if files were uploaded or deleted, false if there's no change.
 	*/
 	@discardableResult
-	func importUploadedFiles(save: Bool = true) -> Int {
+	func importUploadedFiles(save: Bool = true) -> Bool {
 		gdebug("Importing new uploaded files")
-		var result = 0
+		var result = false
 
 		let manager = FileManager.default
 		let baseURL = Database.filesURL
@@ -75,8 +75,11 @@ extension NSManagedObjectContext {
 			return result
 		}
 		
-		// Get existing file objects.
-		let existingObjectsArray = FileObject.fetch(in: self)
+		// Get existing uploaded objects.
+		let existingObjectsArray = FileObject.fetch(in: self) { request in
+			request.predicate = FileObject.predicate(stock: false)
+			request.propertiesToFetch = FileObject.pathProperties
+		}
 		
 		// Prepare dictionary where keys are paths and values are objects themselves.
 		var existingObjects = [String: FileObject]()
@@ -101,6 +104,7 @@ extension NSManagedObjectContext {
 
 			// Ignore existing objects; if user uploaded different file with same name, we'll use the new file next time anyway.
 			if existingObjects[file] != nil {
+				existingObjects.removeValue(forKey: file)
 				continue
 			}
 
@@ -110,8 +114,15 @@ extension NSManagedObjectContext {
 			let object = FileObject(context: self)
 			object.url = relativeURL
 			
-			// Increase number of imported objects.
-			result += 1
+			// Indicate change.
+			result = true
+		}
+		
+		// Remove all previously existing objects that no longer exist.
+		for (_, object) in existingObjects {
+			gdebug("Deleting \(object)")
+			object.delete()
+			result = true
 		}
 		
 		if save {

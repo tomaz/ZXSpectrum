@@ -14,7 +14,9 @@ class EmulatorViewController: UIViewController {
 	@IBOutlet fileprivate weak var controlsContainerView: UIView!
 	@IBOutlet fileprivate weak var keyboardPlaceholderView: UIView!
 	
-	@IBOutlet fileprivate weak var tapeButton: UIButton!
+	@IBOutlet fileprivate weak var settingsButton: UIButton!
+	@IBOutlet fileprivate weak var resetButton: UIButton!
+	@IBOutlet fileprivate weak var filesButton: UIButton!
 	@IBOutlet fileprivate weak var keyboardButton: UIButton!
 	
 	// MARK: - Data
@@ -36,8 +38,13 @@ class EmulatorViewController: UIViewController {
 		settings_defaults(&settings_current);
 		
 		gdebug("Setting up view")
-		setupTapeButtonTapSignal()
-		setupKeyboardButtonTapSignal()
+		updateSettingsButtonIcon()
+		updateResetButtonIcon()
+		updateFilesButtonIcon()
+		updateKeyboardButtonIcon()
+		
+		setupResetButtonSignals()
+		setupKeyboardButtonSignals()
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -99,25 +106,62 @@ extension EmulatorViewController {
 	@IBAction func unwindToEmulatorViewController(segue: UIStoryboardSegue) {
 		// Nothing to do here, but the function is needed for unwinding segues.
 	}
+	
+	fileprivate func updateSettingsButtonIcon() {
+		settingsButton.setTitle(nil, for: .normal)
+		settingsButton.setImage(IconsStyleKit.imageOfIconGear, for: .normal)
+	}
+	
+	fileprivate func updateResetButtonIcon() {
+		resetButton.setTitle(nil, for: .normal)
+		resetButton.setImage(IconsStyleKit.imageOfIconReset, for: .normal)
+	}
+	
+	fileprivate func updateFilesButtonIcon() {
+		filesButton.setTitle(nil, for: .normal)
+		filesButton.setImage(IconsStyleKit.imageOfIconTape, for: .normal)
+	}
+	
+	fileprivate func updateKeyboardButtonIcon(animated: Bool = false) {
+		let image = spectrumView.isFirstResponder ? IconsStyleKit.imageOfIconKeyboardHide : IconsStyleKit.imageOfIconKeyboardShow
+		
+		keyboardButton.setTitle(nil, for: .normal)
+		
+		if animated {
+			UIView.animate(withDuration: 0.1, animations: { 
+				self.keyboardButton.alpha = 0
+			}, completion: { completed in
+				self.keyboardButton.setImage(image, for: .normal)
+				UIView.animate(withDuration: 0.1) {
+					self.keyboardButton.alpha = 1
+				}
+			})
+		} else {
+			keyboardButton.setImage(image, for: .normal)
+		}
+	}
 }
 
 // MARK: - Signals handling
 
 extension EmulatorViewController {
 	
-	fileprivate func setupTapeButtonTapSignal() {
-		tapeButton.reactive.tap.observe { event in
-			
+	fileprivate func setupResetButtonSignals() {
+		resetButton.reactive.tap.observe { event in
+			ginfo("Resetting emulator")
+			self.emulator.reset()
 		}.dispose(in: reactive.bag)
 	}
 	
-	fileprivate func setupKeyboardButtonTapSignal() {
+	fileprivate func setupKeyboardButtonSignals() {
 		keyboardButton.reactive.tap.observe { _ in
+			ginfo("Toggling keyboard")
 			if self.spectrumView.isFirstResponder {
 				self.spectrumView.resignFirstResponder()
 			} else {
 				self.spectrumView.becomeFirstResponder()
 			}
+			self.updateKeyboardButtonIcon(animated: true)
 		}.dispose(in: reactive.bag)
 	}
 	

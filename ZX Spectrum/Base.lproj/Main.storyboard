@@ -27,19 +27,19 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v01-ct-F5k" customClass="SpectrumScreenView" customModule="ZX_Spectrum" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="347"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="303"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
-                                    <view contentMode="scaleToFill" verticalHuggingPriority="750" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="l2P-Ip-v5x" customClass="ToolbarView" customModule="ZX_Spectrum" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="347" width="375" height="0.0"/>
+                                    <view contentMode="scaleToFill" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="l2P-Ip-v5x" customClass="ToolbarView" customModule="ZX_Spectrum" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="303" width="375" height="44"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OSr-o9-M55">
-                                                <rect key="frame" x="289" y="-14.5" width="66" height="30"/>
-                                                <state key="normal" title="Keyboard"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cbU-fz-DJ0">
+                                                <rect key="frame" x="20" y="7" width="57" height="30"/>
+                                                <state key="normal" title="Settings"/>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f5d-Nv-YS9">
-                                                <rect key="frame" x="20" y="-14.5" width="34" height="30"/>
-                                                <state key="normal" title="Tape"/>
+                                                <rect key="frame" x="99" y="7" width="32" height="30"/>
+                                                <state key="normal" title="Files"/>
                                                 <connections>
                                                     <segue destination="OWd-3c-rp4" kind="presentation" modalPresentationStyle="pageSheet" id="lh3-Ad-ZdH">
                                                         <segue key="commit" inheritsFrom="parent" id="2OU-0F-6vd"/>
@@ -47,13 +47,25 @@
                                                     </segue>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XSS-zl-c5M">
+                                                <rect key="frame" x="153" y="7" width="39" height="30"/>
+                                                <state key="normal" title="Reset"/>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OSr-o9-M55">
+                                                <rect key="frame" x="289" y="7.5" width="66" height="30"/>
+                                                <state key="normal" title="Keyboard"/>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="OSr-o9-M55" firstAttribute="centerY" secondItem="f5d-Nv-YS9" secondAttribute="centerY" id="6nA-e3-uUJ"/>
                                             <constraint firstItem="f5d-Nv-YS9" firstAttribute="centerY" secondItem="l2P-Ip-v5x" secondAttribute="centerY" id="8l6-Ju-7pc"/>
-                                            <constraint firstItem="f5d-Nv-YS9" firstAttribute="leading" secondItem="l2P-Ip-v5x" secondAttribute="leading" constant="20" symbolic="YES" id="XuX-Y2-dxw"/>
+                                            <constraint firstItem="cbU-fz-DJ0" firstAttribute="leading" secondItem="l2P-Ip-v5x" secondAttribute="leading" constant="20" symbolic="YES" id="MV4-Hw-5B6"/>
+                                            <constraint firstItem="XSS-zl-c5M" firstAttribute="centerY" secondItem="f5d-Nv-YS9" secondAttribute="centerY" id="Ur0-xw-4xO"/>
+                                            <constraint firstItem="f5d-Nv-YS9" firstAttribute="leading" secondItem="cbU-fz-DJ0" secondAttribute="trailing" constant="22" id="ZcB-PV-MC4"/>
                                             <constraint firstAttribute="trailing" secondItem="OSr-o9-M55" secondAttribute="trailing" constant="20" symbolic="YES" id="xIq-xa-i0F"/>
+                                            <constraint firstItem="XSS-zl-c5M" firstAttribute="leading" secondItem="f5d-Nv-YS9" secondAttribute="trailing" constant="22" id="ybA-oZ-p4j"/>
+                                            <constraint firstItem="cbU-fz-DJ0" firstAttribute="centerY" secondItem="XSS-zl-c5M" secondAttribute="centerY" id="yoI-L7-kKi"/>
                                         </constraints>
                                     </view>
                                     <view hidden="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="300" translatesAutoresizingMaskIntoConstraints="NO" id="fC8-y7-uJO" userLabel="Keyboard Placeholder View">
@@ -76,10 +88,12 @@
                     </view>
                     <connections>
                         <outlet property="controlsContainerView" destination="l2P-Ip-v5x" id="Lvg-oh-TfG"/>
+                        <outlet property="filesButton" destination="f5d-Nv-YS9" id="pSb-XL-EmY"/>
                         <outlet property="keyboardButton" destination="OSr-o9-M55" id="zNc-ev-Z9t"/>
                         <outlet property="keyboardPlaceholderView" destination="fC8-y7-uJO" id="z0j-Mj-FoZ"/>
+                        <outlet property="resetButton" destination="XSS-zl-c5M" id="Z5G-KN-y10"/>
+                        <outlet property="settingsButton" destination="cbU-fz-DJ0" id="adr-zv-5kh"/>
                         <outlet property="spectrumView" destination="v01-ct-F5k" id="7B0-7s-iNl"/>
-                        <outlet property="tapeButton" destination="f5d-Nv-YS9" id="vmr-eD-I3H"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -90,33 +104,55 @@
         <scene sceneID="9Ri-zh-Qtx">
             <objects>
                 <tableViewController id="SJM-Db-pQf" customClass="FilesViewController" customModule="ZX_Spectrum" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="AOc-of-zyk">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" sectionIndexMinimumDisplayRowCount="10" rowHeight="88" sectionHeaderHeight="28" sectionFooterHeight="28" id="AOc-of-zyk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FileCell" id="ues-rt-8OF" customClass="FileTableViewCell" customModule="ZX_Spectrum" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="88"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="ues-rt-8OF" id="bX9-4i-kBM">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="87.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NAME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="twP-TW-RVG">
-                                            <rect key="frame" x="15" y="12" width="345" height="19"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="hvc-Zt-zBl">
+                                            <rect key="frame" x="15" y="12" width="345" height="63.5"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="NAME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="twP-TW-RVG">
+                                                    <rect key="frame" x="0.0" y="0.0" width="345" height="21.5"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fnJ-PF-xMX">
+                                                    <rect key="frame" x="0.0" y="33.5" width="345" height="30"/>
+                                                    <subviews>
+                                                        <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AGC-nv-BLy">
+                                                            <rect key="frame" x="0.0" y="0.0" width="55" height="30"/>
+                                                            <state key="normal" title="DELETE"/>
+                                                        </button>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="bottom" secondItem="AGC-nv-BLy" secondAttribute="bottom" id="BIY-Jj-oHc"/>
+                                                        <constraint firstItem="AGC-nv-BLy" firstAttribute="leading" secondItem="fnJ-PF-xMX" secondAttribute="leading" id="RTd-o1-YHH"/>
+                                                        <constraint firstItem="AGC-nv-BLy" firstAttribute="top" secondItem="fnJ-PF-xMX" secondAttribute="top" id="xzD-qe-U0G"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                        </stackView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="twP-TW-RVG" firstAttribute="leading" secondItem="bX9-4i-kBM" secondAttribute="leadingMargin" id="F8t-5N-1d5"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="twP-TW-RVG" secondAttribute="trailing" id="kG6-3n-c0p"/>
-                                        <constraint firstItem="twP-TW-RVG" firstAttribute="top" secondItem="bX9-4i-kBM" secondAttribute="top" constant="12" id="qRj-Zf-Onc"/>
-                                        <constraint firstAttribute="bottom" secondItem="twP-TW-RVG" secondAttribute="bottom" constant="12" id="yDm-CL-Rd4"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="hvc-Zt-zBl" secondAttribute="trailing" id="RCW-st-29I"/>
+                                        <constraint firstItem="hvc-Zt-zBl" firstAttribute="top" secondItem="bX9-4i-kBM" secondAttribute="top" constant="12" id="Xid-ZQ-0p0"/>
+                                        <constraint firstItem="hvc-Zt-zBl" firstAttribute="leading" secondItem="bX9-4i-kBM" secondAttribute="leadingMargin" id="aEY-uB-K2a"/>
+                                        <constraint firstAttribute="bottom" secondItem="hvc-Zt-zBl" secondAttribute="bottom" constant="12" id="qmV-HV-ReG"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="actionsContainerView" destination="fnJ-PF-xMX" id="IXe-CS-zsx"/>
+                                    <outlet property="deleteButton" destination="AGC-nv-BLy" id="C8n-tm-T0r"/>
                                     <outlet property="nameLabel" destination="twP-TW-RVG" id="GnL-ND-lAn"/>
                                 </connections>
                             </tableViewCell>
@@ -141,7 +177,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vxb-YC-bnJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="SIk-VY-i5t" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="926" y="939"/>
+            <point key="canvasLocation" x="925.60000000000002" y="938.68065967016503"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="pcq-0a-fOt">
@@ -197,6 +233,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="lh3-Ad-ZdH"/>
+        <segue reference="rBY-DB-EbA"/>
     </inferredMetricsTieBreakers>
 </document>

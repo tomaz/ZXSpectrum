@@ -23,7 +23,7 @@ final class FilesViewController: UITableViewController {
 	// MARK: - Data
 	
 	/// Array of files; use `fetch` to update.
-	fileprivate lazy var files = MutableObservableArray<FileObject>([])
+	fileprivate lazy var files = MutableObservable2DArray<String, FileObject>([])
 	
 	// MARK: - Helpers
 	
@@ -41,6 +41,7 @@ final class FilesViewController: UITableViewController {
 		tableView.rowHeight = UITableViewAutomaticDimension
 		
 		gdebug("Binding data")
+		bond.initialize(tableView: tableView)
 		files.bind(to: tableView, using: bond)
 		
 		gdebug("Setting up view")
@@ -69,15 +70,10 @@ extension FilesViewController {
 	*/
 	fileprivate func fetch(animated: Bool = true) {
 		gdebug("Fetching files")
-		
-		let context = persistentContainer.viewContext
-			
-		context.perform {
-			let files = FileObject.fetch(in: context)
-			
-			gdebug("Updating with \(files.count) files")
-			self.files.replace(with: files, performDiff: animated)
-		}
+		let sections = bond.fetch(in: persistentContainer.viewContext)
+
+		gdebug("Updating with \(sections.count) sections")
+		files.replace(with: sections, performDiff: animated)
 	}
 }
 
@@ -108,7 +104,7 @@ extension FilesViewController {
 				gdebug("Stopping upload server")
 				self.server.stop()
 				
-				if self.persistentContainer.viewContext.importUploadedFiles() > 0 {
+				if self.persistentContainer.viewContext.importUploadedFiles() {
 					self.fetch()
 				}
 			})
