@@ -11,7 +11,7 @@ import Bond
 /**
 Manages list of tapes and other files.
 */
-final class FilesViewController: UICollectionViewController {
+final class FilesViewController: UITableViewController {
 	
 	@IBOutlet fileprivate weak var uploadBarButtonItem: UIBarButtonItem!
 	
@@ -28,7 +28,6 @@ final class FilesViewController: UICollectionViewController {
 	// MARK: - Helpers
 	
 	fileprivate lazy var bond = Bond()
-	fileprivate lazy var sizer = Sizer()
 	fileprivate lazy var server = WebServer()
 	
 	// MARK: - Overriden functions
@@ -38,9 +37,11 @@ final class FilesViewController: UICollectionViewController {
 		
 		super.viewDidLoad()
 		
+		tableView.estimatedRowHeight = 44
+		tableView.rowHeight = UITableViewAutomaticDimension
+		
 		gdebug("Binding data")
-		sizer.bind(to: collectionView!)
-		files.bind(to: collectionView!, using: bond)
+		files.bind(to: tableView, using: bond)
 		
 		gdebug("Setting up view")
 		setupUploadButtonTapSignal()

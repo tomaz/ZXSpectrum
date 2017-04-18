@@ -5,7 +5,7 @@
 
 import UIKit
 
-class FileCollectionViewCell: UICollectionViewCell, Configurable {
+class FileTableViewCell: UITableViewCell, Configurable {
 	
 	@IBOutlet fileprivate weak var nameLabel: UILabel!
 	

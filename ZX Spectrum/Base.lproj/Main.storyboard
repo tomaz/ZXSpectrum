@@ -87,67 +87,61 @@
             <point key="canvasLocation" x="72.799999999999997" y="138.98050974512745"/>
         </scene>
         <!--Files-->
-        <scene sceneID="Jx9-8s-tw4">
+        <scene sceneID="9Ri-zh-Qtx">
             <objects>
-                <collectionViewController id="75S-Uf-X4I" customClass="FilesViewController" customModule="ZX_Spectrum" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="ItU-d1-HKb">
+                <tableViewController id="SJM-Db-pQf" customClass="FilesViewController" customModule="ZX_Spectrum" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="AOc-of-zyk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Ul0-7W-p5b">
-                            <size key="itemSize" width="180" height="50"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
-                        <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FileCell" id="9Br-Nj-gXP" customClass="FileCollectionViewCell" customModule="ZX_Spectrum" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="180" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="180" height="50"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FileCell" id="ues-rt-8OF" customClass="FileTableViewCell" customModule="ZX_Spectrum" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="ues-rt-8OF" id="bX9-4i-kBM">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NAME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="twP-TW-RVG">
-                                            <rect key="frame" x="8" y="15" width="164" height="20"/>
+                                            <rect key="frame" x="15" y="12" width="345" height="19"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                </view>
-                                <constraints>
-                                    <constraint firstAttribute="trailingMargin" secondItem="twP-TW-RVG" secondAttribute="trailing" id="1CE-d1-w7h"/>
-                                    <constraint firstAttribute="bottom" secondItem="twP-TW-RVG" secondAttribute="bottom" constant="15" id="S2j-Tq-4Oq"/>
-                                    <constraint firstItem="twP-TW-RVG" firstAttribute="top" secondItem="9Br-Nj-gXP" secondAttribute="top" constant="15" id="qeG-de-MXS"/>
-                                    <constraint firstItem="twP-TW-RVG" firstAttribute="leading" secondItem="9Br-Nj-gXP" secondAttribute="leadingMargin" id="uwt-O7-w4M"/>
-                                </constraints>
+                                    <constraints>
+                                        <constraint firstItem="twP-TW-RVG" firstAttribute="leading" secondItem="bX9-4i-kBM" secondAttribute="leadingMargin" id="F8t-5N-1d5"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="twP-TW-RVG" secondAttribute="trailing" id="kG6-3n-c0p"/>
+                                        <constraint firstItem="twP-TW-RVG" firstAttribute="top" secondItem="bX9-4i-kBM" secondAttribute="top" constant="12" id="qRj-Zf-Onc"/>
+                                        <constraint firstAttribute="bottom" secondItem="twP-TW-RVG" secondAttribute="bottom" constant="12" id="yDm-CL-Rd4"/>
+                                    </constraints>
+                                </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="nameLabel" destination="twP-TW-RVG" id="ufv-Mn-N1u"/>
+                                    <outlet property="nameLabel" destination="twP-TW-RVG" id="GnL-ND-lAn"/>
                                 </connections>
-                            </collectionViewCell>
-                        </cells>
+                            </tableViewCell>
+                        </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="75S-Uf-X4I" id="AXe-mz-Rgf"/>
-                            <outlet property="delegate" destination="75S-Uf-X4I" id="R5c-ZC-OW7"/>
+                            <outlet property="dataSource" destination="SJM-Db-pQf" id="RIc-Ve-6cU"/>
+                            <outlet property="delegate" destination="SJM-Db-pQf" id="1rB-A9-QLN"/>
                         </connections>
-                    </collectionView>
-                    <navigationItem key="navigationItem" title="Files" id="2bm-gg-FLR">
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Files" id="BVv-E2-nHj">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="nOd-hT-6PF">
                             <connections>
-                                <segue destination="PnE-nR-USW" kind="unwind" unwindAction="unwindToEmulatorViewControllerWithSegue:" id="m6N-aa-jjk"/>
+                                <segue destination="SIk-VY-i5t" kind="unwind" unwindAction="unwindToEmulatorViewControllerWithSegue:" id="4O6-8v-8P8"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Upload" id="a8y-0H-gWk"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="uploadBarButtonItem" destination="a8y-0H-gWk" id="h7z-R7-RR2"/>
+                        <outlet property="uploadBarButtonItem" destination="a8y-0H-gWk" id="Lgs-M6-hp3"/>
                     </connections>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Cx5-rD-cb5" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="PnE-nR-USW" userLabel="Exit" sceneMemberID="exit"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vxb-YC-bnJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="SIk-VY-i5t" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1005.6" y="938.68065967016503"/>
+            <point key="canvasLocation" x="926" y="939"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="pcq-0a-fOt">
@@ -158,7 +152,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="75S-Uf-X4I" kind="relationship" relationship="rootViewController" id="Wue-cO-reb"/>
+                        <segue destination="SJM-Db-pQf" kind="relationship" relationship="rootViewController" id="scc-w3-TdO"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zwx-Bn-8s8" userLabel="First Responder" sceneMemberID="firstResponder"/>

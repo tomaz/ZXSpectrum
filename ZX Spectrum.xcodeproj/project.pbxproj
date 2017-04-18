@@ -56,7 +56,7 @@
 		73DA64E81EA559D3008832AA /* Safari.tzx in Resources */ = {isa = PBXBuildFile; fileRef = 73DA64E71EA559D3008832AA /* Safari.tzx */; };
 		73DA64EA1EA55E81008832AA /* FilesViewController+Bond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DA64E91EA55E81008832AA /* FilesViewController+Bond.swift */; };
 		73DA64EC1EA56085008832AA /* Configurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DA64EB1EA56085008832AA /* Configurable.swift */; };
-		73DA64EE1EA5611E008832AA /* FileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DA64ED1EA5611E008832AA /* FileCollectionViewCell.swift */; };
+		73DA64EE1EA5611E008832AA /* FileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DA64ED1EA5611E008832AA /* FileTableViewCell.swift */; };
 		73DA64F41EA60485008832AA /* WebServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DA64F31EA60485008832AA /* WebServer.swift */; };
 		73DA64F61EA60627008832AA /* UIResponder+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DA64F51EA60627008832AA /* UIResponder+ZXSpectrum.swift */; };
 		73DA64F81EA613EF008832AA /* FileManager+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DA64F71EA613EF008832AA /* FileManager+ZXSpectrum.swift */; };
@@ -278,7 +278,7 @@
 		73DA64E71EA559D3008832AA /* Safari.tzx */ = {isa = PBXFileReference; lastKnownFileType = file; path = Safari.tzx; sourceTree = "<group>"; };
 		73DA64E91EA55E81008832AA /* FilesViewController+Bond.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FilesViewController+Bond.swift"; sourceTree = "<group>"; };
 		73DA64EB1EA56085008832AA /* Configurable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configurable.swift; sourceTree = "<group>"; };
-		73DA64ED1EA5611E008832AA /* FileCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileCollectionViewCell.swift; sourceTree = "<group>"; };
+		73DA64ED1EA5611E008832AA /* FileTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileTableViewCell.swift; sourceTree = "<group>"; };
 		73DA64F31EA60485008832AA /* WebServer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebServer.swift; sourceTree = "<group>"; };
 		73DA64F51EA60627008832AA /* UIResponder+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIResponder+ZXSpectrum.swift"; sourceTree = "<group>"; };
 		73DA64F71EA613EF008832AA /* FileManager+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileManager+ZXSpectrum.swift"; sourceTree = "<group>"; };
@@ -430,7 +430,7 @@
 			children = (
 				737B57031EA4122A00A260B9 /* FilesViewController.swift */,
 				73DA64E91EA55E81008832AA /* FilesViewController+Bond.swift */,
-				73DA64ED1EA5611E008832AA /* FileCollectionViewCell.swift */,
+				73DA64ED1EA5611E008832AA /* FileTableViewCell.swift */,
 			);
 			name = Tapes;
 			sourceTree = "<group>";
@@ -808,7 +808,7 @@
 				736493351EA4CEA100EE697F /* Managed.swift in Sources */,
 				73DA64EC1EA56085008832AA /* Configurable.swift in Sources */,
 				736493421EA5518200EE697F /* PersistentContainerConsumer.swift in Sources */,
-				73DA64EE1EA5611E008832AA /* FileCollectionViewCell.swift in Sources */,
+				73DA64EE1EA5611E008832AA /* FileTableViewCell.swift in Sources */,
 				736493311EA4CE7200EE697F /* Model.xcdatamodeld in Sources */,
 				73DA64F61EA60627008832AA /* UIResponder+ZXSpectrum.swift in Sources */,
 				736493391EA54B0D00EE697F /* Database.swift in Sources */,
