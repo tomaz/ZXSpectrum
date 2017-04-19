@@ -24,6 +24,14 @@ func onNextRunLoop(handler: @escaping () -> Void) {
 }
 
 /**
+Executes the given handler after the given amount of time. Optionally you can also specify the queue on which to invoke handler; if nil, main queue is used.
+*/
+func after(_ delay: TimeInterval, queue: DispatchQueue? = nil, handler: @escaping () -> Void) {
+	let queue = queue ?? DispatchQueue.main
+	queue.asyncAfter(deadline: .now() + delay, execute: handler)
+}
+
+/**
 Simpler string localization.
 */
 func NSLocalizedString(_ key: String) -> String {

@@ -213,7 +213,9 @@ extension SpectrumScreenView: SpectrumDisplayHandler {
 					
 					let image = UIImage(cgImage: cgImage, scale: UIScreen.main.scale, orientation: .up)
 					
-					imageView.image = image
+					onMain {
+						self.imageView.image = image
+					}
 				}
 			}
 			

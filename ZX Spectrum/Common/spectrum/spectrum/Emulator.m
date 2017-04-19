@@ -63,6 +63,8 @@ extern keysyms_map_t recreated_keysyms_map[];
 
 extern sfifo_t sound_fifo;
 
+static NSOperationQueue *queue = nil;
+
 @implementation Emulator
 
 static Emulator *instance = nil;
@@ -567,18 +569,31 @@ static Emulator *instance = nil;
 
 -(void) startEmulationTimer
 {
+  if( queue == nil ) {
+    queue = [[NSOperationQueue alloc] init];
+	queue.name = @"ZX Emulation Queue";
+  }
   if( timer == nil ) {
-    timer = [NSTimer scheduledTimerWithTimeInterval: timerInterval
-                      target:self selector:@selector(updateEmulation:)
-                      userInfo:self repeats:true];
+	[queue addOperationWithBlock:^{
+	  NSRunLoop *currentLoop = [NSRunLoop currentRunLoop];
+		
+	  timer = [NSTimer scheduledTimerWithTimeInterval: timerInterval
+											   target:self selector:@selector(updateEmulation:)
+											 userInfo:self repeats:true];
+		
+	  [currentLoop addTimer:timer forMode:NSRunLoopCommonModes];
+      [currentLoop run];
+	}];
   }
 }
 
 -(void) stopEmulationTimer
 {
   if( timer != nil ) {
-    [timer invalidate];
-    timer = nil;
+    [queue addOperationWithBlock:^{
+  	  [timer invalidate];
+	  timer = nil;
+    }];
   }
 }
 

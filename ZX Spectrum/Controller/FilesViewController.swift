@@ -91,10 +91,10 @@ extension FilesViewController {
 	*/
 	fileprivate func insert(object: FileObject) {
 		let name = object.url.path.toInt8Array
-		
+
 		emulator.openFile(name)
 		
-		onNextRunLoop {
+		after(0.5) {
 			self.performSegue(withIdentifier: "UnwindToEmulatorScene", sender: self)
 		}
 	}

@@ -51,13 +51,14 @@ extension String {
 extension String {
 	
 	/**
-	Converts the string into an array of `Int8` bytes; useful for passing to C functions expecting `char *`.
+	Converts the string into an array of `Int8` bytes, terminated by 0; useful for passing to C functions expecting `char *`.
 	*/
 	var toInt8Array: [Int8] {
 		var result = [Int8]()
 		for byte in utf8 {
 			result.append(Int8(byte))
 		}
+		result.append(Int8(0))
 		return result
 	}
 }
