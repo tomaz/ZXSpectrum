@@ -19,6 +19,14 @@ extension FilesViewController {
 		
 		private lazy var indexes = Property([String]())
 		
+		// MARK: - Callbacks
+		
+		/// Called when user selects to insert the object for playback.
+		var didRequestInsert: ((FileObject) -> Void)? = nil
+		
+		/// Called when user wants to delete the object
+		var didRequestDelete: ((FileObject) -> Void)? = nil
+
 		// MARK: - Initialization
 		
 		/**
@@ -79,7 +87,11 @@ extension FilesViewController {
 			
 			gdebug("Dequeuing cell at \(indexPath) for \(object)")
 			let result = tableView.dequeueReusableCell(withIdentifier: "FileCell", for: indexPath) as! FileTableViewCell
+			
 			result.configure(object: object)
+			
+			result.didRequestInsert = didRequestInsert
+			result.didRequestDelete = didRequestDelete
 			
 			return result
 		}

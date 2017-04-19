@@ -23,12 +23,22 @@ final class FileObject: NSManagedObject {
 	/// Specifies whether the object is stock or uploaded.
 	@NSManaged var isStock: Bool
 	
+	// MARK: - Helper properties
+	
+	/// Indicates whether last uploaded files were succesfully deleted. Only valid after deleting the object.
+	fileprivate (set) var didUploadedFilesDelete = false
+	
 	// MARK: - Overriden functions
 	
 	override func awakeFromInsert() {
 		super.awakeFromInsert()
 		
 		setPrimitiveValue(Date(), forKey: #keyPath(added))
+	}
+
+	override func prepareForDeletion() {
+		super.prepareForDeletion()
+		didUploadedFilesDelete = Database.deleteUploadedFiles(at: url)
 	}
 }
 
@@ -40,12 +50,17 @@ extension FileObject {
 	var letter: String {
 		return String(filename.characters.first!)
 	}
+
+	/// Only the file name of this object, without extension; suitable for displaying on screen.
+	var displayName: String {
+		return relativeURL.deletingPathExtension().lastPathComponent
+	}
 	
 	/// URL of the file. This always includes full path, also for stock files.
 	var url: URL {
 		get {
 			if isStock {
-				return Bundle.main.url(forResource: path, withExtension: nil)!
+				return Bundle.main.url(forResource: filename, withExtension: nil)!
 			} else {
 				return Database.filesURL.appendingPathComponent(path).appendingPathComponent(filename)
 			}
@@ -92,5 +107,20 @@ extension FileObject: Managed {
 		} else {
 			return NSPredicate(format: "%K==false", #keyPath(isStock))
 		}
+	}
+}
+
+// MARK: - Helper functions
+
+extension FileObject {
+	
+	/**
+	Deletes the object from managed object context and all associated files.
+	
+	Note: this is convenience function only; we can also use `delete()` and check `didUploadedFilesDelete` afterwards.
+	*/
+	func deleteObjectAndAssociatedFiles() -> Bool {
+		delete()
+		return didUploadedFilesDelete
 	}
 }

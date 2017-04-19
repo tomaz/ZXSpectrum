@@ -23,6 +23,10 @@ extension NSObject {
 		if let source = self as? PersistentContainerProvider, let destination = object as? PersistentContainerConsumer {
 			destination.configure(persistentContainer: source.providePersistentContainer())
 		}
+		
+		if let source = self as? EmulatorProvider, let destination = object as? EmulatorConsumer {
+			destination.configure(emulator: source.provideEmulator())
+		}
 	}
 }
 

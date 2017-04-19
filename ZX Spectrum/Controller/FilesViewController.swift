@@ -17,8 +17,8 @@ final class FilesViewController: UITableViewController {
 	
 	// MARK: - Dependencies
 	
-	/// Persistent container.
 	fileprivate var persistentContainer: NSPersistentContainer!
+	fileprivate var emulator: Emulator!
 	
 	// MARK: - Data
 	
@@ -42,6 +42,8 @@ final class FilesViewController: UITableViewController {
 		
 		gdebug("Binding data")
 		bond.initialize(tableView: tableView)
+		bond.didRequestInsert = insert(object:)
+		bond.didRequestDelete = delete(object:)
 		files.bind(to: tableView, using: bond)
 		
 		gdebug("Setting up view")
@@ -61,6 +63,14 @@ extension FilesViewController: PersistentContainerConsumer {
 	}
 }
 
+extension FilesViewController: EmulatorConsumer {
+	
+	func configure(emulator: Emulator) {
+		gdebug("Configuring with \(emulator)")
+		self.emulator = emulator
+	}
+}
+
 // MARK: - Data
 
 extension FilesViewController {
@@ -74,6 +84,49 @@ extension FilesViewController {
 
 		gdebug("Updating with \(sections.count) sections")
 		files.replace(with: sections, performDiff: animated)
+	}
+	
+	/**
+	Inserts the given object for playback.
+	*/
+	fileprivate func insert(object: FileObject) {
+		let name = object.url.path.toInt8Array
+		
+		emulator.openFile(name)
+		
+		onNextRunLoop {
+			self.performSegue(withIdentifier: "UnwindToEmulatorScene", sender: self)
+		}
+	}
+	
+	/**
+	Deletes the given object.
+	*/
+	fileprivate func delete(object: FileObject) {
+		if let context = object.managedObjectContext {
+			let name = object.displayName
+			
+			let title = NSLocalizedString("Delete \(name)?")
+			
+			let message = object.isStock ?
+				NSLocalizedString("\(name) comes bundled with application! The only way to add it back after deleting is to delete all other files and restart application.") :
+				NSLocalizedString("You can upload files any time by tapping \"Upload\" button in the top right.")
+			
+			let deleteTitle = object.isStock ? NSLocalizedString("Delete Anyway") : NSLocalizedString("Delete")
+			
+			let confirmation = UIAlertController(title: title, message: message, preferredStyle: .alert)
+			
+			confirmation.addAction(UIAlertAction(title: deleteTitle, style: .destructive, handler: { action in
+				if object.deleteObjectAndAssociatedFiles() {
+					context.savePresentingError()
+					self.fetch(animated: true)
+				}
+			}))
+			
+			confirmation.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: nil))
+			
+			present(confirmation, animated: true, completion: nil)
+		}
 	}
 }
 

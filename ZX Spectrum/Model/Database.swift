@@ -56,6 +56,66 @@ class Database {
 
 // MARK: - Uploaded files handling
 
+extension Database {
+	
+	/**
+	Deletes the file at the given url as well as all files that share the same name but different extension.
+	*/
+	@discardableResult
+	static func deleteUploadedFiles(at url: URL) -> Bool {
+		let manager = FileManager.default
+		var failedFiles = [String]()
+		
+		// Get all files with the same name at the folder in which our file resides.
+		let filename = url.deletingPathExtension().lastPathComponent
+		let baseURL = url.deletingLastPathComponent()
+		
+		// If we can't enumerate files for some reason, lot and attempt to only remove the main file itself.
+		var files = [String]()
+		do {
+			files = try manager.contentsOfDirectory(atPath: baseURL.path).filter { $0.hasPrefix(filename) }
+		} catch {
+			gwarn("Failed enumerating contents of \(baseURL): \(error)")
+			files = [ url.lastPathComponent ]
+		}
+		
+		// Delete all files associated with this object.
+		gdebug("Deleting \(files.count) associated file(s) at \(baseURL)")
+		for file in files {
+			let absoluteURL = baseURL.appendingPathComponent(file)
+			if manager.fileExists(atPath: absoluteURL.path) {
+				do {
+					gdebug("- \(file)")
+					try manager.removeItem(atPath: absoluteURL.path)
+				} catch {
+					gerror("Failed deleting \(absoluteURL): \(error)")
+					failedFiles.append(absoluteURL.differentSuffix(with: Database.filesURL))
+				}
+			}
+		}
+		
+		// If the folder becomes empty, delete it too. Note in this case we don't report the error as it would likely only confuse the user.
+		if failedFiles.isEmpty {
+			do {
+				let remainingFiles = try manager.contentsOfDirectory(atPath: baseURL.path).filter { !$0.hasPrefix(".") }
+				if remainingFiles.isEmpty {
+					gdebug("Deleting now empty folder at \(baseURL)")
+					try manager.removeItem(at: baseURL)
+				}
+			} catch {
+				gwarn("Failed checking or deleting folder \(baseURL): \(error)")
+			}
+		}
+		
+		// If there were any errors, present them now.
+		if !failedFiles.isEmpty {
+			UIViewController.current.present(error: NSError.delete(paths: failedFiles))
+		}
+		
+		return failedFiles.isEmpty
+	}
+}
+
 extension NSManagedObjectContext {
 	
 	/**
@@ -87,6 +147,9 @@ extension NSManagedObjectContext {
 			existingObjects[object.relativeURL.relativePath] = object
 		}
 		
+		// Prepare known file extensions.
+		let knownFileExtensions = [ "tzx", "tap", "z80", "szx" ]
+		
 		// Perform search for all files.
 		let files = try! manager.subpathsOfDirectory(atPath: baseURL.path)
 		for file in files {
@@ -101,7 +164,12 @@ extension NSManagedObjectContext {
 			if manager.isDirectory(at: absoluteURL.path) {
 				continue
 			}
-
+			
+			// Ignore unknown file extensions.
+			if !knownFileExtensions.contains(absoluteURL.pathExtension) {
+				continue
+			}
+			
 			// Ignore existing objects; if user uploaded different file with same name, we'll use the new file next time anyway.
 			if existingObjects[file] != nil {
 				existingObjects.removeValue(forKey: file)

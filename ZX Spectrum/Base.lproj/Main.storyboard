@@ -104,40 +104,51 @@
         <scene sceneID="9Ri-zh-Qtx">
             <objects>
                 <tableViewController id="SJM-Db-pQf" customClass="FilesViewController" customModule="ZX_Spectrum" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" sectionIndexMinimumDisplayRowCount="10" rowHeight="88" sectionHeaderHeight="28" sectionFooterHeight="28" id="AOc-of-zyk">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" sectionIndexMinimumDisplayRowCount="10" rowHeight="120" sectionHeaderHeight="28" sectionFooterHeight="28" id="AOc-of-zyk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FileCell" id="ues-rt-8OF" customClass="FileTableViewCell" customModule="ZX_Spectrum" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="88"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="120"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="ues-rt-8OF" id="bX9-4i-kBM">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="87.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="119.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="hvc-Zt-zBl">
-                                            <rect key="frame" x="15" y="12" width="345" height="63.5"/>
+                                            <rect key="frame" x="15" y="12" width="345" height="95.5"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="NAME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="twP-TW-RVG">
-                                                    <rect key="frame" x="0.0" y="0.0" width="345" height="21.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="NAME" textAlignment="natural" lineBreakMode="headTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="twP-TW-RVG">
+                                                    <rect key="frame" x="0.0" y="0.0" width="345" height="41.5"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fnJ-PF-xMX">
-                                                    <rect key="frame" x="0.0" y="33.5" width="345" height="30"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fnJ-PF-xMX" customClass="ToolbarView" customModule="ZX_Spectrum" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="53.5" width="345" height="42"/>
                                                     <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AGC-nv-BLy">
-                                                            <rect key="frame" x="0.0" y="0.0" width="55" height="30"/>
-                                                            <state key="normal" title="DELETE"/>
-                                                        </button>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="44" translatesAutoresizingMaskIntoConstraints="NO" id="5lB-V2-G1U">
+                                                            <rect key="frame" x="97" y="12" width="151" height="30"/>
+                                                            <subviews>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Als-ED-9Fz">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="52" height="30"/>
+                                                                    <state key="normal" title="INSERT"/>
+                                                                </button>
+                                                                <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AGC-nv-BLy">
+                                                                    <rect key="frame" x="96" y="0.0" width="55" height="30"/>
+                                                                    <color key="tintColor" red="1" green="0.0" blue="0.20679030879999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                    <state key="normal" title="DELETE"/>
+                                                                </button>
+                                                            </subviews>
+                                                        </stackView>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="bottom" secondItem="AGC-nv-BLy" secondAttribute="bottom" id="BIY-Jj-oHc"/>
-                                                        <constraint firstItem="AGC-nv-BLy" firstAttribute="leading" secondItem="fnJ-PF-xMX" secondAttribute="leading" id="RTd-o1-YHH"/>
-                                                        <constraint firstItem="AGC-nv-BLy" firstAttribute="top" secondItem="fnJ-PF-xMX" secondAttribute="top" id="xzD-qe-U0G"/>
+                                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="5lB-V2-G1U" secondAttribute="trailing" id="1bo-7W-Us1"/>
+                                                        <constraint firstItem="5lB-V2-G1U" firstAttribute="top" secondItem="fnJ-PF-xMX" secondAttribute="top" constant="12" id="bQ6-45-BSH"/>
+                                                        <constraint firstItem="5lB-V2-G1U" firstAttribute="centerX" secondItem="fnJ-PF-xMX" secondAttribute="centerX" id="r7P-Yf-WXD"/>
+                                                        <constraint firstAttribute="bottom" secondItem="5lB-V2-G1U" secondAttribute="bottom" id="z6T-fr-K9a"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -153,6 +164,7 @@
                                 <connections>
                                     <outlet property="actionsContainerView" destination="fnJ-PF-xMX" id="IXe-CS-zsx"/>
                                     <outlet property="deleteButton" destination="AGC-nv-BLy" id="C8n-tm-T0r"/>
+                                    <outlet property="insertButton" destination="Als-ED-9Fz" id="IJc-Q0-42b"/>
                                     <outlet property="nameLabel" destination="twP-TW-RVG" id="GnL-ND-lAn"/>
                                 </connections>
                             </tableViewCell>
@@ -165,7 +177,7 @@
                     <navigationItem key="navigationItem" title="Files" id="BVv-E2-nHj">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="nOd-hT-6PF">
                             <connections>
-                                <segue destination="SIk-VY-i5t" kind="unwind" unwindAction="unwindToEmulatorViewControllerWithSegue:" id="4O6-8v-8P8"/>
+                                <segue destination="SIk-VY-i5t" kind="unwind" identifier="UnwindToEmulatorScene" unwindAction="unwindToEmulatorViewControllerWithSegue:" id="4O6-8v-8P8"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Upload" id="a8y-0H-gWk"/>
@@ -183,7 +195,7 @@
         <scene sceneID="pcq-0a-fOt">
             <objects>
                 <navigationController id="OWd-3c-rp4" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="bvc-m0-rte">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bvc-m0-rte">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

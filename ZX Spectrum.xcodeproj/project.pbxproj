@@ -52,7 +52,29 @@
 		737E93891E87D19D00128149 /* EmulatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 737E93871E87D19D00128149 /* EmulatorViewController.swift */; };
 		7384B85B1EA771F9005FC8DF /* Diff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73DA65231EA6653B008832AA /* Diff.framework */; };
 		7384B85C1EA771F9005FC8DF /* Diff.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 73DA65231EA6653B008832AA /* Diff.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		7384B86E1EA78BDD005FC8DF /* UIButton+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7384B86D1EA78BDD005FC8DF /* UIButton+ZXSpectrum.swift */; };
+		7384B8861EA78F8C005FC8DF /* UITableViewCell+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7384B8851EA78F8C005FC8DF /* UITableViewCell+ZXSpectrum.swift */; };
+		7384B88C1EA7A257005FC8DF /* UIViewController+Hierarchy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7384B88B1EA7A257005FC8DF /* UIViewController+Hierarchy.swift */; };
+		7384B88E1EA7A35B005FC8DF /* NSManagedObjectContext+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7384B88D1EA7A35B005FC8DF /* NSManagedObjectContext+ZXSpectrum.swift */; };
+		7384B8901EA7A46C005FC8DF /* NSError+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7384B88F1EA7A46C005FC8DF /* NSError+ZXSpectrum.swift */; };
 		739824841E93DC99005E6B14 /* libspectrum.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 737E99BF1E88401900128149 /* libspectrum.a */; };
+		73B529D51EA7BB1C002FB90B /* URL+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B529D41EA7BB1C002FB90B /* URL+ZXSpectrum.swift */; };
+		73B529EB1EA7CF73002FB90B /* EmulatorConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B529EA1EA7CF73002FB90B /* EmulatorConsumer.swift */; };
+		73B529FC1EA7D42D002FB90B /* disk_plus3.szx in Resources */ = {isa = PBXBuildFile; fileRef = 73B529ED1EA7D42D002FB90B /* disk_plus3.szx */; };
+		73B529FD1EA7D42D002FB90B /* tape_16.szx in Resources */ = {isa = PBXBuildFile; fileRef = 73B529EE1EA7D42D002FB90B /* tape_16.szx */; };
+		73B529FE1EA7D42D002FB90B /* tape_48_ntsc.szx in Resources */ = {isa = PBXBuildFile; fileRef = 73B529EF1EA7D42D002FB90B /* tape_48_ntsc.szx */; };
+		73B529FF1EA7D42D002FB90B /* tape_48.szx in Resources */ = {isa = PBXBuildFile; fileRef = 73B529F01EA7D42D002FB90B /* tape_48.szx */; };
+		73B52A001EA7D42D002FB90B /* tape_128.szx in Resources */ = {isa = PBXBuildFile; fileRef = 73B529F11EA7D42D002FB90B /* tape_128.szx */; };
+		73B52A011EA7D42D002FB90B /* tape_2048.szx in Resources */ = {isa = PBXBuildFile; fileRef = 73B529F21EA7D42D002FB90B /* tape_2048.szx */; };
+		73B52A021EA7D42D002FB90B /* tape_2068.szx in Resources */ = {isa = PBXBuildFile; fileRef = 73B529F31EA7D42D002FB90B /* tape_2068.szx */; };
+		73B52A031EA7D42D002FB90B /* tape_pentagon.szx in Resources */ = {isa = PBXBuildFile; fileRef = 73B529F41EA7D42D002FB90B /* tape_pentagon.szx */; };
+		73B52A041EA7D42D002FB90B /* tape_plus2.szx in Resources */ = {isa = PBXBuildFile; fileRef = 73B529F51EA7D42D002FB90B /* tape_plus2.szx */; };
+		73B52A051EA7D42D002FB90B /* tape_plus2a.szx in Resources */ = {isa = PBXBuildFile; fileRef = 73B529F61EA7D42D002FB90B /* tape_plus2a.szx */; };
+		73B52A061EA7D42D002FB90B /* tape_plus3.szx in Resources */ = {isa = PBXBuildFile; fileRef = 73B529F71EA7D42D002FB90B /* tape_plus3.szx */; };
+		73B52A071EA7D42D002FB90B /* tape_plus3e.szx in Resources */ = {isa = PBXBuildFile; fileRef = 73B529F81EA7D42D002FB90B /* tape_plus3e.szx */; };
+		73B52A081EA7D42D002FB90B /* tape_scorpion.szx in Resources */ = {isa = PBXBuildFile; fileRef = 73B529F91EA7D42D002FB90B /* tape_scorpion.szx */; };
+		73B52A091EA7D42D002FB90B /* tape_se.szx in Resources */ = {isa = PBXBuildFile; fileRef = 73B529FA1EA7D42D002FB90B /* tape_se.szx */; };
+		73B52A0A1EA7D42D002FB90B /* tape_ts2068.szx in Resources */ = {isa = PBXBuildFile; fileRef = 73B529FB1EA7D42D002FB90B /* tape_ts2068.szx */; };
 		73DA64E81EA559D3008832AA /* Safari.tzx in Resources */ = {isa = PBXBuildFile; fileRef = 73DA64E71EA559D3008832AA /* Safari.tzx */; };
 		73DA64EA1EA55E81008832AA /* FilesViewController+Bond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DA64E91EA55E81008832AA /* FilesViewController+Bond.swift */; };
 		73DA64EC1EA56085008832AA /* Configurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DA64EB1EA56085008832AA /* Configurable.swift */; };
@@ -69,6 +91,7 @@
 		73DF22F51E997510002FA042 /* SpectrumPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DF22F41E997510002FA042 /* SpectrumPalette.swift */; };
 		73E0F5F21E9FBC40003F8F4D /* ZX48KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E0F5F11E9FBC40003F8F4D /* ZX48KeyboardView.swift */; };
 		73E0F5F51E9FBC81003F8F4D /* ZX48KeyboardStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E0F5F41E9FBC81003F8F4D /* ZX48KeyboardStyleKit.swift */; };
+		73EEA0351EA7B64300E65A21 /* String+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EEA0341EA7B64300E65A21 /* String+ZXSpectrum.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -344,7 +367,29 @@
 		737E93861E87D19D00128149 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		737E93871E87D19D00128149 /* EmulatorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmulatorViewController.swift; sourceTree = "<group>"; };
 		737E99BA1E88401800128149 /* spectrum.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = spectrum.xcodeproj; path = "ZX Spectrum/Common/spectrum/spectrum.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		7384B86D1EA78BDD005FC8DF /* UIButton+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+ZXSpectrum.swift"; sourceTree = "<group>"; };
+		7384B8851EA78F8C005FC8DF /* UITableViewCell+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+ZXSpectrum.swift"; sourceTree = "<group>"; };
+		7384B88B1EA7A257005FC8DF /* UIViewController+Hierarchy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Hierarchy.swift"; sourceTree = "<group>"; };
+		7384B88D1EA7A35B005FC8DF /* NSManagedObjectContext+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+ZXSpectrum.swift"; sourceTree = "<group>"; };
+		7384B88F1EA7A46C005FC8DF /* NSError+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSError+ZXSpectrum.swift"; sourceTree = "<group>"; };
 		739824831E93DB71005E6B14 /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BridgingHeader.h; path = ../BridgingHeader.h; sourceTree = "<group>"; };
+		73B529D41EA7BB1C002FB90B /* URL+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+ZXSpectrum.swift"; sourceTree = "<group>"; };
+		73B529EA1EA7CF73002FB90B /* EmulatorConsumer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmulatorConsumer.swift; sourceTree = "<group>"; };
+		73B529ED1EA7D42D002FB90B /* disk_plus3.szx */ = {isa = PBXFileReference; lastKnownFileType = file; name = disk_plus3.szx; path = "ZX Spectrum/Common/spectrum/spectrum/fuse/lib/compressed/disk_plus3.szx"; sourceTree = SOURCE_ROOT; };
+		73B529EE1EA7D42D002FB90B /* tape_16.szx */ = {isa = PBXFileReference; lastKnownFileType = file; name = tape_16.szx; path = "ZX Spectrum/Common/spectrum/spectrum/fuse/lib/compressed/tape_16.szx"; sourceTree = SOURCE_ROOT; };
+		73B529EF1EA7D42D002FB90B /* tape_48_ntsc.szx */ = {isa = PBXFileReference; lastKnownFileType = file; name = tape_48_ntsc.szx; path = "ZX Spectrum/Common/spectrum/spectrum/fuse/lib/compressed/tape_48_ntsc.szx"; sourceTree = SOURCE_ROOT; };
+		73B529F01EA7D42D002FB90B /* tape_48.szx */ = {isa = PBXFileReference; lastKnownFileType = file; name = tape_48.szx; path = "ZX Spectrum/Common/spectrum/spectrum/fuse/lib/compressed/tape_48.szx"; sourceTree = SOURCE_ROOT; };
+		73B529F11EA7D42D002FB90B /* tape_128.szx */ = {isa = PBXFileReference; lastKnownFileType = file; name = tape_128.szx; path = "ZX Spectrum/Common/spectrum/spectrum/fuse/lib/compressed/tape_128.szx"; sourceTree = SOURCE_ROOT; };
+		73B529F21EA7D42D002FB90B /* tape_2048.szx */ = {isa = PBXFileReference; lastKnownFileType = file; name = tape_2048.szx; path = "ZX Spectrum/Common/spectrum/spectrum/fuse/lib/compressed/tape_2048.szx"; sourceTree = SOURCE_ROOT; };
+		73B529F31EA7D42D002FB90B /* tape_2068.szx */ = {isa = PBXFileReference; lastKnownFileType = file; name = tape_2068.szx; path = "ZX Spectrum/Common/spectrum/spectrum/fuse/lib/compressed/tape_2068.szx"; sourceTree = SOURCE_ROOT; };
+		73B529F41EA7D42D002FB90B /* tape_pentagon.szx */ = {isa = PBXFileReference; lastKnownFileType = file; name = tape_pentagon.szx; path = "ZX Spectrum/Common/spectrum/spectrum/fuse/lib/compressed/tape_pentagon.szx"; sourceTree = SOURCE_ROOT; };
+		73B529F51EA7D42D002FB90B /* tape_plus2.szx */ = {isa = PBXFileReference; lastKnownFileType = file; name = tape_plus2.szx; path = "ZX Spectrum/Common/spectrum/spectrum/fuse/lib/compressed/tape_plus2.szx"; sourceTree = SOURCE_ROOT; };
+		73B529F61EA7D42D002FB90B /* tape_plus2a.szx */ = {isa = PBXFileReference; lastKnownFileType = file; name = tape_plus2a.szx; path = "ZX Spectrum/Common/spectrum/spectrum/fuse/lib/compressed/tape_plus2a.szx"; sourceTree = SOURCE_ROOT; };
+		73B529F71EA7D42D002FB90B /* tape_plus3.szx */ = {isa = PBXFileReference; lastKnownFileType = file; name = tape_plus3.szx; path = "ZX Spectrum/Common/spectrum/spectrum/fuse/lib/compressed/tape_plus3.szx"; sourceTree = SOURCE_ROOT; };
+		73B529F81EA7D42D002FB90B /* tape_plus3e.szx */ = {isa = PBXFileReference; lastKnownFileType = file; name = tape_plus3e.szx; path = "ZX Spectrum/Common/spectrum/spectrum/fuse/lib/compressed/tape_plus3e.szx"; sourceTree = SOURCE_ROOT; };
+		73B529F91EA7D42D002FB90B /* tape_scorpion.szx */ = {isa = PBXFileReference; lastKnownFileType = file; name = tape_scorpion.szx; path = "ZX Spectrum/Common/spectrum/spectrum/fuse/lib/compressed/tape_scorpion.szx"; sourceTree = SOURCE_ROOT; };
+		73B529FA1EA7D42D002FB90B /* tape_se.szx */ = {isa = PBXFileReference; lastKnownFileType = file; name = tape_se.szx; path = "ZX Spectrum/Common/spectrum/spectrum/fuse/lib/compressed/tape_se.szx"; sourceTree = SOURCE_ROOT; };
+		73B529FB1EA7D42D002FB90B /* tape_ts2068.szx */ = {isa = PBXFileReference; lastKnownFileType = file; name = tape_ts2068.szx; path = "ZX Spectrum/Common/spectrum/spectrum/fuse/lib/compressed/tape_ts2068.szx"; sourceTree = SOURCE_ROOT; };
 		73DA64E71EA559D3008832AA /* Safari.tzx */ = {isa = PBXFileReference; lastKnownFileType = file; path = Safari.tzx; sourceTree = "<group>"; };
 		73DA64E91EA55E81008832AA /* FilesViewController+Bond.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FilesViewController+Bond.swift"; sourceTree = "<group>"; };
 		73DA64EB1EA56085008832AA /* Configurable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configurable.swift; sourceTree = "<group>"; };
@@ -359,6 +404,7 @@
 		73DF22F41E997510002FA042 /* SpectrumPalette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpectrumPalette.swift; sourceTree = "<group>"; };
 		73E0F5F11E9FBC40003F8F4D /* ZX48KeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZX48KeyboardView.swift; sourceTree = "<group>"; };
 		73E0F5F41E9FBC81003F8F4D /* ZX48KeyboardStyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZX48KeyboardStyleKit.swift; sourceTree = "<group>"; };
+		73EEA0341EA7B64300E65A21 /* String+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+ZXSpectrum.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -433,6 +479,7 @@
 			children = (
 				7364933F1EA5518200EE697F /* DependencyInjection.swift */,
 				736493401EA5518200EE697F /* PersistentContainerConsumer.swift */,
+				73B529EA1EA7CF73002FB90B /* EmulatorConsumer.swift */,
 			);
 			path = Dependencies;
 			sourceTree = "<group>";
@@ -478,9 +525,16 @@
 			isa = PBXGroup;
 			children = (
 				73DA64F71EA613EF008832AA /* FileManager+ZXSpectrum.swift */,
+				73EEA0341EA7B64300E65A21 /* String+ZXSpectrum.swift */,
+				73B529D41EA7BB1C002FB90B /* URL+ZXSpectrum.swift */,
+				7384B88F1EA7A46C005FC8DF /* NSError+ZXSpectrum.swift */,
+				7384B88D1EA7A35B005FC8DF /* NSManagedObjectContext+ZXSpectrum.swift */,
+				7384B88B1EA7A257005FC8DF /* UIViewController+Hierarchy.swift */,
 				737B56FC1EA4009900A260B9 /* UIViewController+ZXSpectrum.swift */,
 				737B56FE1EA4033B00A260B9 /* UIGestureRecognizer+ZXSpectrum.swift */,
 				73DA64F51EA60627008832AA /* UIResponder+ZXSpectrum.swift */,
+				7384B86D1EA78BDD005FC8DF /* UIButton+ZXSpectrum.swift */,
+				7384B8851EA78F8C005FC8DF /* UITableViewCell+ZXSpectrum.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -501,14 +555,14 @@
 			name = Emulator;
 			sourceTree = "<group>";
 		};
-		737B57021EA411F100A260B9 /* Tapes */ = {
+		737B57021EA411F100A260B9 /* Files */ = {
 			isa = PBXGroup;
 			children = (
 				737B57031EA4122A00A260B9 /* FilesViewController.swift */,
 				73DA64E91EA55E81008832AA /* FilesViewController+Bond.swift */,
 				73DA64ED1EA5611E008832AA /* FileTableViewCell.swift */,
 			);
-			name = Tapes;
+			name = Files;
 			sourceTree = "<group>";
 		};
 		737E93651E87D10E00128149 = {
@@ -545,7 +599,7 @@
 			children = (
 				737B57001EA411DA00A260B9 /* Application */,
 				737B57011EA411E400A260B9 /* Emulator */,
-				737B57021EA411F100A260B9 /* Tapes */,
+				737B57021EA411F100A260B9 /* Files */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -553,8 +607,9 @@
 		737E93841E87D14400128149 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				73DA64D71EA55998008832AA /* Files */,
 				73291EB31E96635A00940801 /* ROMS */,
+				73B529EC1EA7D413002FB90B /* Snapshots */,
+				73DA64D71EA55998008832AA /* Files */,
 				737E93751E87D10E00128149 /* Main.storyboard */,
 				737E937A1E87D10E00128149 /* LaunchScreen.storyboard */,
 				737E93781E87D10E00128149 /* Assets.xcassets */,
@@ -605,6 +660,28 @@
 				737E99BF1E88401900128149 /* libspectrum.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		73B529EC1EA7D413002FB90B /* Snapshots */ = {
+			isa = PBXGroup;
+			children = (
+				73B529ED1EA7D42D002FB90B /* disk_plus3.szx */,
+				73B529EE1EA7D42D002FB90B /* tape_16.szx */,
+				73B529EF1EA7D42D002FB90B /* tape_48_ntsc.szx */,
+				73B529F01EA7D42D002FB90B /* tape_48.szx */,
+				73B529F11EA7D42D002FB90B /* tape_128.szx */,
+				73B529F21EA7D42D002FB90B /* tape_2048.szx */,
+				73B529F31EA7D42D002FB90B /* tape_2068.szx */,
+				73B529F41EA7D42D002FB90B /* tape_pentagon.szx */,
+				73B529F51EA7D42D002FB90B /* tape_plus2.szx */,
+				73B529F61EA7D42D002FB90B /* tape_plus2a.szx */,
+				73B529F71EA7D42D002FB90B /* tape_plus3.szx */,
+				73B529F81EA7D42D002FB90B /* tape_plus3e.szx */,
+				73B529F91EA7D42D002FB90B /* tape_scorpion.szx */,
+				73B529FA1EA7D42D002FB90B /* tape_se.szx */,
+				73B529FB1EA7D42D002FB90B /* tape_ts2068.szx */,
+			);
+			name = Snapshots;
 			sourceTree = "<group>";
 		};
 		73DA64D71EA55998008832AA /* Files */ = {
@@ -916,26 +993,41 @@
 				73291ED41E96637100940801 /* plus3e-1.rom in Resources */,
 				73291ED91E96637100940801 /* se-0.rom in Resources */,
 				73291ED51E96637100940801 /* plus3e-2.rom in Resources */,
+				73B52A091EA7D42D002FB90B /* tape_se.szx in Resources */,
+				73B52A071EA7D42D002FB90B /* tape_plus3e.szx in Resources */,
 				73291ECD1E96637100940801 /* plus2-0.rom in Resources */,
 				73291ECE1E96637100940801 /* plus2-1.rom in Resources */,
 				737E93791E87D10E00128149 /* Assets.xcassets in Resources */,
 				73291EDA1E96637100940801 /* se-1.rom in Resources */,
 				73291ED11E96637100940801 /* plus3-2.rom in Resources */,
+				73B52A061EA7D42D002FB90B /* tape_plus3.szx in Resources */,
 				73291ED81E96637100940801 /* disciple.rom in Resources */,
+				73B52A031EA7D42D002FB90B /* tape_pentagon.szx in Resources */,
 				73291EDB1E96637100940801 /* speccyboot-1.4.rom in Resources */,
+				73B52A041EA7D42D002FB90B /* tape_plus2.szx in Resources */,
 				73291EDC1E96637100940801 /* tc2048.rom in Resources */,
 				73291ED01E96637100940801 /* plus3-1.rom in Resources */,
 				73291ED31E96637100940801 /* plus3e-0.rom in Resources */,
 				73291ECF1E96637100940801 /* plus3-0.rom in Resources */,
+				73B529FD1EA7D42D002FB90B /* tape_16.szx in Resources */,
+				73B529FE1EA7D42D002FB90B /* tape_48_ntsc.szx in Resources */,
 				73291ECB1E96637100940801 /* 128-0.rom in Resources */,
 				73291ECC1E96637100940801 /* 128-1.rom in Resources */,
+				73B52A001EA7D42D002FB90B /* tape_128.szx in Resources */,
+				73B52A081EA7D42D002FB90B /* tape_scorpion.szx in Resources */,
+				73B52A011EA7D42D002FB90B /* tape_2048.szx in Resources */,
+				73B52A051EA7D42D002FB90B /* tape_plus2a.szx in Resources */,
 				73291ED61E96637100940801 /* plus3e-3.rom in Resources */,
 				73291ED21E96637100940801 /* plus3-3.rom in Resources */,
+				73B52A021EA7D42D002FB90B /* tape_2068.szx in Resources */,
 				73291EDD1E96637100940801 /* tc2068-0.rom in Resources */,
 				73291ED71E96637100940801 /* plusd.rom in Resources */,
 				73DA64E81EA559D3008832AA /* Safari.tzx in Resources */,
+				73B529FF1EA7D42D002FB90B /* tape_48.szx in Resources */,
 				737E93771E87D10E00128149 /* Main.storyboard in Resources */,
+				73B529FC1EA7D42D002FB90B /* disk_plus3.szx in Resources */,
 				73291EDE1E96637100940801 /* tc2068-1.rom in Resources */,
+				73B52A0A1EA7D42D002FB90B /* tape_ts2068.szx in Resources */,
 				73291ECA1E96637100940801 /* 48.rom in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -952,6 +1044,8 @@
 				737E93891E87D19D00128149 /* EmulatorViewController.swift in Sources */,
 				736493411EA5518200EE697F /* DependencyInjection.swift in Sources */,
 				73E0F5F51E9FBC81003F8F4D /* ZX48KeyboardStyleKit.swift in Sources */,
+				7384B8861EA78F8C005FC8DF /* UITableViewCell+ZXSpectrum.swift in Sources */,
+				73B529D51EA7BB1C002FB90B /* URL+ZXSpectrum.swift in Sources */,
 				737B57041EA4122A00A260B9 /* FilesViewController.swift in Sources */,
 				733787571E9CE99300C5C363 /* SpectrumInputController.m in Sources */,
 				737B56FD1EA4009900A260B9 /* UIViewController+ZXSpectrum.swift in Sources */,
@@ -959,7 +1053,10 @@
 				7364933B1EA54B2F00EE697F /* Logger.swift in Sources */,
 				73DA64F81EA613EF008832AA /* FileManager+ZXSpectrum.swift in Sources */,
 				733787541E9CE36C00C5C363 /* ToolbarView.swift in Sources */,
+				73B529EB1EA7CF73002FB90B /* EmulatorConsumer.swift in Sources */,
 				736493371EA4D02D00EE697F /* FileObject.swift in Sources */,
+				7384B8901EA7A46C005FC8DF /* NSError+ZXSpectrum.swift in Sources */,
+				73EEA0351EA7B64300E65A21 /* String+ZXSpectrum.swift in Sources */,
 				7364933D1EA54B6E00EE697F /* Functions.swift in Sources */,
 				737E93881E87D19D00128149 /* AppDelegate.swift in Sources */,
 				73DF22F51E997510002FA042 /* SpectrumPalette.swift in Sources */,
@@ -972,8 +1069,11 @@
 				73DA64F61EA60627008832AA /* UIResponder+ZXSpectrum.swift in Sources */,
 				736493391EA54B0D00EE697F /* Database.swift in Sources */,
 				73DF22F31E997501002FA042 /* SpectrumScreenView.swift in Sources */,
+				7384B88C1EA7A257005FC8DF /* UIViewController+Hierarchy.swift in Sources */,
 				73DA64EA1EA55E81008832AA /* FilesViewController+Bond.swift in Sources */,
 				73DA64F41EA60485008832AA /* WebServer.swift in Sources */,
+				7384B86E1EA78BDD005FC8DF /* UIButton+ZXSpectrum.swift in Sources */,
+				7384B88E1EA7A35B005FC8DF /* NSManagedObjectContext+ZXSpectrum.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -38,9 +38,9 @@ class EmulatorViewController: UIViewController {
 		settings_defaults(&settings_current);
 		
 		gdebug("Setting up view")
-		updateSettingsButtonIcon()
-		updateResetButtonIcon()
-		updateFilesButtonIcon()
+		settingsButton.image = IconsStyleKit.imageOfIconGear
+		resetButton.image = IconsStyleKit.imageOfIconReset
+		filesButton.image = IconsStyleKit.imageOfIconTape
 		updateKeyboardButtonIcon()
 		
 		setupResetButtonSignals()
@@ -83,7 +83,12 @@ class EmulatorViewController: UIViewController {
 
 // MARK: - Dependencies
 
-extension EmulatorViewController: PersistentContainerProvider {
+extension EmulatorViewController: PersistentContainerConsumer, PersistentContainerProvider {
+	
+	func configure(persistentContainer: NSPersistentContainer) {
+		gdebug("Configuring with \(persistentContainer)")
+		self.persistentContainer = persistentContainer
+	}
 	
 	func providePersistentContainer() -> NSPersistentContainer {
 		gdebug("Providing \(persistentContainer)")
@@ -91,11 +96,11 @@ extension EmulatorViewController: PersistentContainerProvider {
 	}
 }
 
-extension EmulatorViewController: PersistentContainerConsumer {
+extension EmulatorViewController: EmulatorProvider {
 	
-	func configure(persistentContainer: NSPersistentContainer) {
-		gdebug("Configuring with \(persistentContainer)")
-		self.persistentContainer = persistentContainer
+	func provideEmulator() -> Emulator {
+		gdebug("Providing \(emulator)")
+		return emulator
 	}
 }
 
@@ -107,37 +112,20 @@ extension EmulatorViewController {
 		// Nothing to do here, but the function is needed for unwinding segues.
 	}
 	
-	fileprivate func updateSettingsButtonIcon() {
-		settingsButton.setTitle(nil, for: .normal)
-		settingsButton.setImage(IconsStyleKit.imageOfIconGear, for: .normal)
-	}
-	
-	fileprivate func updateResetButtonIcon() {
-		resetButton.setTitle(nil, for: .normal)
-		resetButton.setImage(IconsStyleKit.imageOfIconReset, for: .normal)
-	}
-	
-	fileprivate func updateFilesButtonIcon() {
-		filesButton.setTitle(nil, for: .normal)
-		filesButton.setImage(IconsStyleKit.imageOfIconTape, for: .normal)
-	}
-	
 	fileprivate func updateKeyboardButtonIcon(animated: Bool = false) {
 		let image = spectrumView.isFirstResponder ? IconsStyleKit.imageOfIconKeyboardHide : IconsStyleKit.imageOfIconKeyboardShow
-		
-		keyboardButton.setTitle(nil, for: .normal)
 		
 		if animated {
 			UIView.animate(withDuration: 0.1, animations: { 
 				self.keyboardButton.alpha = 0
 			}, completion: { completed in
-				self.keyboardButton.setImage(image, for: .normal)
+				self.keyboardButton.image = image
 				UIView.animate(withDuration: 0.1) {
 					self.keyboardButton.alpha = 1
 				}
 			})
 		} else {
-			keyboardButton.setImage(image, for: .normal)
+			keyboardButton.image = image
 		}
 	}
 }
