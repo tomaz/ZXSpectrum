@@ -8,7 +8,7 @@ import UIKit
 /**
 Manages palette of Spectrum colors.
 */
-final class SpectrumPalette {
+final class SpectrumPalette: NSObject {
 	
 	/**
 	Let's keep this on English spelling in honor of Speccy origin :)
@@ -27,6 +27,14 @@ final class SpectrumPalette {
 	*/
 	subscript(index: Int) -> Color {
 		return colours[index]
+	}
+	
+	/**
+	Helper methods for Objective-C.
+	*/
+	@objc(rawColorAtIndex:)
+	func raw(at index: Int) -> UInt32 {
+		return colours[index].raw;
 	}
 
 	/**
