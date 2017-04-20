@@ -46,6 +46,7 @@
   BOOL ctrlDown;
   BOOL shiftDown;
   BOOL commandDown;
+  BOOL emulateOnBackThread;
 
   DisplayOpenGLView *proxy_view;
 }

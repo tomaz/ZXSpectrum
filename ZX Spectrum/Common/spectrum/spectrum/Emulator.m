@@ -569,31 +569,39 @@ static Emulator *instance = nil;
 
 -(void) startEmulationTimer
 {
-  if( queue == nil ) {
+  if( emulateOnBackThread && queue == nil ) {
     queue = [[NSOperationQueue alloc] init];
-	queue.name = @"ZX Emulation Queue";
+    queue.name = @"ZX Emulation Queue";
   }
+  
   if( timer == nil ) {
-	[queue addOperationWithBlock:^{
-	  NSRunLoop *currentLoop = [NSRunLoop currentRunLoop];
-		
-	  timer = [NSTimer scheduledTimerWithTimeInterval: timerInterval
-											   target:self selector:@selector(updateEmulation:)
-											 userInfo:self repeats:true];
-		
-	  [currentLoop addTimer:timer forMode:NSRunLoopCommonModes];
-      [currentLoop run];
-	}];
+    if( emulateOnBackThread ) {
+      [queue addOperationWithBlock:^{
+        NSRunLoop *currentLoop = [NSRunLoop currentRunLoop];
+        
+        timer = [NSTimer scheduledTimerWithTimeInterval: timerInterval target:self selector:@selector(updateEmulation:) userInfo:self repeats:true];
+        
+        [currentLoop addTimer:timer forMode:NSRunLoopCommonModes];
+        [currentLoop run];
+      }];
+    } else {
+      timer = [NSTimer scheduledTimerWithTimeInterval: timerInterval target:self selector:@selector(updateEmulation:) userInfo:self repeats:true];
+    }
   }
 }
 
 -(void) stopEmulationTimer
 {
   if( timer != nil ) {
-    [queue addOperationWithBlock:^{
-  	  [timer invalidate];
-	  timer = nil;
-    }];
+    if( emulateOnBackThread ) {
+      [queue addOperationWithBlock:^{
+        [timer invalidate];
+        timer = nil;
+      }];
+    } else {
+      [timer invalidate];
+      timer = nil;
+    }
   }
 }
 

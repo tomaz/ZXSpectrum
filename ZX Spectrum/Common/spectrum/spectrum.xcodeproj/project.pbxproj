@@ -637,7 +637,10 @@
 				737E99AF1E88401800128149 /* Products */,
 				739825091E9517DD005E6B14 /* Frameworks */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
+			usesTabs = 0;
 		};
 		737E99AF1E88401800128149 /* Products */ = {
 			isa = PBXGroup;
