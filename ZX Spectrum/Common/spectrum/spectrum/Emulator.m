@@ -276,7 +276,7 @@ static Emulator *instance = nil;
 }
 
 -(void) reset
-{
+{	
   machine_reset(0);
 }
 

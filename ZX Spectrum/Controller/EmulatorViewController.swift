@@ -36,13 +36,16 @@ class EmulatorViewController: UIViewController {
 		gdebug("Setting up emulator")
 		emulator = Emulator()!
 		settings_defaults(&settings_current);
+		read_config_file(&settings_current);
+		spectrumView.hookToFuse()
+		fuse_init(0, nil);
 		
 		gdebug("Setting up view")
 		settingsButton.image = IconsStyleKit.imageOfIconGear
 		resetButton.image = IconsStyleKit.imageOfIconReset
 		filesButton.image = IconsStyleKit.imageOfIconTape
 		updateKeyboardButtonIcon()
-		
+
 		setupResetButtonSignals()
 		setupKeyboardButtonSignals()
 	}
@@ -53,8 +56,7 @@ class EmulatorViewController: UIViewController {
 		super.viewWillAppear(animated)
 		
 		gdebug("Starting emulator")
-		spectrumView.hookToFuse()
-		fuse_init(0, nil);
+		fuse_emulation_unpause()
 		
 		gdebug("Preparing for appearance")
 		setupKeyboardWillShowNotificationSignal()
@@ -68,8 +70,7 @@ class EmulatorViewController: UIViewController {
 		super.viewWillDisappear(animated)
 		
 		gdebug("Stopping emulator")
-		fuse_end()
-		spectrumView.unhookFromFuse()
+		fuse_emulation_pause()
 		
 		gdebug("Preparing for dissapearance")
 		viewWillHideBag.dispose()
@@ -109,7 +110,9 @@ extension EmulatorViewController: EmulatorProvider {
 extension EmulatorViewController {
 	
 	@IBAction func unwindToEmulatorViewController(segue: UIStoryboardSegue) {
-		// Nothing to do here, but the function is needed for unwinding segues.
+		if let controller = segue.source as? SettingsViewController {
+			controller.updateSettings()
+		}
 	}
 	
 	fileprivate func updateKeyboardButtonIcon(animated: Bool = false) {

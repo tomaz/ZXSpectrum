@@ -1,0 +1,23 @@
+//
+//  Created by Tomaz Kragelj on 20.04.17.
+//  Copyright © 2017 Gentle Bytes. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@class Machine;
+
+/**
+ Middleware between fuse API and Swift code.
+*/
+@interface SpectrumController : NSObject
+
+/// Returns or sets currently selected machine. If no machine is selected, or selection cannot be determined, nil is returned.
+@property (weak, nonatomic, nullable) Machine *selectedMachine;
+
+/**
+ Returns the ID for the given machine.
+*/
+- (NSString * _Nonnull)identifierForMachine:(Machine * _Nonnull)machine;
+
+@end

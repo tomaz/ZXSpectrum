@@ -58,6 +58,10 @@
 		7384B88E1EA7A35B005FC8DF /* NSManagedObjectContext+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7384B88D1EA7A35B005FC8DF /* NSManagedObjectContext+ZXSpectrum.swift */; };
 		7384B8901EA7A46C005FC8DF /* NSError+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7384B88F1EA7A46C005FC8DF /* NSError+ZXSpectrum.swift */; };
 		739824841E93DC99005E6B14 /* libspectrum.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 737E99BF1E88401900128149 /* libspectrum.a */; };
+		739A5F741EA8C96700CE6313 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739A5F731EA8C96700CE6313 /* SettingsViewController.swift */; };
+		739A5F781EA8D31500CE6313 /* SettingsComputerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739A5F771EA8D31500CE6313 /* SettingsComputerTableViewCell.swift */; };
+		739A5F7B1EA8D9F400CE6313 /* SpectrumController.m in Sources */ = {isa = PBXBuildFile; fileRef = 739A5F7A1EA8D9F400CE6313 /* SpectrumController.m */; };
+		739A5F7E1EA8E82300CE6313 /* SettingsComputerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739A5F7D1EA8E82300CE6313 /* SettingsComputerViewController.swift */; };
 		73B529D51EA7BB1C002FB90B /* URL+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B529D41EA7BB1C002FB90B /* URL+ZXSpectrum.swift */; };
 		73B529EB1EA7CF73002FB90B /* EmulatorConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B529EA1EA7CF73002FB90B /* EmulatorConsumer.swift */; };
 		73B529FC1EA7D42D002FB90B /* disk_plus3.szx in Resources */ = {isa = PBXBuildFile; fileRef = 73B529ED1EA7D42D002FB90B /* disk_plus3.szx */; };
@@ -373,6 +377,11 @@
 		7384B88D1EA7A35B005FC8DF /* NSManagedObjectContext+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSManagedObjectContext+ZXSpectrum.swift"; sourceTree = "<group>"; };
 		7384B88F1EA7A46C005FC8DF /* NSError+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSError+ZXSpectrum.swift"; sourceTree = "<group>"; };
 		739824831E93DB71005E6B14 /* BridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BridgingHeader.h; path = ../BridgingHeader.h; sourceTree = "<group>"; };
+		739A5F731EA8C96700CE6313 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		739A5F771EA8D31500CE6313 /* SettingsComputerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsComputerTableViewCell.swift; sourceTree = "<group>"; };
+		739A5F791EA8D9F400CE6313 /* SpectrumController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpectrumController.h; sourceTree = "<group>"; };
+		739A5F7A1EA8D9F400CE6313 /* SpectrumController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpectrumController.m; sourceTree = "<group>"; };
+		739A5F7D1EA8E82300CE6313 /* SettingsComputerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsComputerViewController.swift; sourceTree = "<group>"; };
 		73B529D41EA7BB1C002FB90B /* URL+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+ZXSpectrum.swift"; sourceTree = "<group>"; };
 		73B529EA1EA7CF73002FB90B /* EmulatorConsumer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmulatorConsumer.swift; sourceTree = "<group>"; };
 		73B529ED1EA7D42D002FB90B /* disk_plus3.szx */ = {isa = PBXFileReference; lastKnownFileType = file; name = disk_plus3.szx; path = "ZX Spectrum/Common/spectrum/spectrum/fuse/lib/compressed/disk_plus3.szx"; sourceTree = SOURCE_ROOT; };
@@ -599,6 +608,7 @@
 			children = (
 				737B57001EA411DA00A260B9 /* Application */,
 				737B57011EA411E400A260B9 /* Emulator */,
+				739A5F5E1EA8C95300CE6313 /* Settings */,
 				737B57021EA411F100A260B9 /* Files */,
 			);
 			path = Controller;
@@ -662,6 +672,24 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		739A5F5E1EA8C95300CE6313 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				739A5F7C1EA8E80A00CE6313 /* Computer */,
+				739A5F731EA8C96700CE6313 /* SettingsViewController.swift */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
+		739A5F7C1EA8E80A00CE6313 /* Computer */ = {
+			isa = PBXGroup;
+			children = (
+				739A5F7D1EA8E82300CE6313 /* SettingsComputerViewController.swift */,
+				739A5F771EA8D31500CE6313 /* SettingsComputerTableViewCell.swift */,
+			);
+			name = Computer;
+			sourceTree = "<group>";
+		};
 		73B529EC1EA7D413002FB90B /* Snapshots */ = {
 			isa = PBXGroup;
 			children = (
@@ -722,6 +750,8 @@
 				7337874E1E9BE43F00C5C363 /* SpectrumDisplayController.m */,
 				733787551E9CE99300C5C363 /* SpectrumInputController.h */,
 				733787561E9CE99300C5C363 /* SpectrumInputController.m */,
+				739A5F791EA8D9F400CE6313 /* SpectrumController.h */,
+				739A5F7A1EA8D9F400CE6313 /* SpectrumController.m */,
 			);
 			path = Spectrum;
 			sourceTree = "<group>";
@@ -1043,6 +1073,7 @@
 				737B56FF1EA4033B00A260B9 /* UIGestureRecognizer+ZXSpectrum.swift in Sources */,
 				737E93891E87D19D00128149 /* EmulatorViewController.swift in Sources */,
 				736493411EA5518200EE697F /* DependencyInjection.swift in Sources */,
+				739A5F7B1EA8D9F400CE6313 /* SpectrumController.m in Sources */,
 				73E0F5F51E9FBC81003F8F4D /* ZX48KeyboardStyleKit.swift in Sources */,
 				7384B8861EA78F8C005FC8DF /* UITableViewCell+ZXSpectrum.swift in Sources */,
 				73B529D51EA7BB1C002FB90B /* URL+ZXSpectrum.swift in Sources */,
@@ -1064,16 +1095,19 @@
 				73DA64EC1EA56085008832AA /* Configurable.swift in Sources */,
 				736493421EA5518200EE697F /* PersistentContainerConsumer.swift in Sources */,
 				73DA64EE1EA5611E008832AA /* FileTableViewCell.swift in Sources */,
+				739A5F7E1EA8E82300CE6313 /* SettingsComputerViewController.swift in Sources */,
 				73DA64FC1EA65162008832AA /* IconsStyleKit.swift in Sources */,
 				736493311EA4CE7200EE697F /* Model.xcdatamodeld in Sources */,
 				73DA64F61EA60627008832AA /* UIResponder+ZXSpectrum.swift in Sources */,
 				736493391EA54B0D00EE697F /* Database.swift in Sources */,
+				739A5F781EA8D31500CE6313 /* SettingsComputerTableViewCell.swift in Sources */,
 				73DF22F31E997501002FA042 /* SpectrumScreenView.swift in Sources */,
 				7384B88C1EA7A257005FC8DF /* UIViewController+Hierarchy.swift in Sources */,
 				73DA64EA1EA55E81008832AA /* FilesViewController+Bond.swift in Sources */,
 				73DA64F41EA60485008832AA /* WebServer.swift in Sources */,
 				7384B86E1EA78BDD005FC8DF /* UIButton+ZXSpectrum.swift in Sources */,
 				7384B88E1EA7A35B005FC8DF /* NSManagedObjectContext+ZXSpectrum.swift in Sources */,
+				739A5F741EA8C96700CE6313 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

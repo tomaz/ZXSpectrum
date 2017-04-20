@@ -11,7 +11,7 @@ import Bond
 extension FilesViewController {
 	
 	/**
-	Bond for managing files collection view.
+	Bond for managing files table view.
 	*/
 	final class Bond: NSObject, TableViewBond {
 		

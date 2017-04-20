@@ -5,6 +5,9 @@
 #import "Emulator.h"
 #import "SpectrumDisplayController.h"
 #import "SpectrumInputController.h"
+#import "SpectrumController.h"
+
+#import "CAMachines.h"
 
 #include "fuse.h"
 #include "utils.h"
