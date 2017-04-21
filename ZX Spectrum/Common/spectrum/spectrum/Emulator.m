@@ -122,7 +122,7 @@ static Emulator *instance = nil;
 
     [self initKeyboard];
   }
-
+  
   timer = nil;
   timerInterval = 1.0f / 50.0f;
   isPaused = 0;

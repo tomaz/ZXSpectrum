@@ -61,25 +61,29 @@
                                                 <rect key="frame" x="289" y="7.5" width="66" height="30"/>
                                                 <state key="normal" title="Keyboard"/>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1J6-VI-uiw">
+                                                <rect key="frame" x="210" y="7" width="57" height="30"/>
+                                                <state key="normal" title="Joystick"/>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="OSr-o9-M55" firstAttribute="centerY" secondItem="f5d-Nv-YS9" secondAttribute="centerY" id="6nA-e3-uUJ"/>
                                             <constraint firstItem="f5d-Nv-YS9" firstAttribute="centerY" secondItem="l2P-Ip-v5x" secondAttribute="centerY" id="8l6-Ju-7pc"/>
                                             <constraint firstItem="cbU-fz-DJ0" firstAttribute="leading" secondItem="l2P-Ip-v5x" secondAttribute="leading" constant="20" symbolic="YES" id="MV4-Hw-5B6"/>
+                                            <constraint firstItem="OSr-o9-M55" firstAttribute="leading" secondItem="1J6-VI-uiw" secondAttribute="trailing" priority="999" constant="22" id="ULt-lt-o5o"/>
                                             <constraint firstItem="XSS-zl-c5M" firstAttribute="centerY" secondItem="f5d-Nv-YS9" secondAttribute="centerY" id="Ur0-xw-4xO"/>
-                                            <constraint firstItem="f5d-Nv-YS9" firstAttribute="leading" secondItem="cbU-fz-DJ0" secondAttribute="trailing" constant="22" id="ZcB-PV-MC4"/>
+                                            <constraint firstItem="f5d-Nv-YS9" firstAttribute="leading" secondItem="cbU-fz-DJ0" secondAttribute="trailing" priority="999" constant="22" id="ZcB-PV-MC4"/>
+                                            <constraint firstItem="1J6-VI-uiw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="XSS-zl-c5M" secondAttribute="trailing" constant="10" id="v4Q-X4-Q4L"/>
                                             <constraint firstAttribute="trailing" secondItem="OSr-o9-M55" secondAttribute="trailing" constant="20" symbolic="YES" id="xIq-xa-i0F"/>
-                                            <constraint firstItem="XSS-zl-c5M" firstAttribute="leading" secondItem="f5d-Nv-YS9" secondAttribute="trailing" constant="22" id="ybA-oZ-p4j"/>
+                                            <constraint firstItem="XSS-zl-c5M" firstAttribute="leading" secondItem="f5d-Nv-YS9" secondAttribute="trailing" priority="999" constant="22" id="ybA-oZ-p4j"/>
                                             <constraint firstItem="cbU-fz-DJ0" firstAttribute="centerY" secondItem="XSS-zl-c5M" secondAttribute="centerY" id="yoI-L7-kKi"/>
+                                            <constraint firstItem="1J6-VI-uiw" firstAttribute="centerY" secondItem="cbU-fz-DJ0" secondAttribute="centerY" id="zIU-6w-v7Y"/>
                                         </constraints>
                                     </view>
-                                    <view hidden="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="300" translatesAutoresizingMaskIntoConstraints="NO" id="fC8-y7-uJO" userLabel="Keyboard Placeholder View">
+                                    <view hidden="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="300" translatesAutoresizingMaskIntoConstraints="NO" id="fC8-y7-uJO" customClass="KeyboardView" customModule="ZX_Spectrum" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="347" width="375" height="300"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" priority="999" constant="300" id="en5-BN-8zT"/>
-                                        </constraints>
                                     </view>
                                 </subviews>
                             </stackView>
@@ -95,8 +99,9 @@
                     <connections>
                         <outlet property="controlsContainerView" destination="l2P-Ip-v5x" id="Lvg-oh-TfG"/>
                         <outlet property="filesButton" destination="f5d-Nv-YS9" id="pSb-XL-EmY"/>
+                        <outlet property="joystickButton" destination="1J6-VI-uiw" id="a2O-xj-oEQ"/>
                         <outlet property="keyboardButton" destination="OSr-o9-M55" id="zNc-ev-Z9t"/>
-                        <outlet property="keyboardPlaceholderView" destination="fC8-y7-uJO" id="z0j-Mj-FoZ"/>
+                        <outlet property="keyboardView" destination="fC8-y7-uJO" id="DOF-YJ-CCO"/>
                         <outlet property="resetButton" destination="XSS-zl-c5M" id="Z5G-KN-y10"/>
                         <outlet property="settingsButton" destination="cbU-fz-DJ0" id="adr-zv-5kh"/>
                         <outlet property="spectrumView" destination="v01-ct-F5k" id="7B0-7s-iNl"/>

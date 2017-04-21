@@ -96,6 +96,9 @@
 		73E0F5F21E9FBC40003F8F4D /* ZX48KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E0F5F11E9FBC40003F8F4D /* ZX48KeyboardView.swift */; };
 		73E0F5F51E9FBC81003F8F4D /* ZX48KeyboardStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E0F5F41E9FBC81003F8F4D /* ZX48KeyboardStyleKit.swift */; };
 		73EEA0351EA7B64300E65A21 /* String+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EEA0341EA7B64300E65A21 /* String+ZXSpectrum.swift */; };
+		73F5B0AA1EA9E44E005E8844 /* UserDefaults+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F5B0A91EA9E44E005E8844 /* UserDefaults+ZXSpectrum.swift */; };
+		73F5B0C21EA9E5FA005E8844 /* JoystickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F5B0C11EA9E5FA005E8844 /* JoystickView.swift */; };
+		73F5B0C41EA9E63C005E8844 /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F5B0C31EA9E63C005E8844 /* KeyboardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -414,6 +417,9 @@
 		73E0F5F11E9FBC40003F8F4D /* ZX48KeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZX48KeyboardView.swift; sourceTree = "<group>"; };
 		73E0F5F41E9FBC81003F8F4D /* ZX48KeyboardStyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZX48KeyboardStyleKit.swift; sourceTree = "<group>"; };
 		73EEA0341EA7B64300E65A21 /* String+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+ZXSpectrum.swift"; sourceTree = "<group>"; };
+		73F5B0A91EA9E44E005E8844 /* UserDefaults+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefaults+ZXSpectrum.swift"; sourceTree = "<group>"; };
+		73F5B0C11EA9E5FA005E8844 /* JoystickView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoystickView.swift; sourceTree = "<group>"; };
+		73F5B0C31EA9E63C005E8844 /* KeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -464,10 +470,11 @@
 		733787521E9CE34E00C5C363 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				73F5B0BF1EA9E5DA005E8844 /* ZX 48K Keyboard */,
+				73F5B0C01EA9E5E7005E8844 /* Joystick */,
+				73F5B0C31EA9E63C005E8844 /* KeyboardView.swift */,
 				733787531E9CE36C00C5C363 /* ToolbarView.swift */,
 				73DA64FB1EA65162008832AA /* IconsStyleKit.swift */,
-				73E0F5F11E9FBC40003F8F4D /* ZX48KeyboardView.swift */,
-				73E0F5F41E9FBC81003F8F4D /* ZX48KeyboardStyleKit.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -533,6 +540,7 @@
 		737B56F91EA3F52900A260B9 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				73F5B0A91EA9E44E005E8844 /* UserDefaults+ZXSpectrum.swift */,
 				73DA64F71EA613EF008832AA /* FileManager+ZXSpectrum.swift */,
 				73EEA0341EA7B64300E65A21 /* String+ZXSpectrum.swift */,
 				73B529D41EA7BB1C002FB90B /* URL+ZXSpectrum.swift */,
@@ -754,6 +762,23 @@
 				739A5F7A1EA8D9F400CE6313 /* SpectrumController.m */,
 			);
 			path = Spectrum;
+			sourceTree = "<group>";
+		};
+		73F5B0BF1EA9E5DA005E8844 /* ZX 48K Keyboard */ = {
+			isa = PBXGroup;
+			children = (
+				73E0F5F11E9FBC40003F8F4D /* ZX48KeyboardView.swift */,
+				73E0F5F41E9FBC81003F8F4D /* ZX48KeyboardStyleKit.swift */,
+			);
+			name = "ZX 48K Keyboard";
+			sourceTree = "<group>";
+		};
+		73F5B0C01EA9E5E7005E8844 /* Joystick */ = {
+			isa = PBXGroup;
+			children = (
+				73F5B0C11EA9E5FA005E8844 /* JoystickView.swift */,
+			);
+			name = Joystick;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1078,6 +1103,7 @@
 				7384B8861EA78F8C005FC8DF /* UITableViewCell+ZXSpectrum.swift in Sources */,
 				73B529D51EA7BB1C002FB90B /* URL+ZXSpectrum.swift in Sources */,
 				737B57041EA4122A00A260B9 /* FilesViewController.swift in Sources */,
+				73F5B0C41EA9E63C005E8844 /* KeyboardView.swift in Sources */,
 				733787571E9CE99300C5C363 /* SpectrumInputController.m in Sources */,
 				737B56FD1EA4009900A260B9 /* UIViewController+ZXSpectrum.swift in Sources */,
 				7337874F1E9BE43F00C5C363 /* SpectrumDisplayController.m in Sources */,
@@ -1093,6 +1119,7 @@
 				73DF22F51E997510002FA042 /* SpectrumPalette.swift in Sources */,
 				736493351EA4CEA100EE697F /* Managed.swift in Sources */,
 				73DA64EC1EA56085008832AA /* Configurable.swift in Sources */,
+				73F5B0C21EA9E5FA005E8844 /* JoystickView.swift in Sources */,
 				736493421EA5518200EE697F /* PersistentContainerConsumer.swift in Sources */,
 				73DA64EE1EA5611E008832AA /* FileTableViewCell.swift in Sources */,
 				739A5F7E1EA8E82300CE6313 /* SettingsComputerViewController.swift in Sources */,
@@ -1100,6 +1127,7 @@
 				736493311EA4CE7200EE697F /* Model.xcdatamodeld in Sources */,
 				73DA64F61EA60627008832AA /* UIResponder+ZXSpectrum.swift in Sources */,
 				736493391EA54B0D00EE697F /* Database.swift in Sources */,
+				73F5B0AA1EA9E44E005E8844 /* UserDefaults+ZXSpectrum.swift in Sources */,
 				739A5F781EA8D31500CE6313 /* SettingsComputerTableViewCell.swift in Sources */,
 				73DF22F31E997501002FA042 /* SpectrumScreenView.swift in Sources */,
 				7384B88C1EA7A257005FC8DF /* UIViewController+Hierarchy.swift in Sources */,

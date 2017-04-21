@@ -12,16 +12,19 @@ class EmulatorViewController: UIViewController {
 	
 	@IBOutlet fileprivate weak var spectrumView: SpectrumScreenView!
 	@IBOutlet fileprivate weak var controlsContainerView: UIView!
-	@IBOutlet fileprivate weak var keyboardPlaceholderView: UIView!
+	@IBOutlet fileprivate weak var keyboardView: UIView!
 	
 	@IBOutlet fileprivate weak var settingsButton: UIButton!
 	@IBOutlet fileprivate weak var resetButton: UIButton!
 	@IBOutlet fileprivate weak var filesButton: UIButton!
+	@IBOutlet fileprivate weak var joystickButton: UIButton!
 	@IBOutlet fileprivate weak var keyboardButton: UIButton!
 	
 	// MARK: - Data
 	
 	fileprivate var persistentContainer: NSPersistentContainer!
+	
+	fileprivate var isKeyboardVisible = false
 	
 	fileprivate var emulator: Emulator!
 	fileprivate let viewWillHideBag = DisposeBag()
@@ -44,10 +47,13 @@ class EmulatorViewController: UIViewController {
 		settingsButton.image = IconsStyleKit.imageOfIconGear
 		resetButton.image = IconsStyleKit.imageOfIconReset
 		filesButton.image = IconsStyleKit.imageOfIconTape
+		updateJoystickButtonIcon()
 		updateKeyboardButtonIcon()
 
 		setupResetButtonSignals()
+		setupJoystickButtonSignals()
 		setupKeyboardButtonSignals()
+		setupInputMethodSettingSignal()
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -59,8 +65,6 @@ class EmulatorViewController: UIViewController {
 		fuse_emulation_unpause()
 		
 		gdebug("Preparing for appearance")
-		setupKeyboardWillShowNotificationSignal()
-		setupKeyboardWillHideNotificaitonSignal()
 		teardownTapOnBackgroundInteraction()
 	}
 	
@@ -115,21 +119,14 @@ extension EmulatorViewController {
 		}
 	}
 	
+	fileprivate func updateJoystickButtonIcon(animated: Bool = false) {
+		let image = isKeyboardVisible && UserDefaults.standard.isInputJoystick ? IconsStyleKit.imageOfIconJoystickHide : IconsStyleKit.imageOfIconJoystickShow
+		joystickButton.update(image: image, animated: animated)
+	}
+	
 	fileprivate func updateKeyboardButtonIcon(animated: Bool = false) {
-		let image = spectrumView.isFirstResponder ? IconsStyleKit.imageOfIconKeyboardHide : IconsStyleKit.imageOfIconKeyboardShow
-		
-		if animated {
-			UIView.animate(withDuration: 0.1, animations: { 
-				self.keyboardButton.alpha = 0
-			}, completion: { completed in
-				self.keyboardButton.image = image
-				UIView.animate(withDuration: 0.1) {
-					self.keyboardButton.alpha = 1
-				}
-			})
-		} else {
-			keyboardButton.image = image
-		}
+		let image = isKeyboardVisible && !UserDefaults.standard.isInputJoystick ? IconsStyleKit.imageOfIconKeyboardHide : IconsStyleKit.imageOfIconKeyboardShow
+		keyboardButton.update(image: image, animated: animated)
 	}
 }
 
@@ -138,48 +135,74 @@ extension EmulatorViewController {
 extension EmulatorViewController {
 	
 	fileprivate func setupResetButtonSignals() {
-		resetButton.reactive.tap.observe { event in
+		resetButton.reactive.tap.bind(to: self) { _ in
 			ginfo("Resetting emulator")
 			self.emulator.reset()
-		}.dispose(in: reactive.bag)
+		}
+	}
+	
+	fileprivate func setupJoystickButtonSignals() {
+		joystickButton.reactive.tap.bind(to: self) { _ in
+			ginfo("Toggling joystick")
+			self.toggleKeyboard(asJoystick: true)
+		}
 	}
 	
 	fileprivate func setupKeyboardButtonSignals() {
-		keyboardButton.reactive.tap.observe { _ in
+		keyboardButton.reactive.tap.bind(to: self) { _ in
 			ginfo("Toggling keyboard")
-			if self.spectrumView.isFirstResponder {
-				self.spectrumView.resignFirstResponder()
-			} else {
-				self.spectrumView.becomeFirstResponder()
+			self.toggleKeyboard()
+		}
+	}
+	
+	fileprivate func setupInputMethodSettingSignal() {
+		// When input method changes, update the icons.
+		UserDefaults.standard.reactive.isInputJoystickSignal.bind(to: self) { me, value in
+			gverbose("Joystick input changed to \(value), updating icons")
+			me.updateJoystickButtonIcon(animated: true)
+			me.updateKeyboardButtonIcon(animated: true)
+		}
+	}
+	
+	private func toggleKeyboard(asJoystick: Bool = false) {
+		func shouldHide() -> Bool {
+			// If keyboard is not visible, we should show it.
+			if !isKeyboardVisible {
+				return false
 			}
-			self.updateKeyboardButtonIcon(animated: true)
-		}.dispose(in: reactive.bag)
-	}
-	
-	fileprivate func setupKeyboardWillShowNotificationSignal() {
-		NotificationCenter.default.reactive.notification(name: Notification.Name.UIKeyboardWillShow)
-			.map { $0.userInfo }
-			.ignoreNil()
-			.observeNext { info in
-				let duration = (info[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
-				
-				UIView.animate(withDuration: duration) {
-					self.keyboardPlaceholderView.isHidden = false
-				}
-			}.dispose(in: viewWillHideBag)
+			
+			// If keyboard is already visible in keyboard mode and user wants to change to joystick, we should remain showing it.
+			if asJoystick && !UserDefaults.standard.isInputJoystick {
+				return false
+			}
+			
+			// If keyboard is already visible in joystick mode and user wants to change to keyboard, we should remain showing it.
+			if !asJoystick && UserDefaults.standard.isInputJoystick {
+				return false
+			}
+			
+			// In all other cases, allow hiding it.
+			return true
+		}
 		
-	}
-	
-	fileprivate func setupKeyboardWillHideNotificaitonSignal() {
-		NotificationCenter.default.reactive.notification(name: Notification.Name.UIKeyboardWillHide)
-			.map { $0.userInfo }
-			.ignoreNil()
-			.observeNext { info in
-				let duration = (info[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber).doubleValue
-				
-				UIView.animate(withDuration: duration) {
-					self.keyboardPlaceholderView.isHidden = true
-				}
-			}.dispose(in: viewWillHideBag)
+		func animations() {
+			keyboardView.isHidden = !isKeyboardVisible
+		}
+
+		// Update internal flag specifying whether keyboard is visible or not.
+		isKeyboardVisible = !shouldHide()
+
+		// Update user default specifying whether joystick or keyboard should be shown.
+		UserDefaults.standard.isInputJoystick = asJoystick
+
+		// Animate keyboard in or out.
+		UIView.animate(
+			withDuration: 0.25,
+			delay: 0.0,
+			usingSpringWithDamping: 0.6,
+			initialSpringVelocity: 0.0,
+			options: .curveEaseOut,
+			animations: animations,
+			completion: nil)
 	}
 }

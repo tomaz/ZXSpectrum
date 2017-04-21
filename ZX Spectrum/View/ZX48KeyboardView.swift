@@ -15,17 +15,20 @@ class ZX48KeyboardView: UIView {
 	/// Specifies whether keyboard uses sticky special keys.
 	var isStickySpecials = true
 	
-	/// Specifies whether caps shift is pressed or not.
-	fileprivate var isCapsShiftPressed = false
-	
-	/// specifies whether symbol shift is pressed or not.
-	fileprivate var isSymbolShiftPressed = false
+	/// The color for pressed key frame.
+	fileprivate lazy var keyFrameColor = UIColor.white.withAlphaComponent(0.1)
 	
 	/// Input controller middleware between UIKit events and fuse input.
 	fileprivate lazy var inputController = SpectrumInputController()
 	
 	/// Scaled rects for every key.
 	fileprivate lazy var scaledRects = [CGRect: KeyCode]()
+	
+	/// Currently pressed key codes.
+	fileprivate lazy var pressedKeyCodes = [KeyCode]()
+	
+	/// Currently pressed key rects.
+	fileprivate lazy var pressedKeyRects = [CGRect]()
 	
 	// MARK: - Initialization & disposal
 
@@ -53,6 +56,11 @@ class ZX48KeyboardView: UIView {
 	
 	override func draw(_ rect: CGRect) {
 		ZX48KeyboardStyleKit.drawKeyboard(frame: bounds, resizing: .aspectFit)
+		
+		keyFrameColor.setFill()
+		for rect in pressedKeyRects {
+			UIBezierPath(rect: rect).fill()
+		}
 	}
 	
 	override var bounds: CGRect {
@@ -64,17 +72,46 @@ class ZX48KeyboardView: UIView {
 	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 		for touch in touches {
 			let location = touch.location(in: self)
-			if let code = keyState(for: location) {
+			if let (code, rect) = keyData(for: location) {
+				pressedKeyCodes.append(code)
+				pressedKeyRects.append(rect)
 				keyboard_press(code)
+				setNeedsDisplay()
 			}
+		}
+	}
+	
+	override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+		let previouslyPressed = pressedKeyCodes
+		pressedKeyCodes.removeAll()
+		pressedKeyRects.removeAll()
+		
+		for touch in touches {
+			let location = touch.location(in: self)
+			if let (code, rect) = keyData(for: location) {
+				pressedKeyCodes.append(code)
+				pressedKeyRects.append(rect)
+				keyboard_press(code)
+				setNeedsDisplay()
+			}
+		}
+		
+		previouslyPressed.filter { !pressedKeyCodes.contains($0) }.forEach { code in
+			keyboard_release(code)
+			setNeedsDisplay()
 		}
 	}
 	
 	override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
 		for touch in touches {
 			let location = touch.location(in: self)
-			if let code = keyState(for: location) {
+			if let (code, _) = keyData(for: location) {
+				if let idx = pressedKeyCodes.index(of: code) {
+					pressedKeyCodes.remove(at: idx)
+					pressedKeyRects.remove(at: idx)
+				}
 				keyboard_release(code)
+				setNeedsDisplay()
 			}
 		}
 	}
@@ -87,10 +124,10 @@ extension ZX48KeyboardView {
 	/**
 	Returns the input key corresponding to given point, or nil if none.
 	*/
-	fileprivate func keyState(for point: CGPoint) -> KeyCode? {
+	fileprivate func keyData(for point: CGPoint) -> (KeyCode, CGRect)? {
 		for (rect, state) in scaledRects {
 			if rect.contains(point) {
-				return state
+				return (state, rect)
 			}
 		}
 		return nil
