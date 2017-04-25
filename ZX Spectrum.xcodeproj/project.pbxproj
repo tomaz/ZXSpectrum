@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		730458E31EAA3B9A00290A06 /* CGRect+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730458E21EAA3B9A00290A06 /* CGRect+ZXSpectrum.swift */; };
 		73291ECA1E96637100940801 /* 48.rom in Resources */ = {isa = PBXBuildFile; fileRef = 73291EB51E96637100940801 /* 48.rom */; };
 		73291ECB1E96637100940801 /* 128-0.rom in Resources */ = {isa = PBXBuildFile; fileRef = 73291EB61E96637100940801 /* 128-0.rom */; };
 		73291ECC1E96637100940801 /* 128-1.rom in Resources */ = {isa = PBXBuildFile; fileRef = 73291EB71E96637100940801 /* 128-1.rom */; };
@@ -326,6 +327,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		730458E21EAA3B9A00290A06 /* CGRect+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGRect+ZXSpectrum.swift"; sourceTree = "<group>"; };
 		73291EB51E96637100940801 /* 48.rom */ = {isa = PBXFileReference; lastKnownFileType = file; name = 48.rom; path = ../Common/spectrum/spectrum/fuse/roms/48.rom; sourceTree = "<group>"; };
 		73291EB61E96637100940801 /* 128-0.rom */ = {isa = PBXFileReference; lastKnownFileType = file; name = "128-0.rom"; path = "../Common/spectrum/spectrum/fuse/roms/128-0.rom"; sourceTree = "<group>"; };
 		73291EB71E96637100940801 /* 128-1.rom */ = {isa = PBXFileReference; lastKnownFileType = file; name = "128-1.rom"; path = "../Common/spectrum/spectrum/fuse/roms/128-1.rom"; sourceTree = "<group>"; };
@@ -544,6 +546,7 @@
 				73DA64F71EA613EF008832AA /* FileManager+ZXSpectrum.swift */,
 				73EEA0341EA7B64300E65A21 /* String+ZXSpectrum.swift */,
 				73B529D41EA7BB1C002FB90B /* URL+ZXSpectrum.swift */,
+				730458E21EAA3B9A00290A06 /* CGRect+ZXSpectrum.swift */,
 				7384B88F1EA7A46C005FC8DF /* NSError+ZXSpectrum.swift */,
 				7384B88D1EA7A35B005FC8DF /* NSManagedObjectContext+ZXSpectrum.swift */,
 				7384B88B1EA7A257005FC8DF /* UIViewController+Hierarchy.swift */,
@@ -1123,6 +1126,7 @@
 				736493421EA5518200EE697F /* PersistentContainerConsumer.swift in Sources */,
 				73DA64EE1EA5611E008832AA /* FileTableViewCell.swift in Sources */,
 				739A5F7E1EA8E82300CE6313 /* SettingsComputerViewController.swift in Sources */,
+				730458E31EAA3B9A00290A06 /* CGRect+ZXSpectrum.swift in Sources */,
 				73DA64FC1EA65162008832AA /* IconsStyleKit.swift in Sources */,
 				736493311EA4CE7200EE697F /* Model.xcdatamodeld in Sources */,
 				73DA64F61EA60627008832AA /* UIResponder+ZXSpectrum.swift in Sources */,

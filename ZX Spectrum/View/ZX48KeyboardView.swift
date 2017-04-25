@@ -48,11 +48,17 @@ class ZX48KeyboardView: UIView {
 	
 	private func initializeView() {
 		contentMode = .redraw
-		backgroundColor = ZX48KeyboardStyleKit.keyboardBackgroundColor
 		isMultipleTouchEnabled = true
+		backgroundColor = ZX48KeyboardStyleKit.keyboardBackgroundColor
 	}
 	
 	// MARK: - Overriden functions
+	
+	override var bounds: CGRect {
+		didSet {
+			updateScaledRects()
+		}
+	}
 	
 	override func draw(_ rect: CGRect) {
 		ZX48KeyboardStyleKit.drawKeyboard(frame: bounds, resizing: .aspectFit)
@@ -60,12 +66,6 @@ class ZX48KeyboardView: UIView {
 		keyFrameColor.setFill()
 		for rect in pressedKeyRects {
 			UIBezierPath(rect: rect).fill()
-		}
-	}
-	
-	override var bounds: CGRect {
-		didSet {
-			updateScaledRects()
 		}
 	}
 	
@@ -137,31 +137,13 @@ extension ZX48KeyboardView {
 	Updates scaled rects dictionary.
 	*/
 	fileprivate func updateScaledRects() {
+		let scaler = CGRect.scaler(from: ZX48KeyboardView.keyboardRect, to: bounds)
 		var rects = [CGRect: KeyCode]()
 		for (rect, code) in ZX48KeyboardView.keyRects {
-			let scaled = ZX48KeyboardView.rect(from: rect, bounds: bounds)
+			let scaled = scaler.scaled(rect: rect)
 			rects[scaled] = code
 		}
 		scaledRects = rects
-	}
-
-	/**
-	Converts given raw rect into scaled based on given view bounds.
-	*/
-	private static func rect(from source: CGRect, bounds: CGRect) -> CGRect {
-		let scaleX = bounds.width / keyboardSize.width
-		let scaleY = bounds.height / keyboardSize.height
-		
-		let scale = min(scaleX, scaleY)
-		
-		let offsetX = (bounds.width - keyboardSize.width * scale) / 2.0
-		
-		let width = source.width * scale
-		let height = source.height * scale
-		let x = source.minX * scale + offsetX
-		let y = source.minY * scale
-		
-		return CGRect(x: x, y: y, width: width, height: height)
 	}
 }
 
@@ -170,7 +152,7 @@ extension ZX48KeyboardView {
 extension ZX48KeyboardView {
 
 	/// Raw size of the keyboard.
-	fileprivate static let keyboardSize = CGSize(width: 2601, height: 968)
+	fileprivate static let keyboardRect = CGRect(x: 0, y: 0, width: 2601, height: 968)
 	
 	/// Raw rects and their corresponding input key.
 	fileprivate static let keyRects: [CGRect: KeyCode] = [
@@ -218,13 +200,4 @@ extension ZX48KeyboardView {
 		CGRect(x: 2013, y: 756, width: 188, height: 203): KEYBOARD_Symbol,
 		CGRect(x: 2254, y: 756, width: 307, height: 203): KEYBOARD_space,
 	]
-}
-
-// MARK: - Extensions
-
-extension CGRect: Hashable {
-	
-	public var hashValue: Int {
-		return minX.hashValue ^ Int(minY).hashValue ^ Int(width).hashValue ^ Int(height).hashValue
-	}
 }
