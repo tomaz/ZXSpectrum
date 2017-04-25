@@ -91,13 +91,18 @@ class ZX48KeyboardView: UIView {
 			if let (code, rect) = keyData(for: location) {
 				pressedKeyCodes.append(code)
 				pressedKeyRects.append(rect)
-				keyboard_press(code)
-				setNeedsDisplay()
 			}
 		}
-		
+
+		// Report all keys that got depressed from last time.
 		previouslyPressed.filter { !pressedKeyCodes.contains($0) }.forEach { code in
 			keyboard_release(code)
+			setNeedsDisplay()
+		}
+		
+		// Reports all newly pressed keys.
+		pressedKeyCodes.filter { !previouslyPressed.contains($0) }.forEach { code in
+			keyboard_press(code)
 			setNeedsDisplay()
 		}
 	}
