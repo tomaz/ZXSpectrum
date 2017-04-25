@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		730458E51EAA7F2F00290A06 /* uikitjoystick.c in Sources */ = {isa = PBXBuildFile; fileRef = 730458E41EAA7F2F00290A06 /* uikitjoystick.c */; };
 		73291EE01E96697900940801 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73291EDF1E96697900940801 /* AudioToolbox.framework */; };
 		73958DA21E964DBA00A7AF42 /* DebuggerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73958DA11E964DBA00A7AF42 /* DebuggerController.m */; };
 		73958DA51E96547B00A7AF42 /* FuseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73958DA41E96547B00A7AF42 /* FuseController.m */; };
@@ -202,7 +203,6 @@
 		739828F81E9519C3005E6B14 /* keysyms.m in Sources */ = {isa = PBXBuildFile; fileRef = 739827651E9519C3005E6B14 /* keysyms.m */; };
 		739829141E9519C4005E6B14 /* scaler.c in Sources */ = {isa = PBXBuildFile; fileRef = 7398279A1E9519C3005E6B14 /* scaler.c */; };
 		739829171E9519C4005E6B14 /* scalers.c in Sources */ = {isa = PBXBuildFile; fileRef = 7398279F1E9519C3005E6B14 /* scalers.c */; };
-		739829201E9519C4005E6B14 /* uijoystick.c in Sources */ = {isa = PBXBuildFile; fileRef = 739827B51E9519C3005E6B14 /* uijoystick.c */; };
 		7398294E1E9519C4005E6B14 /* ui.c in Sources */ = {isa = PBXBuildFile; fileRef = 739828291E9519C3005E6B14 /* ui.c */; };
 		7398294F1E9519C4005E6B14 /* uidisplay.c in Sources */ = {isa = PBXBuildFile; fileRef = 7398282A1E9519C3005E6B14 /* uidisplay.c */; };
 		739829501E9519C4005E6B14 /* uimedia.c in Sources */ = {isa = PBXBuildFile; fileRef = 7398282B1E9519C3005E6B14 /* uimedia.c */; };
@@ -232,6 +232,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		730458E41EAA7F2F00290A06 /* uikitjoystick.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = uikitjoystick.c; sourceTree = "<group>"; };
+		730458E91EAA7FCD00290A06 /* uikitjoystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uikitjoystick.h; sourceTree = "<group>"; };
 		73291EDF1E96697900940801 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		73291EE51E96749200940801 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		737E99AE1E88401800128149 /* libspectrum.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libspectrum.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -583,7 +585,6 @@
 		7398279F1E9519C3005E6B14 /* scalers.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = scalers.c; sourceTree = "<group>"; };
 		739827B31E9519C3005E6B14 /* ui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ui.h; sourceTree = "<group>"; };
 		739827B41E9519C3005E6B14 /* uidisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uidisplay.h; sourceTree = "<group>"; };
-		739827B51E9519C3005E6B14 /* uijoystick.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = uijoystick.c; sourceTree = "<group>"; };
 		739827B61E9519C3005E6B14 /* uijoystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uijoystick.h; sourceTree = "<group>"; };
 		739827B71E9519C3005E6B14 /* uimedia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uimedia.h; sourceTree = "<group>"; };
 		739828291E9519C3005E6B14 /* ui.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui.c; sourceTree = "<group>"; };
@@ -1178,9 +1179,10 @@
 				739827971E9519C3005E6B14 /* scaler */,
 				739827B31E9519C3005E6B14 /* ui.h */,
 				739827B41E9519C3005E6B14 /* uidisplay.h */,
-				739827B51E9519C3005E6B14 /* uijoystick.c */,
 				739827B61E9519C3005E6B14 /* uijoystick.h */,
 				739827B71E9519C3005E6B14 /* uimedia.h */,
+				730458E91EAA7FCD00290A06 /* uikitjoystick.h */,
+				730458E41EAA7F2F00290A06 /* uikitjoystick.c */,
 			);
 			path = ui;
 			sourceTree = "<group>";
@@ -1405,6 +1407,7 @@
 				739828C51E9519C3005E6B14 /* melodik.c in Sources */,
 				739824F41E9511C9005E6B14 /* g711.c in Sources */,
 				739828F71E9519C3005E6B14 /* dirty.c in Sources */,
+				730458E51EAA7F2F00290A06 /* uikitjoystick.c in Sources */,
 				739824711E93DA8D005E6B14 /* tape_block.c in Sources */,
 				739824661E93DA8D005E6B14 /* pzx_read.c in Sources */,
 				739824561E93DA8D005E6B14 /* creator.c in Sources */,
@@ -1426,7 +1429,6 @@
 				739824F51E9511C9005E6B14 /* ima.c in Sources */,
 				739828571E9519C3005E6B14 /* osname.c in Sources */,
 				739824551E93DA8D005E6B14 /* bzip2.c in Sources */,
-				739829201E9519C4005E6B14 /* uijoystick.c in Sources */,
 				739828701E9519C3005E6B14 /* fuse.c in Sources */,
 				739828F81E9519C3005E6B14 /* keysyms.m in Sources */,
 				739824E61E9511C9005E6B14 /* debug.c in Sources */,

@@ -13,6 +13,7 @@
 #include "utils.h"
 #include "display.h"
 #include "keyboard.h"
+#include "joystick.h"
 #include "settings.h"
 #include "cocoadisplay.h"
 

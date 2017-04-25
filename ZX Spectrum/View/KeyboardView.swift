@@ -79,14 +79,7 @@ extension KeyboardView {
 			
 			me.prepareForKeyboardsChange()
 			
-			UIView.animate(
-				withDuration: 0.25,
-				delay: 0.0,
-				usingSpringWithDamping: 0.6,
-				initialSpringVelocity: 0.0,
-				options: .curveEaseOut,
-				animations: { me.layoutIfNeeded() },
-				completion: me.completeKeyboardsChange)
+			KeyboardView.animate(me.layoutIfNeeded, completion: me.completeKeyboardsChange(complete:))
 		}
 	}
 	
@@ -143,6 +136,25 @@ extension KeyboardView {
 			currentKeyboardTopConstraint = currentKeyboardView?.topAnchor.constraint(equalTo: topAnchor)
 			currentKeyboardTopConstraint?.isActive = true
 		}
+	}
+}
+
+// MARK: - Shared functinoality
+
+extension KeyboardView {
+	
+	/**
+	Performs standard animation for keyboard views.
+	*/
+	static func animate(_ animations: @escaping () -> Void, completion: ((Bool) -> Void)?) {
+		UIView.animate(
+			withDuration: 0.4,
+			delay: 0.0,
+			usingSpringWithDamping: 0.6,
+			initialSpringVelocity: 0.0,
+			options: .curveEaseInOut,
+			animations: animations,
+			completion: completion)
 	}
 }
 

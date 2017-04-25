@@ -15,9 +15,6 @@ class ZX48KeyboardView: UIView {
 	/// Specifies whether keyboard uses sticky special keys.
 	var isStickySpecials = true
 	
-	/// The color for pressed key frame.
-	fileprivate lazy var keyFrameColor = UIColor.white.withAlphaComponent(0.1)
-	
 	/// Input controller middleware between UIKit events and fuse input.
 	fileprivate lazy var inputController = SpectrumInputController()
 	
@@ -62,8 +59,8 @@ class ZX48KeyboardView: UIView {
 	
 	override func draw(_ rect: CGRect) {
 		ZX48KeyboardStyleKit.drawKeyboard(frame: bounds, resizing: .aspectFit)
-		
-		keyFrameColor.setFill()
+
+		UIColor.pressedElementOverlay.setFill()
 		for rect in pressedKeyRects {
 			UIBezierPath(rect: rect).fill()
 		}

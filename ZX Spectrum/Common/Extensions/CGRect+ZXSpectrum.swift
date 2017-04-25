@@ -68,24 +68,3 @@ extension CGRect: Hashable {
 		return minX.hashValue ^ Int(minY).hashValue ^ Int(width).hashValue ^ Int(height).hashValue
 	}
 }
-
-extension CGPoint {
-	
-	/**
-	Returns distance to the given point.
-	*/
-	func distance(to: CGPoint) -> CGFloat {
-		let dx = x - to.x
-		let dy = y - to.y
-		return sqrt((dx * dx) + (dy * dy))
-	}
-	
-	/**
-	Returns angle in radians to the given point.
-	*/
-	func angle(to: CGPoint) -> CGFloat {
-		let dx = x - to.x
-		let dy = y - to.y
-		return atan2(dy, dx)
-	}
-}

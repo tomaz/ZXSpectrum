@@ -196,13 +196,6 @@ extension EmulatorViewController {
 		UserDefaults.standard.isInputJoystick = asJoystick
 
 		// Animate keyboard in or out.
-		UIView.animate(
-			withDuration: 0.25,
-			delay: 0.0,
-			usingSpringWithDamping: 0.6,
-			initialSpringVelocity: 0.0,
-			options: .curveEaseOut,
-			animations: animations,
-			completion: nil)
+		KeyboardView.animate(animations, completion: nil)
 	}
 }
