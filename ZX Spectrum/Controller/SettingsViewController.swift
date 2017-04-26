@@ -12,6 +12,7 @@ Manages various settings.
 class SettingsViewController: UITableViewController {
 	
 	@IBOutlet fileprivate weak var fastloadSwitch: UISwitch!
+	@IBOutlet fileprivate weak var smoothingSwitch: UISwitch!
 	@IBOutlet fileprivate weak var computerLabel: UILabel!
 	
 	// MARK: - Helpers
@@ -38,6 +39,7 @@ class SettingsViewController: UITableViewController {
 		selectedMachine = startingMachine
 
 		gdebug("Binding data")
+		smoothingSwitch.isOn = defaults.isScreenSmoothingActive
 		fastloadSwitch.isOn = settings_current.fastload == 1
 		computerLabel.text = spectrum.selectedMachine?.name
 	}
@@ -55,6 +57,7 @@ extension SettingsViewController {
 		ginfo("Exiting settings")
 		
 		// Update user defaults.
+		defaults.isScreenSmoothingActive = smoothingSwitch.isOn
 		defaults.set(fastloadSwitch.isOn, forKey: "fastload")
 		defaults.set(spectrum.identifier(for: selectedMachine), forKey: "machine")
 		

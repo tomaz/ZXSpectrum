@@ -40,6 +40,9 @@ class SpectrumScreenView: UIView {
 		imageView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
 		imageView.topAnchor.constraint(equalTo: topAnchor).isActive = true
 		imageView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+		
+		setupSmoothingSignal()
+		updateSmoothing()
 	}
 	
 	// MARK: - Overriden functions
@@ -49,9 +52,9 @@ class SpectrumScreenView: UIView {
 	}
 }
 
-// MARK: - Hooking and unhooking
+// MARK: - Fuse integration
 
-extension SpectrumScreenView {
+extension SpectrumScreenView: SpectrumDisplayHandler {
 	
 	/**
 	Hooks to underlying fuse display callbacks.
@@ -66,15 +69,31 @@ extension SpectrumScreenView {
 	func unhookFromFuse() {
 		displayController.handler = nil
 	}
-}
-
-// MARK: - Fuse integration
-
-extension SpectrumScreenView: SpectrumDisplayHandler {
 	
 	func spectrumDisplayController(_ controller: SpectrumDisplayController, renderImage image: UIImage) {
 		onMain {
 			self.imageView.image = image
+		}
+	}
+}
+
+// MARK: - Helper functions
+
+extension SpectrumScreenView {
+	
+	fileprivate func setupSmoothingSignal() {
+		UserDefaults.standard.reactive.isScreenSmoothingActiveSignal.observeNext { [weak self] _ in
+			self?.updateSmoothing()
+		}
+	}
+	
+	fileprivate func updateSmoothing() {
+		if UserDefaults.standard.isScreenSmoothingActive {
+			imageView.layer.magnificationFilter = kCAFilterLinear
+			imageView.layer.shouldRasterize = false
+		} else {
+			imageView.layer.magnificationFilter = kCAFilterNearest
+			imageView.layer.shouldRasterize = true
 		}
 	}
 }

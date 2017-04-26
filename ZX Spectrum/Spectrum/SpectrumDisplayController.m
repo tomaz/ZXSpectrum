@@ -207,6 +207,8 @@ void controller_display_frame_end_function(void *context) {
 			kCGImageAlphaPremultipliedFirst | kCGImageByteOrder32Little);
 		
 		if (context) {
+			CGContextSetInterpolationQuality(context, kCGInterpolationNone);
+			
 			CGImageRef cgi = CGBitmapContextCreateImage(bitmapContext);
 			if (cgi) {
 				UIImage *image = [UIImage imageWithCGImage:cgi scale:[UIScreen mainScreen].scale orientation:UIImageOrientationUp];
