@@ -12,11 +12,8 @@ class ZX48KeyboardView: UIView {
 	
 	typealias KeyCode = keyboard_key_name
 	
-	/// Specifies whether keyboard uses sticky special keys.
-	var isStickySpecials = true
-	
-	/// Input controller middleware between UIKit events and fuse input.
-	fileprivate lazy var inputController = SpectrumInputController()
+	/// Indicates whether the view shows user taps (leave false for better performance).
+	var isShowingTaps = false
 	
 	/// Scaled rects for every key.
 	fileprivate lazy var scaledRects = [CGRect: KeyCode]()
@@ -60,9 +57,11 @@ class ZX48KeyboardView: UIView {
 	override func draw(_ rect: CGRect) {
 		ZX48KeyboardStyleKit.drawKeyboard(frame: bounds, resizing: .aspectFit)
 
-		UIColor.pressedElementOverlay.setFill()
-		for rect in pressedKeyRects {
-			UIBezierPath(rect: rect).fill()
+		if isShowingTaps {
+			UIColor.pressedElementOverlay.setFill()
+			for rect in pressedKeyRects {
+				UIBezierPath(rect: rect).fill()
+			}
 		}
 	}
 	
@@ -73,7 +72,9 @@ class ZX48KeyboardView: UIView {
 				pressedKeyCodes.append(code)
 				pressedKeyRects.append(rect)
 				keyboard_press(code)
-				setNeedsDisplay()
+				if isShowingTaps {
+					setNeedsDisplay()
+				}
 			}
 		}
 	}
@@ -94,13 +95,17 @@ class ZX48KeyboardView: UIView {
 		// Report all keys that got depressed from last time.
 		previouslyPressed.filter { !pressedKeyCodes.contains($0) }.forEach { code in
 			keyboard_release(code)
-			setNeedsDisplay()
+			if isShowingTaps {
+				setNeedsDisplay()
+			}
 		}
 		
 		// Reports all newly pressed keys.
 		pressedKeyCodes.filter { !previouslyPressed.contains($0) }.forEach { code in
 			keyboard_press(code)
-			setNeedsDisplay()
+			if isShowingTaps {
+				setNeedsDisplay()
+			}
 		}
 	}
 	
@@ -113,7 +118,9 @@ class ZX48KeyboardView: UIView {
 					pressedKeyRects.remove(at: idx)
 				}
 				keyboard_release(code)
-				setNeedsDisplay()
+				if isShowingTaps {
+					setNeedsDisplay()
+				}
 			}
 		}
 	}
