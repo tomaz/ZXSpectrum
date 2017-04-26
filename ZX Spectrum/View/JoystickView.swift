@@ -28,6 +28,31 @@ final class JoystickView: UIView {
 	/// Data used for managing joystick state values.
 	fileprivate lazy var data = Data()
 	
+	/// Thumb background view.
+	fileprivate lazy var thumbBackView = DelegatedView { bounds, dirty in
+		JoystickStyleKit.drawJoystickBackground(frame: bounds)
+	}
+	
+	/// Thumb stick view.
+	fileprivate lazy var thumbStickView = DelegatedView { bounds, dirty in
+		JoystickStyleKit.drawJoystickThumb(frame: bounds)
+		
+		if self.stick != nil {
+			UIColor.pressedElementOverlay.setFill()
+			UIBezierPath(ovalIn: bounds).fill()
+		}
+	}
+	
+	/// Button view.
+	fileprivate lazy var buttonView = DelegatedView { bounds, dirty in
+		JoystickStyleKit.drawJoystickThumb(frame: bounds)
+		
+		if self.button != nil {
+			UIColor.pressedElementOverlay.setFill()
+			UIBezierPath(ovalIn: bounds).fill()
+		}
+	}
+	
 	// MARK: - Initialization & disposal
 	
 	convenience init() {
@@ -45,9 +70,16 @@ final class JoystickView: UIView {
 	}
 	
 	private func initializeView() {
-		contentMode = .redraw
 		isMultipleTouchEnabled = true
 		backgroundColor = JoystickStyleKit.joystickBackgroundColor
+		
+		thumbBackView.backgroundColor = UIColor.clear
+		thumbStickView.backgroundColor = UIColor.clear
+		buttonView.backgroundColor = UIColor.clear
+		
+		addSubview(thumbBackView)
+		addSubview(thumbStickView)
+		addSubview(buttonView)
 	}
 	
 	// MARK: - Overriden functions
@@ -55,22 +87,10 @@ final class JoystickView: UIView {
 	override var bounds: CGRect {
 		didSet {
 			data.updateRects(for: bounds)
-		}
-	}
-	
-	override func draw(_ rect: CGRect) {
-		JoystickStyleKit.drawJoystickBackground(frame: data.thumbBackRect)
-		JoystickStyleKit.drawJoystickThumb(frame: data.thumbRect)
-		JoystickStyleKit.drawJoystickThumb(frame: data.buttonRect)
-		
-		if stick != nil {
-			UIColor.pressedElementOverlay.setFill()
-			UIBezierPath(ovalIn: data.thumbRect).fill()
-		}
-		
-		if button != nil {
-			UIColor.pressedElementOverlay.setFill()
-			UIBezierPath(ovalIn: data.buttonRect).fill()
+			
+			thumbBackView.frame = data.thumbBackRect
+			thumbStickView.frame = data.thumbRect
+			buttonView.frame = data.buttonRect
 		}
 	}
 	
@@ -97,12 +117,12 @@ extension JoystickView {
 	fileprivate func handle(touches: Set<UITouch>, moved: Bool, pressed: Bool) {
 		var stick: joystick_button? = moved ? self.stick : nil
 		var button: joystick_button? = moved ? self.button : nil
-		var update = false
 
 		let locations = touches.map { $0.location(in: self) }
 		data.handle(touches: locations, pressed: pressed) { newStick, newButton, touchesOverThumb, touchesOverButton, needsUpdate in
 			if touchesOverThumb {
 				stick = newStick
+				self.thumbStickView.frame = self.data.thumbRect
 			}
 			
 			if touchesOverButton {
@@ -110,16 +130,13 @@ extension JoystickView {
 			}
 			
 			if needsUpdate {
-				update = true
+				self.thumbStickView.setNeedsDisplay()
+				self.buttonView.setNeedsDisplay()
 			}
 		}
 		
 		self.stick = stick
 		self.button = button
-		
-		if update {
-			setNeedsDisplay()
-		}
 	}
 }
 
@@ -292,6 +309,7 @@ extension JoystickView {
 				}
 			} else {
 				updateRects(for: bounds)
+				touchesInThumbArea = true // we need this so we reset position of the view
 			}
 			
 			var update = false

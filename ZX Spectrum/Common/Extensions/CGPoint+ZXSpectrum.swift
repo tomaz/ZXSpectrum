@@ -43,5 +43,5 @@ extension CGPoint {
 	/**
 	The distance that results in "noticable" movement.
 	*/
-	static let noticableDifference = CGFloat(5)
+	static let noticableDifference = CGFloat(3)
 }
