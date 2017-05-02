@@ -120,12 +120,12 @@ extension EmulatorViewController {
 	}
 	
 	fileprivate func updateJoystickButtonIcon(animated: Bool = false) {
-		let image = isKeyboardVisible && UserDefaults.standard.isInputJoystick ? IconsStyleKit.imageOfIconJoystickHide : IconsStyleKit.imageOfIconJoystickShow
+		let image = isKeyboardVisible && Defaults.isInputJoystick.value ? IconsStyleKit.imageOfIconJoystickHide : IconsStyleKit.imageOfIconJoystickShow
 		joystickButton.update(image: image, animated: animated)
 	}
 	
 	fileprivate func updateKeyboardButtonIcon(animated: Bool = false) {
-		let image = isKeyboardVisible && !UserDefaults.standard.isInputJoystick ? IconsStyleKit.imageOfIconKeyboardHide : IconsStyleKit.imageOfIconKeyboardShow
+		let image = isKeyboardVisible && !Defaults.isInputJoystick.value ? IconsStyleKit.imageOfIconKeyboardHide : IconsStyleKit.imageOfIconKeyboardShow
 		keyboardButton.update(image: image, animated: animated)
 	}
 }
@@ -137,6 +137,7 @@ extension EmulatorViewController {
 	fileprivate func setupResetButtonSignals() {
 		resetButton.reactive.tap.bind(to: self) { _ in
 			ginfo("Resetting emulator")
+			Defaults.currentObjectID.value = nil
 			self.emulator.reset()
 		}
 	}
@@ -157,7 +158,7 @@ extension EmulatorViewController {
 	
 	fileprivate func setupInputMethodSettingSignal() {
 		// When input method changes, update the icons.
-		UserDefaults.standard.reactive.isInputJoystickSignal.bind(to: self) { me, value in
+		Defaults.isInputJoystick.bind(to: self) { me, value in
 			gverbose("Joystick input changed to \(value), updating icons")
 			me.updateJoystickButtonIcon(animated: true)
 			me.updateKeyboardButtonIcon(animated: true)
@@ -172,12 +173,12 @@ extension EmulatorViewController {
 			}
 			
 			// If keyboard is already visible in keyboard mode and user wants to change to joystick, we should remain showing it.
-			if asJoystick && !UserDefaults.standard.isInputJoystick {
+			if asJoystick && !Defaults.isInputJoystick.value {
 				return false
 			}
 			
 			// If keyboard is already visible in joystick mode and user wants to change to keyboard, we should remain showing it.
-			if !asJoystick && UserDefaults.standard.isInputJoystick {
+			if !asJoystick && Defaults.isInputJoystick.value {
 				return false
 			}
 			
@@ -193,7 +194,7 @@ extension EmulatorViewController {
 		isKeyboardVisible = !shouldHide()
 
 		// Update user default specifying whether joystick or keyboard should be shown.
-		UserDefaults.standard.isInputJoystick = asJoystick
+		Defaults.isInputJoystick.value = asJoystick
 
 		// Animate keyboard in or out.
 		InputView.animate(animations, completion: nil)

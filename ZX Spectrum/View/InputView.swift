@@ -88,12 +88,12 @@ extension InputView {
 		completeKeyboardsChange()
 		
 		// Setup various observations.
-		setupInputMethosSettingSignal()
+		setupInputMethodSettingSignal()
 	}
 	
-	private func setupInputMethosSettingSignal() {
+	private func setupInputMethodSettingSignal() {
 		// When input method changes, swap the views.
-		UserDefaults.standard.reactive.isInputJoystickSignal.bind(to: self) { me, value in
+		Defaults.isInputJoystick.bind(to: self) { me, value in
 			gverbose("Joystick setting changed to \(value), swapping input method")
 			
 			me.prepareForKeyboardsChange()
@@ -112,7 +112,7 @@ extension InputView {
 	
 	private func prepareForKeyboardsChange() {
 		// Prepare the view we want to show.
-		let isJoystick = UserDefaults.standard.isInputJoystick
+		let isJoystick = Defaults.isInputJoystick.value
 		let newKeyboardView = isJoystick ? joystickView : zx48KeyboardView
 		
 		// Ignore if we want to show the same view as we already are showing.

@@ -33,7 +33,7 @@ extension WebServer {
 		gverbose("Starting server")
 		UIApplication.shared.isIdleTimerDisabled = true
 		server = GCDWebUploader(uploadDirectory: filesPath)
-		server?.allowedFileExtensions = ["tzx"]
+		server?.allowedFileExtensions = ["tzx", "tap"]
 		server?.allowHiddenItems = false
 		server?.start()
 	}

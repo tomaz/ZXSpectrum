@@ -10,6 +10,14 @@ Represents joystick input view.
 */
 final class JoystickView: UIView {
 	
+	fileprivate var editButton: UIButton!
+	fileprivate var assignButton: UIButton!
+	fileprivate var upEditButton: UIButton!
+	fileprivate var downEditButton: UIButton!
+	fileprivate var leftEditButton: UIButton!
+	fileprivate var rightEditButton: UIButton!
+	fileprivate var fireEditButton: UIButton!
+	
 	/// The index of the joystick this view represents.
 	fileprivate lazy var joystickIndex: Int32 = 0
 	
@@ -24,6 +32,21 @@ final class JoystickView: UIView {
 	
 	/// Current joystick button status or nil if none.
 	fileprivate lazy var previousButton: joystick_button? = nil
+
+	/// Keyboard mapping for stick up or nil if it should be treated as normal joystick.
+	fileprivate lazy var keyboardMappingUp: keyboard_key_name? = nil
+	
+	/// Keyboard mapping for stick down or nil if it should be treated as normal joystick.
+	fileprivate lazy var keyboardMappingDown: keyboard_key_name? = nil
+	
+	/// Keyboard mapping for stick left or nil if it should be treated as normal joystick.
+	fileprivate lazy var keyboardMappingLeft: keyboard_key_name? = nil
+	
+	/// Keyboard mapping for stick right or nil if it should be treated as normal joystick.
+	fileprivate lazy var keyboardMappingRight: keyboard_key_name? = nil
+	
+	/// Keyboard mapping for joystick fire button or nil if it should be treated as normal joystick.
+	fileprivate lazy var keyboardMappingFire: keyboard_key_name? = nil
 	
 	/// Data used for managing joystick state values.
 	fileprivate lazy var data = Data()
@@ -59,19 +82,6 @@ final class JoystickView: UIView {
 		initializeView()
 	}
 	
-	private func initializeView() {
-		isMultipleTouchEnabled = true
-		backgroundColor = JoystickStyleKit.joystickBackgroundColor
-		
-		thumbBackView.backgroundColor = UIColor.clear
-		thumbStickView.backgroundColor = UIColor.clear
-		buttonView.backgroundColor = UIColor.clear
-		
-		addSubview(thumbBackView)
-		addSubview(thumbStickView)
-		addSubview(buttonView)
-	}
-	
 	// MARK: - Overriden functions
 	
 	override func layoutSubviews() {
@@ -82,6 +92,17 @@ final class JoystickView: UIView {
 		thumbBackView.frame = data.thumbBackRect
 		thumbStickView.frame = data.thumbRect
 		buttonView.frame = data.buttonRect
+		
+		let size = upEditButton.intrinsicContentSize
+		let frame = thumbBackView.frame
+		let midX = frame.midX - size.width / 2
+		let midY = frame.midY - size.height / 2
+		
+		upEditButton.frame = CGRect(x: midX, y: frame.minY, width: size.width, height: size.height)
+		downEditButton.frame = CGRect(x: midX, y: frame.maxY - size.height, width: size.width, height: size.height)
+		leftEditButton.frame = CGRect(x: frame.minX, y: midY, width: size.width, height: size.height)
+		rightEditButton.frame = CGRect(x: frame.maxX - size.width, y: midY, width: size.width, height: size.height)
+		fireEditButton.frame = CGRect(x: buttonView.frame.midX - size.width / 2, y: buttonView.frame.midY - size.width / 2, width: size.width, height: size.height)
 	}
 	
 	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -94,6 +115,145 @@ final class JoystickView: UIView {
 	
 	override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
 		handle(touches: touches, moved: false, pressed: false)
+	}
+}
+
+// MARK: - Initialization
+
+extension JoystickView {
+	
+	fileprivate func initializeView() {
+		isMultipleTouchEnabled = true
+		backgroundColor = JoystickStyleKit.joystickBackgroundColor
+		
+		thumbBackView.backgroundColor = UIColor.clear
+		thumbStickView.backgroundColor = UIColor.clear
+		buttonView.backgroundColor = UIColor.clear
+		
+		addSubview(thumbBackView)
+		addSubview(thumbStickView)
+		addSubview(buttonView)
+		
+		editButton = initializeEditButton()
+		assignButton = initializeAssignButton()
+		
+		upEditButton = initializeMappingButton(for: JOYSTICK_BUTTON_UP)
+		downEditButton = initializeMappingButton(for: JOYSTICK_BUTTON_DOWN)
+		leftEditButton = initializeMappingButton(for: JOYSTICK_BUTTON_LEFT)
+		rightEditButton = initializeMappingButton(for: JOYSTICK_BUTTON_RIGHT)
+		fireEditButton = initializeMappingButton(for: JOYSTICK_BUTTON_FIRE)
+		
+		initializeCurrentFileSignal()
+	}
+	
+	private func initializeEditButton() -> UIButton {
+		let result = UIButton(frame: CGRect.zero)
+		result.translatesAutoresizingMaskIntoConstraints = false
+		result.setTitle(NSLocalizedString("Edit"), for: .normal)
+		
+		result.reactive.tap.bind(to: self) { _ in
+			ginfo("Toggling edit mode")
+			self.editButton.isSelected = !self.editButton.isSelected
+			
+			let alpha: CGFloat = self.editButton.isSelected ? 1 : 0
+			
+			UIView.animate(withDuration: 0.2) {
+				self.upEditButton.alpha = alpha
+				self.downEditButton.alpha = alpha
+				self.leftEditButton.alpha = alpha
+				self.rightEditButton.alpha = alpha
+				self.fireEditButton.alpha = alpha
+				self.assignButton.alpha = alpha > 0 && Defaults.currentObjectID.value != nil ? 1 : 0
+			}
+		}
+
+		addSubview(result)
+		
+		result.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+		result.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+		
+		return result
+	}
+	
+	private func initializeAssignButton() -> UIButton {
+		let result = UIButton(frame: CGRect.zero)
+		result.alpha = 0
+		result.translatesAutoresizingMaskIntoConstraints = false
+		result.setTitle(NSLocalizedString("Assign"), for: .normal)
+		
+		addSubview(result)
+		
+		result.bottomAnchor.constraint(equalTo: editButton.bottomAnchor).isActive = true
+		result.leadingAnchor.constraint(equalTo: editButton.trailingAnchor, constant: 10).isActive = true
+		result.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor).isActive = true
+		
+		return result
+	}
+	
+	private func initializeMappingButton(for button: joystick_button) -> UIButton {
+		let result = UIButton(frame: CGRect.zero)
+		result.alpha = 0
+		result.translatesAutoresizingMaskIntoConstraints = false
+		result.setTitle(NSLocalizedString("..."), for: .normal)
+		
+		result.reactive.tap.bind(to: self) { me, event in
+			ginfo("Editing \(button)")
+			let current = UIViewController.current
+			
+			let controller = current.storyboard!.instantiateViewController(withIdentifier: "KeyboardMappingScene")
+			controller.modalPresentationStyle = .popover
+
+			// Inject dependencies; as we need additional context for `KeyCodeProvider`, we can't handle it statically, but instead provide closure for each button separately.
+			me.inject(toController: controller) { source, destination in
+				if let destination = destination as? KeyCodeConsumer {
+					gdebug("Providing key code handler for \(button)")
+					
+					destination.configure(keyCodeHandler: { code in
+						gverbose("Mapping \(String(describing: code)) to \(button)")
+						current.dismiss(animated: true, completion: nil)
+						
+						result.setTitle(code?.description ?? "...", for: .normal)
+						
+						switch button {
+						case JOYSTICK_BUTTON_UP: me.keyboardMappingUp = code
+						case JOYSTICK_BUTTON_DOWN: me.keyboardMappingDown = code
+						case JOYSTICK_BUTTON_LEFT: me.keyboardMappingLeft = code
+						case JOYSTICK_BUTTON_RIGHT: me.keyboardMappingRight = code
+						case JOYSTICK_BUTTON_FIRE: me.keyboardMappingFire = code
+						default: break
+						}
+					})
+				}
+			}
+			
+			current.present(controller, animated: true, completion: nil)
+		}
+		
+		addSubview(result)
+		
+		return result
+	}
+	
+	private func initializeCurrentFileSignal() {
+		func animate(toVisible: Bool) {
+			UIView.animate(withDuration: 0.2) { 
+				self.assignButton.alpha = toVisible ? 1 : 0
+			}
+		}
+		
+		Defaults.currentObjectID.bind(to: self) { _ in
+			let isEditing = self.editButton.isSelected
+			let isAssignVisible = self.assignButton.alpha != 0
+			let isObjectAvailable = Defaults.currentObjectID.value != nil
+			
+			if isEditing {
+				if isObjectAvailable && !isAssignVisible {
+					animate(toVisible: true)
+				} else if !isObjectAvailable && isAssignVisible {
+					animate(toVisible: false)
+				}
+			}
+		}
 	}
 }
 
@@ -137,28 +297,87 @@ extension JoystickView {
 		if let stick = stick {
 			if let previous = previousStick, previous != stick {
 				// We have different stick then previous, register unpress for previous and press for new.
-				joystick_press(joystickIndex, previous, 0)
-				joystick_press(joystickIndex, stick, 1)
+				report(joystick: previous, press: false)
+				report(joystick: stick, press: true)
 				previousStick = stick
 			} else if previousStick == nil {
 				// We have first press of a stick, register press.
-				joystick_press(joystickIndex, stick, 1)
+				report(joystick: stick, press: true)
 				previousStick = stick
 			}
 		} else if let previous = previousStick, stick == nil {
 			// Stick was unpressed but not yet reported, do it now.
-			joystick_press(joystickIndex, previous, 0)
+			report(joystick: previous, press: false)
 			previousStick = nil
 		}
 		
 		// Button is simpler - it's either pressed or depressed, but we only need to report when changed.
 		if let button = button, previousButton == nil {
-			joystick_press(joystickIndex, button, 1)
+			report(joystick: button, press: true)
 			previousButton = button
 		} else if let previous = previousButton, button == nil {
-			joystick_press(joystickIndex, previous, 0)
+			report(joystick: previous, press: false)
 			previousButton = nil
 		}
+	}
+	
+	private func report(joystick: joystick_button, press: Bool) {
+		switch joystick {
+		case JOYSTICK_BUTTON_UP:
+			if let key = keyboardMappingUp {
+				if press {
+					keyboard_press(key)
+				} else {
+					keyboard_release(key)
+				}
+				return
+			}
+			
+		case JOYSTICK_BUTTON_DOWN:
+			if let key = keyboardMappingDown {
+				if press {
+					keyboard_press(key)
+				} else {
+					keyboard_release(key)
+				}
+				return
+			}
+			
+		case JOYSTICK_BUTTON_LEFT:
+			if let key = keyboardMappingLeft {
+				if press {
+					keyboard_press(key)
+				} else {
+					keyboard_release(key)
+				}
+				return
+			}
+			
+		case JOYSTICK_BUTTON_RIGHT:
+			if let key = keyboardMappingRight {
+				if press {
+					keyboard_press(key)
+				} else {
+					keyboard_release(key)
+				}
+				return
+			}
+			
+		case JOYSTICK_BUTTON_FIRE:
+			if let key = keyboardMappingFire {
+				if press {
+					keyboard_press(key)
+				} else {
+					keyboard_release(key)
+				}
+				return
+			}
+		
+		default:
+			break
+		}
+		
+		joystick_press(joystickIndex, joystick, press ? 1 : 0)
 	}
 }
 
@@ -254,7 +473,7 @@ extension JoystickView {
 			
 			// Determine maximum thumb and minimum detection distances.
 			maxThumbDistance = (thumbBackSize - thumbSize) / 2
-			minThumbDetectionDistance = maxThumbDistance / 2.5
+			minThumbDetectionDistance = maxThumbDistance * 0.5
 			
 			// Determine thumb radius and center point (these are used frequently so it's just an optimization).
 			thumbRadius = thumbRect.width / 2

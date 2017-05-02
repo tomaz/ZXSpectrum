@@ -96,6 +96,7 @@ extension FilesViewController {
 		
 		after(0.5) {
 			self.performSegue(withIdentifier: "UnwindToEmulatorScene", sender: self)
+			Defaults.currentObjectID.value = object.objectID
 		}
 	}
 	

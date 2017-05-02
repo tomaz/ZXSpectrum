@@ -407,6 +407,73 @@
             </objects>
             <point key="canvasLocation" x="73" y="939"/>
         </scene>
+        <!--Joystick Mapping View Controller-->
+        <scene sceneID="skM-71-lYJ">
+            <objects>
+                <viewController id="mee-nW-qrE" customClass="JoystickMappingViewController" customModule="ZX_Spectrum" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Ubk-KV-yds"/>
+                        <viewControllerLayoutGuide type="bottom" id="V0t-Ct-P7g"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="tea-tv-nMj">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="344"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="n9A-2p-I4h">
+                                <rect key="frame" x="0.0" y="44" width="375" height="300"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pSa-S5-Z57" customClass="ZX48KeyboardView" customModule="ZX_Spectrum" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="n9A-2p-I4h" secondAttribute="trailing" id="PS6-u3-Up8"/>
+                            <constraint firstItem="V0t-Ct-P7g" firstAttribute="top" secondItem="n9A-2p-I4h" secondAttribute="bottom" id="Vx8-D5-Q42"/>
+                            <constraint firstItem="n9A-2p-I4h" firstAttribute="top" secondItem="Ubk-KV-yds" secondAttribute="bottom" id="fve-Zv-sO7"/>
+                            <constraint firstItem="n9A-2p-I4h" firstAttribute="leading" secondItem="tea-tv-nMj" secondAttribute="leading" id="sf9-BY-tPh"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="m2z-4Q-ela">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="C8h-Nt-Nyf">
+                            <connections>
+                                <segue destination="VtE-ab-2UJ" kind="unwind" unwindAction="unwindToEmulatorViewControllerWithSegue:" id="niB-th-0tx"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Delete" id="Qea-5W-kRj"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="deleteBarButton" destination="Qea-5W-kRj" id="rWh-Qv-1RN"/>
+                        <outlet property="zx48KeyboardView" destination="pSa-S5-Z57" id="ant-pv-TIe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tv8-To-PTc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="VtE-ab-2UJ" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="925.60000000000002" y="1571.5142428785609"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="nxK-lT-y5O">
+            <objects>
+                <navigationController storyboardIdentifier="KeyboardMappingScene" id="xFD-Hs-L3j" sceneMemberID="viewController">
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="344"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="puD-bc-jcH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="mee-nW-qrE" kind="relationship" relationship="rootViewController" id="GYt-rO-ztm"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uV3-wD-Cr1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="73" y="1572"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="cMA-Oa-4fG">
             <objects>

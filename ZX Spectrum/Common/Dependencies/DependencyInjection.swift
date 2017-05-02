@@ -7,19 +7,25 @@ import UIKit
 
 extension NSObject {
 	
+	typealias Handler = (AnyObject, AnyObject) -> Void
+	
 	/**
 	Recursively injects all dependencies from receiver to controller hierarchy starting at the given controller.
+	
+	You can optionally provide custom handler which is called after handling builtin consumers.
 	*/
-	func inject(toController controller: UIViewController) {
+	func inject(toController controller: UIViewController, handler: Handler? = nil) {
 		controller.traverse { object in
-			self.inject(toObject: object)
+			self.inject(toObject: object, handler: handler)
 		}
 	}
 	
 	/**
 	Injects dependencies to the given object.
+	
+	You can optionally provide custom handler which is called after handling builtin consumers.
 	*/
-	func inject(toObject object: AnyObject) {
+	func inject(toObject object: AnyObject, handler: Handler? = nil) {
 		if let source = self as? PersistentContainerProvider, let destination = object as? PersistentContainerConsumer {
 			destination.configure(persistentContainer: source.providePersistentContainer())
 		}
@@ -27,6 +33,12 @@ extension NSObject {
 		if let source = self as? EmulatorProvider, let destination = object as? EmulatorConsumer {
 			destination.configure(emulator: source.provideEmulator())
 		}
+
+		if let source = self as? KeyCodeProvider, let destination = object as? KeyCodeConsumer {
+			destination.configure(keyCodeHandler: source.provideKeyCodeHandler())
+		}
+		
+		handler?(self, object)
 	}
 }
 
