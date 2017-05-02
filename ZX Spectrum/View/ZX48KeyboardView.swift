@@ -48,10 +48,9 @@ class ZX48KeyboardView: UIView {
 	
 	// MARK: - Overriden functions
 	
-	override var bounds: CGRect {
-		didSet {
-			updateScaledRects()
-		}
+	override func layoutSubviews() {
+		super.layoutSubviews()
+		updateScaledRects()
 	}
 	
 	override func draw(_ rect: CGRect) {

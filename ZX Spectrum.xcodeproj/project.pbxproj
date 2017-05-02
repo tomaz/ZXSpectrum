@@ -32,7 +32,7 @@
 		73291EDE1E96637100940801 /* tc2068-1.rom in Resources */ = {isa = PBXBuildFile; fileRef = 73291EC91E96637100940801 /* tc2068-1.rom */; };
 		7337874F1E9BE43F00C5C363 /* SpectrumDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7337874E1E9BE43F00C5C363 /* SpectrumDisplayController.m */; };
 		733787541E9CE36C00C5C363 /* ToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733787531E9CE36C00C5C363 /* ToolbarView.swift */; };
-		733787571E9CE99300C5C363 /* SpectrumInputController.m in Sources */ = {isa = PBXBuildFile; fileRef = 733787561E9CE99300C5C363 /* SpectrumInputController.m */; };
+		733787571E9CE99300C5C363 /* SpectrumJoystickController.m in Sources */ = {isa = PBXBuildFile; fileRef = 733787561E9CE99300C5C363 /* SpectrumJoystickController.m */; };
 		736493311EA4CE7200EE697F /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7364932F1EA4CE7200EE697F /* Model.xcdatamodeld */; };
 		736493351EA4CEA100EE697F /* Managed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736493341EA4CEA100EE697F /* Managed.swift */; };
 		736493371EA4D02D00EE697F /* FileObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736493361EA4D02D00EE697F /* FileObject.swift */; };
@@ -104,7 +104,7 @@
 		73EEA0351EA7B64300E65A21 /* String+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EEA0341EA7B64300E65A21 /* String+ZXSpectrum.swift */; };
 		73F5B0AA1EA9E44E005E8844 /* UserDefaults+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F5B0A91EA9E44E005E8844 /* UserDefaults+ZXSpectrum.swift */; };
 		73F5B0C21EA9E5FA005E8844 /* JoystickView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F5B0C11EA9E5FA005E8844 /* JoystickView.swift */; };
-		73F5B0C41EA9E63C005E8844 /* KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F5B0C31EA9E63C005E8844 /* KeyboardView.swift */; };
+		73F5B0C41EA9E63C005E8844 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F5B0C31EA9E63C005E8844 /* InputView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -358,8 +358,8 @@
 		7337874D1E9BE43F00C5C363 /* SpectrumDisplayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpectrumDisplayController.h; sourceTree = "<group>"; };
 		7337874E1E9BE43F00C5C363 /* SpectrumDisplayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpectrumDisplayController.m; sourceTree = "<group>"; };
 		733787531E9CE36C00C5C363 /* ToolbarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolbarView.swift; sourceTree = "<group>"; };
-		733787551E9CE99300C5C363 /* SpectrumInputController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpectrumInputController.h; sourceTree = "<group>"; };
-		733787561E9CE99300C5C363 /* SpectrumInputController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpectrumInputController.m; sourceTree = "<group>"; };
+		733787551E9CE99300C5C363 /* SpectrumJoystickController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpectrumJoystickController.h; sourceTree = "<group>"; };
+		733787561E9CE99300C5C363 /* SpectrumJoystickController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpectrumJoystickController.m; sourceTree = "<group>"; };
 		736493301EA4CE7200EE697F /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		736493341EA4CEA100EE697F /* Managed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Managed.swift; sourceTree = "<group>"; };
 		736493361EA4D02D00EE697F /* FileObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileObject.swift; sourceTree = "<group>"; };
@@ -431,7 +431,7 @@
 		73EEA0341EA7B64300E65A21 /* String+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+ZXSpectrum.swift"; sourceTree = "<group>"; };
 		73F5B0A91EA9E44E005E8844 /* UserDefaults+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefaults+ZXSpectrum.swift"; sourceTree = "<group>"; };
 		73F5B0C11EA9E5FA005E8844 /* JoystickView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoystickView.swift; sourceTree = "<group>"; };
-		73F5B0C31EA9E63C005E8844 /* KeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardView.swift; sourceTree = "<group>"; };
+		73F5B0C31EA9E63C005E8844 /* InputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -484,7 +484,7 @@
 			children = (
 				73F5B0BF1EA9E5DA005E8844 /* ZX 48K Keyboard */,
 				73F5B0C01EA9E5E7005E8844 /* Joystick */,
-				73F5B0C31EA9E63C005E8844 /* KeyboardView.swift */,
+				73F5B0C31EA9E63C005E8844 /* InputView.swift */,
 				733787531E9CE36C00C5C363 /* ToolbarView.swift */,
 				73DFB0611EB0D9470002F8F4 /* DelegatedView.swift */,
 				73DA64FB1EA65162008832AA /* IconsStyleKit.swift */,
@@ -773,8 +773,8 @@
 				73DF22F41E997510002FA042 /* SpectrumPalette.swift */,
 				7337874D1E9BE43F00C5C363 /* SpectrumDisplayController.h */,
 				7337874E1E9BE43F00C5C363 /* SpectrumDisplayController.m */,
-				733787551E9CE99300C5C363 /* SpectrumInputController.h */,
-				733787561E9CE99300C5C363 /* SpectrumInputController.m */,
+				733787551E9CE99300C5C363 /* SpectrumJoystickController.h */,
+				733787561E9CE99300C5C363 /* SpectrumJoystickController.m */,
 				739A5F791EA8D9F400CE6313 /* SpectrumController.h */,
 				739A5F7A1EA8D9F400CE6313 /* SpectrumController.m */,
 			);
@@ -1122,8 +1122,8 @@
 				73AFFED61EAFC62B00218DB7 /* CGPoint+ZXSpectrum.swift in Sources */,
 				73B529D51EA7BB1C002FB90B /* URL+ZXSpectrum.swift in Sources */,
 				737B57041EA4122A00A260B9 /* FilesViewController.swift in Sources */,
-				73F5B0C41EA9E63C005E8844 /* KeyboardView.swift in Sources */,
-				733787571E9CE99300C5C363 /* SpectrumInputController.m in Sources */,
+				73F5B0C41EA9E63C005E8844 /* InputView.swift in Sources */,
+				733787571E9CE99300C5C363 /* SpectrumJoystickController.m in Sources */,
 				737B56FD1EA4009900A260B9 /* UIViewController+ZXSpectrum.swift in Sources */,
 				7337874F1E9BE43F00C5C363 /* SpectrumDisplayController.m in Sources */,
 				7364933B1EA54B2F00EE697F /* Logger.swift in Sources */,

@@ -19,7 +19,7 @@
 /**
  The handler that will receive all the requests. Assign nil to stop receving events.
  */
-@property (assign, nonatomic, nullable) id<SpectrumDisplayHandler> handler;
+@property (weak, nonatomic, nullable) id<SpectrumDisplayHandler> handler;
 
 @end
 

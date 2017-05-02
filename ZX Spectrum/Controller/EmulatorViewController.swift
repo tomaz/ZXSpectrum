@@ -12,7 +12,7 @@ class EmulatorViewController: UIViewController {
 	
 	@IBOutlet fileprivate weak var spectrumView: SpectrumScreenView!
 	@IBOutlet fileprivate weak var controlsContainerView: UIView!
-	@IBOutlet fileprivate weak var keyboardView: UIView!
+	@IBOutlet fileprivate weak var spectrumInputView: UIView!
 	
 	@IBOutlet fileprivate weak var settingsButton: UIButton!
 	@IBOutlet fileprivate weak var resetButton: UIButton!
@@ -186,7 +186,7 @@ extension EmulatorViewController {
 		}
 		
 		func animations() {
-			keyboardView.isHidden = !isKeyboardVisible
+			spectrumInputView.isHidden = !isKeyboardVisible
 		}
 
 		// Update internal flag specifying whether keyboard is visible or not.
@@ -196,6 +196,6 @@ extension EmulatorViewController {
 		UserDefaults.standard.isInputJoystick = asJoystick
 
 		// Animate keyboard in or out.
-		KeyboardView.animate(animations, completion: nil)
+		InputView.animate(animations, completion: nil)
 	}
 }

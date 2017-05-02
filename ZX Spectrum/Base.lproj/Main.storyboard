@@ -81,7 +81,7 @@
                                             <constraint firstItem="1J6-VI-uiw" firstAttribute="centerY" secondItem="cbU-fz-DJ0" secondAttribute="centerY" id="zIU-6w-v7Y"/>
                                         </constraints>
                                     </view>
-                                    <view hidden="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="300" translatesAutoresizingMaskIntoConstraints="NO" id="fC8-y7-uJO" customClass="KeyboardView" customModule="ZX_Spectrum" customModuleProvider="target">
+                                    <view hidden="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="300" translatesAutoresizingMaskIntoConstraints="NO" id="fC8-y7-uJO" customClass="InputView" customModule="ZX_Spectrum" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="347" width="375" height="300"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
@@ -101,9 +101,9 @@
                         <outlet property="filesButton" destination="f5d-Nv-YS9" id="pSb-XL-EmY"/>
                         <outlet property="joystickButton" destination="1J6-VI-uiw" id="a2O-xj-oEQ"/>
                         <outlet property="keyboardButton" destination="OSr-o9-M55" id="zNc-ev-Z9t"/>
-                        <outlet property="keyboardView" destination="fC8-y7-uJO" id="DOF-YJ-CCO"/>
                         <outlet property="resetButton" destination="XSS-zl-c5M" id="Z5G-KN-y10"/>
                         <outlet property="settingsButton" destination="cbU-fz-DJ0" id="adr-zv-5kh"/>
+                        <outlet property="spectrumInputView" destination="fC8-y7-uJO" id="DOF-YJ-CCO"/>
                         <outlet property="spectrumView" destination="v01-ct-F5k" id="7B0-7s-iNl"/>
                     </connections>
                 </viewController>

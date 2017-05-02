@@ -3,28 +3,24 @@
 //  Copyright © 2017 Gentle Bytes. All rights reserved.
 //
 
+#include <stdio.h>
 #include "uikitjoystick.h"
 
-joystick_init_function_type joystick_init_function = 0;
-joystick_function_type joystick_poll_function = 0;
+joystick_init_function_type joystick_init_function = NULL;
+joystick_function_type joystick_poll_function = NULL;
 
-void *joystick_init_context = 0;
-void *joystick_poll_context = 0;
+void *joystick_init_context = NULL;
+void *joystick_poll_context = NULL;
 
 int ui_joystick_init(void) {
-  if (joystick_init_function != 0) {
-    return joystick_init_function(joystick_init_context);
-  }
-  return 0;
+  return joystick_init_function(joystick_init_context);
 }
 
 void ui_joystick_end(void) {
 }
 
 void ui_joystick_poll(void) {
-  if (joystick_poll_function != 0) {
-    joystick_poll_function(joystick_poll_context);
-  }
+  joystick_poll_function(joystick_poll_context);
 }
 
 void set_joystick_init_function(void *context, joystick_init_function_type function) {

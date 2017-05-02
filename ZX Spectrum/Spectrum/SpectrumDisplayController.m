@@ -207,7 +207,7 @@ void controller_display_frame_end_function(void *context) {
 			kCGImageAlphaPremultipliedFirst | kCGImageByteOrder32Little);
 		
 		if (context) {
-			CGContextSetInterpolationQuality(context, kCGInterpolationNone);
+			CGContextSetInterpolationQuality(bitmapContext, kCGInterpolationNone);
 			
 			CGImageRef cgi = CGBitmapContextCreateImage(bitmapContext);
 			if (cgi) {

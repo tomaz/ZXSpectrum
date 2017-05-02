@@ -84,7 +84,7 @@ extension SpectrumScreenView {
 	fileprivate func setupSmoothingSignal() {
 		UserDefaults.standard.reactive.isScreenSmoothingActiveSignal.observeNext { [weak self] _ in
 			self?.updateSmoothing()
-		}
+		}.dispose(in: reactive.bag)
 	}
 	
 	fileprivate func updateSmoothing() {

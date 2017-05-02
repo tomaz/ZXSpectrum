@@ -14,16 +14,16 @@ final class JoystickView: UIView {
 	fileprivate lazy var joystickIndex: Int32 = 0
 	
 	/// Current joystick stick position or nil if none.
-	fileprivate lazy var stick: joystick_button? = nil
+	fileprivate lazy var stick: input_key? = nil
 
 	/// Current joystick button status or nil if none.
-	fileprivate lazy var button: joystick_button? = nil
+	fileprivate lazy var button: input_key? = nil
 	
 	/// Current joystick stick position or nil if none.
-	fileprivate lazy var previousStick: joystick_button? = nil
+	fileprivate lazy var previousStick: input_key? = nil
 	
 	/// Current joystick button status or nil if none.
-	fileprivate lazy var previousButton: joystick_button? = nil
+	fileprivate lazy var previousButton: input_key? = nil
 	
 	/// Data used for managing joystick state values.
 	fileprivate lazy var data = Data()
@@ -74,14 +74,14 @@ final class JoystickView: UIView {
 	
 	// MARK: - Overriden functions
 	
-	override var bounds: CGRect {
-		didSet {
-			data.updateRects(for: bounds)
-			
-			thumbBackView.frame = data.thumbBackRect
-			thumbStickView.frame = data.thumbRect
-			buttonView.frame = data.buttonRect
-		}
+	override func layoutSubviews() {
+		super.layoutSubviews()
+
+		data.updateRects(for: bounds)
+
+		thumbBackView.frame = data.thumbBackRect
+		thumbStickView.frame = data.thumbRect
+		buttonView.frame = data.buttonRect
 	}
 	
 	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -105,8 +105,8 @@ extension JoystickView {
 	Manages touches.
 	*/
 	fileprivate func handle(touches: Set<UITouch>, moved: Bool, pressed: Bool) {
-		var stick: joystick_button? = moved ? self.stick : nil
-		var button: joystick_button? = moved ? self.button : nil
+		var stick: input_key? = moved ? self.stick : nil
+		var button: input_key? = moved ? self.button : nil
 
 		let locations = touches.map { $0.location(in: self) }
 		data.handle(touches: locations, pressed: pressed) { newStick, newButton, touchesOverThumb, touchesOverButton, needsUpdate in
@@ -125,28 +125,38 @@ extension JoystickView {
 	}
 }
 
-// MARK: - SpectrumInputHandler
+// MARK: - SpectrumJoystickHandler
 
-extension JoystickView: SpectrumInputHandler {
+extension JoystickView {
 	
-	func numberOfJoysticks(for controller: SpectrumInputController) -> Int {
-		return 1
-	}
-	
-	func pollJoysticks(for controller: SpectrumInputController) {
+	/**
+	Polls the joystick into fuse.
+	*/
+	func poll() {
+		// Stick is a bit more complicated: direction can change without being depressed.
 		if let stick = stick {
-			joystick_press(joystickIndex, stick, 1)
-			previousStick = stick
-		} else if let previous = previousStick {
-			joystick_press(joystickIndex, previous, 0)
+			if let previous = previousStick, previous != stick {
+				// We have different stick then previous, register unpress for previous and press for new.
+				controller_report_joystick(joystickIndex, previous, false)
+				controller_report_joystick(joystickIndex, stick, true)
+				previousStick = stick
+			} else if previousStick == nil {
+				// We have first press of a stick, register press.
+				controller_report_joystick(joystickIndex, stick, true)
+				previousStick = stick
+			}
+		} else if let previous = previousStick, stick == nil {
+			// Stick was unpressed but not yet reported, do it now.
+			controller_report_joystick(joystickIndex, previous, false)
 			previousStick = nil
 		}
 		
-		if let button = button {
-			joystick_press(joystickIndex, button, 1)
+		// Button is simpler - it's either pressed or depressed, but we only need to report when changed.
+		if let button = button, previousButton == nil {
+			controller_report_joystick(joystickIndex, button, true)
 			previousButton = button
-		} else if let previous = previousButton {
-			joystick_press(joystickIndex, previous, 0)
+		} else if let previous = previousButton, button == nil {
+			controller_report_joystick(joystickIndex, previous, false)
 			previousButton = nil
 		}
 	}
@@ -174,7 +184,7 @@ extension JoystickView {
 		private lazy var previousThumbRect = CGRect.zero
 		
 		/// State of button on previous call.
-		private lazy var previousButton: joystick_button? = nil
+		private lazy var previousButton: input_key? = nil
 		
 		/// Current thumb radius.
 		private lazy var thumbRadius = CGFloat(0)
@@ -264,9 +274,9 @@ extension JoystickView {
 		/**
 		Handles the given touch.
 		*/
-		func handle(touches: [CGPoint], pressed: Bool, handler: (joystick_button?, joystick_button?, Bool, Bool, Bool) -> Void) {
-			var stick: joystick_button? = nil
-			var button: joystick_button? = nil
+		func handle(touches: [CGPoint], pressed: Bool, handler: (input_key?, input_key?, Bool, Bool, Bool) -> Void) {
+			var stick: input_key? = nil
+			var button: input_key? = nil
 			var touchesInThumbArea = false
 			var touchesInButtonArea = false
 			
@@ -288,7 +298,7 @@ extension JoystickView {
 						touchesInThumbArea = true
 						
 					} else if buttonRect.contains(location) {
-						button = JOYSTICK_BUTTON_FIRE
+						button = INPUT_JOYSTICK_FIRE_1
 						touchesInButtonArea = true
 					}
 				}
@@ -321,15 +331,15 @@ extension JoystickView {
 		/**
 		Determimes joystick button for given angle.
 		*/
-		fileprivate static func joystickStick(for angle: CGFloat) -> joystick_button {
+		fileprivate static func joystickStick(for angle: CGFloat) -> input_key {
 			if angle >= NE && angle < NW {
-				return JOYSTICK_BUTTON_UP
+				return INPUT_JOYSTICK_UP
 			} else if angle >= NW && angle < SW {
-				return JOYSTICK_BUTTON_RIGHT
+				return INPUT_JOYSTICK_RIGHT
 			} else if angle >= SW && angle < SE {
-				return JOYSTICK_BUTTON_DOWN
+				return INPUT_JOYSTICK_DOWN
 			} else {
-				return JOYSTICK_BUTTON_LEFT
+				return INPUT_JOYSTICK_LEFT
 			}
 		}
 	}

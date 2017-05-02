@@ -6,9 +6,9 @@
 import UIKit
 
 /**
-Keyboard container view; allows hotswapping different views on the fly.
+Input container view; allows hotswapping different views on the fly.
 */
-final class KeyboardView: UIView {
+final class InputView: UIView {
 	
 	fileprivate var joystickView: JoystickView!
 	fileprivate var zx48KeyboardView: ZX48KeyboardView!
@@ -19,10 +19,12 @@ final class KeyboardView: UIView {
 	fileprivate var transitioningKeyboardView: UIView? = nil
 	fileprivate var transitioningKeyboardTopConstraint: NSLayoutConstraint? = nil
 	
+	fileprivate lazy var joystickController = SpectrumJoystickController()
+	
 	// MARK: - Initialization & disposal
 
 	convenience init() {
-		self.init(frame: CGRect(x: 0, y: 0, width: 0, height: KeyboardView.height))
+		self.init(frame: CGRect(x: 0, y: 0, width: 0, height: InputView.height))
 	}
 	
 	override init(frame: CGRect) {
@@ -38,13 +40,27 @@ final class KeyboardView: UIView {
 	// MARK: - Overriden functions
 	
 	override var intrinsicContentSize: CGSize {
-		return CGSize(width: UIViewNoIntrinsicMetric, height: KeyboardView.height)
+		return CGSize(width: UIViewNoIntrinsicMetric, height: InputView.height)
+	}
+}
+
+// MARK: - SpectrumJoystickHandler
+
+extension InputView: SpectrumJoystickHandler {
+	
+	func numberOfJoysticks(for controller: SpectrumJoystickController) -> Int {
+		settings_current.joystick_1_output = Int32(JOYSTICK_TYPE_KEMPSTON.rawValue)
+		return 1
+	}
+	
+	func pollJoysticks(for controller: SpectrumJoystickController) {
+		joystickView.poll()
 	}
 }
 
 // MARK: - Initialization
 
-extension KeyboardView {
+extension InputView {
 	
 	/**
 	Sets up the view.
@@ -64,6 +80,9 @@ extension KeyboardView {
 		zx48KeyboardView = ZX48KeyboardView()
 		zx48KeyboardView.translatesAutoresizingMaskIntoConstraints = false
 		
+		// Setup joystick controller handler.
+		joystickController.handler = self
+		
 		// Setup visibility for keyboards based on current status.
 		prepareForKeyboardsChange()
 		completeKeyboardsChange()
@@ -79,7 +98,7 @@ extension KeyboardView {
 			
 			me.prepareForKeyboardsChange()
 			
-			KeyboardView.animate(me.layoutIfNeeded, completion: me.completeKeyboardsChange(complete:))
+			InputView.animate(me.layoutIfNeeded, completion: me.completeKeyboardsChange(complete:))
 		}
 	}
 	
@@ -88,7 +107,7 @@ extension KeyboardView {
 		addSubview(view)
 		view.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
 		view.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-		view.heightAnchor.constraint(equalToConstant: KeyboardView.height).isActive = true
+		view.heightAnchor.constraint(equalToConstant: InputView.height).isActive = true
 	}
 	
 	private func prepareForKeyboardsChange() {
@@ -122,7 +141,7 @@ extension KeyboardView {
 		currentKeyboardView = newKeyboardView
 		
 		// Now move current view towards the top; this will make it appear as if current view clides out and new view slides in.
-		constraint.constant = -KeyboardView.height
+		constraint.constant = -InputView.height
 	}
 	
 	private func completeKeyboardsChange(complete: Bool = true) {
@@ -141,7 +160,7 @@ extension KeyboardView {
 
 // MARK: - Shared functinoality
 
-extension KeyboardView {
+extension InputView {
 	
 	/**
 	Performs standard animation for keyboard views.
@@ -160,7 +179,7 @@ extension KeyboardView {
 
 // MARK: - Constants
 
-extension KeyboardView {
+extension InputView {
 	
 	fileprivate static let height = CGFloat(300)
 }
