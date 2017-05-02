@@ -23,6 +23,21 @@ final class FileObject: NSManagedObject {
 	/// Specifies whether the object is stock or uploaded.
 	@NSManaged var isStock: Bool
 	
+	/// Mapping for joystick up or nil if none.
+	@NSManaged fileprivate var mappingUp: NSNumber?
+	
+	/// Mapping for joystick down or nil if none.
+	@NSManaged fileprivate var mappingDown: NSNumber?
+	
+	/// Mapping for joystick left or nil if none.
+	@NSManaged fileprivate var mappingLeft: NSNumber?
+	
+	/// Mapping for joystick right or nil if none.
+	@NSManaged fileprivate var mappingRight: NSNumber?
+	
+	/// Mapping for joystick fire or nil if none.
+	@NSManaged fileprivate var mappingFire: NSNumber?
+	
 	// MARK: - Helper properties
 	
 	/// Indicates whether last uploaded files were succesfully deleted. Only valid after deleting the object.
@@ -45,6 +60,36 @@ final class FileObject: NSManagedObject {
 // MARK: - Derived properties
 
 extension FileObject {
+	
+	/// Mapped joystick up key.
+	var joystickUpKey: KeyCode? {
+		get { return getKeyCode(from: mappingUp) }
+		set { mappingUp = set(keyCode: newValue) }
+	}
+	
+	/// Mapped joystick down key.
+	var joystickDownKey: KeyCode? {
+		get { return getKeyCode(from: mappingDown) }
+		set { mappingDown = set(keyCode: newValue) }
+	}
+	
+	/// Mapped joystick keft key.
+	var joystickLeftKey: KeyCode? {
+		get { return getKeyCode(from: mappingLeft) }
+		set { mappingLeft = set(keyCode: newValue) }
+	}
+	
+	/// Mapped joystick right key.
+	var joystickRightKey: KeyCode? {
+		get { return getKeyCode(from: mappingRight) }
+		set { mappingRight = set(keyCode: newValue) }
+	}
+	
+	/// Mapped joystick fire key.
+	var joystickFireKey: KeyCode? {
+		get { return getKeyCode(from: mappingFire) }
+		set { mappingFire = set(keyCode: newValue) }
+	}
 	
 	/// First letter of the `filename`.
 	var letter: String {
@@ -78,6 +123,20 @@ extension FileObject {
 		} else {
 			return URL(fileURLWithPath: path).appendingPathComponent(filename)
 		}
+	}
+	
+	private func getKeyCode(from number: NSNumber?) -> KeyCode? {
+		if let number = number {
+			return KeyCode(rawValue: number.uint32Value)
+		}
+		return nil
+	}
+	
+	private func set(keyCode: KeyCode?) -> NSNumber? {
+		if let code = keyCode {
+			return NSNumber(value: code.rawValue)
+		}
+		return nil
 	}
 }
 

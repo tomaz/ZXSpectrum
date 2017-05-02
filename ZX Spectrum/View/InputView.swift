@@ -4,11 +4,14 @@
 //
 
 import UIKit
+import CoreData
 
 /**
 Input container view; allows hotswapping different views on the fly.
 */
 final class InputView: UIView {
+	
+	fileprivate var persistentContainer: NSPersistentContainer!
 	
 	fileprivate var joystickView: JoystickView!
 	fileprivate var zx48KeyboardView: ZX48KeyboardView!
@@ -41,6 +44,19 @@ final class InputView: UIView {
 	
 	override var intrinsicContentSize: CGSize {
 		return CGSize(width: UIViewNoIntrinsicMetric, height: InputView.height)
+	}
+}
+
+// MARK: - Dependencies
+
+extension InputView: PersistentContainerConsumer, PersistentContainerProvider {
+	
+	func configure(persistentContainer: NSPersistentContainer) {
+		self.persistentContainer = persistentContainer
+	}
+	
+	func providePersistentContainer() -> NSPersistentContainer {
+		return persistentContainer
 	}
 }
 
@@ -113,32 +129,35 @@ extension InputView {
 	private func prepareForKeyboardsChange() {
 		// Prepare the view we want to show.
 		let isJoystick = Defaults.isInputJoystick.value
-		let newKeyboardView = isJoystick ? joystickView : zx48KeyboardView
+		let newInputView = isJoystick ? joystickView : zx48KeyboardView
 		
 		// Ignore if we want to show the same view as we already are showing.
-		if newKeyboardView.superview != nil {
+		if newInputView.superview != nil {
 			return
 		}
+		
+		// Inject dependencies.
+		inject(toView: newInputView)
 
 		// First we need to add the keyboard view to hierarhcy and establish default constraints.
-		addSubviewAndSetupDefaultConstraints(for: newKeyboardView)
+		addSubviewAndSetupDefaultConstraints(for: newInputView)
 		
 		// If we don't have top contraint yet, this is the first time we're here, so just remember the view and exit (we'll setup top constraint in `cleanupKeyboardsAnimations(complete:)`)..
 		guard let view = currentKeyboardView, let constraint = currentKeyboardTopConstraint else {
-			currentKeyboardView = newKeyboardView
+			currentKeyboardView = newInputView
 			return
 		}
 		
 		// When animating, we should prepare starting frame.
-		newKeyboardView.frame = CGRect(x: 0, y: bounds.maxY, width: bounds.width, height: bounds.height)
+		newInputView.frame = CGRect(x: 0, y: bounds.maxY, width: bounds.width, height: bounds.height)
 		
 		// We always slide new view from the bottom, so setup temporary constraint used for transition to pin new keyboard below current one.
-		transitioningKeyboardTopConstraint = newKeyboardView.topAnchor.constraint(equalTo: view.bottomAnchor)
+		transitioningKeyboardTopConstraint = newInputView.topAnchor.constraint(equalTo: view.bottomAnchor)
 		transitioningKeyboardTopConstraint?.isActive = true
 		
 		// Remember both views.
 		transitioningKeyboardView = view
-		currentKeyboardView = newKeyboardView
+		currentKeyboardView = newInputView
 		
 		// Now move current view towards the top; this will make it appear as if current view clides out and new view slides in.
 		constraint.constant = -InputView.height

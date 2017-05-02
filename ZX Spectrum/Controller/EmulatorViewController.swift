@@ -36,6 +36,8 @@ class EmulatorViewController: UIViewController {
 		
 		super.viewDidLoad()
 		
+		inject(toView: spectrumInputView)
+		
 		gdebug("Setting up emulator")
 		emulator = Emulator()!
 		settings_defaults(&settings_current);

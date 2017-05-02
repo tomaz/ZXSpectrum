@@ -4,6 +4,7 @@
 //
 
 import UIKit
+import CoreData
 
 /**
 Represents joystick input view.
@@ -11,12 +12,19 @@ Represents joystick input view.
 final class JoystickView: UIView {
 	
 	fileprivate var editButton: UIButton!
+	fileprivate var clearButton: UIButton!
 	fileprivate var assignButton: UIButton!
 	fileprivate var upEditButton: UIButton!
 	fileprivate var downEditButton: UIButton!
 	fileprivate var leftEditButton: UIButton!
 	fileprivate var rightEditButton: UIButton!
 	fileprivate var fireEditButton: UIButton!
+	
+	// MARK: - Dependencies
+	
+	fileprivate var persistentContainer: NSPersistentContainer!
+	
+	// MARK: - Joystick state
 	
 	/// The index of the joystick this view represents.
 	fileprivate lazy var joystickIndex: Int32 = 0
@@ -32,24 +40,26 @@ final class JoystickView: UIView {
 	
 	/// Current joystick button status or nil if none.
 	fileprivate lazy var previousButton: joystick_button? = nil
-
-	/// Keyboard mapping for stick up or nil if it should be treated as normal joystick.
-	fileprivate lazy var keyboardMappingUp: keyboard_key_name? = nil
-	
-	/// Keyboard mapping for stick down or nil if it should be treated as normal joystick.
-	fileprivate lazy var keyboardMappingDown: keyboard_key_name? = nil
-	
-	/// Keyboard mapping for stick left or nil if it should be treated as normal joystick.
-	fileprivate lazy var keyboardMappingLeft: keyboard_key_name? = nil
-	
-	/// Keyboard mapping for stick right or nil if it should be treated as normal joystick.
-	fileprivate lazy var keyboardMappingRight: keyboard_key_name? = nil
-	
-	/// Keyboard mapping for joystick fire button or nil if it should be treated as normal joystick.
-	fileprivate lazy var keyboardMappingFire: keyboard_key_name? = nil
 	
 	/// Data used for managing joystick state values.
 	fileprivate lazy var data = Data()
+	
+	// MARK: - Keyboard mappings
+
+	/// Keyboard mapping for stick up or nil if it should be treated as normal joystick.
+	fileprivate lazy var keyboardMappingUp: KeyCode? = nil
+	
+	/// Keyboard mapping for stick down or nil if it should be treated as normal joystick.
+	fileprivate lazy var keyboardMappingDown: KeyCode? = nil
+	
+	/// Keyboard mapping for stick left or nil if it should be treated as normal joystick.
+	fileprivate lazy var keyboardMappingLeft: KeyCode? = nil
+	
+	/// Keyboard mapping for stick right or nil if it should be treated as normal joystick.
+	fileprivate lazy var keyboardMappingRight: KeyCode? = nil
+	
+	/// Keyboard mapping for joystick fire button or nil if it should be treated as normal joystick.
+	fileprivate lazy var keyboardMappingFire: KeyCode? = nil
 	
 	/// Thumb background view.
 	fileprivate lazy var thumbBackView = DelegatedView { bounds, dirty in
@@ -118,6 +128,16 @@ final class JoystickView: UIView {
 	}
 }
 
+// MARK: - Dependencies
+
+extension JoystickView: PersistentContainerConsumer {
+	
+	func configure(persistentContainer: NSPersistentContainer) {
+		gdebug("Configuring with \(persistentContainer)")
+		self.persistentContainer = persistentContainer
+	}
+}
+
 // MARK: - Initialization
 
 extension JoystickView {
@@ -135,6 +155,7 @@ extension JoystickView {
 		addSubview(buttonView)
 		
 		editButton = initializeEditButton()
+		clearButton = initializeClearButton()
 		assignButton = initializeAssignButton()
 		
 		upEditButton = initializeMappingButton(for: JOYSTICK_BUTTON_UP)
@@ -156,6 +177,7 @@ extension JoystickView {
 			self.editButton.isSelected = !self.editButton.isSelected
 			
 			let alpha: CGFloat = self.editButton.isSelected ? 1 : 0
+			let actionsAlpha: CGFloat = alpha > 0 && Defaults.currentObjectID.value != nil ? 1 : 0
 			
 			UIView.animate(withDuration: 0.2) {
 				self.upEditButton.alpha = alpha
@@ -163,7 +185,8 @@ extension JoystickView {
 				self.leftEditButton.alpha = alpha
 				self.rightEditButton.alpha = alpha
 				self.fireEditButton.alpha = alpha
-				self.assignButton.alpha = alpha > 0 && Defaults.currentObjectID.value != nil ? 1 : 0
+				self.clearButton.alpha = actionsAlpha
+				self.assignButton.alpha = actionsAlpha
 			}
 		}
 
@@ -172,6 +195,42 @@ extension JoystickView {
 		result.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
 		result.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
 		
+		return result
+	}
+	
+	private func initializeClearButton() -> UIButton {
+		let result = UIButton(frame: CGRect.zero)
+		result.alpha = 0
+		result.translatesAutoresizingMaskIntoConstraints = false
+		result.setTitle(NSLocalizedString("Clear"), for: .normal)
+		
+		addSubview(result)
+		
+		result.bottomAnchor.constraint(equalTo: editButton.bottomAnchor).isActive = true
+		result.leadingAnchor.constraint(equalTo: editButton.trailingAnchor, constant: 20).isActive = true
+		
+		result.reactive.tap.bind(to: self) { _ in
+			let context = self.persistentContainer.viewContext
+			let object = context.object(with: Defaults.currentObjectID.value!) as! FileObject
+			ginfo("Clearing all assignments for \(object)")
+			
+			self.keyboardMappingUp = nil
+			self.keyboardMappingDown = nil
+			self.keyboardMappingLeft = nil
+			self.keyboardMappingRight = nil
+			self.keyboardMappingFire = nil
+			
+			self.updateMappingButtonTitles()
+			
+			object.joystickUpKey = nil
+			object.joystickDownKey = nil
+			object.joystickLeftKey = nil
+			object.joystickRightKey = nil
+			object.joystickFireKey = nil
+			
+			context.savePresentingError()
+		}
+
 		return result
 	}
 	
@@ -184,8 +243,22 @@ extension JoystickView {
 		addSubview(result)
 		
 		result.bottomAnchor.constraint(equalTo: editButton.bottomAnchor).isActive = true
-		result.leadingAnchor.constraint(equalTo: editButton.trailingAnchor, constant: 10).isActive = true
+		result.leadingAnchor.constraint(equalTo: clearButton.trailingAnchor, constant: 20).isActive = true
 		result.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor).isActive = true
+		
+		result.reactive.tap.bind(to: self) { _ in
+			let context = self.persistentContainer.viewContext
+			let object = context.object(with: Defaults.currentObjectID.value!) as! FileObject
+			ginfo("Assigning to \(object)")
+			
+			object.joystickUpKey = self.keyboardMappingUp
+			object.joystickDownKey = self.keyboardMappingDown
+			object.joystickLeftKey = self.keyboardMappingLeft
+			object.joystickRightKey = self.keyboardMappingRight
+			object.joystickFireKey = self.keyboardMappingFire
+			
+			context.savePresentingError()
+		}
 		
 		return result
 	}
@@ -194,7 +267,7 @@ extension JoystickView {
 		let result = UIButton(frame: CGRect.zero)
 		result.alpha = 0
 		result.translatesAutoresizingMaskIntoConstraints = false
-		result.setTitle(NSLocalizedString("..."), for: .normal)
+		result.setTitle(JoystickView.unmappedTitle, for: .normal)
 		
 		result.reactive.tap.bind(to: self) { me, event in
 			ginfo("Editing \(button)")
@@ -212,7 +285,7 @@ extension JoystickView {
 						gverbose("Mapping \(String(describing: code)) to \(button)")
 						current.dismiss(animated: true, completion: nil)
 						
-						result.setTitle(code?.description ?? "...", for: .normal)
+						result.setTitle(code?.description ?? JoystickView.unmappedTitle, for: .normal)
 						
 						switch button {
 						case JOYSTICK_BUTTON_UP: me.keyboardMappingUp = code
@@ -236,7 +309,8 @@ extension JoystickView {
 	
 	private func initializeCurrentFileSignal() {
 		func animate(toVisible: Bool) {
-			UIView.animate(withDuration: 0.2) { 
+			UIView.animate(withDuration: 0.2) {
+				self.clearButton.alpha = toVisible ? 1 : 0
 				self.assignButton.alpha = toVisible ? 1 : 0
 			}
 		}
@@ -246,6 +320,18 @@ extension JoystickView {
 			let isAssignVisible = self.assignButton.alpha != 0
 			let isObjectAvailable = Defaults.currentObjectID.value != nil
 			
+			if isObjectAvailable, let context = self.persistentContainer?.viewContext {
+				let object = context.object(with: Defaults.currentObjectID.value!) as! FileObject
+			
+				self.keyboardMappingUp = object.joystickUpKey
+				self.keyboardMappingDown = object.joystickDownKey
+				self.keyboardMappingLeft = object.joystickLeftKey
+				self.keyboardMappingRight = object.joystickRightKey
+				self.keyboardMappingFire = object.joystickFireKey
+				
+				self.updateMappingButtonTitles()
+			}
+			
 			if isEditing {
 				if isObjectAvailable && !isAssignVisible {
 					animate(toVisible: true)
@@ -254,6 +340,14 @@ extension JoystickView {
 				}
 			}
 		}
+	}
+	
+	private func updateMappingButtonTitles() {
+		upEditButton.setTitle(keyboardMappingUp?.description ?? JoystickView.unmappedTitle, for: .normal)
+		downEditButton.setTitle(keyboardMappingDown?.description ?? JoystickView.unmappedTitle, for: .normal)
+		leftEditButton.setTitle(keyboardMappingLeft?.description ?? JoystickView.unmappedTitle, for: .normal)
+		rightEditButton.setTitle(keyboardMappingRight?.description ?? JoystickView.unmappedTitle, for: .normal)
+		fireEditButton.setTitle(keyboardMappingFire?.description ?? JoystickView.unmappedTitle, for: .normal)
 	}
 }
 
@@ -576,4 +670,7 @@ extension JoystickView {
 	
 	/// The size of the button.
 	fileprivate static let buttonSize = thumbSize
+	
+	/// Title for unmapped state.
+	fileprivate static let unmappedTitle = "..."
 }

@@ -21,6 +21,17 @@ extension NSObject {
 	}
 	
 	/**
+	Recursively injects all dependencies from receiver to view hierarchy starting at the given view.
+	
+	You can optionally provide custom handler which is called after handling builtin consumers.
+	*/
+	func inject(toView view: UIView, handler: Handler? = nil) {
+		view.traverse { object in
+			self.inject(toObject: object, handler: handler)
+		}
+	}
+	
+	/**
 	Injects dependencies to the given object.
 	
 	You can optionally provide custom handler which is called after handling builtin consumers.
@@ -50,6 +61,19 @@ extension UIViewController {
 	func traverse(handler: (UIViewController) -> Void) {
 		handler(self)
 		for child in childViewControllers {
+			child.traverse(handler: handler)
+		}
+	}
+}
+
+extension UIView {
+	
+	/**
+	Traverses view hierarhcy starting at receiver. For each view (including receiver), the given handler closure is called.
+	*/
+	func traverse(handler: (UIView) -> Void) {
+		handler(self)
+		for child in subviews {
 			child.traverse(handler: handler)
 		}
 	}
