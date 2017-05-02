@@ -30,13 +30,13 @@ final class JoystickView: UIView {
 	fileprivate lazy var joystickIndex: Int32 = 0
 	
 	/// Current joystick stick position or nil if none.
-	fileprivate lazy var stick: joystick_button? = nil
+	fileprivate lazy var sticks: [joystick_button]? = nil
 
 	/// Current joystick button status or nil if none.
 	fileprivate lazy var button: joystick_button? = nil
 	
 	/// Current joystick stick position or nil if none.
-	fileprivate lazy var previousStick: joystick_button? = nil
+	fileprivate lazy var previousSticks: [joystick_button]? = nil
 	
 	/// Current joystick button status or nil if none.
 	fileprivate lazy var previousButton: joystick_button? = nil
@@ -135,6 +135,108 @@ extension JoystickView: PersistentContainerConsumer {
 	func configure(persistentContainer: NSPersistentContainer) {
 		gdebug("Configuring with \(persistentContainer)")
 		self.persistentContainer = persistentContainer
+	}
+}
+
+// MARK: - SpectrumJoystickHandler
+
+extension JoystickView {
+	
+	/**
+	Polls the joystick into fuse.
+	*/
+	func poll() {
+		// Stick is a bit more complicated: direction can change without being depressed.
+		if let sticks = sticks {
+			if let previous = previousSticks, previous != sticks {
+				// We have different stick then previous, register unpress for previous and press for new.
+				report(buttons: previous, press: false)
+				report(buttons: sticks, press: true)
+				previousSticks = sticks
+			} else if previousSticks == nil {
+				// We have first press of a stick, register press.
+				report(buttons: sticks, press: true)
+				previousSticks = sticks
+			}
+		} else if let previous = previousSticks, sticks == nil {
+			// Stick was unpressed but not yet reported, do it now.
+			report(buttons: previous, press: false)
+			previousSticks = nil
+		}
+		
+		// Button is simpler - it's either pressed or depressed, but we only need to report when changed.
+		if let button = button, previousButton == nil {
+			report(buttons: [button], press: true)
+			previousButton = button
+		} else if let previous = previousButton, button == nil {
+			report(buttons: [previous], press: false)
+			previousButton = nil
+		}
+	}
+	
+	private func report(buttons: [joystick_button], press: Bool) {
+		print("\(buttons) \(press ? "pressed" : "released")")
+		for button in buttons {
+			switch button {
+			case JOYSTICK_BUTTON_UP:
+				if let key = keyboardMappingUp {
+					if press {
+						keyboard_press(key)
+					} else {
+						keyboard_release(key)
+					}
+				} else {
+					joystick_press(joystickIndex, button, press ? 1 : 0)
+				}
+				
+			case JOYSTICK_BUTTON_DOWN:
+				if let key = keyboardMappingDown {
+					if press {
+						keyboard_press(key)
+					} else {
+						keyboard_release(key)
+					}
+				} else {
+					joystick_press(joystickIndex, button, press ? 1 : 0)
+				}
+				
+			case JOYSTICK_BUTTON_LEFT:
+				if let key = keyboardMappingLeft {
+					if press {
+						keyboard_press(key)
+					} else {
+						keyboard_release(key)
+					}
+				} else {
+					joystick_press(joystickIndex, button, press ? 1 : 0)
+				}
+				
+			case JOYSTICK_BUTTON_RIGHT:
+				if let key = keyboardMappingRight {
+					if press {
+						keyboard_press(key)
+					} else {
+						keyboard_release(key)
+					}
+				} else {
+					joystick_press(joystickIndex, button, press ? 1 : 0)
+				}
+				
+			case JOYSTICK_BUTTON_FIRE:
+				if let key = keyboardMappingFire {
+					if press {
+						keyboard_press(key)
+					} else {
+						keyboard_release(key)
+					}
+				} else {
+					joystick_press(joystickIndex, button, press ? 1 : 0)
+				}
+				
+			default:
+				break
+			}
+		}
 	}
 }
 
@@ -359,13 +461,13 @@ extension JoystickView {
 	Manages touches.
 	*/
 	fileprivate func handle(touches: Set<UITouch>, moved: Bool, pressed: Bool) {
-		var stick: joystick_button? = moved ? self.stick : nil
+		var sticks: [joystick_button]? = moved ? self.sticks : nil
 		var button: joystick_button? = moved ? self.button : nil
 
 		let locations = touches.map { $0.location(in: self) }
-		data.handle(touches: locations, pressed: pressed) { newStick, newButton, touchesOverThumb, touchesOverButton, needsUpdate in
+		data.handle(touches: locations, pressed: pressed) { newSticks, newButton, touchesOverThumb, touchesOverButton, needsUpdate in
 			if touchesOverThumb {
-				stick = newStick
+				sticks = newSticks
 				self.thumbStickView.frame = self.data.thumbRect
 			}
 			
@@ -374,104 +476,8 @@ extension JoystickView {
 			}
 		}
 		
-		self.stick = stick
+		self.sticks = sticks
 		self.button = button
-	}
-}
-
-// MARK: - SpectrumJoystickHandler
-
-extension JoystickView {
-	
-	/**
-	Polls the joystick into fuse.
-	*/
-	func poll() {
-		// Stick is a bit more complicated: direction can change without being depressed.
-		if let stick = stick {
-			if let previous = previousStick, previous != stick {
-				// We have different stick then previous, register unpress for previous and press for new.
-				report(joystick: previous, press: false)
-				report(joystick: stick, press: true)
-				previousStick = stick
-			} else if previousStick == nil {
-				// We have first press of a stick, register press.
-				report(joystick: stick, press: true)
-				previousStick = stick
-			}
-		} else if let previous = previousStick, stick == nil {
-			// Stick was unpressed but not yet reported, do it now.
-			report(joystick: previous, press: false)
-			previousStick = nil
-		}
-		
-		// Button is simpler - it's either pressed or depressed, but we only need to report when changed.
-		if let button = button, previousButton == nil {
-			report(joystick: button, press: true)
-			previousButton = button
-		} else if let previous = previousButton, button == nil {
-			report(joystick: previous, press: false)
-			previousButton = nil
-		}
-	}
-	
-	private func report(joystick: joystick_button, press: Bool) {
-		switch joystick {
-		case JOYSTICK_BUTTON_UP:
-			if let key = keyboardMappingUp {
-				if press {
-					keyboard_press(key)
-				} else {
-					keyboard_release(key)
-				}
-				return
-			}
-			
-		case JOYSTICK_BUTTON_DOWN:
-			if let key = keyboardMappingDown {
-				if press {
-					keyboard_press(key)
-				} else {
-					keyboard_release(key)
-				}
-				return
-			}
-			
-		case JOYSTICK_BUTTON_LEFT:
-			if let key = keyboardMappingLeft {
-				if press {
-					keyboard_press(key)
-				} else {
-					keyboard_release(key)
-				}
-				return
-			}
-			
-		case JOYSTICK_BUTTON_RIGHT:
-			if let key = keyboardMappingRight {
-				if press {
-					keyboard_press(key)
-				} else {
-					keyboard_release(key)
-				}
-				return
-			}
-			
-		case JOYSTICK_BUTTON_FIRE:
-			if let key = keyboardMappingFire {
-				if press {
-					keyboard_press(key)
-				} else {
-					keyboard_release(key)
-				}
-				return
-			}
-		
-		default:
-			break
-		}
-		
-		joystick_press(joystickIndex, joystick, press ? 1 : 0)
 	}
 }
 
@@ -517,18 +523,6 @@ extension JoystickView {
 		/// Last bounds.
 		private lazy var bounds = CGRect.zero
 		
-		/// South-east direction angle in radians.
-		private static let NE = -135.0 * CGFloat.pi / 180.0
-		
-		/// North-west direction angle in radians.
-		private static let NW = -45.0 * CGFloat.pi / 180.0
-		
-		/// South-west direction angle in radians.
-		private static let SW = 45 * CGFloat.pi / 180.0
-		
-		/// South-east direction angle in radians.
-		private static let SE = 135 * CGFloat.pi / 180.0
-		
 		/**
 		Updates rects for joystick buttons.
 		*/
@@ -567,7 +561,7 @@ extension JoystickView {
 			
 			// Determine maximum thumb and minimum detection distances.
 			maxThumbDistance = (thumbBackSize - thumbSize) / 2
-			minThumbDetectionDistance = maxThumbDistance * 0.5
+			minThumbDetectionDistance = maxThumbDistance * 0.35
 			
 			// Determine thumb radius and center point (these are used frequently so it's just an optimization).
 			thumbRadius = thumbRect.width / 2
@@ -587,8 +581,8 @@ extension JoystickView {
 		/**
 		Handles the given touch.
 		*/
-		func handle(touches: [CGPoint], pressed: Bool, handler: (joystick_button?, joystick_button?, Bool, Bool, Bool) -> Void) {
-			var stick: joystick_button? = nil
+		func handle(touches: [CGPoint], pressed: Bool, handler: ([joystick_button]?, joystick_button?, Bool, Bool, Bool) -> Void) {
+			var sticks: [joystick_button]? = nil
 			var button: joystick_button? = nil
 			var touchesInThumbArea = false
 			var touchesInButtonArea = false
@@ -600,7 +594,7 @@ extension JoystickView {
 						let distance = min(location.distance(to: thumbCenterPoint), maxThumbDistance)
 						
 						if abs(distance) > minThumbDetectionDistance {
-							stick = Data.joystickStick(for: angle)
+							sticks = Data.joystickSticks(for: angle)
 						}
 						
 						let x = thumbCenterPoint.x + distance * cos(angle)
@@ -638,21 +632,30 @@ extension JoystickView {
 				update = true
 			}
 			
-			handler(stick, button, touchesInThumbArea, touchesInButtonArea, update)
+			handler(sticks, button, touchesInThumbArea, touchesInButtonArea, update)
 		}
 		
 		/**
 		Determimes joystick button for given angle.
 		*/
-		fileprivate static func joystickStick(for angle: CGFloat) -> joystick_button {
-			if angle >= NE && angle < NW {
-				return JOYSTICK_BUTTON_UP
-			} else if angle >= NW && angle < SW {
-				return JOYSTICK_BUTTON_RIGHT
-			} else if angle >= SW && angle < SE {
-				return JOYSTICK_BUTTON_DOWN
+		fileprivate static func joystickSticks(for angle: CGFloat) -> [joystick_button] {
+//			print("\(Direction.degrees(angle))")
+			if angle.isUp {
+				return [JOYSTICK_BUTTON_UP]
+			} else if angle.isUpRight {
+				return [JOYSTICK_BUTTON_UP, JOYSTICK_BUTTON_RIGHT]
+			} else if angle.isRight {
+				return [JOYSTICK_BUTTON_RIGHT]
+			} else if angle.isDownRight {
+				return [JOYSTICK_BUTTON_DOWN, JOYSTICK_BUTTON_RIGHT]
+			} else if angle.isDown {
+				return [JOYSTICK_BUTTON_DOWN]
+			} else if angle.isDownLeft {
+				return [JOYSTICK_BUTTON_DOWN, JOYSTICK_BUTTON_LEFT]
+			} else if angle.isLeft {
+				return [JOYSTICK_BUTTON_LEFT]
 			} else {
-				return JOYSTICK_BUTTON_LEFT
+				return [JOYSTICK_BUTTON_UP, JOYSTICK_BUTTON_LEFT]
 			}
 		}
 	}

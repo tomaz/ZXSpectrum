@@ -14,6 +14,7 @@
 		73255D1F1EB910CE00F04908 /* KeyCodeConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73255D1E1EB910CE00F04908 /* KeyCodeConsumer.swift */; };
 		73255D211EB9156200F04908 /* Fuse+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73255D201EB9156200F04908 /* Fuse+ZXSpectrum.swift */; };
 		73255D231EB9192700F04908 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73255D221EB9192700F04908 /* Defaults.swift */; };
+		73255D251EB9330E00F04908 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73255D241EB9330E00F04908 /* Direction.swift */; };
 		73291ECA1E96637100940801 /* 48.rom in Resources */ = {isa = PBXBuildFile; fileRef = 73291EB51E96637100940801 /* 48.rom */; };
 		73291ECB1E96637100940801 /* 128-0.rom in Resources */ = {isa = PBXBuildFile; fileRef = 73291EB61E96637100940801 /* 128-0.rom */; };
 		73291ECC1E96637100940801 /* 128-1.rom in Resources */ = {isa = PBXBuildFile; fileRef = 73291EB71E96637100940801 /* 128-1.rom */; };
@@ -344,6 +345,7 @@
 		73255D1E1EB910CE00F04908 /* KeyCodeConsumer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyCodeConsumer.swift; sourceTree = "<group>"; };
 		73255D201EB9156200F04908 /* Fuse+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Fuse+ZXSpectrum.swift"; sourceTree = "<group>"; };
 		73255D221EB9192700F04908 /* Defaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
+		73255D241EB9330E00F04908 /* Direction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
 		73291EB51E96637100940801 /* 48.rom */ = {isa = PBXFileReference; lastKnownFileType = file; name = 48.rom; path = ../Common/spectrum/spectrum/fuse/roms/48.rom; sourceTree = "<group>"; };
 		73291EB61E96637100940801 /* 128-0.rom */ = {isa = PBXFileReference; lastKnownFileType = file; name = "128-0.rom"; path = "../Common/spectrum/spectrum/fuse/roms/128-0.rom"; sourceTree = "<group>"; };
 		73291EB71E96637100940801 /* 128-1.rom */ = {isa = PBXFileReference; lastKnownFileType = file; name = "128-1.rom"; path = "../Common/spectrum/spectrum/fuse/roms/128-1.rom"; sourceTree = "<group>"; };
@@ -707,6 +709,7 @@
 				73DA64F31EA60485008832AA /* WebServer.swift */,
 				73DA64EB1EA56085008832AA /* Configurable.swift */,
 				73255D221EB9192700F04908 /* Defaults.swift */,
+				73255D241EB9330E00F04908 /* Direction.swift */,
 				739824831E93DB71005E6B14 /* BridgingHeader.h */,
 			);
 			path = Helpers;
@@ -1188,6 +1191,7 @@
 				73255D1F1EB910CE00F04908 /* KeyCodeConsumer.swift in Sources */,
 				7384B88E1EA7A35B005FC8DF /* NSManagedObjectContext+ZXSpectrum.swift in Sources */,
 				739A5F741EA8C96700CE6313 /* SettingsViewController.swift in Sources */,
+				73255D251EB9330E00F04908 /* Direction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
