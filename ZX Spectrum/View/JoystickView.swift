@@ -36,21 +36,11 @@ final class JoystickView: UIView {
 	/// Thumb stick view.
 	fileprivate lazy var thumbStickView = DelegatedView { bounds, dirty in
 		JoystickStyleKit.drawJoystickThumb(frame: bounds)
-		
-		if self.stick != nil {
-			UIColor.pressedElementOverlay.setFill()
-			UIBezierPath(ovalIn: bounds).fill()
-		}
 	}
 	
 	/// Button view.
 	fileprivate lazy var buttonView = DelegatedView { bounds, dirty in
 		JoystickStyleKit.drawJoystickThumb(frame: bounds)
-		
-		if self.button != nil {
-			UIColor.pressedElementOverlay.setFill()
-			UIBezierPath(ovalIn: bounds).fill()
-		}
 	}
 	
 	// MARK: - Initialization & disposal
@@ -127,11 +117,6 @@ extension JoystickView {
 			
 			if touchesOverButton {
 				button = newButton
-			}
-			
-			if needsUpdate {
-				self.thumbStickView.setNeedsDisplay()
-				self.buttonView.setNeedsDisplay()
 			}
 		}
 		
