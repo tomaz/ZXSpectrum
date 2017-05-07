@@ -25,11 +25,7 @@ extension BaseKeyboardView {
 		if let closure = self.key {
 			closure(key, pressed)
 		} else {
-			if pressed {
-				keyboard_press(key)
-			} else {
-				keyboard_release(key)
-			}
+			key.inject(pressed: pressed)
 		}
 	}
 }

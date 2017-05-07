@@ -4,15 +4,22 @@
         <attribute name="added" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="filename" attributeType="String" syncable="YES"/>
         <attribute name="isStock" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="mappingDown" optional="YES" attributeType="Integer 16" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="mappingFire" optional="YES" attributeType="Integer 16" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="mappingLeft" optional="YES" attributeType="Integer 16" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="mappingRight" optional="YES" attributeType="Integer 16" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="mappingUp" optional="YES" attributeType="Integer 16" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="path" attributeType="String" syncable="YES"/>
         <attribute name="used" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="joystickMapping" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="JoystickMappingObject" inverseName="file" inverseEntity="JoystickMappingObject" syncable="YES"/>
+    </entity>
+    <entity name="JoystickMappingObject" representedClassName=".JoystickMappingObject" syncable="YES">
+        <attribute name="button1" optional="YES" attributeType="Integer 64" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="button2" optional="YES" attributeType="Integer 64" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="button3" optional="YES" attributeType="Integer 64" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="down" optional="YES" attributeType="Integer 64" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="left" optional="YES" attributeType="Integer 64" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="right" optional="YES" attributeType="Integer 64" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="up" optional="YES" attributeType="Integer 64" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="file" maxCount="1" deletionRule="Nullify" destinationEntity="FileObject" inverseName="joystickMapping" inverseEntity="FileObject" syncable="YES"/>
     </entity>
     <elements>
-        <element name="FileObject" positionX="-63" positionY="-18" width="128" height="195"/>
+        <element name="FileObject" positionX="-63" positionY="-18" width="128" height="135"/>
+        <element name="JoystickMappingObject" positionX="288" positionY="-48" width="128" height="163"/>
     </elements>
 </model>

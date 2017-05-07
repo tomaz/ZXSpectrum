@@ -21,6 +21,18 @@ extension UIButton {
 	}
 	
 	/**
+	Sets title.
+	*/
+	var title: String? {
+		get {
+			return title(for: .normal)
+		}
+		set {
+			setTitle(newValue, for: .normal)
+		}
+	}
+	
+	/**
 	Updates the image optionally animating the transition
 	*/
 	func update(image: UIImage, animated: Bool, duration: TimeInterval = 0.2) {

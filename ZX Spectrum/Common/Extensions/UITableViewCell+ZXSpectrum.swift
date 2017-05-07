@@ -4,6 +4,8 @@
 //
 
 import UIKit
+import ReactiveKit
+import Bond
 
 extension UITableViewCell {
 
@@ -16,5 +18,15 @@ extension UITableViewCell {
 			result = result?.superview
 		}
 		return result as? UITableView
+	}
+}
+
+extension ReactiveExtensions where Base: UITableView {
+
+	/// Produces event every time table view selection changes.
+	var selectedRow: SafeSignal<IndexPath> {
+		return delegate.signal(for: #selector(UITableViewDelegate.tableView(_:didSelectRowAt:))) { (subject: PublishSubject<IndexPath, NoError>, _: UITableView, indexPath: NSIndexPath) in
+			subject.next(indexPath as IndexPath)
+		}
 	}
 }

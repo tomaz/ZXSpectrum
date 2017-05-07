@@ -44,12 +44,21 @@ extension NSObject {
 		if let source = self as? EmulatorProvider, let destination = object as? EmulatorConsumer {
 			destination.configure(emulator: source.provideEmulator())
 		}
-
-		if let source = self as? KeyCodeProvider, let destination = object as? KeyCodeConsumer {
-			destination.configure(keyCodeHandler: source.provideKeyCodeHandler())
-		}
 		
+		if object is PopoverPresentationConsumer, let controller = object as? UIViewController {
+			controller.modalPresentationStyle = .popover
+			controller.popoverPresentationController?.delegate = self
+		}
+
 		handler?(self, object)
+	}
+}
+
+extension NSObject: UIPopoverPresentationControllerDelegate {
+	
+	public func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+		// Force popover on any presentation.
+		return .none
 	}
 }
 
