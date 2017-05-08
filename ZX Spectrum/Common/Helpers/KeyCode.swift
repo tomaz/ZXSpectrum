@@ -238,6 +238,13 @@ extension KeyCode {
 	}
 	
 	/**
+	Injects the given array of keys to fuse either as pressed or released.
+	*/
+	static func inject(keys: [KeyCode]?, pressed: Bool) {
+		keys?.forEach { $0.inject(pressed: pressed) }
+	}
+	
+	/**
 	Returns the description of all keys in the given array.
 	*/
 	static func description(keys: [KeyCode]?, separator: String = "+") -> String {

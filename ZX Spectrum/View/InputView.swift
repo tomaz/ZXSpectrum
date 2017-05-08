@@ -13,7 +13,7 @@ final class InputView: UIView {
 	
 	fileprivate var persistentContainer: NSPersistentContainer!
 	
-	fileprivate var joystickView: JoystickView!
+	fileprivate var joystickViewController: JoystickViewController!
 	fileprivate var zx48KeyboardView: ZX48KeyboardView!
 	
 	fileprivate var currentKeyboardView: UIView? = nil
@@ -52,11 +52,21 @@ final class InputView: UIView {
 extension InputView: PersistentContainerConsumer, PersistentContainerProvider {
 	
 	func configure(persistentContainer: NSPersistentContainer) {
+		gdebug("Configuring with \(persistentContainer)")
 		self.persistentContainer = persistentContainer
 	}
 	
 	func providePersistentContainer() -> NSPersistentContainer {
+		gdebug("Providing \(persistentContainer)")
 		return persistentContainer
+	}
+}
+
+extension InputView: InjectionObservable {
+	
+	func injectionDidComplete() {
+		gdebug("Injection did complete")
+		inject(toController: joystickViewController)
 	}
 }
 
@@ -70,7 +80,7 @@ extension InputView: SpectrumJoystickHandler {
 	}
 	
 	func pollJoysticks(for controller: SpectrumJoystickController) {
-		joystickView.poll()
+		joystickViewController.poll()
 	}
 }
 
@@ -87,10 +97,9 @@ extension InputView {
 
 		// Use same background color as subviews so animations appear less "jagged".
 		backgroundColor = ZX48KeyboardStyleKit.keyboardBackgroundColor
-
+		
 		// Prepare joystick view
-		joystickView = JoystickView()
-		joystickView.translatesAutoresizingMaskIntoConstraints = false
+		joystickViewController = JoystickViewController.instantiate()
 		
 		// Prepare ZX 48K keyboard view.
 		zx48KeyboardView = ZX48KeyboardView()
@@ -129,15 +138,14 @@ extension InputView {
 	private func prepareForKeyboardsChange() {
 		// Prepare the view we want to show.
 		let isJoystick = Defaults.isInputJoystick.value
-		let newInputView = isJoystick ? joystickView : zx48KeyboardView
+		let newInputView = isJoystick ? joystickViewController.view! : zx48KeyboardView
 		
 		// Ignore if we want to show the same view as we already are showing.
 		if newInputView.superview != nil {
 			return
 		}
 		
-		// Inject dependencies.
-		inject(toView: newInputView)
+		newInputView.translatesAutoresizingMaskIntoConstraints = false
 
 		// First we need to add the keyboard view to hierarhcy and establish default constraints.
 		addSubviewAndSetupDefaultConstraints(for: newInputView)

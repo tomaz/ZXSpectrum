@@ -48,9 +48,16 @@ extension NSObject {
 		if object is PopoverPresentationConsumer, let controller = object as? UIViewController {
 			controller.modalPresentationStyle = .popover
 			controller.popoverPresentationController?.delegate = self
+			if let sourceView = controller.popoverPresentationController?.sourceView {
+				controller.popoverPresentationController?.sourceRect = sourceView.bounds
+			}
 		}
 
 		handler?(self, object)
+		
+		if let object = object as? InjectionObservable {
+			object.injectionDidComplete()
+		}
 	}
 }
 

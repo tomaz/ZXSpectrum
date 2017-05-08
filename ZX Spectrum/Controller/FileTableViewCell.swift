@@ -144,7 +144,7 @@ extension FileTableViewCell {
 	})
 	
 	private static func font(weight: CGFloat) -> FontAttribute {
-		let size: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? 17 : 19
+		let size: CGFloat = UIDevice.iPhone ? 17 : 19
 		return FontAttribute(font: UIFont.systemFont(ofSize: size, weight: weight))!
 	}
 }

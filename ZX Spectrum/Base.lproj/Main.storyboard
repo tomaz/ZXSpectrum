@@ -382,7 +382,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SzM-Kn-AHP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="741" y="1659"/>
+            <point key="canvasLocation" x="1699" y="1658"/>
         </scene>
         <!--Edit-->
         <scene sceneID="zth-4U-usp">
@@ -438,7 +438,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F8U-gv-Kcc" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="Brp-dG-Ynk" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1435" y="1659"/>
+            <point key="canvasLocation" x="2392" y="1658"/>
         </scene>
         <!--Settings-->
         <scene sceneID="BnZ-He-zQJ">
@@ -617,7 +617,7 @@
             <objects>
                 <navigationController id="tCf-yA-Y6G" sceneMemberID="viewController">
                     <modalFormSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="9u2-rc-Sfs">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="9u2-rc-Sfs">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -724,7 +724,7 @@
         <scene sceneID="pcq-0a-fOt">
             <objects>
                 <navigationController id="OWd-3c-rp4" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bvc-m0-rte">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="bvc-m0-rte">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -753,7 +753,123 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uV3-wD-Cr1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="90" y="1659"/>
+            <point key="canvasLocation" x="1048" y="1658"/>
+        </scene>
+        <!--Joystick View Controller-->
+        <scene sceneID="Xhp-hM-jxA">
+            <objects>
+                <viewController storyboardIdentifier="JoystickScene" id="rmh-Ry-Dhk" customClass="JoystickViewController" customModule="ZX_Spectrum" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ct2-0R-bg9"/>
+                        <viewControllerLayoutGuide type="bottom" id="n1M-CM-cWF"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="UgN-nZ-8lw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="dWl-Gd-j5X">
+                                <rect key="frame" x="10" y="10" width="355" height="290"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="vsd-i8-Oku">
+                                        <rect key="frame" x="0.0" y="0.0" width="355" height="260"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" horizontalHuggingPriority="260" horizontalCompressionResistancePriority="760" placeholderIntrinsicWidth="150" placeholderIntrinsicHeight="infinite" translatesAutoresizingMaskIntoConstraints="NO" id="COT-Kc-Nqm" customClass="TouchableView" customModule="ZX_Spectrum" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="150" height="260"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" horizontalHuggingPriority="240" horizontalCompressionResistancePriority="760" translatesAutoresizingMaskIntoConstraints="NO" id="7Bs-GN-zP2" customClass="JoystickStickView" customModule="ZX_Spectrum" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="150" height="260"/>
+                                                        <color key="backgroundColor" red="1" green="0.71708443320000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="7Bs-GN-zP2" secondAttribute="bottom" id="Ark-ig-Oqd"/>
+                                                    <constraint firstAttribute="trailing" secondItem="7Bs-GN-zP2" secondAttribute="trailing" id="L0L-gS-c5n"/>
+                                                    <constraint firstItem="7Bs-GN-zP2" firstAttribute="top" secondItem="COT-Kc-Nqm" secondAttribute="top" id="WC9-GQ-kSN"/>
+                                                    <constraint firstItem="7Bs-GN-zP2" firstAttribute="leading" secondItem="COT-Kc-Nqm" secondAttribute="leading" id="cd8-NH-yju"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" horizontalCompressionResistancePriority="250" placeholderIntrinsicWidth="20" placeholderIntrinsicHeight="infinite" translatesAutoresizingMaskIntoConstraints="NO" id="9Wt-vc-ty7">
+                                                <rect key="frame" x="160" y="0.0" width="135" height="260"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" horizontalHuggingPriority="260" verticalHuggingPriority="200" horizontalCompressionResistancePriority="700" verticalCompressionResistancePriority="700" translatesAutoresizingMaskIntoConstraints="NO" id="45W-Dg-26f" customClass="TouchableView" customModule="ZX_Spectrum" customModuleProvider="target">
+                                                <rect key="frame" x="305" y="0.0" width="50" height="260"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="260" verticalHuggingPriority="200" horizontalCompressionResistancePriority="700" verticalCompressionResistancePriority="700" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Hnr-Nh-6Np">
+                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="260"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="700" verticalCompressionResistancePriority="700" translatesAutoresizingMaskIntoConstraints="NO" id="ijj-dz-m03" customClass="JoystickButtonView" customModule="ZX_Spectrum" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="0.0" width="50" height="80"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="700" verticalCompressionResistancePriority="700" translatesAutoresizingMaskIntoConstraints="NO" id="7Gn-bj-FbS" customClass="JoystickButtonView" customModule="ZX_Spectrum" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="90" width="50" height="80"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="700" verticalCompressionResistancePriority="700" translatesAutoresizingMaskIntoConstraints="NO" id="gzD-EE-b2d" customClass="JoystickButtonView" customModule="ZX_Spectrum" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="180" width="50" height="80"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </view>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </stackView>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="Hnr-Nh-6Np" secondAttribute="bottom" id="2Ch-ie-Cfh"/>
+                                                    <constraint firstItem="Hnr-Nh-6Np" firstAttribute="leading" secondItem="45W-Dg-26f" secondAttribute="leading" id="7XP-fe-8cu"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Hnr-Nh-6Np" secondAttribute="trailing" id="Xgz-AS-AhA"/>
+                                                    <constraint firstItem="Hnr-Nh-6Np" firstAttribute="top" secondItem="45W-Dg-26f" secondAttribute="top" id="gWk-o1-PlD"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b2v-6r-uN0">
+                                        <rect key="frame" x="0.0" y="260" width="355" height="30"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="EDIT"/>
+                                        <connections>
+                                            <segue destination="xFD-Hs-L3j" kind="popoverPresentation" popoverAnchorView="b2v-6r-uN0" id="Rqd-Ib-Z2E">
+                                                <segue key="commit" inheritsFrom="parent" id="Oqz-Wc-KOT"/>
+                                                <segue key="preview" inheritsFrom="commit" id="gLU-Un-lcE"/>
+                                                <popoverArrowDirection key="popoverArrowDirection" down="YES"/>
+                                            </segue>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="dWl-Gd-j5X" firstAttribute="leading" secondItem="UgN-nZ-8lw" secondAttribute="leading" constant="10" id="2EE-48-aC1"/>
+                            <constraint firstItem="dWl-Gd-j5X" firstAttribute="centerX" secondItem="UgN-nZ-8lw" secondAttribute="centerX" id="g4h-vS-iWx"/>
+                            <constraint firstAttribute="bottom" secondItem="dWl-Gd-j5X" secondAttribute="bottom" id="his-Hq-nQW"/>
+                            <constraint firstItem="dWl-Gd-j5X" firstAttribute="top" secondItem="ct2-0R-bg9" secondAttribute="bottom" constant="10" id="ocp-bS-M3W"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="300"/>
+                    <connections>
+                        <outlet property="button1View" destination="ijj-dz-m03" id="Lfa-ca-6cw"/>
+                        <outlet property="button2View" destination="7Gn-bj-FbS" id="ly8-2B-4JL"/>
+                        <outlet property="button3View" destination="gzD-EE-b2d" id="bRb-kf-emn"/>
+                        <outlet property="buttonTouchView" destination="45W-Dg-26f" id="BpU-Xv-uPE"/>
+                        <outlet property="buttonsStackView" destination="Hnr-Nh-6Np" id="NpW-TP-yaO"/>
+                        <outlet property="editButton" destination="b2v-6r-uN0" id="FjN-mt-OmC"/>
+                        <outlet property="joystickStackView" destination="vsd-i8-Oku" id="41k-NG-acD"/>
+                        <outlet property="mainStackView" destination="dWl-Gd-j5X" id="VGN-nl-FZd"/>
+                        <outlet property="spacerView" destination="9Wt-vc-ty7" id="Ks1-Qh-iNg"/>
+                        <outlet property="stickTouchView" destination="COT-Kc-Nqm" id="G1N-mC-H5U"/>
+                        <outlet property="stickView" destination="7Bs-GN-zP2" id="Thw-CU-Osy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FcB-ve-tv1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="226" y="1672"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="cMA-Oa-4fG">
@@ -793,9 +909,10 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="nsz-uk-u13"/>
-        <segue reference="lh3-Ad-ZdH"/>
         <segue reference="RgU-xe-zvq"/>
+        <segue reference="lh3-Ad-ZdH"/>
         <segue reference="aQs-aK-318"/>
+        <segue reference="Rqd-Ib-Z2E"/>
+        <segue reference="4uw-FD-jvC"/>
     </inferredMetricsTieBreakers>
 </document>

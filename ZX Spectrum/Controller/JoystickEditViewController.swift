@@ -27,6 +27,7 @@ class JoystickEditViewController: UIViewController {
 	// MARK: - Dependencies
 	
 	fileprivate var persistentContainer: NSPersistentContainer!
+	fileprivate var selectionChangeHandler: JoystickKeyCodeSelectionHandler?
 	
 	// MARK: - Data
 	
@@ -67,6 +68,14 @@ extension JoystickEditViewController: PersistentContainerConsumer {
 	func configure(persistentContainer: NSPersistentContainer) {
 		gdebug("Configuring with \(persistentContainer)")
 		self.persistentContainer = persistentContainer
+	}
+}
+
+extension JoystickEditViewController: JoystickKeyCodeSelectionHandlerConsumer {
+	
+	func configure(selectionChangeHandler: @escaping JoystickKeyCodeSelectionHandler) {
+		gdebug("Configurign with selection change handler \(selectionChangeHandler)")
+		self.selectionChangeHandler = selectionChangeHandler
 	}
 }
 
@@ -135,6 +144,9 @@ extension JoystickEditViewController {
 		
 		// Either case, update button title.
 		button.title = KeyCode.description(keys: keyCodes)
+		
+		// Inform our observer.
+		selectionChangeHandler?(keyCodes)
 	}
 	
 	fileprivate func mappingsByMapping() -> [UIButton: Mapping] {

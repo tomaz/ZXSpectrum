@@ -11,13 +11,11 @@ Managed binding for a particular joystick key.
 */
 class JoystickBindingViewController: UITableViewController {
 	
-	typealias KeyCodeHandler = ([KeyCode]?) -> Void
-	
 	@IBOutlet fileprivate weak var unbindBarButtonItem: UIBarButtonItem!
 	
 	// MARK: - Dependencies
 	
-	fileprivate var selectionChangeHandler: KeyCodeHandler?
+	fileprivate var selectionChangeHandler: JoystickKeyCodeSelectionHandler?
 	fileprivate var selectedKeyCodes: [KeyCode]!
 	
 	// MARK: - Data
@@ -52,6 +50,14 @@ class JoystickBindingViewController: UITableViewController {
 
 // MARK: - Dependencies
 
+extension JoystickBindingViewController: JoystickKeyCodeSelectionHandlerConsumer {
+	
+	func configure(selectionChangeHandler: @escaping JoystickKeyCodeSelectionHandler) {
+		gdebug("Configurign with selection change handler \(selectionChangeHandler)")
+		self.selectionChangeHandler = selectionChangeHandler
+	}
+}
+
 extension JoystickBindingViewController {
 	
 	func configure(title: String?) {
@@ -62,11 +68,6 @@ extension JoystickBindingViewController {
 	func configure(selectedKeyCodes: [KeyCode]?) {
 		gdebug("Configuring with selected key codes \(String(describing: selectedKeyCodes))")
 		self.selectedKeyCodes = selectedKeyCodes ?? []
-	}
-	
-	func configure(selectionChangeHandler: @escaping KeyCodeHandler) {
-		gdebug("Configuring with selection change handler \(selectionChangeHandler)")
-		self.selectionChangeHandler = selectionChangeHandler
 	}
 }
 

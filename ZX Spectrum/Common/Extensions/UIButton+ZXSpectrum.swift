@@ -21,7 +21,7 @@ extension UIButton {
 	}
 	
 	/**
-	Sets title.
+	Title.
 	*/
 	var title: String? {
 		get {
@@ -29,6 +29,18 @@ extension UIButton {
 		}
 		set {
 			setTitle(newValue, for: .normal)
+		}
+	}
+	
+	/**
+	Attributed title.
+	*/
+	var attributedTitle: NSAttributedString? {
+		get {
+			return attributedTitle(for: .normal)
+		}
+		set {
+			setAttributedTitle(newValue, for: .normal)
 		}
 	}
 	

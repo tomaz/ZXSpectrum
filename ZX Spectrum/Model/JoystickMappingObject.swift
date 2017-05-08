@@ -112,19 +112,31 @@ extension JoystickMappingObject {
 		return true
 	}
 	
-	/**
-	Returns array of keys mapped to given button.
-	*/
-	func keys(for mapping: Mapping) -> [KeyCode]? {
-		switch mapping {
-		case .up: return upKeys
-		case .down: return downKeys
-		case .left: return leftKeys
-		case .right: return rightKeys
-		case .button1: return button1Keys
-		case .button2: return button2Keys
-		case .button3: return button3Keys
+	/// Returns the number of mapped buttons.
+	var mappedButtonsCount: Int {
+		var result = 0
+		
+		if getValue(from: button1) > 0 {
+			result += 1
 		}
+		
+		if getValue(from: button2) > 0 {
+			result += 1
+		}
+		
+		if getValue(from: button3) > 0 {
+			result += 1
+		}
+		
+		return result
+	}
+	
+	/**
+	Determines whether given mapping is bound or not.
+	*/
+	func isBound(mapping: Mapping) -> Bool {
+		let value = self.value(for: mapping)
+		return getValue(from: value) > 0
 	}
 	
 	/**
@@ -143,9 +155,72 @@ extension JoystickMappingObject {
 	}
 	
 	/**
-	Adds the given code to the array of mappings.
+	Returns array of keys mapped to given button(s).
 	*/
-	func add(code: KeyCode, for mapping: Mapping) {
+	func keys(for first: Mapping, and second: Mapping? = nil) -> [KeyCode]? {
+		var result: [KeyCode]? = nil
+		
+		let firstKeys = keysArray(for: first)
+		let secondKeys = second == nil ? nil : keysArray(for: second!)
+		
+		if firstKeys != nil && secondKeys != nil {
+			result = firstKeys! + secondKeys!
+		} else if firstKeys != nil {
+			result = firstKeys
+		} else if secondKeys != nil {
+			result = secondKeys
+		}
+		
+		return result
+	}
+	
+	/**
+	Returns array of keys corresponding to given angle.
+	*/
+	func keys(for angle: CGFloat) -> [KeyCode]? {
+		if angle.isUp {
+			return keys(for: .up)
+		} else if angle.isUpRight {
+			return keys(for: .up, and: .right)
+		} else if angle.isRight {
+			return keys(for: .right)
+		} else if angle.isDownRight {
+			return keys(for: .down, and: .right)
+		} else if angle.isDown {
+			return keys(for: .down)
+		} else if angle.isDownLeft {
+			return keys(for: .down, and: .left)
+		} else if angle.isLeft {
+			return keys(for: .left)
+		} else if angle.isUpLeft {
+			return keys(for: .up, and: .left)
+		} else {
+			return nil
+		}
+	}
+	
+	private func keysArray(for mapping: Mapping) -> [KeyCode]? {
+		switch mapping {
+		case .up: return upKeys
+		case .down: return downKeys
+		case .left: return leftKeys
+		case .right: return rightKeys
+		case .button1: return button1Keys
+		case .button2: return button2Keys
+		case .button3: return button3Keys
+		}
+	}
+	
+	private func value(for mapping: Mapping) -> NSNumber? {
+		switch mapping {
+		case .up: return up
+		case .down: return down
+		case .left: return left
+		case .right: return right
+		case .button1: return button1
+		case .button2: return button2
+		case .button3: return button3
+		}
 	}
 	
 	private func getKeyCodes(from number: NSNumber?) -> [KeyCode]? {
