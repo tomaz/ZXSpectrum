@@ -84,7 +84,7 @@ final class JoystickViewController: UIViewController {
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		
-		// If we're currently glowing edit button, we must restart animation when view appears again - animations are removed otherwise...
+		
 		if isGlowAnimationActive {
 			setupGlow(remove: true)
 			startGlowAnimationWhenViewAppears = true
