@@ -26,9 +26,6 @@ final class TouchableView: UIView {
 	/// Distance in radians touch must differ from previous angle in order to report it. Greater the number, less frequently changes will be reported, so more optimal, but less precise behavior. Defaults to 1º.
 	var touchDetectionAngleThreshold = CGFloat(Direction.radians(1))
 	
-	/// Optional allowed angles. If provided, current angle is "trimmed" to the closest angle from the given array.
-	var trimToAngles: [CGFloat]?
-	
 	/// Distance touches must travel from previous in order to report it. Greater the number, less frequently changes will be reported, so more optimal, but less precise behavior.
 	var touchDetectionDistanceThreshold = CGFloat(1)
 	
@@ -45,6 +42,16 @@ final class TouchableView: UIView {
 			updateDistances()
 		}
 	}
+	
+	/// Optional allowed angles. If provided, current angle is "trimmed" to the closest angle from the given array.
+	var trimToAngles: [CGFloat]? {
+		didSet {
+			trimToNormalizedAngles = trimToAngles?.map { $0 + 2 * CGFloat.pi }
+		}
+	}
+	
+	/// Normalized `trimToAngles` to prevent negative/positive value clashes.
+	fileprivate var trimToNormalizedAngles: [CGFloat]?
 	
 	/// Maximum distance for reporting, anything above this is automatically treated as "on".
 	fileprivate var maximumDistance = CGFloat(0)
@@ -139,18 +146,20 @@ extension TouchableView {
 				let distance = location.distance(to: firstTouch!)
 				var angle = location.angle(to: firstTouch!)
 				
-				// Trim angle to allowed angles array.
-				if let trimToAngles = trimToAngles, !trimToAngles.isEmpty {
-					var closestAngle = angle
+				// Trim angle to allowed angles array if needed. Note we need to work with normalized angles here (i.e. only positive values) to allow proper calculations.
+				if let allowedAngles = trimToNormalizedAngles, !allowedAngles.isEmpty {
+					let pi2 = 2 * CGFloat.pi
+					let testAngle = angle + pi2
+					var closestAngle = testAngle
 					var closestDistance = CGFloat.greatestFiniteMagnitude
-					for allowedAngle in trimToAngles {
-						let angleDistance = abs(allowedAngle - angle)
+					for allowedAngle in allowedAngles {
+						let angleDistance = abs(allowedAngle - testAngle)
 						if angleDistance < closestDistance {
 							closestDistance = angleDistance
 							closestAngle = allowedAngle
 						}
 					}
-					angle = closestAngle
+					angle = closestAngle - pi2
 				}
 				
 				// If distance is below on/off threshold, report change to off if we previously reported on value, otherwise just ignore it. Note we don't wait for touch change detection threshold to report this, it takes greater precedence.

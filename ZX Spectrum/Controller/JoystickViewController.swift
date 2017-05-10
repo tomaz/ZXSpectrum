@@ -253,10 +253,8 @@ extension JoystickViewController {
 		// Note we never allow sensitibyt to cause issues with joystick handling, so we limit the maximum and minimum values.
 		let sensitivity = max(min(CGFloat(UserDefaults.standard.joystickSensitivityRatio), 0.9), 0.1)
 		
-		stickView.maximumDistance = 0.9
-		
 		stickTouchView.touchDetectionMinimumThreshold = sensitivity
-		stickTouchView.touchDetectionMaximumThreshold = 0.9
+		stickTouchView.touchDetectionMaximumThreshold = 0.95
 		
 		stickTouchView.touchDetectionDistanceThreshold = 2
 		stickTouchView.touchDetectionAngleThreshold = Direction.radians(5)
