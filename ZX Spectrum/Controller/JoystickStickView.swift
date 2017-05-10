@@ -10,19 +10,19 @@ Represents joystick thumb view.
 */
 final class JoystickStickView: UIView {
 	
-	/// Maximum distance value that will get reported. This is used so that stick always renders in full area.
-	var maximumDistance = CGFloat(1) {
+	/// Maximum distance value that will get reported via `updateIndicator(distance:angle:)`. This is used so that stick is always rendered through its full visible area. For example, if maximum distance reported will be 0.8, then also set this value to 0.8; if you leave it at 1, the stick
+	var maximumDistanceRatio = CGFloat(1) {
 		didSet {
-			updateMaxiumOffset()
+			updateIndicatorFrame()
 		}
 	}
 	
 	// MARK: - Stick handling
 	
 	fileprivate var indicatorView: JoystickButtonView!
-	fileprivate var indicatorCenter = CGPoint.zero
-	fileprivate var indicatorMaxOffset = CGPoint.zero
 	fileprivate var indicatorRect = CGRect.zero
+	fileprivate var indicatorInitialLocation = CGPoint.zero
+	fileprivate var indicatorMaxTravel = CGFloat(0)
 	fileprivate var indicatorAngle = CGFloat(0)
 	fileprivate var indicatorDistance = CGFloat(0)
 	
@@ -61,14 +61,12 @@ final class JoystickStickView: UIView {
 		indicatorRect.size.width = size * JoystickStickView.indicatorRatio.width
 		indicatorRect.size.height = size * JoystickStickView.indicatorRatio.height
 		
-		indicatorCenter.x = bounds.midX - indicatorRect.width / 2
-		indicatorCenter.y = bounds.midY - indicatorRect.height / 2
+		indicatorInitialLocation.x = bounds.midX - indicatorRect.width / 2
+		indicatorInitialLocation.y = bounds.midY - indicatorRect.height / 2
 		
-		indicatorMaxOffset.x = (size - indicatorRect.width) / 2
-		indicatorMaxOffset.y = (size - indicatorRect.height) / 2
+		indicatorMaxTravel = (size - indicatorRect.width) / 2
 		
-		updateMaxiumOffset()
-		updateIndicatorPosition()
+		updateIndicatorFrame()
 	}
 	
 	override func draw(_ rect: CGRect) {
@@ -86,20 +84,21 @@ extension JoystickStickView {
 	func updateIndicator(distance: CGFloat, angle: CGFloat) {
 		indicatorDistance = distance
 		indicatorAngle = angle
-		updateIndicatorPosition()
+		updateIndicatorFrame()
 	}
 	
-	fileprivate func updateMaxiumOffset() {
-		// Take into account maximum distance.
-		if maximumDistance > 0 {
-			indicatorMaxOffset.x *= 1 / maximumDistance
-			indicatorMaxOffset.y *= 1 / maximumDistance
+	fileprivate func updateIndicatorFrame() {
+		var distance = indicatorDistance
+		
+		if maximumDistanceRatio != 1 {
+			distance /= maximumDistanceRatio
+			if distance > 1 {
+				distance = 1
+			}
 		}
-	}
-	
-	fileprivate func updateIndicatorPosition() {
-		indicatorRect.origin.x = indicatorCenter.x + indicatorMaxOffset.x * indicatorDistance * cos(indicatorAngle)
-		indicatorRect.origin.y = indicatorCenter.y + indicatorMaxOffset.y * indicatorDistance * sin(indicatorAngle)
+		
+		indicatorRect.origin.x = indicatorInitialLocation.x + indicatorMaxTravel * distance * cos(indicatorAngle)
+		indicatorRect.origin.y = indicatorInitialLocation.y + indicatorMaxTravel * distance * sin(indicatorAngle)
 		indicatorView.frame = indicatorRect
 	}
 }
