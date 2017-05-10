@@ -473,6 +473,9 @@
                                                 <constraint firstAttribute="bottom" secondItem="ny3-GH-WtV" secondAttribute="bottom" constant="12" id="v0s-nL-wxT"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="AhU-Xq-85h" kind="show" id="uh8-3J-NIZ"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
