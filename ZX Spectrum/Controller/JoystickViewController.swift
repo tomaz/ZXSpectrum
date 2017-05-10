@@ -40,6 +40,9 @@ final class JoystickViewController: UIViewController {
 	fileprivate var lastStickAngle = CGFloat.greatestFiniteMagnitude
 	fileprivate var lastKeys: [KeyCode]?
 	
+	fileprivate var startGlowAnimationWhenViewAppears = false
+	fileprivate var isGlowAnimationActive = false
+	
 	// MARK: - Initialization & disposal
 	
 	/**
@@ -67,6 +70,25 @@ final class JoystickViewController: UIViewController {
 		
 		setupCurrentFileSignal()
 		setupJoystickSensitivityRatioSignal()
+	}
+	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		
+		if startGlowAnimationWhenViewAppears {
+			setupGlow()
+			startGlowAnimationWhenViewAppears = false
+		}
+	}
+	
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		
+		// If we're currently glowing edit button, we must restart animation when view appears again - animations are removed otherwise...
+		if isGlowAnimationActive {
+			setupGlow(remove: true)
+			startGlowAnimationWhenViewAppears = true
+		}
 	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -120,6 +142,7 @@ extension JoystickViewController {
 		} else {
 			file = nil
 		}
+
 		
 		updateViewsForCurrentFile()
 	}
@@ -158,6 +181,8 @@ extension JoystickViewController {
 		
 		editButton.attributedTitle = JoystickViewController.editText(for: file.joystickMapping)
 		editButton.isHidden = false
+
+		setupGlow(remove: joystickMapping != nil)
 	}
 }
 
@@ -291,9 +316,6 @@ extension JoystickViewController {
 
 extension JoystickViewController {
 	
-	/**
-	Prepares edit button text.
-	*/
 	fileprivate static func editText(for mapping: JoystickMappingObject?) -> NSAttributedString {
 		let result = NSMutableAttributedString()
 		
@@ -312,5 +334,62 @@ extension JoystickViewController {
 		})))
 		
 		return result
+	}
+	
+	fileprivate func setupGlow(remove: Bool = false) {
+		if let layer = editButton.titleLabel?.layer {
+			if !remove {
+				isGlowAnimationActive = true
+				
+				if isViewLoaded && view.window == nil {
+					startGlowAnimationWhenViewAppears = true
+					return
+				}
+				
+				CATransaction.begin()
+				
+				// Setup layer shadow.
+				layer.masksToBounds = false
+				layer.shadowColor = UIColor.white.cgColor
+				layer.shadowOffset = CGSize(width: 0, height: 0)
+				layer.shadowRadius = 0 // start hidden
+				layer.shadowOpacity = 0 // start hidden
+				
+				// Setup radius animation.
+				let radiusAnimation = CABasicAnimation(keyPath: #keyPath(CALayer.shadowRadius))
+				radiusAnimation.fromValue = 0
+				radiusAnimation.toValue = 5
+				radiusAnimation.duration = 0.5
+				radiusAnimation.autoreverses = true
+				radiusAnimation.repeatCount = Float.greatestFiniteMagnitude
+				radiusAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+				
+				// Setup opacity animation.
+				let opacityAnimation = CABasicAnimation(keyPath: #keyPath(CALayer.shadowOpacity))
+				opacityAnimation.fromValue = 0
+				opacityAnimation.toValue = 1
+				opacityAnimation.autoreverses = radiusAnimation.autoreverses
+				opacityAnimation.duration = radiusAnimation.duration
+				opacityAnimation.repeatCount = radiusAnimation.repeatCount
+				opacityAnimation.timingFunction = radiusAnimation.timingFunction
+				
+				// Add both animations.
+				layer.add(radiusAnimation, forKey: nil)
+				layer.add(opacityAnimation, forKey: nil)
+				
+				CATransaction.commit()
+			} else {
+				// Just in case we have scheduled animation on view appearance; don't do it.
+				startGlowAnimationWhenViewAppears = false
+				isGlowAnimationActive = false
+				
+				// Remove animations.
+				layer.removeAllAnimations()
+				
+				// Reset shadow.
+				layer.masksToBounds = true
+				layer.shadowOpacity = 0.0
+			}
+		}
 	}
 }
