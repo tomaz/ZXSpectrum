@@ -59,11 +59,14 @@ final class JoystickViewController: UIViewController {
 		
 		gdebug("Setting up view")
 		establishDefaultAppearance()
+		establishStickSettings()
 		updateFileForCurrentSelection()
 		
 		setupStickTouchesHandler()
 		setupButtonTouchesHandler()
+		
 		setupCurrentFileSignal()
+		setupJoystickSensitivityRatioSignal()
 	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -97,16 +100,6 @@ extension JoystickViewController: JoystickKeyCodeSelectionHandlerProvider {
 		return { codes in
 			self.updateViewsForCurrentFile()
 		}
-	}
-}
-
-// MARK: - Helper functions
-
-extension JoystickViewController {
-	
-	fileprivate func establishDefaultAppearance() {
-		view.backgroundColor = JoystickStyleKit.joystickBackgroundColor
-		spacerView.isHidden = UIDevice.iPhone
 	}
 }
 
@@ -168,19 +161,23 @@ extension JoystickViewController {
 	}
 }
 
+// MARK: - Joystick polling
+
+extension JoystickViewController {
+	
+	/**
+	Polls the joystick and sends events to fuse.
+	*/
+	func poll() {
+		// Nothing to do here until we actually support real joystick; we're just simulating keyboard events which we push as soon as events occur.
+	}
+}
+
 // MARK: - Stick events handling
 
 extension JoystickViewController {
 	
 	fileprivate func setupStickTouchesHandler() {
-		stickView.maximumDistance = 0.9
-			
-		stickTouchView.touchDetectionMinimumThreshold = 0.6
-		stickTouchView.touchDetectionMaximumThreshold = 0.9
-		stickTouchView.touchDetectionDistanceThreshold = 2
-		stickTouchView.touchDetectionAngleThreshold = Direction.radians(5)
-		stickTouchView.trimToAngles = [ Direction.NW, Direction.N, Direction.NE, Direction.E, Direction.SE, Direction.S, Direction.SW, Direction.W, ]
-		
 		stickTouchView.didMoveFromStartingTouch = { angle, distance in
 			self.stickView.updateIndicator(distance: distance, angle: angle)
 
@@ -188,15 +185,9 @@ extension JoystickViewController {
 			let isStickChange = isStickActive != self.lastStickActive
 			
 			if isStickChange || angle != self.lastStickAngle {
-				print(">>>> \(distance) @ \(Direction.degrees(angle))º")
-				
 				// If user depresses stick, notify fuse about release state for previous keys (if any).
 				if !isStickActive {
 					if let previouslyPressedKeys = self.lastKeys {
-						print("old: \(KeyCode.description(keys: previouslyPressedKeys)) on")
-						print("new: on")
-						print(">of: \(KeyCode.description(keys: previouslyPressedKeys))")
-						print(">on:")
 						KeyCode.inject(keys: previouslyPressedKeys, pressed: false)
 					}
 					self.lastStickActive = false
@@ -211,16 +202,13 @@ extension JoystickViewController {
 					let releasedKeys = lastKeys.filter { !pressedKeys.contains($0) }
 					let newlyPressedKeys = pressedKeys.filter { !lastKeys.contains($0) }
 
-					print("old: \(KeyCode.description(keys: lastKeys)) on")
-					print("new: \(KeyCode.description(keys: pressedKeys)) on")
-					print(">of: \(KeyCode.description(keys: releasedKeys))")
-					print(">on: \(KeyCode.description(keys: newlyPressedKeys))")
-
 					self.lastKeys = pressedKeys
+					
 					KeyCode.inject(keys: releasedKeys, pressed: false)
 					KeyCode.inject(keys: newlyPressedKeys, pressed: true)
 				}
 				
+				// Remember last stick angle and active status.
 				self.lastStickActive = isStickActive
 				self.lastStickAngle = angle
 			}
@@ -252,14 +240,28 @@ extension JoystickViewController {
 	}
 }
 
-// MARK: - Joystick polling
+// MARK: - Helper functions
 
 extension JoystickViewController {
 	
-	/**
-	Polls the joystick and sends events to fuse.
-	*/
-	func poll() {
+	fileprivate func establishDefaultAppearance() {
+		view.backgroundColor = JoystickStyleKit.joystickBackgroundColor
+		spacerView.isHidden = UIDevice.iPhone
+	}
+	
+	fileprivate func establishStickSettings() {
+		// Note we never allow sensitibyt to cause issues with joystick handling, so we limit the maximum and minimum values.
+		let sensitivity = max(min(CGFloat(UserDefaults.standard.joystickSensitivityRatio), 0.9), 0.1)
+		
+		stickView.maximumDistance = 0.9
+		
+		stickTouchView.touchDetectionMinimumThreshold = sensitivity
+		stickTouchView.touchDetectionMaximumThreshold = 0.9
+		
+		stickTouchView.touchDetectionDistanceThreshold = 2
+		stickTouchView.touchDetectionAngleThreshold = Direction.radians(5)
+		
+		stickTouchView.trimToAngles = [ Direction.NW, Direction.N, Direction.NE, Direction.E, Direction.SE, Direction.S, Direction.SW, Direction.W, ]
 	}
 }
 
@@ -273,6 +275,13 @@ extension JoystickViewController {
 			UIView.animate(withDuration: 0.2) {
 				me.updateFileForCurrentSelection()
 			}
+		}
+	}
+	
+	fileprivate func setupJoystickSensitivityRatioSignal() {
+		UserDefaults.standard.reactive.joystickSensitivityRatioSignal.bind(to: self) { me, value in
+			gverbose("Joystick sensitivity ratio changed to \(value)")
+			me.establishStickSettings()
 		}
 	}
 }
