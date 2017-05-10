@@ -7,7 +7,7 @@ import Foundation
 
 enum KeyCode: Int {
 
-	case space
+	case space = 1 // We must start with non zero because 0 is interpretted as no key in `JoystickMappingObject`!
 	
 	case num0
 	case num1
