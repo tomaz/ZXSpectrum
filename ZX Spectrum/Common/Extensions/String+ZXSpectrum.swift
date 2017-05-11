@@ -51,6 +51,16 @@ extension String {
 extension String {
 	
 	/**
+	Returns new string by deleting given prefix from current one. If prefix is not found, unchanged string is returned.
+	*/
+	func deleting(prefix: String) -> String {
+		if hasPrefix(prefix) {
+			return substring(from: index(startIndex, offsetBy: prefix.characters.count))
+		}
+		return self
+	}
+	
+	/**
 	Converts the string into an array of `Int8` bytes, terminated by 0; useful for passing to C functions expecting `char *`.
 	*/
 	var toInt8Array: [Int8] {

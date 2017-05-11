@@ -127,7 +127,8 @@ extension FileTableViewCell {
 		// Render (optional) path as light text.
 		if !object.isStock, !object.path.isEmpty {
 			let pathString = object.path.hasSuffix("/") ? object.path : "\(object.path)/"
-			result.append(pathString.set(style: lightStyle))
+			let string = pathString.deleting(prefix: ".")
+			result.append(string.set(style: lightStyle))
 		}
 		
 		// Render name as emphasized text.
