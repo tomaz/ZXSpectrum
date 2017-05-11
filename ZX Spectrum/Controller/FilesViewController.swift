@@ -48,6 +48,7 @@ final class FilesViewController: UITableViewController {
 		
 		gdebug("Setting up view")
 		setupUploadButtonTapSignal()
+		setupTableSelectionSignal()
 		
 		fetch(animated: false)
 	}
@@ -165,5 +166,17 @@ extension FilesViewController {
 			
 			self.present(alert, animated: true, completion: nil)
 		}.dispose(in: reactive.bag)
+	}
+	
+	fileprivate func setupTableSelectionSignal() {
+		tableView.reactive.deselectedRow.bind(to: self) { me, indexPath in
+			gverbose("Deselected cell at \(indexPath)")
+			me.bond.selectCell(at: indexPath, select: false)
+		}
+		
+		tableView.reactive.selectedRow.bind(to: self) { me, indexPath in
+			gverbose("Selected cell at \(indexPath)")
+			me.bond.selectCell(at: indexPath)
+		}
 	}
 }

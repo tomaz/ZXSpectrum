@@ -85,6 +85,7 @@
 		73AFFEC01EAFC5BE00218DB7 /* UIColor+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AFFEBF1EAFC5BE00218DB7 /* UIColor+ZXSpectrum.swift */; };
 		73AFFED61EAFC62B00218DB7 /* CGPoint+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AFFED51EAFC62B00218DB7 /* CGPoint+ZXSpectrum.swift */; };
 		73AFFED81EAFD7A500218DB7 /* CGSize+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AFFED71EAFD7A500218DB7 /* CGSize+ZXSpectrum.swift */; };
+		73B30C281EC4946B002AD635 /* UITableView+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B30C271EC4946B002AD635 /* UITableView+ZXSpectrum.swift */; };
 		73B529D51EA7BB1C002FB90B /* URL+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B529D41EA7BB1C002FB90B /* URL+ZXSpectrum.swift */; };
 		73B529EB1EA7CF73002FB90B /* EmulatorConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B529EA1EA7CF73002FB90B /* EmulatorConsumer.swift */; };
 		73B529FC1EA7D42D002FB90B /* disk_plus3.szx in Resources */ = {isa = PBXBuildFile; fileRef = 73B529ED1EA7D42D002FB90B /* disk_plus3.szx */; };
@@ -432,6 +433,7 @@
 		73AFFEBF1EAFC5BE00218DB7 /* UIColor+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+ZXSpectrum.swift"; sourceTree = "<group>"; };
 		73AFFED51EAFC62B00218DB7 /* CGPoint+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+ZXSpectrum.swift"; sourceTree = "<group>"; };
 		73AFFED71EAFD7A500218DB7 /* CGSize+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGSize+ZXSpectrum.swift"; sourceTree = "<group>"; };
+		73B30C271EC4946B002AD635 /* UITableView+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+ZXSpectrum.swift"; sourceTree = "<group>"; };
 		73B529D41EA7BB1C002FB90B /* URL+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+ZXSpectrum.swift"; sourceTree = "<group>"; };
 		73B529EA1EA7CF73002FB90B /* EmulatorConsumer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmulatorConsumer.swift; sourceTree = "<group>"; };
 		73B529ED1EA7D42D002FB90B /* disk_plus3.szx */ = {isa = PBXFileReference; lastKnownFileType = file; name = disk_plus3.szx; path = "ZX Spectrum/Common/spectrum/spectrum/fuse/lib/compressed/disk_plus3.szx"; sourceTree = SOURCE_ROOT; };
@@ -632,6 +634,7 @@
 				737B56FE1EA4033B00A260B9 /* UIGestureRecognizer+ZXSpectrum.swift */,
 				73DA64F51EA60627008832AA /* UIResponder+ZXSpectrum.swift */,
 				7384B86D1EA78BDD005FC8DF /* UIButton+ZXSpectrum.swift */,
+				73B30C271EC4946B002AD635 /* UITableView+ZXSpectrum.swift */,
 				7384B8851EA78F8C005FC8DF /* UITableViewCell+ZXSpectrum.swift */,
 			);
 			path = Extensions;
@@ -1268,6 +1271,7 @@
 				7384B88C1EA7A257005FC8DF /* UIViewController+Hierarchy.swift in Sources */,
 				739CE9471EBE59A800071BF4 /* JoystickEditViewController.swift in Sources */,
 				73DA64EA1EA55E81008832AA /* FilesViewController+Bond.swift in Sources */,
+				73B30C281EC4946B002AD635 /* UITableView+ZXSpectrum.swift in Sources */,
 				73DA64F41EA60485008832AA /* WebServer.swift in Sources */,
 				7384B86E1EA78BDD005FC8DF /* UIButton+ZXSpectrum.swift in Sources */,
 				737236701EBF9FD10053B5B5 /* JoystickBindingViewController+Bond.swift in Sources */,

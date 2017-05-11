@@ -17,6 +17,7 @@ extension FilesViewController {
 		
 		typealias DataSource = Observable2DArray<String, FileObject>
 		
+		private var tableView: UITableView!
 		private lazy var indexes = Property([String]())
 		
 		// MARK: - Callbacks
@@ -33,6 +34,8 @@ extension FilesViewController {
 		Initializes the bond to work for the given table view.
 		*/
 		func initialize(tableView: UITableView) {
+			self.tableView = tableView
+			
 			tableView.reactive.dataSource.feed(
 				property: indexes,
 				to: #selector(sectionIndexTitles(for:)),
@@ -73,6 +76,17 @@ extension FilesViewController {
 			// Assign and return.
 			indexes.value = sorted.flatMap { $0.key }
 			return result
+		}
+		
+		// MARK: - Helper functions
+		
+		/**
+		Selects or deselects the cell at the given index path.
+		*/
+		func selectCell(at indexPath: IndexPath, select: Bool = true) {
+			if let cell = tableView.cellForRow(at: indexPath) as? FileTableViewCell {
+				cell.select(selected: select)
+			}
 		}
 		
 		// MARK: - TableViewBond

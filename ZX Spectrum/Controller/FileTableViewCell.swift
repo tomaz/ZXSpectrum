@@ -45,25 +45,6 @@ class FileTableViewCell: UITableViewCell, Configurable {
 		didRequestInsert = nil
 		didRequestDelete = nil
 	}
-	
-	override func setSelected(_ selected: Bool, animated: Bool) {
-		super.setSelected(selected, animated: animated)
-		
-		// Hide or show actions if needed.
-		let hide = !selected
-		if actionsContainerView.isHidden != hide {
-			UIView.animate(withDuration: 0.25) {
-				self.actionsContainerView.isHidden = hide
-				self.actionsContainerView.alpha = hide ? 0 : 1
-			}
-		}
-		
-		// Let table view know it needs to recalculate heights.
-		if let tableView = tableView {
-			tableView.beginUpdates()
-			tableView.endUpdates()
-		}
-	}
 }
 
 // MARK: - Configurable
@@ -83,6 +64,36 @@ extension FileTableViewCell {
 // MARK: - User interface
 
 extension FileTableViewCell {
+	
+	/**
+	Selects on unselects the cell.
+	*/
+	func select(selected: Bool = true, animated: Bool = true) {
+		func handler() {
+			actionsContainerView.isHidden = !selected
+			actionsContainerView.alpha = selected ? 1 : 0
+		}
+		
+		// Handle non-animated.
+		if !animated {
+			handler()
+			return
+		}
+		
+		// Hide or show actions if needed.
+		let hide = !selected
+		if actionsContainerView.isHidden != hide {
+			UIView.animate(withDuration: 0.25) {
+				handler()
+			}
+		}
+		
+		// Let table view know it needs to recalculate heights.
+		if let tableView = tableView {
+			tableView.beginUpdates()
+			tableView.endUpdates()
+		}
+	}
 	
 	fileprivate func setupInsertButtonSignals() {
 		insertButton.reactive.tap.bind(to: self) { (me, sender) in
