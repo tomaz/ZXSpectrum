@@ -810,10 +810,10 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="dWl-Gd-j5X">
                                 <rect key="frame" x="10" y="10" width="355" height="290"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="vsd-i8-Oku">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QUj-ML-Qfw">
                                         <rect key="frame" x="0.0" y="0.0" width="355" height="260"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" horizontalHuggingPriority="260" horizontalCompressionResistancePriority="760" placeholderIntrinsicWidth="150" placeholderIntrinsicHeight="infinite" translatesAutoresizingMaskIntoConstraints="NO" id="COT-Kc-Nqm" customClass="TouchableView" customModule="ZX_Spectrum" customModuleProvider="target">
+                                            <view contentMode="scaleToFill" horizontalCompressionResistancePriority="760" placeholderIntrinsicWidth="150" placeholderIntrinsicHeight="infinite" translatesAutoresizingMaskIntoConstraints="NO" id="COT-Kc-Nqm" customClass="TouchableView" customModule="ZX_Spectrum" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="150" height="260"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" horizontalHuggingPriority="240" horizontalCompressionResistancePriority="760" translatesAutoresizingMaskIntoConstraints="NO" id="7Bs-GN-zP2" customClass="JoystickStickView" customModule="ZX_Spectrum" customModuleProvider="target">
@@ -829,26 +829,22 @@
                                                     <constraint firstItem="7Bs-GN-zP2" firstAttribute="leading" secondItem="COT-Kc-Nqm" secondAttribute="leading" id="cd8-NH-yju"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" horizontalCompressionResistancePriority="250" placeholderIntrinsicWidth="20" placeholderIntrinsicHeight="infinite" translatesAutoresizingMaskIntoConstraints="NO" id="9Wt-vc-ty7">
-                                                <rect key="frame" x="160" y="0.0" width="135" height="260"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                            </view>
-                                            <view contentMode="scaleToFill" horizontalHuggingPriority="260" verticalHuggingPriority="200" horizontalCompressionResistancePriority="700" verticalCompressionResistancePriority="700" translatesAutoresizingMaskIntoConstraints="NO" id="45W-Dg-26f" customClass="TouchableView" customModule="ZX_Spectrum" customModuleProvider="target">
-                                                <rect key="frame" x="305" y="0.0" width="50" height="260"/>
+                                            <view contentMode="scaleToFill" horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="700" verticalCompressionResistancePriority="700" placeholderIntrinsicWidth="50" placeholderIntrinsicHeight="infinite" translatesAutoresizingMaskIntoConstraints="NO" id="45W-Dg-26f" customClass="TouchableView" customModule="ZX_Spectrum" customModuleProvider="target">
+                                                <rect key="frame" x="160" y="0.0" width="195" height="260"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="260" verticalHuggingPriority="200" horizontalCompressionResistancePriority="700" verticalCompressionResistancePriority="700" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Hnr-Nh-6Np">
-                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="260"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="195" height="260"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="700" verticalCompressionResistancePriority="700" translatesAutoresizingMaskIntoConstraints="NO" id="ijj-dz-m03" customClass="JoystickButtonView" customModule="ZX_Spectrum" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="0.0" width="50" height="80"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="195" height="80"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             </view>
                                                             <view contentMode="scaleToFill" horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="700" verticalCompressionResistancePriority="700" translatesAutoresizingMaskIntoConstraints="NO" id="7Gn-bj-FbS" customClass="JoystickButtonView" customModule="ZX_Spectrum" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="90" width="50" height="80"/>
+                                                                <rect key="frame" x="0.0" y="90" width="195" height="80"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             </view>
                                                             <view contentMode="scaleToFill" horizontalHuggingPriority="200" verticalHuggingPriority="200" horizontalCompressionResistancePriority="700" verticalCompressionResistancePriority="700" translatesAutoresizingMaskIntoConstraints="NO" id="gzD-EE-b2d" customClass="JoystickButtonView" customModule="ZX_Spectrum" customModuleProvider="target">
-                                                                <rect key="frame" x="0.0" y="180" width="50" height="80"/>
+                                                                <rect key="frame" x="0.0" y="180" width="195" height="80"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             </view>
                                                         </subviews>
@@ -865,7 +861,16 @@
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </stackView>
+                                        <constraints>
+                                            <constraint firstItem="COT-Kc-Nqm" firstAttribute="top" secondItem="QUj-ML-Qfw" secondAttribute="top" id="Fup-nD-twR"/>
+                                            <constraint firstAttribute="trailing" secondItem="45W-Dg-26f" secondAttribute="trailing" id="L2W-DX-EIT"/>
+                                            <constraint firstItem="COT-Kc-Nqm" firstAttribute="leading" secondItem="QUj-ML-Qfw" secondAttribute="leading" id="bSW-g9-cbr"/>
+                                            <constraint firstAttribute="bottom" secondItem="COT-Kc-Nqm" secondAttribute="bottom" id="oVW-So-ZZE"/>
+                                            <constraint firstItem="45W-Dg-26f" firstAttribute="top" secondItem="QUj-ML-Qfw" secondAttribute="top" id="pTV-RM-WtT"/>
+                                            <constraint firstItem="45W-Dg-26f" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="COT-Kc-Nqm" secondAttribute="trailing" constant="10" id="utH-ur-1RJ"/>
+                                            <constraint firstAttribute="bottom" secondItem="45W-Dg-26f" secondAttribute="bottom" id="z87-Jp-Cx7"/>
+                                        </constraints>
+                                    </view>
                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b2v-6r-uN0">
                                         <rect key="frame" x="0.0" y="260" width="355" height="30"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -899,10 +904,9 @@
                         <outlet property="button3View" destination="gzD-EE-b2d" id="bRb-kf-emn"/>
                         <outlet property="buttonTouchView" destination="45W-Dg-26f" id="BpU-Xv-uPE"/>
                         <outlet property="buttonsStackView" destination="Hnr-Nh-6Np" id="NpW-TP-yaO"/>
+                        <outlet property="containerView" destination="QUj-ML-Qfw" id="FNA-e7-5BD"/>
                         <outlet property="editButton" destination="b2v-6r-uN0" id="FjN-mt-OmC"/>
-                        <outlet property="joystickStackView" destination="vsd-i8-Oku" id="41k-NG-acD"/>
                         <outlet property="mainStackView" destination="dWl-Gd-j5X" id="VGN-nl-FZd"/>
-                        <outlet property="spacerView" destination="9Wt-vc-ty7" id="Ks1-Qh-iNg"/>
                         <outlet property="stickTouchView" destination="COT-Kc-Nqm" id="G1N-mC-H5U"/>
                         <outlet property="stickView" destination="7Bs-GN-zP2" id="Thw-CU-Osy"/>
                     </connections>

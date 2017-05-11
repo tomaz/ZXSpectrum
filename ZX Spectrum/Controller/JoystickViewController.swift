@@ -14,13 +14,12 @@ Simulates joystick.
 final class JoystickViewController: UIViewController {
 	
 	@IBOutlet fileprivate weak var mainStackView: UIStackView!
-	@IBOutlet fileprivate weak var joystickStackView: UIStackView!
 	@IBOutlet fileprivate weak var buttonsStackView: UIStackView!
+	
+	@IBOutlet fileprivate weak var containerView: UIView!
 	
 	@IBOutlet fileprivate weak var stickTouchView: TouchableView!
 	@IBOutlet fileprivate weak var stickView: JoystickStickView!
-	
-	@IBOutlet fileprivate weak var spacerView: UIView!
 	
 	@IBOutlet fileprivate weak var buttonTouchView: TouchableView!
 	@IBOutlet fileprivate weak var button1View: JoystickButtonView!
@@ -283,7 +282,6 @@ extension JoystickViewController {
 	
 	fileprivate func establishDefaultAppearance() {
 		view.backgroundColor = JoystickStyleKit.joystickBackgroundColor
-		spacerView.isHidden = UIDevice.iPhone
 	}
 	
 	fileprivate func establishStickSettings() {
