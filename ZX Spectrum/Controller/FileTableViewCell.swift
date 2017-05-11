@@ -96,19 +96,19 @@ extension FileTableViewCell {
 	}
 	
 	fileprivate func setupInsertButtonSignals() {
-		insertButton.reactive.tap.bind(to: self) { (me, sender) in
-			if let object = self.object {
+		insertButton.reactive.tap.bind(to: self) { me, sender in
+			if let object = me.object {
 				ginfo("Inserting \(object)")
-				self.didRequestInsert?(object)
+				me.didRequestInsert?(object)
 			}
 		}
 	}
 	
 	fileprivate func setupDeleteButtonSignals() {
-		deleteButton.reactive.tap.bind(to: self) { (me, sender) in
-			if let object = self.object {
+		deleteButton.reactive.tap.bind(to: self) { me, sender in
+			if let object = me.object {
 				ginfo("Deleting \(object)")
-				self.didRequestDelete?(object)
+				me.didRequestDelete?(object)
 			}
 		}
 	}

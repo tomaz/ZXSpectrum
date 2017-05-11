@@ -137,35 +137,35 @@ extension FilesViewController {
 extension FilesViewController {
 	
 	fileprivate func setupUploadButtonTapSignal() {
-		uploadBarButtonItem.reactive.tap.observeNext {
+		uploadBarButtonItem.reactive.tap.bind(to: self) { me, _ in
 			ginfo("Starting upload")
 			
 			// Start server.
 			do {
-				try self.server.start()
+				try me.server.start()
 			} catch {
 				gerror("Failed starting server: \(error)")
-				self.present(error: error as NSError)
+				me.present(error: error as NSError)
 				return
 			}
 			
 			// Present alert for user.
-			let url = self.server.serverURL!
+			let url = me.server.serverURL!
 			let title = NSLocalizedString("Upload Server Active!")
 			let message = NSLocalizedString("You can upload files by visiting\n\n\(url.absoluteString)\n\nin web browser on your computer. When done tap stop button below.")
 			let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
 			
 			alert.addAction(UIAlertAction(title: NSLocalizedString("Stop"), style: .default) { action in
 				gdebug("Stopping upload server")
-				self.server.stop()
+				me.server.stop()
 				
-				if self.persistentContainer.viewContext.importUploadedFiles() {
-					self.fetch()
+				if me.persistentContainer.viewContext.importUploadedFiles() {
+					me.fetch()
 				}
 			})
 			
-			self.present(alert, animated: true, completion: nil)
-		}.dispose(in: reactive.bag)
+			me.present(alert, animated: true, completion: nil)
+		}
 	}
 	
 	fileprivate func setupTableSelectionSignal() {

@@ -137,24 +137,24 @@ extension EmulatorViewController {
 extension EmulatorViewController {
 	
 	fileprivate func setupResetButtonSignals() {
-		resetButton.reactive.tap.bind(to: self) { _ in
+		resetButton.reactive.tap.bind(to: self) { me, _ in
 			ginfo("Resetting emulator")
 			Defaults.currentObjectID.value = nil
-			self.emulator.reset()
+			me.emulator.reset()
 		}
 	}
 	
 	fileprivate func setupJoystickButtonSignals() {
-		joystickButton.reactive.tap.bind(to: self) { _ in
+		joystickButton.reactive.tap.bind(to: self) { me, _ in
 			ginfo("Toggling joystick")
-			self.toggleKeyboard(asJoystick: true)
+			me.toggleKeyboard(asJoystick: true)
 		}
 	}
 	
 	fileprivate func setupKeyboardButtonSignals() {
-		keyboardButton.reactive.tap.bind(to: self) { _ in
+		keyboardButton.reactive.tap.bind(to: self) { me, _ in
 			ginfo("Toggling keyboard")
-			self.toggleKeyboard()
+			me.toggleKeyboard()
 		}
 	}
 	
