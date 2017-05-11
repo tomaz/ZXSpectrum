@@ -13,12 +13,14 @@ extension FilesViewController {
 	/**
 	Bond for managing files table view.
 	*/
-	final class Bond: NSObject, TableViewBond {
+	final class Bond: NSObject, TableViewBond, UITableViewDelegate {
 		
 		typealias DataSource = Observable2DArray<String, FileObject>
 		
 		private var tableView: UITableView!
-		private lazy var indexes = Property([String]())
+		
+		private let indexes = Property([String]())
+		private let indexPathForWillSelect = Property<NSIndexPath?>(nil)
 		
 		// MARK: - Callbacks
 		
@@ -36,9 +38,11 @@ extension FilesViewController {
 		func initialize(tableView: UITableView) {
 			self.tableView = tableView
 			
+			tableView.reactive.delegate.forwardTo = self
+			
 			tableView.reactive.dataSource.feed(
 				property: indexes,
-				to: #selector(sectionIndexTitles(for:)),
+				to: #selector(UITableViewDataSource.sectionIndexTitles(for:)),
 				map: { (value: [String], _: UITableView) -> [String] in return value }
 			)
 		}
@@ -108,6 +112,20 @@ extension FilesViewController {
 			result.didRequestDelete = didRequestDelete
 			
 			return result
+		}
+		
+		// MARK: - UITableViewDelegate
+		
+		func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+			// If cell is already selected, deselect it. Note we must manually call deselection delegate function in order to have it pick up by `deselectedRow` signal.
+			if let cell = tableView.cellForRow(at: indexPath), cell.isSelected {
+				tableView.deselectRow(at: indexPath, animated: true)
+				tableView.delegate?.tableView?(tableView, didDeselectRowAt: indexPath)
+				return nil
+			}
+			
+			// Otherwise allow selection.
+			return indexPath
 		}
 	}
 }
