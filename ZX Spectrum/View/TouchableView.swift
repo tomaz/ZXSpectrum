@@ -46,7 +46,7 @@ final class TouchableView: UIView {
 	/// Optional allowed angles. If provided, current angle is "trimmed" to the closest angle from the given array.
 	var trimToAngles: [CGFloat]? {
 		didSet {
-			trimToNormalizedAngles = trimToAngles?.map { $0 + 2 * CGFloat.pi }
+			trimToNormalizedAngles = trimToAngles?.map { $0 + CGFloat.pi }
 		}
 	}
 	
@@ -148,18 +148,18 @@ extension TouchableView {
 				
 				// Trim angle to allowed angles array if needed. Note we need to work with normalized angles here (i.e. only positive values) to allow proper calculations.
 				if let allowedAngles = trimToNormalizedAngles, !allowedAngles.isEmpty {
-					let pi2 = 2 * CGFloat.pi
-					let testAngle = angle + pi2
+					let pi = CGFloat.pi
+					let testAngle = angle + pi
 					var closestAngle = testAngle
 					var closestDistance = CGFloat.greatestFiniteMagnitude
 					for allowedAngle in allowedAngles {
-						let angleDistance = abs(allowedAngle - testAngle)
+						let angleDistance = pi - abs(abs(testAngle - allowedAngle) - pi)
 						if angleDistance < closestDistance {
 							closestDistance = angleDistance
 							closestAngle = allowedAngle
 						}
 					}
-					angle = closestAngle - pi2
+					angle = closestAngle - pi
 				}
 				
 				// If distance is below on/off threshold, report change to off if we previously reported on value, otherwise just ignore it. Note we don't wait for touch change detection threshold to report this, it takes greater precedence.
