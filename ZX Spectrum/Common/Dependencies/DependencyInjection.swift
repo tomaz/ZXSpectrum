@@ -67,6 +67,20 @@ extension NSObject: UIPopoverPresentationControllerDelegate {
 		// Force popover on any presentation.
 		return .none
 	}
+	
+	public func prepareForPopoverPresentation(_ popoverPresentationController: UIPopoverPresentationController) {
+		if let statusConsumer = popoverPresentationController.presentingViewController as? PopoverPresentationStatusConsumer {
+			let controller = popoverPresentationController.presentedViewController
+			statusConsumer.popoverWillPresent(controller: controller)
+		}
+	}
+	
+	public func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
+		if let statusConsumer = popoverPresentationController.presentingViewController as? PopoverPresentationStatusConsumer {
+			let controller = popoverPresentationController.presentedViewController
+			statusConsumer.popoverDidDismiss(controller: controller)
+		}
+	}
 }
 
 extension UIViewController {

@@ -52,6 +52,7 @@ class EmulatorViewController: UIViewController {
 		updateJoystickButtonIcon()
 		updateKeyboardButtonIcon()
 
+		setupEmulationStartedSignal()
 		setupResetButtonSignals()
 		setupJoystickButtonSignals()
 		setupKeyboardButtonSignals()
@@ -63,9 +64,6 @@ class EmulatorViewController: UIViewController {
 		
 		super.viewWillAppear(animated)
 		
-		gdebug("Starting emulator")
-		fuse_emulation_unpause()
-		
 		gdebug("Preparing for appearance")
 		teardownTapOnBackgroundInteraction()
 	}
@@ -75,14 +73,12 @@ class EmulatorViewController: UIViewController {
 		
 		super.viewWillDisappear(animated)
 		
-		gdebug("Stopping emulator")
-		fuse_emulation_pause()
-		
 		gdebug("Preparing for dissapearance")
 		viewWillHideBag.dispose()
 	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		Defaults.isEmulationStarted.value = false
 		setupTapOnBackgroundInteraction()
 		inject(toController: segue.destination)
 	}
@@ -119,6 +115,7 @@ extension EmulatorViewController {
 		if let controller = segue.source as? SettingsViewController {
 			controller.updateSettings()
 		}
+		Defaults.isEmulationStarted.value = true
 	}
 	
 	fileprivate func updateJoystickButtonIcon(animated: Bool = false) {
@@ -135,6 +132,18 @@ extension EmulatorViewController {
 // MARK: - Signals handling
 
 extension EmulatorViewController {
+	
+	fileprivate func setupEmulationStartedSignal() {
+		// Only handle the event if value is different from current one.
+		Defaults.isEmulationStarted.skip(first: 1).distinct().bind(to: self) { me, value in
+			ginfo("Updating emulation status")
+			if value {
+				me.emulator.unpause()
+			} else {
+				me.emulator.pause()
+			}
+		}
+	}
 	
 	fileprivate func setupResetButtonSignals() {
 		resetButton.reactive.tap.bind(to: self) { me, _ in

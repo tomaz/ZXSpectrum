@@ -5,9 +5,32 @@
 
 import Foundation
 
+/**
+Controllers that want to always be presented as popovers (even on iPhone) need to conform to this protocol.
+*/
 protocol PopoverPresentationConsumer {
 	// Nothing to implement, just conform on destination side in order to force popover on iPhone. 
 }
+
+/**
+Controller that is parent for popover and wants to be notified when popover closes, needs to conform to this protocol.
+
+This only works if presented controller conforms to `PopoverPresentationController`!
+*/
+protocol PopoverPresentationStatusConsumer {
+	
+	/**
+	Called when popover is being presented.
+	*/
+	func popoverWillPresent(controller: UIViewController)
+	
+	/**
+	Called when popover is dismissed.
+	*/
+	func popoverDidDismiss(controller: UIViewController)
+}
+
+// MARK: - Default behavior
 
 extension PopoverPresentationConsumer {
 	

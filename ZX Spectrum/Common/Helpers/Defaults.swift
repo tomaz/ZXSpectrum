@@ -12,6 +12,9 @@ Various non-persistent defaults.
 */
 class Defaults {
 	
+	/// If true, emulation should be running, otherwise not.
+	static let isEmulationStarted = Property<Bool>(false)
+	
 	/// If true, we should show joystick for input method, otherwise keyboard.
 	static let isInputJoystick = Property<Bool>(false)
 	

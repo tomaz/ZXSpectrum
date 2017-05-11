@@ -84,7 +84,6 @@ final class JoystickViewController: UIViewController {
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		
-		
 		if isGlowAnimationActive {
 			setupGlow(remove: true)
 			startGlowAnimationWhenViewAppears = true
@@ -122,6 +121,19 @@ extension JoystickViewController: JoystickKeyCodeSelectionHandlerProvider {
 		return { codes in
 			self.updateViewsForCurrentFile()
 		}
+	}
+}
+
+extension JoystickViewController: PopoverPresentationStatusConsumer {
+	
+	func popoverWillPresent(controller: UIViewController) {
+		gverbose("Popover will present")
+		Defaults.isEmulationStarted.value = false
+	}
+	
+	func popoverDidDismiss(controller: UIViewController) {
+		gverbose("Popover did dismiss")
+		Defaults.isEmulationStarted.value = true
 	}
 }
 
