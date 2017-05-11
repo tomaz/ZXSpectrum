@@ -82,6 +82,10 @@ class EmulatorViewController: UIViewController {
 		setupTapOnBackgroundInteraction()
 		inject(toController: segue.destination)
 	}
+	
+	override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+		return UIDevice.iPhone ? .portrait : [.portrait, .landscape]
+	}
 }
 
 // MARK: - Dependencies
