@@ -8,7 +8,7 @@ import UIKit
 /**
 Managed keyboard input for ZX 48K Spectrum
 */
-class ZX48KeyboardView: BaseKeyboardView {
+final class ZX48KeyboardView: UIView {
 	
 	/// Indicates whether the view shows user taps (leave false for better performance).
 	var isShowingTaps = false
@@ -68,7 +68,7 @@ class ZX48KeyboardView: BaseKeyboardView {
 			if let (code, rect) = keyData(for: location) {
 				pressedKeyCodes.append(code)
 				pressedKeyRects.append(rect)
-				send(key: code, pressed: true)
+				code.inject(pressed: true)
 				if isShowingTaps {
 					setNeedsDisplay()
 				}
@@ -91,7 +91,7 @@ class ZX48KeyboardView: BaseKeyboardView {
 
 		// Report all keys that got depressed from last time.
 		previouslyPressed.filter { !pressedKeyCodes.contains($0) }.forEach { code in
-			send(key: code, pressed: false)
+			code.inject(pressed: false)
 			if isShowingTaps {
 				setNeedsDisplay()
 			}
@@ -99,7 +99,7 @@ class ZX48KeyboardView: BaseKeyboardView {
 		
 		// Reports all newly pressed keys.
 		pressedKeyCodes.filter { !previouslyPressed.contains($0) }.forEach { code in
-			send(key: code, pressed: true)
+			code.inject(pressed: true)
 			if isShowingTaps {
 				setNeedsDisplay()
 			}
@@ -114,7 +114,7 @@ class ZX48KeyboardView: BaseKeyboardView {
 					pressedKeyCodes.remove(at: idx)
 					pressedKeyRects.remove(at: idx)
 				}
-				send(key: code, pressed: false)
+				code.inject(pressed: false)
 				if isShowingTaps {
 					setNeedsDisplay()
 				}

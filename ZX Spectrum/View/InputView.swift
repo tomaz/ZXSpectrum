@@ -14,9 +14,9 @@ final class InputView: UIView {
 	fileprivate var persistentContainer: NSPersistentContainer!
 	
 	fileprivate var joystickViewController: JoystickViewController!
-	fileprivate var zx48KeyboardView: ZX48KeyboardView!
+	fileprivate var keyboardViewController: KeyboardViewController!
 	
-	fileprivate var currentKeyboardView: UIView? = nil
+	fileprivate var currentInputView: UIView? = nil
 	fileprivate var currentKeyboardTopConstraint: NSLayoutConstraint? = nil
 	
 	fileprivate var transitioningKeyboardView: UIView? = nil
@@ -102,8 +102,7 @@ extension InputView {
 		joystickViewController = JoystickViewController.instantiate()
 		
 		// Prepare ZX 48K keyboard view.
-		zx48KeyboardView = ZX48KeyboardView()
-		zx48KeyboardView.translatesAutoresizingMaskIntoConstraints = false
+		keyboardViewController = KeyboardViewController.instantiate()
 		
 		// Setup joystick controller handler.
 		joystickController.handler = self
@@ -138,7 +137,7 @@ extension InputView {
 	private func prepareForKeyboardsChange() {
 		// Prepare the view we want to show.
 		let isJoystick = Defaults.isInputJoystick.value
-		let newInputView = isJoystick ? joystickViewController.view! : zx48KeyboardView
+		let newInputView = isJoystick ? joystickViewController.view! : keyboardViewController.view!
 		
 		// Ignore if we want to show the same view as we already are showing.
 		if newInputView.superview != nil {
@@ -151,8 +150,8 @@ extension InputView {
 		addSubviewAndSetupDefaultConstraints(for: newInputView)
 		
 		// If we don't have top contraint yet, this is the first time we're here, so just remember the view and exit (we'll setup top constraint in `cleanupKeyboardsAnimations(complete:)`)..
-		guard let view = currentKeyboardView, let constraint = currentKeyboardTopConstraint else {
-			currentKeyboardView = newInputView
+		guard let view = currentInputView, let constraint = currentKeyboardTopConstraint else {
+			currentInputView = newInputView
 			return
 		}
 		
@@ -165,7 +164,7 @@ extension InputView {
 		
 		// Remember both views.
 		transitioningKeyboardView = view
-		currentKeyboardView = newInputView
+		currentInputView = newInputView
 		
 		// Now move current view towards the top; this will make it appear as if current view clides out and new view slides in.
 		constraint.constant = -InputView.height
@@ -179,7 +178,7 @@ extension InputView {
 			transitioningKeyboardTopConstraint = nil
 			
 			// Establish constraints so that current view is pinned to the top.
-			currentKeyboardTopConstraint = currentKeyboardView?.topAnchor.constraint(equalTo: topAnchor)
+			currentKeyboardTopConstraint = currentInputView?.topAnchor.constraint(equalTo: topAnchor)
 			currentKeyboardTopConstraint?.isActive = true
 		}
 	}

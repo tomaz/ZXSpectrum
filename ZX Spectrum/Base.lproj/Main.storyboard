@@ -947,6 +947,39 @@
             </objects>
             <point key="canvasLocation" x="73" y="-560"/>
         </scene>
+        <!--Keyboard View Controller-->
+        <scene sceneID="i8X-Hh-Vk2">
+            <objects>
+                <viewController storyboardIdentifier="ZX48Scene" id="3WI-Tu-2dD" customClass="KeyboardViewController" customModule="ZX_Spectrum" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="2qW-sj-hIo"/>
+                        <viewControllerLayoutGuide type="bottom" id="7Zy-Qx-Cm3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="7kw-gE-NtP">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Akr-10-pAK" customClass="ZX48KeyboardView" customModule="ZX_Spectrum" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Akr-10-pAK" firstAttribute="leading" secondItem="7kw-gE-NtP" secondAttribute="leading" id="EHa-gS-69Q"/>
+                            <constraint firstAttribute="trailing" secondItem="Akr-10-pAK" secondAttribute="trailing" id="Z75-tf-XHt"/>
+                            <constraint firstItem="Akr-10-pAK" firstAttribute="top" secondItem="2qW-sj-hIo" secondAttribute="bottom" id="dEY-g3-rhn"/>
+                            <constraint firstItem="7Zy-Qx-Cm3" firstAttribute="top" secondItem="Akr-10-pAK" secondAttribute="bottom" id="vVT-ph-OXg"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="300"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FLV-tN-dXn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="224.80000000000001" y="2133.7331334332835"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="Rqd-Ib-Z2E"/>
