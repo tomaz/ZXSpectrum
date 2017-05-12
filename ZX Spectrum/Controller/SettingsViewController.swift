@@ -31,8 +31,6 @@ class SettingsViewController: UITableViewController {
 		gverbose("Loading")
 
 		super.viewDidLoad()
-		
-		fuse_emulation_pause()
 
 		tableView.estimatedRowHeight = 44
 		tableView.rowHeight = UITableViewAutomaticDimension
@@ -75,8 +73,6 @@ extension SettingsViewController {
 		}
 
 		display_refresh_all();
-		
-		fuse_emulation_unpause()
 	}
 	
 	@IBAction func unwindToSettingsViewController(segue: UIStoryboardSegue) {
