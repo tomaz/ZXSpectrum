@@ -45,6 +45,11 @@ class EmulatorViewController: UIViewController {
 		spectrumView.hookToFuse()
 		fuse_init(0, nil);
 		
+		let spectrum = SpectrumController()
+		if let selected = spectrum.selectedMachine {
+			Defaults.selectedMachine.value = spectrum.identifier(for: selected)
+		}
+		
 		gdebug("Setting up view")
 		settingsButton.image = IconsStyleKit.imageOfIconGear
 		resetButton.image = IconsStyleKit.imageOfIconReset

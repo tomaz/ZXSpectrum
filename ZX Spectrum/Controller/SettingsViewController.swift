@@ -70,6 +70,7 @@ extension SettingsViewController {
 		// Change the machine if different one is selected.
 		if let selected = selectedMachine, let starting = startingMachine, selected !== starting {
 			spectrum.selectedMachine = selected
+			Defaults.selectedMachine.value = spectrum.identifier(for: selected)
 		}
 
 		display_refresh_all();

@@ -18,6 +18,9 @@ class Defaults {
 	/// If true, we should show joystick for input method, otherwise keyboard.
 	static let isInputJoystick = Property<Bool>(false)
 	
+	/// Currently selected machine.
+	static let selectedMachine = Property<String>("")
+	
 	/// Current object IS; this is nil when no file is selected.
 	static let currentObjectID = Property<NSManagedObjectID?>(nil)
 }

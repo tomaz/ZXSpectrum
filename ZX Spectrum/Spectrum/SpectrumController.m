@@ -25,7 +25,11 @@
 }
 
 - (NSString * _Nonnull)identifierForMachine:(Machine * _Nonnull)machine {
-	return [NSString stringWithCString:machine_get_id(machine.type) encoding:NSASCIIStringEncoding];
+	return [self identifierForRawValue:machine_get_id(machine.type)];
+}
+
+- (NSString * _Nonnull)identifierForRawValue:(const char *)value {
+	return [NSString stringWithCString:value encoding:NSASCIIStringEncoding];
 }
 
 @end

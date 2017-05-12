@@ -36,6 +36,10 @@ final class KeyboardViewController: UIViewController {
 		
 		gdebug("Setting up views")
 		setupKeyboards()
+		selectKeyboardForCurrentMachine()
+		
+		gdebug("Setting up signals")
+		setupSelectedMachineSignal()
 	}
 }
 
@@ -97,6 +101,48 @@ extension KeyboardViewController {
 		
 		let keyboardView = scrollView.subviews[selectedKeyboard.rawValue]
 		view.backgroundColor = keyboardView.backgroundColor
+	}
+	
+	fileprivate func selectKeyboardForCurrentMachine() {
+		let type: libspectrum_machine
+
+		if let spectrumType = SpectrumController().selectedMachine?.type {
+			type = libspectrum_machine(rawValue: UInt32(spectrumType))
+		} else {
+			type = LIBSPECTRUM_MACHINE_UNKNOWN
+		}
+		
+		switch type {
+		case LIBSPECTRUM_MACHINE_16: fallthrough
+		case LIBSPECTRUM_MACHINE_48: fallthrough
+		case LIBSPECTRUM_MACHINE_UNKNOWN:
+			select(keyboard: .ZX48K)
+		default:
+			select(keyboard: .ZX128K)
+		}
+	}
+	
+	private func select(keyboard: Keyboard, animated: Bool = true) {
+		gdebug("Selecting \(keyboard)")
+		let bounds = scrollView.bounds
+		let rect = CGRect(
+			x: CGFloat(keyboard.rawValue) * bounds.width,
+			y: 0,
+			width: bounds.width,
+			height: bounds.height)
+		scrollView.scrollRectToVisible(rect, animated: animated)
+	}
+}
+
+// MARK: - Signals handling
+
+extension KeyboardViewController {
+	
+	fileprivate func setupSelectedMachineSignal() {
+		Defaults.selectedMachine.distinct().bind(to: self) { me, value in
+			gverbose("Selected machine changed to \(value)")
+			me.selectKeyboardForCurrentMachine()
+		}
 	}
 }
 

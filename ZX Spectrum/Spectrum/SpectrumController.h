@@ -20,4 +20,9 @@
 */
 - (NSString * _Nonnull)identifierForMachine:(Machine * _Nonnull)machine;
 
+/**
+ Returns the ID for the given machine raw value.
+ */
+- (NSString * _Nonnull)identifierForRawValue:(const char * _Nonnull)value;
+
 @end
