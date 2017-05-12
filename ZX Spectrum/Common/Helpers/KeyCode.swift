@@ -8,6 +8,7 @@ import Foundation
 enum KeyCode: Int {
 
 	case space = 1 // We must start with non zero because 0 is interpretted as no key in `JoystickMappingObject`!
+	case brk
 	
 	case num0
 	case num1
@@ -47,6 +48,11 @@ enum KeyCode: Int {
 	case y
 	case z
 	
+	case period
+	case comma
+	case semicolon
+	case doubleQuote
+	
 	case enter
 	case capsShift
 	case symbolShift
@@ -70,7 +76,8 @@ extension KeyCode: CustomStringConvertible {
 	
 	var description: String {
 		switch self {
-		case .space: return "␣"
+		case .space: return NSLocalizedString("SPACE")
+		case .brk: return NSLocalizedString("BREAK")
 			
 		case .num0: return "0"
 		case .num1: return "1"
@@ -110,16 +117,21 @@ extension KeyCode: CustomStringConvertible {
 		case .y: return "Y"
 		case .z: return "Z"
 			
-		case .enter: return "ENTER"
-		case .capsShift: return "CAPS SHIFT"
-		case .symbolShift: return "SYMBOL SHIFT"
+		case .period: return ","
+		case .comma: return "."
+		case .semicolon: return ";"
+		case .doubleQuote: return "\""
 			
-		case .edit: return "EDIT"
-		case .delete: return "DELETE"
-		case .capsLock: return "CAPS LOCK"
-		case .trueVideo: return "TRUE VIDEO"
-		case .inverseVideo: return "INV. VIDEO"
-		case .graphics: return "GRAPHICS"
+		case .enter: return NSLocalizedString("ENTER")
+		case .capsShift: return NSLocalizedString("CAPS SHIFT")
+		case .symbolShift: return NSLocalizedString("SYMBOL SHIFT")
+			
+		case .edit: return NSLocalizedString("EDIT")
+		case .delete: return NSLocalizedString("DELETE")
+		case .capsLock: return NSLocalizedString("CAPS LOCK")
+		case .trueVideo: return NSLocalizedString("TRUE VIDEO")
+		case .inverseVideo: return NSLocalizedString("INV. VIDEO")
+		case .graphics: return NSLocalizedString("GRAPHICS")
 			
 		case .up: return "↑"
 		case .down: return "↓"
@@ -137,6 +149,7 @@ extension KeyCode {
 	var fuseKeys: [keyboard_key_name] {
 		switch self {
 		case .space: return [KEYBOARD_space]
+		case .brk: return [KEYBOARD_Caps, KEYBOARD_space]
 			
 		case .num0: return [KEYBOARD_0]
 		case .num1: return [KEYBOARD_1]
@@ -176,6 +189,11 @@ extension KeyCode {
 		case .y: return [KEYBOARD_y]
 		case .z: return [KEYBOARD_z]
 			
+		case .period: return [KEYBOARD_Symbol, KEYBOARD_n]
+		case .comma: return [KEYBOARD_Symbol, KEYBOARD_m]
+		case .semicolon: return [KEYBOARD_Symbol, KEYBOARD_o]
+		case .doubleQuote: return [KEYBOARD_Symbol, KEYBOARD_p]
+			
 		case .enter: return [KEYBOARD_Enter]
 		case .capsShift: return [KEYBOARD_Caps]
 		case .symbolShift: return [KEYBOARD_Symbol]
@@ -206,6 +224,7 @@ extension KeyCode {
 		.right,
 		
 		.space,
+		.brk,
 		.enter,
 		.delete,
 		

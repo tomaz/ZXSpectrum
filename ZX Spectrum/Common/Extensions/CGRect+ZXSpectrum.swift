@@ -65,6 +65,6 @@ extension CGRect {
 extension CGRect: Hashable {
 	
 	public var hashValue: Int {
-		return minX.hashValue ^ Int(minY).hashValue ^ Int(width).hashValue ^ Int(height).hashValue
+		return NSStringFromCGRect(self).hashValue
 	}
 }

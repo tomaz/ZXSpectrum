@@ -6,21 +6,9 @@
 import UIKit
 
 /**
-Managed keyboard input for ZX 48K Spectrum
+Manages keyboard input for ZX 48K Spectrum
 */
-final class ZX48KeyboardView: UIView {
-	
-	/// Indicates whether the view shows user taps (leave false for better performance).
-	var isShowingTaps = false
-	
-	/// Scaled rects for every key.
-	fileprivate lazy var scaledRects = [CGRect: KeyCode]()
-	
-	/// Currently pressed key codes.
-	fileprivate lazy var pressedKeyCodes = [KeyCode]()
-	
-	/// Currently pressed key rects.
-	fileprivate lazy var pressedKeyRects = [CGRect]()
+final class ZX48KeyboardView: BaseKeyboardView {
 	
 	// MARK: - Initialization & disposal
 
@@ -39,117 +27,17 @@ final class ZX48KeyboardView: UIView {
 	}
 	
 	private func initializeView() {
-		contentMode = .redraw
-		isMultipleTouchEnabled = true
 		backgroundColor = ZX48KeyboardStyleKit.keyboardBackgroundColor
+		configure(unscaledKeyboardRect: ZX48KeyboardView.keyboardRect)
+		configure(unscaledKeyRects: ZX48KeyboardView.keyRects)
 	}
 	
 	// MARK: - Overriden functions
 	
-	override func layoutSubviews() {
-		super.layoutSubviews()
-		updateScaledRects()
-	}
-	
 	override func draw(_ rect: CGRect) {
 		ZX48KeyboardStyleKit.drawKeyboard(frame: bounds, resizing: .aspectFit)
-
-		if isShowingTaps {
-			UIColor.pressedElementOverlay.setFill()
-			for rect in pressedKeyRects {
-				UIBezierPath(rect: rect).fill()
-			}
-		}
-	}
-	
-	override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-		for touch in touches {
-			let location = touch.location(in: self)
-			if let (code, rect) = keyData(for: location) {
-				pressedKeyCodes.append(code)
-				pressedKeyRects.append(rect)
-				code.inject(pressed: true)
-				if isShowingTaps {
-					setNeedsDisplay()
-				}
-			}
-		}
-	}
-	
-	override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-		let previouslyPressed = pressedKeyCodes
-		pressedKeyCodes.removeAll()
-		pressedKeyRects.removeAll()
 		
-		for touch in touches {
-			let location = touch.location(in: self)
-			if let (code, rect) = keyData(for: location) {
-				pressedKeyCodes.append(code)
-				pressedKeyRects.append(rect)
-			}
-		}
-
-		// Report all keys that got depressed from last time.
-		previouslyPressed.filter { !pressedKeyCodes.contains($0) }.forEach { code in
-			code.inject(pressed: false)
-			if isShowingTaps {
-				setNeedsDisplay()
-			}
-		}
-		
-		// Reports all newly pressed keys.
-		pressedKeyCodes.filter { !previouslyPressed.contains($0) }.forEach { code in
-			code.inject(pressed: true)
-			if isShowingTaps {
-				setNeedsDisplay()
-			}
-		}
-	}
-	
-	override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-		for touch in touches {
-			let location = touch.location(in: self)
-			if let (code, _) = keyData(for: location) {
-				if let idx = pressedKeyCodes.index(of: code) {
-					pressedKeyCodes.remove(at: idx)
-					pressedKeyRects.remove(at: idx)
-				}
-				code.inject(pressed: false)
-				if isShowingTaps {
-					setNeedsDisplay()
-				}
-			}
-		}
-	}
-}
-
-// MARK: - Helper functions
-
-extension ZX48KeyboardView {
-	
-	/**
-	Returns the input key corresponding to given point, or nil if none.
-	*/
-	fileprivate func keyData(for point: CGPoint) -> (KeyCode, CGRect)? {
-		for (rect, state) in scaledRects {
-			if rect.contains(point) {
-				return (state, rect)
-			}
-		}
-		return nil
-	}
-	
-	/**
-	Updates scaled rects dictionary.
-	*/
-	fileprivate func updateScaledRects() {
-		let scaler = CGRect.scaler(from: ZX48KeyboardView.keyboardRect, to: bounds)
-		var rects = [CGRect: KeyCode]()
-		for (rect, code) in ZX48KeyboardView.keyRects {
-			let scaled = scaler.scaled(rect: rect)
-			rects[scaled] = code
-		}
-		scaledRects = rects
+		super.draw(rect)
 	}
 }
 
