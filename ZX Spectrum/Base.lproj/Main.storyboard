@@ -673,29 +673,41 @@
         <scene sceneID="9Ri-zh-Qtx">
             <objects>
                 <tableViewController id="SJM-Db-pQf" customClass="FilesViewController" customModule="ZX_Spectrum" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" sectionIndexMinimumDisplayRowCount="10" rowHeight="120" sectionHeaderHeight="28" sectionFooterHeight="28" id="AOc-of-zyk">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" sectionIndexMinimumDisplayRowCount="10" rowHeight="198" sectionHeaderHeight="28" sectionFooterHeight="28" id="AOc-of-zyk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FileCell" id="ues-rt-8OF" customClass="FileTableViewCell" customModule="ZX_Spectrum" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="120"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="FileCell" rowHeight="198" id="ues-rt-8OF" customClass="FileTableViewCell" customModule="ZX_Spectrum" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="198"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="ues-rt-8OF" id="bX9-4i-kBM">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="119.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="197.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="hvc-Zt-zBl">
-                                            <rect key="frame" x="15" y="12" width="345" height="95.5"/>
+                                            <rect key="frame" x="15" y="12" width="345" height="173.5"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="NAME" textAlignment="natural" lineBreakMode="headTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="twP-TW-RVG">
-                                                    <rect key="frame" x="0.0" y="0.0" width="345" height="41.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="999" text="NAME" textAlignment="natural" lineBreakMode="headTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="twP-TW-RVG">
+                                                    <rect key="frame" x="0.0" y="0.0" width="345" height="20.5"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="999" text="BASIC INFO" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QiR-jf-9cs">
+                                                    <rect key="frame" x="0.0" y="32.5" width="345" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="999" text="DETAILED INFO" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cPw-Hh-U5I">
+                                                    <rect key="frame" x="0.0" y="65" width="345" height="54.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fnJ-PF-xMX" customClass="ToolbarView" customModule="ZX_Spectrum" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="53.5" width="345" height="42"/>
+                                                    <rect key="frame" x="0.0" y="131.5" width="345" height="42"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="44" translatesAutoresizingMaskIntoConstraints="NO" id="5lB-V2-G1U">
                                                             <rect key="frame" x="97" y="12" width="151" height="30"/>
@@ -732,7 +744,9 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="actionsContainerView" destination="fnJ-PF-xMX" id="IXe-CS-zsx"/>
+                                    <outlet property="basicInfoLabel" destination="QiR-jf-9cs" id="166-Wn-gvr"/>
                                     <outlet property="deleteButton" destination="AGC-nv-BLy" id="C8n-tm-T0r"/>
+                                    <outlet property="detailedInfoLabel" destination="cPw-Hh-U5I" id="HxK-S1-dRM"/>
                                     <outlet property="insertButton" destination="Als-ED-9Fz" id="IJc-Q0-42b"/>
                                     <outlet property="nameLabel" destination="twP-TW-RVG" id="GnL-ND-lAn"/>
                                 </connections>
@@ -758,7 +772,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vxb-YC-bnJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="SIk-VY-i5t" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="879" y="1014"/>
+            <point key="canvasLocation" x="877.60000000000002" y="1013.3433283358322"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="pcq-0a-fOt">

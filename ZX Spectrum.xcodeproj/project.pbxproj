@@ -36,6 +36,7 @@
 		7337874F1E9BE43F00C5C363 /* SpectrumDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7337874E1E9BE43F00C5C363 /* SpectrumDisplayController.m */; };
 		733787541E9CE36C00C5C363 /* ToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 733787531E9CE36C00C5C363 /* ToolbarView.swift */; };
 		733787571E9CE99300C5C363 /* SpectrumJoystickController.m in Sources */ = {isa = PBXBuildFile; fileRef = 733787561E9CE99300C5C363 /* SpectrumJoystickController.m */; };
+		7343688F1EC9F988001C08CB /* NSAttributedString+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7343688E1EC9F988001C08CB /* NSAttributedString+ZXSpectrum.swift */; };
 		7343DD861EC6172B00915830 /* ZX128KeyboardStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7343DD851EC6172B00915830 /* ZX128KeyboardStyleKit.swift */; };
 		7343DD9D1EC6280200915830 /* BaseKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7343DD9C1EC6280200915830 /* BaseKeyboardView.swift */; };
 		7343DD9F1EC62B3700915830 /* ZX128KeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7343DD9E1EC62B3700915830 /* ZX128KeyboardView.swift */; };
@@ -44,6 +45,7 @@
 		734DBF7D1EC0F74600587C98 /* InjectionObservable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734DBF7C1EC0F74600587C98 /* InjectionObservable.swift */; };
 		734DBF7F1EC1038700587C98 /* JoystickButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734DBF7E1EC1038700587C98 /* JoystickButtonView.swift */; };
 		734DBF811EC1070A00587C98 /* UIDevice+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 734DBF801EC1070A00587C98 /* UIDevice+ZXSpectrum.swift */; };
+		735471E51EC9DD790083355C /* SpectrumFileController.m in Sources */ = {isa = PBXBuildFile; fileRef = 735471E41EC9DD790083355C /* SpectrumFileController.m */; };
 		736493311EA4CE7200EE697F /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7364932F1EA4CE7200EE697F /* Model.xcdatamodeld */; };
 		736493351EA4CEA100EE697F /* Managed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736493341EA4CEA100EE697F /* Managed.swift */; };
 		736493371EA4D02D00EE697F /* FileObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736493361EA4D02D00EE697F /* FileObject.swift */; };
@@ -385,6 +387,7 @@
 		733787531E9CE36C00C5C363 /* ToolbarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolbarView.swift; sourceTree = "<group>"; };
 		733787551E9CE99300C5C363 /* SpectrumJoystickController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpectrumJoystickController.h; sourceTree = "<group>"; };
 		733787561E9CE99300C5C363 /* SpectrumJoystickController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpectrumJoystickController.m; sourceTree = "<group>"; };
+		7343688E1EC9F988001C08CB /* NSAttributedString+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+ZXSpectrum.swift"; sourceTree = "<group>"; };
 		7343DD851EC6172B00915830 /* ZX128KeyboardStyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZX128KeyboardStyleKit.swift; sourceTree = "<group>"; };
 		7343DD9C1EC6280200915830 /* BaseKeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseKeyboardView.swift; sourceTree = "<group>"; };
 		7343DD9E1EC62B3700915830 /* ZX128KeyboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZX128KeyboardView.swift; sourceTree = "<group>"; };
@@ -393,6 +396,8 @@
 		734DBF7C1EC0F74600587C98 /* InjectionObservable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InjectionObservable.swift; sourceTree = "<group>"; };
 		734DBF7E1EC1038700587C98 /* JoystickButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoystickButtonView.swift; sourceTree = "<group>"; };
 		734DBF801EC1070A00587C98 /* UIDevice+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIDevice+ZXSpectrum.swift"; sourceTree = "<group>"; };
+		735471E31EC9DD790083355C /* SpectrumFileController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpectrumFileController.h; sourceTree = "<group>"; };
+		735471E41EC9DD790083355C /* SpectrumFileController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpectrumFileController.m; sourceTree = "<group>"; };
 		736493301EA4CE7200EE697F /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		736493341EA4CEA100EE697F /* Managed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Managed.swift; sourceTree = "<group>"; };
 		736493361EA4D02D00EE697F /* FileObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileObject.swift; sourceTree = "<group>"; };
@@ -630,6 +635,7 @@
 				73AFFED71EAFD7A500218DB7 /* CGSize+ZXSpectrum.swift */,
 				730458E21EAA3B9A00290A06 /* CGRect+ZXSpectrum.swift */,
 				7384B88F1EA7A46C005FC8DF /* NSError+ZXSpectrum.swift */,
+				7343688E1EC9F988001C08CB /* NSAttributedString+ZXSpectrum.swift */,
 				7384B88D1EA7A35B005FC8DF /* NSManagedObjectContext+ZXSpectrum.swift */,
 				73AFFEBF1EAFC5BE00218DB7 /* UIColor+ZXSpectrum.swift */,
 				734DBF801EC1070A00587C98 /* UIDevice+ZXSpectrum.swift */,
@@ -899,6 +905,8 @@
 				7337874E1E9BE43F00C5C363 /* SpectrumDisplayController.m */,
 				733787551E9CE99300C5C363 /* SpectrumJoystickController.h */,
 				733787561E9CE99300C5C363 /* SpectrumJoystickController.m */,
+				735471E31EC9DD790083355C /* SpectrumFileController.h */,
+				735471E41EC9DD790083355C /* SpectrumFileController.m */,
 				739A5F791EA8D9F400CE6313 /* SpectrumController.h */,
 				739A5F7A1EA8D9F400CE6313 /* SpectrumController.m */,
 			);
@@ -1266,12 +1274,14 @@
 				7364933D1EA54B6E00EE697F /* Functions.swift in Sources */,
 				737E93881E87D19D00128149 /* AppDelegate.swift in Sources */,
 				73DF22F51E997510002FA042 /* SpectrumPalette.swift in Sources */,
+				7343688F1EC9F988001C08CB /* NSAttributedString+ZXSpectrum.swift in Sources */,
 				736493351EA4CEA100EE697F /* Managed.swift in Sources */,
 				734DBF7D1EC0F74600587C98 /* InjectionObservable.swift in Sources */,
 				73AFFEC01EAFC5BE00218DB7 /* UIColor+ZXSpectrum.swift in Sources */,
 				73DA64EC1EA56085008832AA /* Configurable.swift in Sources */,
 				7343DD9D1EC6280200915830 /* BaseKeyboardView.swift in Sources */,
 				736493421EA5518200EE697F /* PersistentContainerConsumer.swift in Sources */,
+				735471E51EC9DD790083355C /* SpectrumFileController.m in Sources */,
 				73D37FE01EC1F59700335055 /* TouchableView.swift in Sources */,
 				739CE94F1EBE793000071BF4 /* JoystickBindingViewController.swift in Sources */,
 				73DA64EE1EA5611E008832AA /* FileTableViewCell.swift in Sources */,
