@@ -11,12 +11,13 @@ Manages various settings.
 */
 class SettingsViewController: UITableViewController {
 	
-	@IBOutlet fileprivate weak var screenSmoothingSwitch: UISwitch!
-	
+	@IBOutlet fileprivate weak var computerLabel: UILabel!
+
 	@IBOutlet fileprivate weak var joystickSensitivitySlider: UISlider!
 	
+	@IBOutlet fileprivate weak var screenSmoothingSwitch: UISwitch!
+	@IBOutlet fileprivate weak var hapticFeedbackSwitch: UISwitch!
 	@IBOutlet fileprivate weak var fastloadSwitch: UISwitch!
-	@IBOutlet fileprivate weak var computerLabel: UILabel!
 	
 	// MARK: - Helpers
 	
@@ -40,10 +41,11 @@ class SettingsViewController: UITableViewController {
 		selectedMachine = startingMachine
 
 		gdebug("Binding data")
-		screenSmoothingSwitch.isOn = defaults.isScreenSmoothingActive
-		joystickSensitivitySlider.value = 1 - defaults.joystickSensitivityRatio
-		fastloadSwitch.isOn = settings_current.fastload == 1
 		computerLabel.text = spectrum.selectedMachine?.name
+		joystickSensitivitySlider.value = 1 - defaults.joystickSensitivityRatio
+		screenSmoothingSwitch.isOn = defaults.isScreenSmoothingActive
+		hapticFeedbackSwitch.isOn = defaults.isHapticFeedbackEnabled
+		fastloadSwitch.isOn = settings_current.fastload == 1
 	}
 }
 
@@ -59,8 +61,11 @@ extension SettingsViewController {
 		ginfo("Exiting settings")
 		
 		// Update user defaults.
-		defaults.isScreenSmoothingActive = screenSmoothingSwitch.isOn
 		defaults.joystickSensitivityRatio = 1 - joystickSensitivitySlider.value
+		defaults.isScreenSmoothingActive = screenSmoothingSwitch.isOn
+		defaults.isHapticFeedbackEnabled = hapticFeedbackSwitch.isOn
+		
+		// Update fuse based user defaults.
 		defaults.set(fastloadSwitch.isOn, forKey: "fastload")
 		defaults.set(spectrum.identifier(for: selectedMachine), forKey: "machine")
 		

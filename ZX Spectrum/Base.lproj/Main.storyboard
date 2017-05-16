@@ -477,12 +477,42 @@
                                             <segue destination="AhU-Xq-85h" kind="show" id="uh8-3J-NIZ"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="e1D-D4-Vta">
+                                        <rect key="frame" x="0.0" y="99.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="e1D-D4-Vta" id="MIg-Tb-rcR">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Rvn-bg-T4T">
+                                                    <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fast Tape Loading" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U5A-rc-1Yt">
+                                                            <rect key="frame" x="0.0" y="11.5" width="296" height="20.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Mh-Nd-QBq">
+                                                            <rect key="frame" x="296" y="6.5" width="51" height="31"/>
+                                                        </switch>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="Rvn-bg-T4T" secondAttribute="bottom" id="1m8-IR-0dO"/>
+                                                <constraint firstItem="Rvn-bg-T4T" firstAttribute="leading" secondItem="MIg-Tb-rcR" secondAttribute="leadingMargin" id="jhr-o0-5MA"/>
+                                                <constraint firstItem="Rvn-bg-T4T" firstAttribute="top" secondItem="MIg-Tb-rcR" secondAttribute="top" id="yvh-Pk-D9G"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Rvn-bg-T4T" secondAttribute="trailing" id="z4a-Da-xHM"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection headerTitle="INPUT" id="Z1J-id-v4d">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="cl2-rf-fVv">
-                                        <rect key="frame" x="0.0" y="155.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="199.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="cl2-rf-fVv" id="hCl-Rf-Fpb">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -519,7 +549,7 @@
                             <tableViewSection headerTitle="SETTINGS" id="bxw-yp-AxA">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="8ml-em-5vY">
-                                        <rect key="frame" x="0.0" y="255.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="299.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="8ml-em-5vY" id="hXc-6v-eTV">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -548,33 +578,33 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="e1D-D4-Vta">
-                                        <rect key="frame" x="0.0" y="299.5" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="bap-HL-ZAG">
+                                        <rect key="frame" x="0.0" y="343.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="e1D-D4-Vta" id="MIg-Tb-rcR">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="bap-HL-ZAG" id="bTR-t5-xfB">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Rvn-bg-T4T">
+                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="RQx-IT-bEW">
                                                     <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fast Tape Loading" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U5A-rc-1Yt">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Haptic Feedback" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0d4-e8-gvc">
                                                             <rect key="frame" x="0.0" y="11.5" width="296" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Mh-Nd-QBq">
+                                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8vT-t4-F9h">
                                                             <rect key="frame" x="296" y="6.5" width="51" height="31"/>
                                                         </switch>
                                                     </subviews>
                                                 </stackView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="Rvn-bg-T4T" secondAttribute="bottom" id="1m8-IR-0dO"/>
-                                                <constraint firstItem="Rvn-bg-T4T" firstAttribute="leading" secondItem="MIg-Tb-rcR" secondAttribute="leadingMargin" id="jhr-o0-5MA"/>
-                                                <constraint firstItem="Rvn-bg-T4T" firstAttribute="top" secondItem="MIg-Tb-rcR" secondAttribute="top" id="yvh-Pk-D9G"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="Rvn-bg-T4T" secondAttribute="trailing" id="z4a-Da-xHM"/>
+                                                <constraint firstItem="RQx-IT-bEW" firstAttribute="top" secondItem="bTR-t5-xfB" secondAttribute="top" id="M9K-Cm-Lxu"/>
+                                                <constraint firstItem="RQx-IT-bEW" firstAttribute="leading" secondItem="bTR-t5-xfB" secondAttribute="leadingMargin" id="VEh-dk-teF"/>
+                                                <constraint firstAttribute="bottom" secondItem="RQx-IT-bEW" secondAttribute="bottom" id="Ybf-pC-LtQ"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="RQx-IT-bEW" secondAttribute="trailing" id="fdH-0F-YaW"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -596,6 +626,7 @@
                     <connections>
                         <outlet property="computerLabel" destination="ny3-GH-WtV" id="Ge8-Nu-pd6"/>
                         <outlet property="fastloadSwitch" destination="4Mh-Nd-QBq" id="Wl7-Ts-2r4"/>
+                        <outlet property="hapticFeedbackSwitch" destination="8vT-t4-F9h" id="yah-vl-dMl"/>
                         <outlet property="joystickSensitivitySlider" destination="7B4-PT-Gpi" id="lyX-yM-Jdk"/>
                         <outlet property="screenSmoothingSwitch" destination="eag-M7-xGd" id="F2G-zy-OPR"/>
                     </connections>

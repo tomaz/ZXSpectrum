@@ -231,7 +231,10 @@ extension JoystickViewController {
 					return
 				}
 				
-				// If user presses the stick, report changes to fuse.
+				// If user presses the stick (or angle changed), provide haptic feedback.
+				Feedback.produce()
+				
+				// Report changes to fuse.
 				if let mapping = self.file?.joystickMapping {
 					let lastKeys = self.lastKeys ?? []
 					let pressedKeys = mapping.keys(for: angle) ?? []

@@ -74,7 +74,7 @@ class BaseKeyboardView: UIView {
 				pressedKeyCodes.append(code)
 				pressedKeyRects.append(rect)
 				
-				code.inject(pressed: true)
+				inject(code: code, pressed: true)
 				
 				if isShowingTaps {
 					setNeedsDisplay()
@@ -98,7 +98,7 @@ class BaseKeyboardView: UIView {
 
 		// Report all keys that got depressed from last time.
 		previouslyPressed.filter { !pressedKeyCodes.contains($0) }.forEach { code in
-			code.inject(pressed: false)
+			inject(code: code, pressed: false)
 			if isShowingTaps {
 				setNeedsDisplay()
 			}
@@ -106,7 +106,7 @@ class BaseKeyboardView: UIView {
 		
 		// Reports all newly pressed keys.
 		pressedKeyCodes.filter { !previouslyPressed.contains($0) }.forEach { code in
-			code.inject(pressed: true)
+			inject(code: code, pressed: true)
 			if isShowingTaps {
 				setNeedsDisplay()
 			}
@@ -122,7 +122,7 @@ class BaseKeyboardView: UIView {
 					pressedKeyRects.remove(at: idx)
 				}
 				
-				code.inject(pressed: false)
+				inject(code: code, pressed: false)
 				
 				if isShowingTaps {
 					setNeedsDisplay()
@@ -154,6 +154,13 @@ extension BaseKeyboardView {
 // MARK: - Helper functions
 
 extension BaseKeyboardView {
+	
+	fileprivate func inject(code: KeyCode, pressed: Bool) {
+		if pressed {
+			Feedback.produce()
+		}
+		code.inject(pressed: pressed)
+	}
 	
 	/**
 	Returns the input key corresponding to given point, or nil if none.

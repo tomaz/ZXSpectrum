@@ -89,6 +89,7 @@
 		73AFFEC01EAFC5BE00218DB7 /* UIColor+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AFFEBF1EAFC5BE00218DB7 /* UIColor+ZXSpectrum.swift */; };
 		73AFFED61EAFC62B00218DB7 /* CGPoint+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AFFED51EAFC62B00218DB7 /* CGPoint+ZXSpectrum.swift */; };
 		73AFFED81EAFD7A500218DB7 /* CGSize+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AFFED71EAFD7A500218DB7 /* CGSize+ZXSpectrum.swift */; };
+		73B195761ECB15260036A85B /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B195751ECB15260036A85B /* Feedback.swift */; };
 		73B30C281EC4946B002AD635 /* UITableView+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B30C271EC4946B002AD635 /* UITableView+ZXSpectrum.swift */; };
 		73B30C3F1EC4B7AB002AD635 /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B30C3E1EC4B7AB002AD635 /* KeyboardViewController.swift */; };
 		73B30C411EC4B80C002AD635 /* ZX48KeyboardStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B30C401EC4B80C002AD635 /* ZX48KeyboardStyleKit.swift */; };
@@ -443,6 +444,7 @@
 		73AFFEBF1EAFC5BE00218DB7 /* UIColor+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+ZXSpectrum.swift"; sourceTree = "<group>"; };
 		73AFFED51EAFC62B00218DB7 /* CGPoint+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+ZXSpectrum.swift"; sourceTree = "<group>"; };
 		73AFFED71EAFD7A500218DB7 /* CGSize+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGSize+ZXSpectrum.swift"; sourceTree = "<group>"; };
+		73B195751ECB15260036A85B /* Feedback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Feedback.swift; sourceTree = "<group>"; };
 		73B30C271EC4946B002AD635 /* UITableView+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+ZXSpectrum.swift"; sourceTree = "<group>"; };
 		73B30C3E1EC4B7AB002AD635 /* KeyboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
 		73B30C401EC4B80C002AD635 /* ZX48KeyboardStyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZX48KeyboardStyleKit.swift; sourceTree = "<group>"; };
@@ -767,6 +769,7 @@
 				73255D221EB9192700F04908 /* Defaults.swift */,
 				73255D241EB9330E00F04908 /* Direction.swift */,
 				739CE9541EBF845D00071BF4 /* KeyCode.swift */,
+				73B195751ECB15260036A85B /* Feedback.swift */,
 				739824831E93DB71005E6B14 /* BridgingHeader.h */,
 			);
 			path = Helpers;
@@ -1263,6 +1266,7 @@
 				734DBF771EC0C85A00587C98 /* JoystickViewController.swift in Sources */,
 				7364933B1EA54B2F00EE697F /* Logger.swift in Sources */,
 				73DA64F81EA613EF008832AA /* FileManager+ZXSpectrum.swift in Sources */,
+				73B195761ECB15260036A85B /* Feedback.swift in Sources */,
 				733787541E9CE36C00C5C363 /* ToolbarView.swift in Sources */,
 				73AFFED81EAFD7A500218DB7 /* CGSize+ZXSpectrum.swift in Sources */,
 				73B529EB1EA7CF73002FB90B /* EmulatorConsumer.swift in Sources */,

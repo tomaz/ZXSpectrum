@@ -10,14 +10,39 @@ extension UserDefaults {
 	
 	/// If true, screen smoothing is enabled, otherwise not.
 	var isScreenSmoothingActive: Bool {
-		get { return bool(forKey: "IsScreenSmoothingActive") }
-		set { set(newValue, forKey: "IsScreenSmoothingActive"); isScreenSmoothingActiveSubject.next(newValue)  }
+		get { return bool(forKey: Keys.IsScreenSmoothingActive) }
+		set { set(newValue, forKey: Keys.IsScreenSmoothingActive); isScreenSmoothingActiveSubject.next(newValue)  }
+	}
+	
+	/// If true, haptic feedback is enabled, otherwise not.
+	var isHapticFeedbackEnabled: Bool {
+		get { return bool(forKey: Keys.IsHapticFeedbackEnabled) }
+		set { set(newValue, forKey: Keys.IsHapticFeedbackEnabled) }
 	}
 	
 	/// Joystick sensitivity ratio.
 	var joystickSensitivityRatio: Float {
-		get { return float(forKey: "JoystickSensitivityRatio") }
-		set { set(newValue, forKey: "JoystickSensitivityRatio"); joystickSensitivityRatioSubject.next(newValue) }
+		get { return float(forKey: Keys.JoystickSensitivityRatio) }
+		set { set(newValue, forKey: Keys.JoystickSensitivityRatio); joystickSensitivityRatioSubject.next(newValue) }
+	}
+	
+	fileprivate struct Keys {
+		static var IsScreenSmoothingActive = "IsScreenSmoothingActive"
+		static var IsHapticFeedbackEnabled = "IsHapticFeedbackEnabled"
+		static var JoystickSensitivityRatio = "JoystickSensitivityRatio"
+	}
+}
+
+// MARK: - Factory defaults
+
+extension UserDefaults {
+	
+	static func establishFactoryDefaults() {
+		UserDefaults.standard.register(defaults: [
+			Keys.IsScreenSmoothingActive: false,
+			Keys.IsHapticFeedbackEnabled: Feedback.isHapticFeedbackSupported,
+			Keys.JoystickSensitivityRatio: 0.3
+		])
 	}
 }
 
