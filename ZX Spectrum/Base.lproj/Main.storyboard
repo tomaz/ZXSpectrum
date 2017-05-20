@@ -34,52 +34,62 @@
                                     <view contentMode="scaleToFill" verticalHuggingPriority="750" verticalCompressionResistancePriority="1000" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="44" translatesAutoresizingMaskIntoConstraints="NO" id="l2P-Ip-v5x" customClass="ToolbarView" customModule="ZX_Spectrum" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="303" width="375" height="44"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cbU-fz-DJ0">
-                                                <rect key="frame" x="20" y="7" width="57" height="30"/>
-                                                <state key="normal" title="Settings"/>
-                                                <connections>
-                                                    <segue destination="tCf-yA-Y6G" kind="presentation" modalPresentationStyle="formSheet" id="RgU-xe-zvq">
-                                                        <segue key="commit" inheritsFrom="parent" id="5dJ-Rv-cr1"/>
-                                                        <segue key="preview" inheritsFrom="commit" id="nj3-xb-OEd"/>
-                                                    </segue>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f5d-Nv-YS9">
-                                                <rect key="frame" x="99" y="7" width="32" height="30"/>
-                                                <state key="normal" title="Files"/>
-                                                <connections>
-                                                    <segue destination="OWd-3c-rp4" kind="presentation" modalPresentationStyle="pageSheet" id="lh3-Ad-ZdH">
-                                                        <segue key="commit" inheritsFrom="parent" id="2OU-0F-6vd"/>
-                                                        <segue key="preview" inheritsFrom="commit" id="rBY-DB-EbA"/>
-                                                    </segue>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XSS-zl-c5M">
-                                                <rect key="frame" x="153" y="7" width="39" height="30"/>
-                                                <state key="normal" title="Reset"/>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OSr-o9-M55">
-                                                <rect key="frame" x="289" y="7.5" width="66" height="30"/>
-                                                <state key="normal" title="Keyboard"/>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1J6-VI-uiw">
-                                                <rect key="frame" x="210" y="7" width="57" height="30"/>
-                                                <state key="normal" title="Joystick"/>
-                                            </button>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="AjA-Hl-maZ">
+                                                <rect key="frame" x="221" y="0.0" width="134" height="44"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F0d-bX-lJA">
+                                                        <rect key="frame" x="0.0" y="0.0" width="30" height="44"/>
+                                                        <state key="normal" title="tap"/>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1J6-VI-uiw">
+                                                        <rect key="frame" x="52" y="0.0" width="30" height="44"/>
+                                                        <state key="normal" title="joy"/>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OSr-o9-M55">
+                                                        <rect key="frame" x="104" y="0.0" width="30" height="44"/>
+                                                        <state key="normal" title="key"/>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="2ay-GZ-zIg">
+                                                <rect key="frame" x="20" y="0.0" width="134" height="44"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cbU-fz-DJ0">
+                                                        <rect key="frame" x="0.0" y="0.0" width="30" height="44"/>
+                                                        <state key="normal" title="set"/>
+                                                        <connections>
+                                                            <segue destination="tCf-yA-Y6G" kind="presentation" modalPresentationStyle="formSheet" id="RgU-xe-zvq">
+                                                                <segue key="commit" inheritsFrom="parent" id="5dJ-Rv-cr1"/>
+                                                                <segue key="preview" inheritsFrom="commit" id="nj3-xb-OEd"/>
+                                                            </segue>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f5d-Nv-YS9">
+                                                        <rect key="frame" x="52" y="0.0" width="30" height="44"/>
+                                                        <state key="normal" title="fil"/>
+                                                        <connections>
+                                                            <segue destination="OWd-3c-rp4" kind="presentation" modalPresentationStyle="pageSheet" id="lh3-Ad-ZdH">
+                                                                <segue key="commit" inheritsFrom="parent" id="2OU-0F-6vd"/>
+                                                                <segue key="preview" inheritsFrom="commit" id="rBY-DB-EbA"/>
+                                                            </segue>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XSS-zl-c5M">
+                                                        <rect key="frame" x="104" y="0.0" width="30" height="44"/>
+                                                        <state key="normal" title="res"/>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="OSr-o9-M55" firstAttribute="centerY" secondItem="f5d-Nv-YS9" secondAttribute="centerY" id="6nA-e3-uUJ"/>
-                                            <constraint firstItem="f5d-Nv-YS9" firstAttribute="centerY" secondItem="l2P-Ip-v5x" secondAttribute="centerY" id="8l6-Ju-7pc"/>
-                                            <constraint firstItem="cbU-fz-DJ0" firstAttribute="leading" secondItem="l2P-Ip-v5x" secondAttribute="leading" constant="20" symbolic="YES" id="MV4-Hw-5B6"/>
-                                            <constraint firstItem="OSr-o9-M55" firstAttribute="leading" secondItem="1J6-VI-uiw" secondAttribute="trailing" priority="999" constant="22" id="ULt-lt-o5o"/>
-                                            <constraint firstItem="XSS-zl-c5M" firstAttribute="centerY" secondItem="f5d-Nv-YS9" secondAttribute="centerY" id="Ur0-xw-4xO"/>
-                                            <constraint firstItem="f5d-Nv-YS9" firstAttribute="leading" secondItem="cbU-fz-DJ0" secondAttribute="trailing" priority="999" constant="22" id="ZcB-PV-MC4"/>
-                                            <constraint firstItem="1J6-VI-uiw" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="XSS-zl-c5M" secondAttribute="trailing" constant="10" id="v4Q-X4-Q4L"/>
-                                            <constraint firstAttribute="trailing" secondItem="OSr-o9-M55" secondAttribute="trailing" constant="20" symbolic="YES" id="xIq-xa-i0F"/>
-                                            <constraint firstItem="XSS-zl-c5M" firstAttribute="leading" secondItem="f5d-Nv-YS9" secondAttribute="trailing" priority="999" constant="22" id="ybA-oZ-p4j"/>
-                                            <constraint firstItem="cbU-fz-DJ0" firstAttribute="centerY" secondItem="XSS-zl-c5M" secondAttribute="centerY" id="yoI-L7-kKi"/>
-                                            <constraint firstItem="1J6-VI-uiw" firstAttribute="centerY" secondItem="cbU-fz-DJ0" secondAttribute="centerY" id="zIU-6w-v7Y"/>
+                                            <constraint firstAttribute="trailing" secondItem="AjA-Hl-maZ" secondAttribute="trailing" constant="20" symbolic="YES" id="1JS-ad-Ktm"/>
+                                            <constraint firstAttribute="bottom" secondItem="2ay-GZ-zIg" secondAttribute="bottom" id="F56-vu-Z5x"/>
+                                            <constraint firstAttribute="bottom" secondItem="AjA-Hl-maZ" secondAttribute="bottom" id="Tvo-Zt-FY5"/>
+                                            <constraint firstItem="AjA-Hl-maZ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2ay-GZ-zIg" secondAttribute="trailing" constant="22" id="er8-eJ-z5L"/>
+                                            <constraint firstItem="2ay-GZ-zIg" firstAttribute="leading" secondItem="l2P-Ip-v5x" secondAttribute="leading" constant="20" symbolic="YES" id="lFg-bd-hT8"/>
+                                            <constraint firstItem="2ay-GZ-zIg" firstAttribute="top" secondItem="l2P-Ip-v5x" secondAttribute="top" id="lr6-LZ-vIC"/>
+                                            <constraint firstItem="AjA-Hl-maZ" firstAttribute="top" secondItem="l2P-Ip-v5x" secondAttribute="top" id="pD2-co-EVa"/>
                                         </constraints>
                                     </view>
                                     <view hidden="YES" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="300" translatesAutoresizingMaskIntoConstraints="NO" id="fC8-y7-uJO" customClass="InputView" customModule="ZX_Spectrum" customModuleProvider="target">
@@ -106,6 +116,7 @@
                         <outlet property="settingsButton" destination="cbU-fz-DJ0" id="adr-zv-5kh"/>
                         <outlet property="spectrumInputView" destination="fC8-y7-uJO" id="DOF-YJ-CCO"/>
                         <outlet property="spectrumView" destination="v01-ct-F5k" id="7B0-7s-iNl"/>
+                        <outlet property="tapeButton" destination="F0d-bX-lJA" id="5VR-4f-rg0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -477,8 +488,38 @@
                                             <segue destination="AhU-Xq-85h" kind="show" id="uh8-3J-NIZ"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="e1D-D4-Vta">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="0R8-YS-Xd6">
                                         <rect key="frame" x="0.0" y="99.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="0R8-YS-Xd6" id="IAX-lo-wtd">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Zjf-u6-NAS">
+                                                    <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Auto Load Tape" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mC7-TW-FXx">
+                                                            <rect key="frame" x="0.0" y="11.5" width="296" height="20.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ER8-B5-bUn">
+                                                            <rect key="frame" x="296" y="6.5" width="51" height="31"/>
+                                                        </switch>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Zjf-u6-NAS" firstAttribute="top" secondItem="IAX-lo-wtd" secondAttribute="top" id="F6T-kU-DiK"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Zjf-u6-NAS" secondAttribute="trailing" id="Guw-rG-eNV"/>
+                                                <constraint firstItem="Zjf-u6-NAS" firstAttribute="leading" secondItem="IAX-lo-wtd" secondAttribute="leadingMargin" id="q4e-9i-VVj"/>
+                                                <constraint firstAttribute="bottom" secondItem="Zjf-u6-NAS" secondAttribute="bottom" id="qad-J6-JSO"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="e1D-D4-Vta">
+                                        <rect key="frame" x="0.0" y="143.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="e1D-D4-Vta" id="MIg-Tb-rcR">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -512,7 +553,7 @@
                             <tableViewSection headerTitle="INPUT" id="Z1J-id-v4d">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="cl2-rf-fVv">
-                                        <rect key="frame" x="0.0" y="199.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="243.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="cl2-rf-fVv" id="hCl-Rf-Fpb">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -549,7 +590,7 @@
                             <tableViewSection headerTitle="SETTINGS" id="bxw-yp-AxA">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="8ml-em-5vY">
-                                        <rect key="frame" x="0.0" y="299.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="343.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="8ml-em-5vY" id="hXc-6v-eTV">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -579,7 +620,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="bap-HL-ZAG">
-                                        <rect key="frame" x="0.0" y="343.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="387.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="bap-HL-ZAG" id="bTR-t5-xfB">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -624,6 +665,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="autoloadSwitch" destination="ER8-B5-bUn" id="fhd-6q-sWl"/>
                         <outlet property="computerLabel" destination="ny3-GH-WtV" id="Ge8-Nu-pd6"/>
                         <outlet property="fastloadSwitch" destination="4Mh-Nd-QBq" id="Wl7-Ts-2r4"/>
                         <outlet property="hapticFeedbackSwitch" destination="8vT-t4-F9h" id="yah-vl-dMl"/>
@@ -1037,9 +1079,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="nj3-xb-OEd"/>
+        <segue reference="rBY-DB-EbA"/>
         <segue reference="Rqd-Ib-Z2E"/>
         <segue reference="4uw-FD-jvC"/>
-        <segue reference="lh3-Ad-ZdH"/>
-        <segue reference="RgU-xe-zvq"/>
     </inferredMetricsTieBreakers>
 </document>

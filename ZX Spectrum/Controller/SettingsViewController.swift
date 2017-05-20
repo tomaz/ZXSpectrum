@@ -12,12 +12,13 @@ Manages various settings.
 class SettingsViewController: UITableViewController {
 	
 	@IBOutlet fileprivate weak var computerLabel: UILabel!
+	@IBOutlet fileprivate weak var fastloadSwitch: UISwitch!
+	@IBOutlet fileprivate weak var autoloadSwitch: UISwitch!
 
 	@IBOutlet fileprivate weak var joystickSensitivitySlider: UISlider!
 	
 	@IBOutlet fileprivate weak var screenSmoothingSwitch: UISwitch!
 	@IBOutlet fileprivate weak var hapticFeedbackSwitch: UISwitch!
-	@IBOutlet fileprivate weak var fastloadSwitch: UISwitch!
 	
 	// MARK: - Helpers
 	
@@ -42,10 +43,11 @@ class SettingsViewController: UITableViewController {
 
 		gdebug("Binding data")
 		computerLabel.text = spectrum.selectedMachine?.name
+		fastloadSwitch.isOn = settings_current.fastload == 1
+		autoloadSwitch.isOn = settings_current.auto_load == 1
 		joystickSensitivitySlider.value = 1 - defaults.joystickSensitivityRatio
 		screenSmoothingSwitch.isOn = defaults.isScreenSmoothingActive
 		hapticFeedbackSwitch.isOn = defaults.isHapticFeedbackEnabled
-		fastloadSwitch.isOn = settings_current.fastload == 1
 	}
 }
 
@@ -67,6 +69,7 @@ extension SettingsViewController {
 		
 		// Update fuse based user defaults.
 		defaults.set(fastloadSwitch.isOn, forKey: "fastload")
+		defaults.set(autoloadSwitch.isOn, forKey: "autoload")
 		defaults.set(spectrum.identifier(for: selectedMachine), forKey: "machine")
 		
 		// Read user defaults into fuse settings.
