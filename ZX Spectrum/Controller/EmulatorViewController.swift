@@ -153,14 +153,14 @@ extension EmulatorViewController {
 		emulator = Emulator()!
 		
 		// Read user defaults.
-		settings_defaults(&settings_current);
-		read_config_file(&settings_current);
-		
+		settings_defaults(&settings_current)
+		read_config_file(&settings_current)
+
 		// Hook spectrum view to fuse.
 		spectrumView.hookToFuse()
 		
 		// Initialize fuse.
-		fuse_init(0, nil);
+		fuse_init(0, nil)
 		
 		// Prepare initial computer.
 		let spectrum = SpectrumController()
@@ -196,7 +196,6 @@ extension EmulatorViewController {
 	fileprivate func setupResetButtonTapSignal() {
 		resetButton.reactive.tap.bind(to: self) { me, _ in
 			ginfo("Resetting emulator")
-			Defaults.currentFile.value = nil
 			me.emulator.reset()
 		}
 	}

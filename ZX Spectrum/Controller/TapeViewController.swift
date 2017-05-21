@@ -46,6 +46,11 @@ final class TapeViewController: UIViewController {
 
 extension TapeViewController {
 	
+	fileprivate func setupActionButton() {
+		actionButton.layer.cornerRadius = 4
+		actionButton.layer.backgroundColor = UIColor.white.withAlphaComponent(0.1).cgColor
+	}
+	
 	fileprivate func updateActionButton() {
 		actionButton.title = Defaults.isTapePlaying.value ? NSLocalizedString("STOP") : NSLocalizedString("PLAY")
 		actionButton.isEnabled = Defaults.currentFile.value != nil
@@ -64,9 +69,11 @@ extension TapeViewController {
 	}
 	
 	fileprivate func setupTapePlayingSignal() {
-		Defaults.isTapePlaying.bind(to: self) { me, value in
+		// Note we need to skip initial signal send after setting up observation!
+		Defaults.isTapePlaying.skip(first: 1).bind(to: self) { me, value in
 			gverbose("Tape playing status changed to \(value)")
 			me.updateActionButton()
+			tape_toggle_play(0)
 		}
 	}
 	
