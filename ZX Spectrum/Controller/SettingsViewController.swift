@@ -62,6 +62,9 @@ extension SettingsViewController {
 		// We intercept done bar button action which happens before unwind segue.
 		ginfo("Exiting settings")
 		
+		// If tape is currently playing, we need to stop it if autoload setting changes.
+		var shouldStopTape = autoloadSwitch.isOn != (settings_current.auto_load == 1)
+		
 		// Update user defaults.
 		defaults.joystickSensitivityRatio = 1 - joystickSensitivitySlider.value
 		defaults.isScreenSmoothingActive = screenSmoothingSwitch.isOn
@@ -77,10 +80,16 @@ extension SettingsViewController {
 		
 		// Change the machine if different one is selected.
 		if let selected = selectedMachine, let starting = startingMachine, selected !== starting {
+			shouldStopTape = true
 			spectrum.selectedMachine = selected
 			Defaults.selectedMachine.value = spectrum.identifier(for: selected)
 		}
-
+		
+		// Stop playback of current tape if needed.
+		if shouldStopTape && Defaults.isTapePlaying.value {
+			Defaults.isTapePlaying.value = false
+		}
+		
 		display_refresh_all();
 	}
 	

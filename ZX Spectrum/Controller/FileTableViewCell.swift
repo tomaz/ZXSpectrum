@@ -23,7 +23,7 @@ class FileTableViewCell: UITableViewCell, Configurable {
 	// MARK: - Callbacks
 
 	/// Called when user selects to insert the object for playback.
-	var didRequestInsert: ((FileObject) -> Void)? = nil
+	var didRequestInsert: ((FileObject, SpectrumFileInfo?) -> Void)? = nil
 	
 	/// Called when user wants to delete the object
 	var didRequestDelete: ((FileObject) -> Void)? = nil
@@ -89,6 +89,7 @@ extension FileTableViewCell {
 			actionsContainerView.alpha = selected ? 1 : 0
 		}
 		
+		// If selected and info isn't prepared yet, do it now.
 		if selected, info == nil, let object = object {
 			do {
 				info = try controller.informationForFile(atPath: object.url.path)
@@ -129,7 +130,7 @@ extension FileTableViewCell {
 		insertButton.reactive.tap.bind(to: self) { me, sender in
 			if let object = me.object {
 				ginfo("Inserting \(object)")
-				me.didRequestInsert?(object)
+				me.didRequestInsert?(object, me.info)
 			}
 		}
 	}
@@ -175,8 +176,8 @@ extension FileTableViewCell {
 		return result
 	}
 	
-	private static let textLightStyle = lightStyle(size: .title)
-	private static let textEmphasizedStyle = emphasizedStyle(size: .title)
+	private static let textLightStyle = lightStyle(size: .main)
+	private static let textEmphasizedStyle = emphasizedStyle(size: .main)
 }
 
 // MARK: - Info styling
@@ -190,13 +191,13 @@ extension FileTableViewCell {
 		let result = NSMutableAttributedString()
 		
 		if fileInfo.size > 0 {
-			let values = size(fromBytes: fileInfo.size)
+			let values = Formatter.size(fromBytes: fileInfo.size)
 			let text = info(title: NSLocalizedString("Size"), values: [values.value], suffix: values.unit)
 			result.appendLine(text)
 		}
 		
-		if fileInfo.blocksCount > 0 {
-			let text = info(title: NSLocalizedString("Blocks"), values: ["\(fileInfo.blocksCount)"])
+		if !fileInfo.blocks.isEmpty {
+			let text = info(title: NSLocalizedString("Blocks"), values: ["\(fileInfo.blocks.count)"])
 			result.appendLine(text)
 		}
 		
@@ -299,19 +300,6 @@ extension FileTableViewCell {
 		}
 		return result
 	}
-
-	private static func size(fromBytes bytes: Int) -> (value: String, unit: String) {
-		let string = sizeFormatter.string(fromByteCount: Int64(bytes))
-		let components = string.components(separatedBy: " ")
-		return (components[0], components[1])
-	}
-
-	private static let sizeFormatter: ByteCountFormatter = {
-		let result = ByteCountFormatter()
-		result.allowedUnits = [ .useBytes, .useKB ]
-		result.includesUnit = true
-		return result
-	}()
 	
 	private static let infoLightStyle = lightStyle(size: .info)
 	private static let infoEmphasizedStyle = emphasizedStyle(size: .info)
@@ -321,55 +309,15 @@ extension FileTableViewCell {
 
 extension FileTableViewCell {
 	
-	fileprivate static func lightStyle(size: Size) -> SwiftRichString.Style {
-		return style(name: "light", style: .light, size: size)
+	fileprivate static func lightStyle(size: Styles.Size) -> Style {
+		return style(appearance: .light, size: size)
 	}
 	
-	fileprivate static func emphasizedStyle(size: Size) -> SwiftRichString.Style {
-		return style(name: "emphasized", style: .emphasized, size: size)
+	fileprivate static func emphasizedStyle(size: Styles.Size) -> Style {
+		return style(appearance: .emphasized, size: size)
 	}
 
-	fileprivate static func style(name: String, style: Style, size: Size) -> SwiftRichString.Style {
-		return SwiftRichString.Style(name, {
-			$0.font = FontAttribute(font: UIFont.systemFont(ofSize: size.fontSize, weight: style.fontWeight))!
-			$0.color = style.fontColor
-		})
-	}
-	
-	fileprivate enum Style {
-		case light
-		case emphasized
-		
-		var fontWeight: CGFloat {
-			switch self {
-			case .light:
-				return UIFontWeightUltraLight
-			case .emphasized:
-				return UIFontWeightMedium
-			}
-		}
-		
-		var fontColor: UIColor {
-			switch self {
-			case .light:
-				return UIColor.lightGray
-			case .emphasized:
-				return UIColor.darkText
-			}
-		}
-	}
-	
-	fileprivate enum Size {
-		case title
-		case info
-		
-		var fontSize: CGFloat {
-			switch self {
-			case .title:
-				return UIDevice.iPhone ? 17 : 19
-			case .info:
-				return UIDevice.iPhone ? 14 : 16
-			}
-		}
+	fileprivate static func style(appearance: Styles.Appearance, size: Styles.Size) -> Style {
+		return Styles.style(appearance: appearance, size: size)
 	}
 }

@@ -94,10 +94,8 @@ extension JoystickEditViewController {
 	
 	fileprivate func setupAccordingCurrentObject() {
 		// We should only ever show this controller if file is loaded!
-		let currentObjectID = Defaults.currentObjectID.value!
+		file = Defaults.currentFile.value!
 		
-		// Assign file.
-		file = persistentContainer!.viewContext.object(with: currentObjectID) as! FileObject
 		gverbose("Setting up view for \(file)")
 		
 		title = NSLocalizedString("Edit \(file.displayName)")

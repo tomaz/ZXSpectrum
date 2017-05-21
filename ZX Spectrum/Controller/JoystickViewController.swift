@@ -144,17 +144,8 @@ extension JoystickViewController {
 	Updates views according to current status.
 	*/
 	fileprivate func updateFileForCurrentSelection() {
-		let objectID = Defaults.currentObjectID.value
-		gdebug("Updating file for ID \(String(describing: objectID))")
-		
-		if let id = objectID {
-			let context = persistentContainer.viewContext
-			file = context.object(with: id) as? FileObject
-		} else {
-			file = nil
-		}
-
-		
+		file = Defaults.currentFile.value
+		gdebug("Updating file for ID \(String(describing: file))")
 		updateViewsForCurrentFile()
 	}
 	
@@ -309,7 +300,7 @@ extension JoystickViewController {
 extension JoystickViewController {
 
 	fileprivate func setupCurrentFileSignal() {
-		Defaults.currentObjectID.bind(to: self) { me, objectID in
+		Defaults.currentFile.bind(to: self) { me, objectID in
 			gverbose("Current object ID changed to \(String(describing: objectID))")
 			UIView.animate(withDuration: 0.2) {
 				me.updateFileForCurrentSelection()

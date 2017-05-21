@@ -9,7 +9,8 @@
 #include "utils.h"
 #import "SpectrumFileController.h"
 
-@implementation SpectrumFileInfo
+@interface SpectrumFileInfo (PrivateAPI)
+- (void)addBlock:(libspectrum_tape_block)block;
 @end
 
 #pragma mark -
@@ -72,14 +73,12 @@
 			case LIBSPECTRUM_TAPE_BLOCK_COMMENT: {
 				result.comment = [self stringFromCString:block->types.comment.text];
 			} break;
-					
+				
 			default: {
+				[result addBlock:*block];
 			} break;
 		}
-		
-		// Increase blocks count.
-		result.blocksCount++;
-		
+
 		// Proceed with next block.
 		block = libspectrum_tape_iterator_next(&iterator);
 	}
@@ -125,6 +124,42 @@
 
 - (NSError *)errorWithCode:(NSInteger)code description:(NSString *)description {
 	return [NSError errorWithDomain:@"com.gentlebytes.ZXSpectrum.File" code:code userInfo:@{ NSLocalizedDescriptionKey: description }];
+}
+
+@end
+
+#pragma mark -
+
+@interface SpectrumFileInfo ()
+@property (nonatomic, strong) NSMutableArray <SpectrumFileBlock *> *blocksValue;
+@end
+
+@implementation SpectrumFileInfo
+
+- (void)addBlock:(libspectrum_tape_block)block {
+	SpectrumFileBlock *blockObject = [SpectrumFileBlock new];
+	blockObject.block = block;
+	[self.blocksValue addObject:blockObject];
+}
+
+- (NSArray *)blocks {
+	return _blocksValue;
+}
+
+- (NSMutableArray *)blocksValue {
+	if (_blocksValue) return _blocksValue;
+	_blocksValue = [NSMutableArray new];
+	return _blocksValue;
+}
+
+@end
+
+#pragma mark -
+
+@implementation SpectrumFileBlock
+
+- (NSString *)description {
+	return [NSString stringWithFormat:@"%@ %02X", super.description, self.block.type];
 }
 
 @end

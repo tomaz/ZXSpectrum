@@ -139,7 +139,7 @@ extension EmulatorViewController {
 	fileprivate func updateTapeButtonVisibility() {
 		UIView.animate(withDuration: 0.2) {
 			let isAutoPlayEnabled = settings_current.auto_load == 1
-			let isTapeMissing = Defaults.currentObjectID.value == nil
+			let isTapeMissing = Defaults.currentFile.value == nil
 			self.tapeButton.isHidden = isAutoPlayEnabled || isTapeMissing
 		}
 	}
@@ -187,7 +187,7 @@ extension EmulatorViewController {
 	}
 	
 	fileprivate func setupCurrentObjectSignal() {
-		Defaults.currentObjectID.bind(to: self) { me, _ in
+		Defaults.currentFile.bind(to: self) { me, _ in
 			gverbose("Updating views due to current object change")
 			me.updateTapeButtonVisibility()
 		}
@@ -196,7 +196,7 @@ extension EmulatorViewController {
 	fileprivate func setupResetButtonTapSignal() {
 		resetButton.reactive.tap.bind(to: self) { me, _ in
 			ginfo("Resetting emulator")
-			Defaults.currentObjectID.value = nil
+			Defaults.currentFile.value = nil
 			me.emulator.reset()
 		}
 	}

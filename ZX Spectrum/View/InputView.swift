@@ -13,6 +13,7 @@ final class InputView: UIView {
 	
 	fileprivate var persistentContainer: NSPersistentContainer!
 	
+	fileprivate var tapeViewController: TapeViewController!
 	fileprivate var joystickViewController: JoystickViewController!
 	fileprivate var keyboardViewController: KeyboardViewController!
 	
@@ -66,7 +67,9 @@ extension InputView: InjectionObservable {
 	
 	func injectionDidComplete() {
 		gdebug("Injection did complete")
+		inject(toController: tapeViewController)
 		inject(toController: joystickViewController)
+		inject(toController: keyboardViewController)
 	}
 }
 
@@ -98,7 +101,10 @@ extension InputView {
 		// Use same background color as subviews so animations appear less "jagged".
 		backgroundColor = ZX48KeyboardStyleKit.keyboardBackgroundColor
 		
-		// Prepare joystick view
+		// Prepare tape view.
+		tapeViewController = TapeViewController.instantiate()
+		
+		// Prepare joystick view.
 		joystickViewController = JoystickViewController.instantiate()
 		
 		// Prepare ZX 48K keyboard view.
@@ -138,10 +144,14 @@ extension InputView {
 		// Prepare the view we want to show.
 		let newInputView: UIView
 		switch Defaults.inputState.value {
+		case .tape:
+			newInputView = tapeViewController.view!
 		case .joystick:
 			newInputView = joystickViewController.view!
-		default:
+		case .keyboard:
 			newInputView = keyboardViewController.view!
+		default:
+			return
 		}
 		
 		// Ignore if we want to show the same view as we already are showing.

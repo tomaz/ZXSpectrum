@@ -25,7 +25,7 @@ extension FilesViewController {
 		// MARK: - Callbacks
 		
 		/// Called when user selects to insert the object for playback.
-		var didRequestInsert: ((FileObject) -> Void)? = nil
+		var didRequestInsert: ((FileObject, SpectrumFileInfo?) -> Void)? = nil
 		
 		/// Called when user wants to delete the object
 		var didRequestDelete: ((FileObject) -> Void)? = nil

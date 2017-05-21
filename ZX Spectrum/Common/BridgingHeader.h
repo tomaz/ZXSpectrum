@@ -16,6 +16,8 @@
 #include "keyboard.h"
 #include "joystick.h"
 #include "settings.h"
+#include "tape.h"
+#include "tape_block.h"
 #include "cocoadisplay.h"
 
 #endif
