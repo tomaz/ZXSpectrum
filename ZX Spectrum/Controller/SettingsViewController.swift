@@ -43,7 +43,7 @@ class SettingsViewController: UITableViewController {
 
 		gdebug("Binding data")
 		computerLabel.text = spectrum.selectedMachine?.name
-		fastloadSwitch.isOn = settings_current.fastload == 1
+		fastloadSwitch.isOn = settings_current.fastload == 1 && settings_current.accelerate_loader == 1
 		autoloadSwitch.isOn = settings_current.auto_load == 1
 		joystickSensitivitySlider.value = 1 - defaults.joystickSensitivityRatio
 		screenSmoothingSwitch.isOn = defaults.isScreenSmoothingActive
@@ -71,7 +71,11 @@ extension SettingsViewController {
 		defaults.isHapticFeedbackEnabled = hapticFeedbackSwitch.isOn
 		
 		// Update fuse based user defaults.
+		defaults.set(false, forKey: "tapetraps")
+		defaults.set(true, forKey: "detectloader")
+		defaults.set(true, forKey: "statusbar")
 		defaults.set(fastloadSwitch.isOn, forKey: "fastload")
+		defaults.set(fastloadSwitch.isOn, forKey: "accelerateloader")
 		defaults.set(autoloadSwitch.isOn, forKey: "autoload")
 		defaults.set(spectrum.identifier(for: selectedMachine), forKey: "machine")
 		
@@ -90,7 +94,9 @@ extension SettingsViewController {
 			Defaults.isTapePlaying.value = false
 		}
 		
+		// Update fuse.
 		display_refresh_all();
+		periph_posthook();
 	}
 	
 	@IBAction func unwindToSettingsViewController(segue: UIStoryboardSegue) {
