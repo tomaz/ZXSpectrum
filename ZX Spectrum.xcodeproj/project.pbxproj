@@ -139,6 +139,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		736DD6E71ED5C37A00FE8424 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 737E99BA1E88401800128149 /* spectrum.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 737E99AD1E88401800128149;
+			remoteInfo = spectrum;
+		};
 		737B56AA1EA3CE6600A260B9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 737B56A01EA3CE6500A260B9 /* Bond.xcodeproj */;
@@ -958,6 +965,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				736DD6E81ED5C37A00FE8424 /* PBXTargetDependency */,
 				737B56E01EA3CE9F00A260B9 /* PBXTargetDependency */,
 				737B56E91EA3CEAB00A260B9 /* PBXTargetDependency */,
 				73DA65031EA66408008832AA /* PBXTargetDependency */,
@@ -1358,6 +1366,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		736DD6E81ED5C37A00FE8424 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = spectrum;
+			targetProxy = 736DD6E71ED5C37A00FE8424 /* PBXContainerItemProxy */;
+		};
 		737B56E01EA3CE9F00A260B9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = SwiftRichString;
