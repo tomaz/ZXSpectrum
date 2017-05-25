@@ -10,12 +10,78 @@ final class TapeBlockTableViewCell: UITableViewCell, Configurable {
 	
 	@IBOutlet fileprivate weak var indexLabel: UILabel!
 	@IBOutlet fileprivate weak var descriptionLabel: UILabel!
+	@IBOutlet fileprivate weak var progressView: VerticalProgressView!
+	
+	// MARK: - Data
+	
+	fileprivate var representedBlock: SpectrumFileBlock?
 	
 	// MARK: - Configurable
 	
 	func configure(object: (index: Int, block: SpectrumFileBlock)) {
+		gdebug("Configuring with \(object.block) (file index \(object.index))")
+		representedBlock = object.block
 		indexLabel.attributedText = description(forIndex: object.index)
 		descriptionLabel.attributedText = description(forBlock: object.block)
+		progressView.progress = progress()
+	}
+	
+	// MARK: - Overriden functions
+	
+	override func awakeFromNib() {
+		super.awakeFromNib()
+		
+		Defaults.isTapePlaying.bind(to: self) { me, value in
+			gverbose("Tape playback status changed to \(value)")
+			me.progressView.isHidden = !value
+		}
+		
+		Defaults.tapePlaybackBlock.observeOn(DispatchQueue.main).bind(to: self) { me, value in
+			gverbose("Tape block changed to \(value)")
+			me.progressView.progress = me.progress()
+		}
+		
+		Defaults.tapePlaybackBlockCompletionRatio.observeOn(DispatchQueue.main).bind(to: self) { me, value in
+			me.handleBlock { block in
+				me.progressView.progress = value
+			}
+		}
+	}
+}
+
+// MARK: - Playback
+
+extension TapeBlockTableViewCell {
+	
+	/**
+	Calls the given handler if our represented block is the one currently playing.
+	*/
+	fileprivate func handleBlock(handler: (SpectrumFileBlock) -> Void) {
+		if let block = representedBlock, block.index == Defaults.tapePlaybackBlock.value {
+			handler(block)
+		}
+	}
+	
+	/**
+	Returns progress value based on current values.
+	*/
+	fileprivate func progress() -> CGFloat {
+		if let block = representedBlock, Defaults.isTapePlaying.value {
+			let currentBlock = Defaults.tapePlaybackBlock.value
+			if block.index < currentBlock {
+				// Past blocks should be rendered complete.
+				return 1
+			} else if block.index == currentBlock {
+				// Current block should be rendered by current value.
+				return Defaults.tapePlaybackBlockCompletionRatio.value
+			} else {
+				// Future blocks should be rendered as incomplete.
+				return 0
+			}
+		} else {
+			// If block is not assigned, show 0 progress.
+			return 0
+		}
 	}
 }
 
@@ -54,7 +120,7 @@ extension TapeBlockTableViewCell {
 			return dataText(prefix: NSLocalizedString("Direct recording"), length: block.length, pause: block.pause)
 			
 		default:
-			return text(prefix: NSLocalizedString("Other block"))
+			return text(prefix: block.localizedDescription)
 		}
 	}
 

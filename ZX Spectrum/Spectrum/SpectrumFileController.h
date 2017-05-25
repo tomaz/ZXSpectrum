@@ -66,7 +66,16 @@
 
 @interface SpectrumFileBlock : NSObject
 
+/// Block index within the tape.
+@property (assign, nonatomic) NSInteger index;
+
 /// The underlying block
-@property (nonatomic, assign) libspectrum_tape_block block;
+@property (assign, nonatomic) libspectrum_tape_block block;
+
+/// Specifies whether the block is data block or not.
+@property (readonly, nonatomic) BOOL isDataBlock;
+
+/// Description suitable for displaying to the user.
+@property (readonly, nonatomic, nonnull) NSString *localizedDescription;
 
 @end

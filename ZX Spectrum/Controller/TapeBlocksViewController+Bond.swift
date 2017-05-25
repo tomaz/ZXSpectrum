@@ -22,9 +22,10 @@ extension TapeBlocksViewController {
 		Prepares the array of all blocks from given info and returns it.
 		*/
 		func fetch(info: SpectrumFileInfo?) -> [SpectrumFileBlock] {
-			return info?.blocks ?? []
+			// We only return data blocks.
+			return info?.blocks.filter { $0.isDataBlock } ?? []
 		}
-
+		
 		// MARK: - TableViewBond
 
 		func cellForRow(at indexPath: IndexPath, tableView: UITableView, dataSource: DataSource) -> UITableViewCell {

@@ -18,11 +18,6 @@ class Defaults {
 	static let isEmulationStarted = Property<Bool>(false)
 	
 	/**
-	Indicates whetehr tape is currently playing or not. Only used for manual mode.
-	*/
-	static let isTapePlaying = Property<Bool>(false)
-	
-	/**
 	The input state that is currently active.
 	*/
 	static let inputState = Property<InputState>(.none)
@@ -31,6 +26,17 @@ class Defaults {
 	Currently selected machine.
 	*/
 	static let selectedMachine = Property<String>("")
+	
+	// MARK: - Initialization & disposal
+	
+	static func initialize() {
+		setupPlaybackSignals()
+	}
+}
+
+// MARK: - Inserted file
+
+extension Defaults {
 	
 	/**
 	Current file object; this is nil when no file is selected.
@@ -47,6 +53,60 @@ class Defaults {
 	static let currentFileInfo = Property<SpectrumFileInfo?>(nil)
 }
 
+// MARK: - Playback
+
+extension Defaults {
+	
+	/**
+	Indicates whetehr tape is currently playing or not. Only used for manual mode.
+	*/
+	static let isTapePlaying = Property<Bool>(false)
+
+	/**
+	Current tape block.
+	*/
+	static let tapePlaybackBlock = Property<Int>(0)
+	
+	/**
+	Current block completion ratio (0..1).
+	*/
+	static let tapePlaybackBlockCompletionRatio = Property<CGFloat>(0)
+	
+	/**
+	Wires up playback signals to underlying systems.
+	
+	This should be called once early on in the lifetime of the application.
+	*/
+	fileprivate static func setupPlaybackSignals() {
+		let controller = FuseController.sharedInstance()
+		
+		controller.statusBarDidUpdate = { type, status in
+			if type == UI_STATUSBAR_ITEM_TAPE {
+				isTapePlaying.value = status == UI_STATUSBAR_STATE_ACTIVE
+			}
+		}
+		
+		controller.tapeBrowserDidUpdate = { status, block in
+			switch status {
+			case UI_TAPE_BROWSER_NEW_TAPE:
+				gdebug("New tape inserted")
+				tapePlaybackBlock.value = 0
+				
+			case UI_TAPE_BROWSER_SELECT_BLOCK:
+				gdebug("Block selected")
+				tapePlaybackBlock.value = Int(tape_get_current_block())
+				
+			default:
+				break
+			}
+		}
+		
+		controller.tapeBlockStateDidChange = { completionRatio in
+			gdebug("Completion \(completionRatio)")
+			tapePlaybackBlockCompletionRatio.value = CGFloat(completionRatio)
+		}
+	}
+}
 
 /**
 Input states.

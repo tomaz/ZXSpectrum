@@ -54,6 +54,7 @@
 		7364933D1EA54B6E00EE697F /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7364933C1EA54B6E00EE697F /* Functions.swift */; };
 		736493411EA5518200EE697F /* DependencyInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7364933F1EA5518200EE697F /* DependencyInjection.swift */; };
 		736493421EA5518200EE697F /* PersistentContainerConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736493401EA5518200EE697F /* PersistentContainerConsumer.swift */; };
+		736DD7121ED70C1800FE8424 /* VerticalProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736DD7111ED70C1800FE8424 /* VerticalProgressView.swift */; };
 		737236701EBF9FD10053B5B5 /* JoystickBindingViewController+Bond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7372366F1EBF9FD10053B5B5 /* JoystickBindingViewController+Bond.swift */; };
 		737B56DD1EA3CE9F00A260B9 /* SwiftRichString.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 737B56D61EA3CE7400A260B9 /* SwiftRichString.framework */; };
 		737B56DE1EA3CE9F00A260B9 /* SwiftRichString.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 737B56D61EA3CE7400A260B9 /* SwiftRichString.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -420,6 +421,7 @@
 		7364933C1EA54B6E00EE697F /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		7364933F1EA5518200EE697F /* DependencyInjection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DependencyInjection.swift; sourceTree = "<group>"; };
 		736493401EA5518200EE697F /* PersistentContainerConsumer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentContainerConsumer.swift; sourceTree = "<group>"; };
+		736DD7111ED70C1800FE8424 /* VerticalProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalProgressView.swift; sourceTree = "<group>"; };
 		7372366F1EBF9FD10053B5B5 /* JoystickBindingViewController+Bond.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "JoystickBindingViewController+Bond.swift"; sourceTree = "<group>"; };
 		737B56A01EA3CE6500A260B9 /* Bond.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Bond.xcodeproj; path = Carthage/Checkouts/Bond/Bond.xcodeproj; sourceTree = SOURCE_ROOT; };
 		737B56B51EA3CE6B00A260B9 /* GCDWebServer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GCDWebServer.xcodeproj; path = Carthage/Checkouts/GCDWebServer/GCDWebServer.xcodeproj; sourceTree = SOURCE_ROOT; };
@@ -568,6 +570,7 @@
 				739CE94C1EBE693500071BF4 /* DelimiterView.swift */,
 				73DFB0611EB0D9470002F8F4 /* DelegatedView.swift */,
 				73D37FDF1EC1F59700335055 /* TouchableView.swift */,
+				736DD7111ED70C1800FE8424 /* VerticalProgressView.swift */,
 				73DA64FB1EA65162008832AA /* IconsStyleKit.swift */,
 			);
 			path = View;
@@ -1360,6 +1363,7 @@
 				7384B88E1EA7A35B005FC8DF /* NSManagedObjectContext+ZXSpectrum.swift in Sources */,
 				739A5F741EA8C96700CE6313 /* SettingsViewController.swift in Sources */,
 				73255D251EB9330E00F04908 /* Direction.swift in Sources */,
+				736DD7121ED70C1800FE8424 /* VerticalProgressView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

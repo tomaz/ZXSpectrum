@@ -48,7 +48,7 @@ extension TapeViewController {
 	
 	fileprivate func setupActionButton() {
 		actionButton.layer.cornerRadius = 4
-		actionButton.layer.backgroundColor = UIColor.white.withAlphaComponent(0.1).cgColor
+		actionButton.layer.backgroundColor = UIColor.white.withAlphaComponent(0.2).cgColor
 	}
 	
 	fileprivate func updateActionButton() {
@@ -69,18 +69,18 @@ extension TapeViewController {
 	}
 	
 	fileprivate func setupTapePlayingSignal() {
-		// Note we need to skip initial signal send after setting up observation!
+		// Note we need to skip initial signal sent after setting up observation!
 		Defaults.isTapePlaying.skip(first: 1).bind(to: self) { me, value in
 			gverbose("Tape playing status changed to \(value)")
 			me.updateActionButton()
-			tape_toggle_play(0)
 		}
 	}
 	
 	fileprivate func setupActionButtonTapSignal() {
+		// After user taps on play button, toggle playback; this will in turn send event to `isTapePlaying` signal.
 		actionButton.reactive.tap.bind(to: self) { me, _ in
 			ginfo("Toggling playback to \(!Defaults.isTapePlaying.value)")
-			Defaults.isTapePlaying.value = !Defaults.isTapePlaying.value
+			tape_toggle_play(0)
 		}
 	}
 }

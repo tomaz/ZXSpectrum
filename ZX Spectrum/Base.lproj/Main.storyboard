@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="PNv-Zt-Z8Q">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="PNv-Zt-Z8Q">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -1151,7 +1151,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="gsE-LV-qjU">
-                                            <rect key="frame" x="15" y="8" width="360" height="28"/>
+                                            <rect key="frame" x="15" y="8" width="348" height="28"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="1." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ml-qS-qCL">
                                                     <rect key="frame" x="0.0" y="0.0" width="12" height="28"/>
@@ -1160,26 +1160,38 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DESCRIPTION" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xzl-D6-bsn">
-                                                    <rect key="frame" x="22" y="0.0" width="338" height="28"/>
+                                                    <rect key="frame" x="22" y="0.0" width="326" height="28"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </stackView>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wj3-ZC-0KA" customClass="VerticalProgressView" customModule="ZX_Spectrum" customModuleProvider="target">
+                                            <rect key="frame" x="371" y="0.0" width="4" height="44"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.19988762842465754" colorSpace="calibratedWhite"/>
+                                            <color key="tintColor" white="1" alpha="0.5" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="4" id="l4e-ce-Djm"/>
+                                            </constraints>
+                                        </view>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstItem="gsE-LV-qjU" firstAttribute="leading" secondItem="LXJ-BU-5fD" secondAttribute="leadingMargin" id="7xU-Qo-7gf"/>
                                         <constraint firstItem="gsE-LV-qjU" firstAttribute="top" secondItem="LXJ-BU-5fD" secondAttribute="top" constant="8" id="HDG-j8-7d2"/>
-                                        <constraint firstAttribute="trailing" secondItem="gsE-LV-qjU" secondAttribute="trailingMargin" id="L3H-K7-RSl"/>
                                         <constraint firstAttribute="bottom" secondItem="gsE-LV-qjU" secondAttribute="bottom" constant="8" id="Leb-9i-8dC"/>
+                                        <constraint firstItem="wj3-ZC-0KA" firstAttribute="top" secondItem="LXJ-BU-5fD" secondAttribute="top" id="PU4-BS-BWm"/>
+                                        <constraint firstAttribute="trailing" secondItem="wj3-ZC-0KA" secondAttribute="trailing" id="ZbQ-br-DBz"/>
+                                        <constraint firstItem="wj3-ZC-0KA" firstAttribute="leading" secondItem="gsE-LV-qjU" secondAttribute="trailing" constant="8" symbolic="YES" id="oCY-gy-pWC"/>
+                                        <constraint firstAttribute="bottom" secondItem="wj3-ZC-0KA" secondAttribute="bottom" id="wn5-6q-Kvk"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="descriptionLabel" destination="Xzl-D6-bsn" id="L5z-ix-lEk"/>
                                     <outlet property="indexLabel" destination="0Ml-qS-qCL" id="2x3-nJ-4cR"/>
+                                    <outlet property="progressView" destination="wj3-ZC-0KA" id="Te9-Xi-MHr"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

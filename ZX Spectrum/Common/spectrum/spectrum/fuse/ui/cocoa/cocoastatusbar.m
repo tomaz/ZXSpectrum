@@ -24,6 +24,7 @@
 #include "config.h"
 
 //#import "DisplayOpenGLView.h"
+#import "FuseController.h"
 
 #include "cocoadisplay.h"
 #include "settings.h"
@@ -33,45 +34,9 @@
 int
 ui_statusbar_update( ui_statusbar_item item, ui_statusbar_state state )
 {
-//  switch( item ) {
-//
-//  case UI_STATUSBAR_ITEM_DISK:
-//    [[DisplayOpenGLView instance]
-//          performSelectorOnMainThread:@selector(setDiskState:)
-//          withObject:[NSNumber numberWithUnsignedChar:state]
-//          waitUntilDone:NO
-//    ];
-//    return 0;
-//
-//  case UI_STATUSBAR_ITEM_PAUSED:
-//    /* We don't support pausing this version of Fuse - but now we can! */
-//    return 0;
-//
-//  case UI_STATUSBAR_ITEM_TAPE:
-//    [[DisplayOpenGLView instance]
-//          performSelectorOnMainThread:@selector(setTapeState:)
-//          withObject:[NSNumber numberWithUnsignedChar:state]
-//          waitUntilDone:NO
-//    ];
-//    return 0;
-//
-//  case UI_STATUSBAR_ITEM_MICRODRIVE:
-//    [[DisplayOpenGLView instance]
-//          performSelectorOnMainThread:@selector(setMdrState:)
-//          withObject:[NSNumber numberWithUnsignedChar:state]
-//          waitUntilDone:NO
-//    ];
-//    return 0;
-//
-//  case UI_STATUSBAR_ITEM_MOUSE:
-//    /* We don't support showing a grab icon */
-//    return 0;
-//
-//  }
-	
-	return 0;
-
-  ui_error( UI_ERROR_ERROR, "Attempt to update unknown statusbar item %d",
-            item );
-  return 1;
+  FuseController *controller = [FuseController sharedInstance];
+  if (controller.statusBarDidUpdate) {
+    controller.statusBarDidUpdate(item, state);
+  }
+  return 0;
 }

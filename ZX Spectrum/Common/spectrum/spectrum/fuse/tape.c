@@ -33,6 +33,7 @@
 #include <string.h>
 
 #include "libspectrum.h"
+#include "cocoatape.h"
 
 #include "debugger.h"
 #include "event.h"
@@ -820,6 +821,9 @@ tape_next_edge( libspectrum_dword last_tstates, int type, void *user_data )
   libspec_error = libspectrum_tape_get_next_edge( &edge_tstates, &flags,
 						  tape );
   if( libspec_error != LIBSPECTRUM_ERROR_NONE ) return;
+  
+  /* Send feedback about state */
+  tape_feedback_send(libspectrum_tape_block_get_state(tape));
 
   /* Invert the microphone state */
   if( edge_tstates ||

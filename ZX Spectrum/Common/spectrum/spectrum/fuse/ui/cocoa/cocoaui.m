@@ -27,7 +27,7 @@
 
 #include <stdio.h>
 
-//#import "FuseController.h"
+#import "FuseController.h"
 #import "Emulator.h"
 
 #include "display.h"
@@ -66,10 +66,10 @@ ui_end( void )
 int
 ui_statusbar_update_speed( float speed )
 {
-//  [[FuseController singleton] performSelectorOnMainThread:@selector(setTitle:)
-//              withObject:[NSString stringWithFormat:@"Fuse - %3.0f%%", speed]
-//              waitUntilDone:NO];
-
+  FuseController *controller = [FuseController sharedInstance];
+  if (controller.emulationSpeedDidUpdate) {
+    controller.emulationSpeedDidUpdate(speed);
+  }
   return 0;
 }
 
@@ -77,27 +77,12 @@ int
 ui_mouse_grab( int startup )
 {
   if( startup ) return 0;
-
-  /* Lock the mouse pointer at its current position */
-//  CGAssociateMouseAndMouseCursorPosition(false);
-//
-//  [NSCursor hide];
-//
-//  [[FuseController singleton] setAcceptsMouseMovedEvents:YES];
-
   return 1;
 }
 
 int
 ui_mouse_release( int suspend GCC_UNUSED )
 {
-//  [[FuseController singleton] setAcceptsMouseMovedEvents:NO];
-//
-//  /* Unlock the mouse pointer */
-//  CGAssociateMouseAndMouseCursorPosition(true);
-//
-//  [NSCursor unhide];
-
   return 0;
 }
 
@@ -150,10 +135,6 @@ void
 ui_pokemem_selector( const char *filename )
 {
   pokemem_read_from_file( filename );
-  
-//  [[FuseController singleton] performSelectorOnMainThread:@selector(showPokeMemoryPane:)
-//                                               withObject:nil
-//                                            waitUntilDone:NO];
 }
 
 int

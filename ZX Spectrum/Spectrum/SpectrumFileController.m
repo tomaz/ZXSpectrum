@@ -75,9 +75,11 @@
 			} break;
 				
 			default: {
-				[result addBlock:*block];
 			} break;
 		}
+
+		// Add the block.
+		[result addBlock:*block];
 
 		// Proceed with next block.
 		block = libspectrum_tape_iterator_next(&iterator);
@@ -139,6 +141,7 @@
 - (void)addBlock:(libspectrum_tape_block)block {
 	SpectrumFileBlock *blockObject = [SpectrumFileBlock new];
 	blockObject.block = block;
+	blockObject.index = self.blocksValue.count;
 	[self.blocksValue addObject:blockObject];
 }
 
@@ -159,7 +162,62 @@
 @implementation SpectrumFileBlock
 
 - (NSString *)description {
-	return [NSString stringWithFormat:@"%@ %02X", super.description, self.block.type];
+	return [NSString stringWithFormat:@"%@ %ld %@", super.description, self.index, self.localizedDescription];
+}
+
+- (NSString *)localizedDescription {
+	switch (self.block.type) {
+		case LIBSPECTRUM_TAPE_BLOCK_ROM: return NSLocalizedString(@"ROM", nil);
+		case LIBSPECTRUM_TAPE_BLOCK_TURBO: return NSLocalizedString(@"Turbo", nil);
+		case LIBSPECTRUM_TAPE_BLOCK_PURE_TONE: return NSLocalizedString(@"Pure tone", nil);
+		case LIBSPECTRUM_TAPE_BLOCK_PULSES: return NSLocalizedString(@"Pulses", nil);
+		case LIBSPECTRUM_TAPE_BLOCK_PURE_DATA: return NSLocalizedString(@"Pure data", nil);
+		case LIBSPECTRUM_TAPE_BLOCK_RAW_DATA: return NSLocalizedString(@"Raw data", nil);
+			
+		case LIBSPECTRUM_TAPE_BLOCK_GENERALISED_DATA: return NSLocalizedString(@"Generalized data", nil);
+			
+		case LIBSPECTRUM_TAPE_BLOCK_PAUSE: return NSLocalizedString(@"Pause", nil);
+		case LIBSPECTRUM_TAPE_BLOCK_GROUP_START: return NSLocalizedString(@"Group start", nil);
+		case LIBSPECTRUM_TAPE_BLOCK_GROUP_END: return NSLocalizedString(@"Group end", nil);
+		case LIBSPECTRUM_TAPE_BLOCK_JUMP: return NSLocalizedString(@"Jump", nil);
+		case LIBSPECTRUM_TAPE_BLOCK_LOOP_START: return NSLocalizedString(@"Loop start", nil);
+		case LIBSPECTRUM_TAPE_BLOCK_LOOP_END: return NSLocalizedString(@"Loop end", nil);
+			
+		case LIBSPECTRUM_TAPE_BLOCK_SELECT: return NSLocalizedString(@"Select", nil);
+			
+		case LIBSPECTRUM_TAPE_BLOCK_STOP48: return NSLocalizedString(@"Stop 48K", nil);
+		case LIBSPECTRUM_TAPE_BLOCK_SET_SIGNAL_LEVEL: return NSLocalizedString(@"Set signal level", nil);
+			
+		case LIBSPECTRUM_TAPE_BLOCK_COMMENT: return NSLocalizedString(@"Comment", nil);
+		case LIBSPECTRUM_TAPE_BLOCK_MESSAGE: return NSLocalizedString(@"Message", nil);
+		case LIBSPECTRUM_TAPE_BLOCK_ARCHIVE_INFO: return NSLocalizedString(@"Archive info", nil);
+		case LIBSPECTRUM_TAPE_BLOCK_HARDWARE: return NSLocalizedString(@"Hardware", nil);
+			
+		case LIBSPECTRUM_TAPE_BLOCK_CUSTOM: return NSLocalizedString(@"Custom", nil);
+			
+		case LIBSPECTRUM_TAPE_BLOCK_CONCAT: return NSLocalizedString(@"Concat", nil);
+			
+		case LIBSPECTRUM_TAPE_BLOCK_RLE_PULSE: return NSLocalizedString(@"RLE pulse", nil);
+			
+		case LIBSPECTRUM_TAPE_BLOCK_PULSE_SEQUENCE: return NSLocalizedString(@"Pulse sequence", nil);
+		case LIBSPECTRUM_TAPE_BLOCK_DATA_BLOCK: return NSLocalizedString(@"Data", nil);
+			
+		default: return NSLocalizedString(@"Unknown block", nil);
+	}
+}
+
+- (BOOL)isDataBlock {
+	switch (self.block.type) {
+		case LIBSPECTRUM_TAPE_BLOCK_ROM:
+		case LIBSPECTRUM_TAPE_BLOCK_TURBO:
+		case LIBSPECTRUM_TAPE_BLOCK_PURE_TONE:
+		case LIBSPECTRUM_TAPE_BLOCK_PULSES:
+		case LIBSPECTRUM_TAPE_BLOCK_PURE_DATA:
+		case LIBSPECTRUM_TAPE_BLOCK_RAW_DATA:
+			return true;
+		default:
+			return false;
+	}
 }
 
 @end
