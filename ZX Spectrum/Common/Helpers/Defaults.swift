@@ -102,7 +102,6 @@ extension Defaults {
 		}
 		
 		controller.tapeBlockStateDidChange = { completionRatio in
-			gdebug("Completion \(completionRatio)")
 			tapePlaybackBlockCompletionRatio.value = CGFloat(completionRatio)
 		}
 	}

@@ -1095,38 +1095,41 @@
                                     <segue destination="ptz-2Q-SGS" kind="embed" id="NsE-CZ-Zx8"/>
                                 </connections>
                             </containerView>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Kw4-0F-IGc">
-                                <rect key="frame" x="145" y="256" width="84" height="44"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ddy-yi-8ze">
+                                <rect key="frame" x="0.0" y="256" width="375" height="44"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nyq-wS-PqH">
-                                        <rect key="frame" x="0.0" y="0.0" width="84" height="44"/>
-                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="24"/>
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <state key="normal" title="ACTION"/>
-                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MESSAGE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZAi-vn-Uzh">
+                                        <rect key="frame" x="153" y="13.5" width="69.5" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="7Wl-QX-tHE"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44" id="nPU-DU-mcZ"/>
+                                    <constraint firstItem="ZAi-vn-Uzh" firstAttribute="centerY" secondItem="ddy-yi-8ze" secondAttribute="centerY" id="8va-vB-RbY"/>
+                                    <constraint firstItem="ZAi-vn-Uzh" firstAttribute="centerX" secondItem="ddy-yi-8ze" secondAttribute="centerX" id="bnm-PH-LFc"/>
+                                    <constraint firstItem="ZAi-vn-Uzh" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ddy-yi-8ze" secondAttribute="leading" constant="20" symbolic="YES" id="pCQ-es-D9L"/>
+                                    <constraint firstAttribute="height" constant="44" id="trw-V6-jio"/>
                                 </constraints>
-                            </stackView>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Kw4-0F-IGc" firstAttribute="centerX" secondItem="bhe-Dx-sJS" secondAttribute="centerX" id="AD8-MV-I9t"/>
-                            <constraint firstItem="upP-Jz-AhA" firstAttribute="top" secondItem="Kw4-0F-IGc" secondAttribute="bottom" id="jeY-7l-zjt"/>
-                            <constraint firstItem="Kw4-0F-IGc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="bhe-Dx-sJS" secondAttribute="leadingMargin" constant="71" id="jwc-6i-Mtb"/>
+                            <constraint firstAttribute="bottom" secondItem="ddy-yi-8ze" secondAttribute="bottom" id="Bq7-lW-yaU"/>
+                            <constraint firstAttribute="trailing" secondItem="ddy-yi-8ze" secondAttribute="trailing" id="CRy-p3-EF6"/>
+                            <constraint firstItem="ddy-yi-8ze" firstAttribute="leading" secondItem="bhe-Dx-sJS" secondAttribute="leading" id="brb-gm-cLg"/>
                             <constraint firstItem="bSW-vS-Cte" firstAttribute="top" secondItem="cHZ-gm-nS2" secondAttribute="bottom" id="mpv-XP-Pl3"/>
                             <constraint firstItem="bSW-vS-Cte" firstAttribute="leading" secondItem="bhe-Dx-sJS" secondAttribute="leading" id="nR2-lE-hTt"/>
+                            <constraint firstItem="ddy-yi-8ze" firstAttribute="top" secondItem="bSW-vS-Cte" secondAttribute="bottom" id="pZz-1Z-EXW"/>
                             <constraint firstAttribute="trailing" secondItem="bSW-vS-Cte" secondAttribute="trailing" id="pku-yQ-r7S"/>
-                            <constraint firstItem="Kw4-0F-IGc" firstAttribute="top" secondItem="bSW-vS-Cte" secondAttribute="bottom" id="skS-pw-XQB"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="300"/>
                     <connections>
-                        <outlet property="actionButton" destination="Nyq-wS-PqH" id="WWt-oJ-N2n"/>
+                        <outlet property="messageLabel" destination="ZAi-vn-Uzh" id="2eX-eO-igj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JNI-Gp-N2l" userLabel="First Responder" sceneMemberID="firstResponder"/>

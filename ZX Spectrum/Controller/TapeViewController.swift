@@ -13,7 +13,7 @@ Manages tape.
 */
 final class TapeViewController: UIViewController {
 	
-	@IBOutlet fileprivate weak var actionButton: UIButton!
+	@IBOutlet fileprivate weak var messageLabel: UILabel!
 	
 	// MARK: - Initialization & disposal
 	
@@ -33,12 +33,12 @@ final class TapeViewController: UIViewController {
 		super.viewDidLoad()
 		
 		gdebug("Setting up view")
-		updateActionButton()
+		setupMessage()
 		
 		gdebug("Setting up signals")
+		setupSelectedMachineSignal()
 		setupCurrentObjectSignal()
 		setupTapePlayingSignal()
-		setupActionButtonTapSignal()
 	}
 }
 
@@ -46,14 +46,28 @@ final class TapeViewController: UIViewController {
 
 extension TapeViewController {
 	
-	fileprivate func setupActionButton() {
-		actionButton.layer.cornerRadius = 4
-		actionButton.layer.backgroundColor = UIColor.white.withAlphaComponent(0.2).cgColor
-	}
-	
-	fileprivate func updateActionButton() {
-		actionButton.title = Defaults.isTapePlaying.value ? NSLocalizedString("STOP") : NSLocalizedString("PLAY")
-		actionButton.isEnabled = Defaults.currentFile.value != nil
+	fileprivate func setupMessage() {
+		// Tape is not inserted, show appropriate message. Note: this should never appear but let's be safe...
+		if Defaults.currentFile.value == nil {
+			messageLabel.text = NSLocalizedString("Please insert tape")
+			return
+		}
+		
+		// If tape is playing, show appropriate message.
+		if Defaults.isTapePlaying.value {
+			messageLabel.text = NSLocalizedString("Playing, reset to cancel")
+			return
+		}
+		
+		// Tape is not playing, inform user how they can start playback.
+		switch SpectrumController().selectedMachineType {
+		case LIBSPECTRUM_MACHINE_16: fallthrough
+		case LIBSPECTRUM_MACHINE_48: fallthrough
+		case LIBSPECTRUM_MACHINE_UNKNOWN:
+			messageLabel.text = NSLocalizedString("Type `LOAD \"\"` and press ENTER")
+		default:
+			messageLabel.text = NSLocalizedString("Select `Tape Loader` option and press ENTER")
+		}
 	}
 }
 
@@ -61,10 +75,17 @@ extension TapeViewController {
 
 extension TapeViewController {
 	
+	fileprivate func setupSelectedMachineSignal() {
+		Defaults.selectedMachine.bind(to: self) { me, value in
+			gverbose("Machine selection changed to \(value)")
+			me.setupMessage()
+		}
+	}
+	
 	fileprivate func setupCurrentObjectSignal() {
 		Defaults.currentFile.bind(to: self) { me, value in
 			gverbose("Updating for object ID \(String(describing: value))")
-			me.updateActionButton()
+			me.setupMessage()
 		}
 	}
 	
@@ -72,15 +93,7 @@ extension TapeViewController {
 		// Note we need to skip initial signal sent after setting up observation!
 		Defaults.isTapePlaying.skip(first: 1).bind(to: self) { me, value in
 			gverbose("Tape playing status changed to \(value)")
-			me.updateActionButton()
-		}
-	}
-	
-	fileprivate func setupActionButtonTapSignal() {
-		// After user taps on play button, toggle playback; this will in turn send event to `isTapePlaying` signal.
-		actionButton.reactive.tap.bind(to: self) { me, _ in
-			ginfo("Toggling playback to \(!Defaults.isTapePlaying.value)")
-			tape_toggle_play(0)
+			me.setupMessage()
 		}
 	}
 }

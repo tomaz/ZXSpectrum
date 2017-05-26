@@ -104,15 +104,7 @@ extension KeyboardViewController {
 	}
 	
 	fileprivate func selectKeyboardForCurrentMachine() {
-		let type: libspectrum_machine
-
-		if let spectrumType = SpectrumController().selectedMachine?.type {
-			type = libspectrum_machine(rawValue: UInt32(spectrumType))
-		} else {
-			type = LIBSPECTRUM_MACHINE_UNKNOWN
-		}
-		
-		switch type {
+		switch SpectrumController().selectedMachineType {
 		case LIBSPECTRUM_MACHINE_16: fallthrough
 		case LIBSPECTRUM_MACHINE_48: fallthrough
 		case LIBSPECTRUM_MACHINE_UNKNOWN:
