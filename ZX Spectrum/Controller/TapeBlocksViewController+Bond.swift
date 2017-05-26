@@ -23,7 +23,7 @@ extension TapeBlocksViewController {
 		*/
 		func fetch(info: SpectrumFileInfo?) -> [SpectrumFileBlock] {
 			// We only return data blocks.
-			return info?.blocks.filter { $0.isDataBlock } ?? []
+			return info?.blocks ?? []
 		}
 		
 		// MARK: - TableViewBond

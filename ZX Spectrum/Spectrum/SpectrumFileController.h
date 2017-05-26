@@ -78,4 +78,7 @@
 /// Description suitable for displaying to the user.
 @property (readonly, nonatomic, nonnull) NSString *localizedDescription;
 
+/// Details suitable for displaying to the user.
+@property (readonly, nonatomic, nullable) NSArray<NSString *> *localizedDetails;
+
 @end

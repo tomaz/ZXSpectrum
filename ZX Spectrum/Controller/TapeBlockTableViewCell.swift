@@ -94,34 +94,27 @@ extension TapeBlockTableViewCell {
 	}
 	
 	fileprivate func description(forBlock block: SpectrumFileBlock) -> NSAttributedString? {
-		switch block.block.type {
-		case LIBSPECTRUM_TAPE_BLOCK_ROM:
-			let block = block.block.types.rom
-			return dataText(prefix: NSLocalizedString("Standard block"), length: block.length, pause: block.pause)
+		let description = block.localizedDescription
+		
+		if let details = block.localizedDetails {
+			// If first details value is number, use it as value and remainder as unit.
+			if details.count >= 2 && Int(details[0]) != nil {
+				let unit = details.dropFirst().joined(separator: " ")
+				return text(prefix: description, value: details[0], unit: unit)
+			}
 			
-		case LIBSPECTRUM_TAPE_BLOCK_TURBO:
-			let block = block.block.types.turbo
-			return dataText(prefix: NSLocalizedString("Turbo block"), length: block.length, pause: block.pause)
-			
-		case LIBSPECTRUM_TAPE_BLOCK_PURE_TONE:
-			let block = block.block.types.pure_tone
-			return text(prefix: NSLocalizedString("Pure tone"), value: "\(block.pulses)", unit: NSLocalizedString("pulses"))
-			
-		case LIBSPECTRUM_TAPE_BLOCK_PULSES:
-			let block = block.block.types.pulses
-			return text(prefix: NSLocalizedString("Pulse sequence"), value: "\(block.count)", unit: NSLocalizedString("repeats"))
-			
-		case LIBSPECTRUM_TAPE_BLOCK_PURE_DATA:
-			let block = block.block.types.pure_data
-			return dataText(prefix: NSLocalizedString("Pure data"), length: block.length, pause: block.pause)
-			
-		case LIBSPECTRUM_TAPE_BLOCK_RAW_DATA:
-			let block = block.block.types.raw_data
-			return dataText(prefix: NSLocalizedString("Direct recording"), length: block.length, pause: block.pause)
-			
-		default:
-			return text(prefix: block.localizedDescription)
+			// If we have multiple components, take first as description and remaining ones as value.
+			if details.count >= 2 {
+				let value = details.dropFirst().joined(separator: " ")
+				return text(prefix: details[0], value: value)
+			}
+		
+			// Otherwise take all components as single value string.
+			let value = details.count > 0 ? details.joined(separator: " ") : nil
+			return text(prefix: description, value: value)
 		}
+		
+		return text(prefix: description)
 	}
 
 	
@@ -158,7 +151,8 @@ extension TapeBlockTableViewCell {
 		let result = NSMutableAttributedString()
 		
 		if let prefix = prefix {
-			result.append(prefix.set(style: textStyle))
+			let prefixValue = prefix.hasSuffix(":") ? prefix.substring(to: prefix.index(before: prefix.endIndex)) : prefix
+			result.append(prefixValue.set(style: textStyle))
 			if value != nil || unit != nil {
 				result.append(": ".set(style: textStyle))
 			}
