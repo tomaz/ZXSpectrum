@@ -197,6 +197,7 @@ extension EmulatorViewController {
 		resetButton.reactive.tap.bind(to: self) { me, _ in
 			ginfo("Resetting emulator")
 			me.emulator.reset()
+			me.emulator.tapeRewind()
 		}
 	}
 	
