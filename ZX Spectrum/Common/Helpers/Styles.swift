@@ -9,6 +9,14 @@ import SwiftRichString
 final class Styles {
 	
 	/**
+	Converts the given string into attributed string using the given styles.
+	*/
+	static func text(from string: String, styles: [Style]) -> NSAttributedString? {
+		let markup = try! MarkupString(source: string, styles: styles)
+		return markup.render(withStyles: styles)
+	}
+	
+	/**
 	Returns the style using default size.
 	*/
 	static func style(name: String? = nil, appearance: Appearance, size: Size) -> Style {
@@ -72,15 +80,15 @@ final class Styles {
 	Element size.
 	*/
 	enum Size {
+		case title
 		case main
 		case info
 		
 		var fontSize: CGFloat {
 			switch self {
-			case .main:
-				return UIDevice.iPhone ? 17 : 19
-			case .info:
-				return UIDevice.iPhone ? 14 : 16
+			case .title: return UIDevice.iPhone ? 19 : 22
+			case .main: return UIDevice.iPhone ? 17 : 19
+			case .info: return UIDevice.iPhone ? 14 : 16
 			}
 		}
 	}

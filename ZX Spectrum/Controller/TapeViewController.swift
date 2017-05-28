@@ -13,7 +13,7 @@ Manages tape.
 */
 final class TapeViewController: UIViewController {
 	
-	@IBOutlet fileprivate weak var messageLabel: UILabel!
+	@IBOutlet fileprivate weak var titleLabel: UILabel!
 	
 	// MARK: - Initialization & disposal
 	
@@ -33,12 +33,10 @@ final class TapeViewController: UIViewController {
 		super.viewDidLoad()
 		
 		gdebug("Setting up view")
-		setupMessage()
+		setupTitle()
 		
 		gdebug("Setting up signals")
-		setupSelectedMachineSignal()
 		setupCurrentObjectSignal()
-		setupTapePlayingSignal()
 	}
 }
 
@@ -46,28 +44,8 @@ final class TapeViewController: UIViewController {
 
 extension TapeViewController {
 	
-	fileprivate func setupMessage() {
-		// Tape is not inserted, show appropriate message. Note: this should never appear but let's be safe...
-		if Defaults.currentFile.value == nil {
-			messageLabel.text = NSLocalizedString("Please insert tape")
-			return
-		}
-		
-		// If tape is playing, show appropriate message.
-		if Defaults.isTapePlaying.value {
-			messageLabel.text = NSLocalizedString("Playing, reset to cancel")
-			return
-		}
-		
-		// Tape is not playing, inform user how they can start playback.
-		switch SpectrumController().selectedMachineType {
-		case LIBSPECTRUM_MACHINE_16: fallthrough
-		case LIBSPECTRUM_MACHINE_48: fallthrough
-		case LIBSPECTRUM_MACHINE_UNKNOWN:
-			messageLabel.text = NSLocalizedString("Type `LOAD \"\"` and press ENTER")
-		default:
-			messageLabel.text = NSLocalizedString("Select `Tape Loader` option and press ENTER")
-		}
+	fileprivate func setupTitle() {
+		titleLabel.attributedText = TapeViewController.titleText(object: Defaults.currentFile.value)
 	}
 }
 
@@ -75,25 +53,30 @@ extension TapeViewController {
 
 extension TapeViewController {
 	
-	fileprivate func setupSelectedMachineSignal() {
-		Defaults.selectedMachine.bind(to: self) { me, value in
-			gverbose("Machine selection changed to \(value)")
-			me.setupMessage()
-		}
-	}
-	
 	fileprivate func setupCurrentObjectSignal() {
 		Defaults.currentFile.bind(to: self) { me, value in
 			gverbose("Updating for object ID \(String(describing: value))")
-			me.setupMessage()
+			me.setupTitle()
 		}
+	}
+}
+
+// MARK: - Styling
+
+extension TapeViewController {
+	
+	fileprivate static func titleText(object: FileObject?) -> NSAttributedString? {
+		guard let object = object else {
+			return nil
+		}
+		
+		let result = NSMutableAttributedString()
+		result.append(object.url.deletingPathExtension().lastPathComponent.uppercased().set(style: titleEmphasizedStyle))
+		result.append(".".set(style: titleLightStyle))
+		result.append(object.url.pathExtension.set(style: titleLightStyle))
+		return result
 	}
 	
-	fileprivate func setupTapePlayingSignal() {
-		// Note we need to skip initial signal sent after setting up observation!
-		Defaults.isTapePlaying.skip(first: 1).bind(to: self) { me, value in
-			gverbose("Tape playing status changed to \(value)")
-			me.setupMessage()
-		}
-	}
+	private static let titleLightStyle = Styles.style(appearance: [ .light, .inverted ], size: .title)
+	private static let titleEmphasizedStyle = Styles.style(appearance: [ .emphasized, .inverted ], size: .title)
 }

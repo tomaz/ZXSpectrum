@@ -134,6 +134,7 @@
 		73E330FC1ED0DC1700FAFD13 /* TapeBlockTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E330FB1ED0DC1700FAFD13 /* TapeBlockTableViewCell.swift */; };
 		73E331001ED21B8700FAFD13 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E330FF1ED21B8700FAFD13 /* Styles.swift */; };
 		73E331021ED220E500FAFD13 /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E331011ED220E500FAFD13 /* Formatter.swift */; };
+		73E66FF51EDB3B6E00FFF2A6 /* TapeMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E66FF41EDB3B6E00FFF2A6 /* TapeMessageTableViewCell.swift */; };
 		73EEA0351EA7B64300E65A21 /* String+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EEA0341EA7B64300E65A21 /* String+ZXSpectrum.swift */; };
 		73F5B0AA1EA9E44E005E8844 /* UserDefaults+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F5B0A91EA9E44E005E8844 /* UserDefaults+ZXSpectrum.swift */; };
 		73F5B0C41EA9E63C005E8844 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F5B0C31EA9E63C005E8844 /* InputView.swift */; };
@@ -501,6 +502,7 @@
 		73E330FB1ED0DC1700FAFD13 /* TapeBlockTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapeBlockTableViewCell.swift; sourceTree = "<group>"; };
 		73E330FF1ED21B8700FAFD13 /* Styles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
 		73E331011ED220E500FAFD13 /* Formatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
+		73E66FF41EDB3B6E00FFF2A6 /* TapeMessageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapeMessageTableViewCell.swift; sourceTree = "<group>"; };
 		73EEA0341EA7B64300E65A21 /* String+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+ZXSpectrum.swift"; sourceTree = "<group>"; };
 		73F5B0A91EA9E44E005E8844 /* UserDefaults+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefaults+ZXSpectrum.swift"; sourceTree = "<group>"; };
 		73F5B0C31EA9E63C005E8844 /* InputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
@@ -948,6 +950,7 @@
 				73E330F71ED096C900FAFD13 /* TapeBlocksViewController.swift */,
 				73E330F91ED096F000FAFD13 /* TapeBlocksViewController+Bond.swift */,
 				73E330FB1ED0DC1700FAFD13 /* TapeBlockTableViewCell.swift */,
+				73E66FF41EDB3B6E00FFF2A6 /* TapeMessageTableViewCell.swift */,
 			);
 			name = Tape;
 			sourceTree = "<group>";
@@ -1361,6 +1364,7 @@
 				7384B86E1EA78BDD005FC8DF /* UIButton+ZXSpectrum.swift in Sources */,
 				737236701EBF9FD10053B5B5 /* JoystickBindingViewController+Bond.swift in Sources */,
 				7384B88E1EA7A35B005FC8DF /* NSManagedObjectContext+ZXSpectrum.swift in Sources */,
+				73E66FF51EDB3B6E00FFF2A6 /* TapeMessageTableViewCell.swift in Sources */,
 				739A5F741EA8C96700CE6313 /* SettingsViewController.swift in Sources */,
 				73255D251EB9330E00F04908 /* Direction.swift in Sources */,
 				736DD7121ED70C1800FE8424 /* VerticalProgressView.swift in Sources */,

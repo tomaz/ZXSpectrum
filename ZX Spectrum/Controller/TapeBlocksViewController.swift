@@ -13,7 +13,7 @@ final class TapeBlocksViewController: UITableViewController {
 	
 	fileprivate var info: SpectrumFileInfo?
 	
-	fileprivate lazy var blocks = MutableObservableArray<SpectrumFileBlock>([])
+	fileprivate lazy var blocks = MutableObservableArray<Item>([])
 	
 	// MARK: - Helpers
 	
@@ -32,7 +32,9 @@ final class TapeBlocksViewController: UITableViewController {
 		blocks.bind(to: tableView, using: bond)
 
 		gdebug("Setting up signals")
+		setupSelectedMachineSignal()
 		setupCurrentTapeSignal()
+		setupTapePlayingSignal()
 		
 		fetch(animated: false)
 	}
@@ -58,10 +60,25 @@ extension TapeBlocksViewController {
 
 extension TapeBlocksViewController {
 	
+	fileprivate func setupSelectedMachineSignal() {
+		Defaults.selectedMachine.bind(to: self) { me, value in
+			gverbose("Machine selection changed to \(value)")
+			me.fetch()
+		}
+	}
+	
 	fileprivate func setupCurrentTapeSignal() {
 		Defaults.currentFile.bind(to: self) { me, value in
 			gverbose("Current file changed to \(String(describing: value))")
 			me.info = Defaults.currentFileInfo.value
+			me.fetch()
+		}
+	}
+	
+	fileprivate func setupTapePlayingSignal() {
+		// Note we need to skip initial signal sent after setting up observation!
+		Defaults.isTapePlaying.skip(first: 1).bind(to: self) { me, value in
+			gverbose("Tape playing status changed to \(value)")
 			me.fetch()
 		}
 	}
