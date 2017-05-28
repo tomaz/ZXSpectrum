@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Override point for customization after application launch.
 		UserDefaults.establishFactoryDefaults()
 		Logger.initialize()
+		Defaults.initialize()
 		gmarker("INITIALIZED")
 
 		database.createPersistentContainer { container in

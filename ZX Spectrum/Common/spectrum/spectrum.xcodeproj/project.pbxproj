@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		730458E51EAA7F2F00290A06 /* uikitjoystick.c in Sources */ = {isa = PBXBuildFile; fileRef = 730458E41EAA7F2F00290A06 /* uikitjoystick.c */; };
 		73291EE01E96697900940801 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73291EDF1E96697900940801 /* AudioToolbox.framework */; };
+		736DD7071ED5CF9D00FE8424 /* cocoatape.c in Sources */ = {isa = PBXBuildFile; fileRef = 736DD7051ED5CF9D00FE8424 /* cocoatape.c */; };
 		73958DA21E964DBA00A7AF42 /* DebuggerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73958DA11E964DBA00A7AF42 /* DebuggerController.m */; };
 		73958DA51E96547B00A7AF42 /* FuseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73958DA41E96547B00A7AF42 /* FuseController.m */; };
 		739824551E93DA8D005E6B14 /* bzip2.c in Sources */ = {isa = PBXBuildFile; fileRef = 739823D21E93DA8D005E6B14 /* bzip2.c */; };
@@ -236,6 +237,8 @@
 		730458E91EAA7FCD00290A06 /* uikitjoystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = uikitjoystick.h; sourceTree = "<group>"; };
 		73291EDF1E96697900940801 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		73291EE51E96749200940801 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		736DD7051ED5CF9D00FE8424 /* cocoatape.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cocoatape.c; sourceTree = "<group>"; };
+		736DD7061ED5CF9D00FE8424 /* cocoatape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cocoatape.h; sourceTree = "<group>"; };
 		737E99AE1E88401800128149 /* libspectrum.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libspectrum.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		73958DA01E964DBA00A7AF42 /* DebuggerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebuggerController.h; sourceTree = "<group>"; };
 		73958DA11E964DBA00A7AF42 /* DebuggerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DebuggerController.m; sourceTree = "<group>"; };
@@ -1236,6 +1239,8 @@
 			isa = PBXGroup;
 			children = (
 				7398299F1E9527DA005E6B14 /* settings_cocoa.h */,
+				736DD7051ED5CF9D00FE8424 /* cocoatape.c */,
+				736DD7061ED5CF9D00FE8424 /* cocoatape.h */,
 				739829901E95244E005E6B14 /* Emulator.h */,
 				739829911E95244E005E6B14 /* Emulator.m */,
 				73958DA31E96547B00A7AF42 /* FuseController.h */,
@@ -1326,6 +1331,7 @@
 				739829951E952496005E6B14 /* CAMachines.m in Sources */,
 				739824801E93DA8D005E6B14 /* zlib.c in Sources */,
 				739828C61E9519C3005E6B14 /* enc28j60.c in Sources */,
+				736DD7071ED5CF9D00FE8424 /* cocoatape.c in Sources */,
 				739828641E9519C3005E6B14 /* breakpoint.c in Sources */,
 				739828A81E9519C3005E6B14 /* mempool.c in Sources */,
 				739824EC1E9511C9005E6B14 /* iffwrite.c in Sources */,

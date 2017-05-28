@@ -6,6 +6,7 @@
 #import <Foundation/Foundation.h>
 
 @class SpectrumFileInfo;
+@class SpectrumFileBlock;
 
 /**
  Provides information about a file.
@@ -25,6 +26,9 @@
  Information about the file.
  */
 @interface SpectrumFileInfo : NSObject
+
+/// Size of the file in bytes.
+@property (assign, nonatomic) NSInteger size;
 
 /// File author(s).
 @property (strong, nonatomic, nullable) NSArray <NSString *> *authors;
@@ -53,10 +57,28 @@
 /// File comment.
 @property (copy, nonatomic, nullable) NSString *comment;
 
-/// Size of the file in bytes.
-@property (assign, nonatomic) NSInteger size;
+/// Returns array of data blocks.
+@property (nonatomic, readonly, nonnull) NSArray <SpectrumFileBlock *> *blocks;
 
-/// Number of blocks in the file.
-@property (assign, nonatomic) NSInteger blocksCount;
+@end
+
+#pragma mark - 
+
+@interface SpectrumFileBlock : NSObject
+
+/// Block index within the tape.
+@property (assign, nonatomic) NSInteger index;
+
+/// The underlying block
+@property (assign, nonatomic) libspectrum_tape_block block;
+
+/// Specifies whether the block is data block or not.
+@property (readonly, nonatomic) BOOL isDataBlock;
+
+/// Description suitable for displaying to the user.
+@property (readonly, nonatomic, nonnull) NSString *localizedDescription;
+
+/// Details suitable for displaying to the user.
+@property (readonly, nonatomic, nullable) NSArray<NSString *> *localizedDetails;
 
 @end

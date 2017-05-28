@@ -28,6 +28,7 @@
 
 #include "internals.h"
 #include "tape_block.h"
+#include "cocoatape.h"
 
 /* The tape type itself */
 struct libspectrum_tape {
@@ -1609,4 +1610,9 @@ libspectrum_tape_set_state( libspectrum_tape *tape, libspectrum_tape_state_type 
   }
 
   return LIBSPECTRUM_ERROR_NONE;
+}
+
+libspectrum_tape_block_state *
+libspectrum_tape_block_get_state(libspectrum_tape *tape) {
+  return &tape->state;
 }

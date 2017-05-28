@@ -8,6 +8,21 @@
 
 @implementation SpectrumController
 
+- (void)setSelectedMachineType:(libspectrum_machine)value {
+	for (int i=0; i<machine_count; i++) {
+		if (machine_types[i]->machine == value) {
+			machine_select_id(machine_types[i]->id);
+		}
+	}
+}
+- (libspectrum_machine)selectedMachineType {
+	Machine *machine = self.selectedMachine;
+	if (machine) {
+		return machine.type;
+	}
+	return LIBSPECTRUM_MACHINE_UNKNOWN;
+}
+
 - (void)setSelectedMachine:(Machine *)value {
 	for (int i=0; i<machine_count; i++) {
 		if (machine_types[i]->machine == value.type) {

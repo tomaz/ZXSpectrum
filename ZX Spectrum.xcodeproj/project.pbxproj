@@ -54,6 +54,7 @@
 		7364933D1EA54B6E00EE697F /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7364933C1EA54B6E00EE697F /* Functions.swift */; };
 		736493411EA5518200EE697F /* DependencyInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7364933F1EA5518200EE697F /* DependencyInjection.swift */; };
 		736493421EA5518200EE697F /* PersistentContainerConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736493401EA5518200EE697F /* PersistentContainerConsumer.swift */; };
+		736DD7121ED70C1800FE8424 /* VerticalProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736DD7111ED70C1800FE8424 /* VerticalProgressView.swift */; };
 		737236701EBF9FD10053B5B5 /* JoystickBindingViewController+Bond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7372366F1EBF9FD10053B5B5 /* JoystickBindingViewController+Bond.swift */; };
 		737B56DD1EA3CE9F00A260B9 /* SwiftRichString.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 737B56D61EA3CE7400A260B9 /* SwiftRichString.framework */; };
 		737B56DE1EA3CE9F00A260B9 /* SwiftRichString.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 737B56D61EA3CE7400A260B9 /* SwiftRichString.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -127,12 +128,25 @@
 		73DF22F31E997501002FA042 /* SpectrumScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DF22F21E997501002FA042 /* SpectrumScreenView.swift */; };
 		73DF22F51E997510002FA042 /* SpectrumPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DF22F41E997510002FA042 /* SpectrumPalette.swift */; };
 		73DFB0621EB0D9470002F8F4 /* DelegatedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DFB0611EB0D9470002F8F4 /* DelegatedView.swift */; };
+		73E330F61ED08DD000FAFD13 /* TapeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E330F51ED08DD000FAFD13 /* TapeViewController.swift */; };
+		73E330F81ED096C900FAFD13 /* TapeBlocksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E330F71ED096C900FAFD13 /* TapeBlocksViewController.swift */; };
+		73E330FA1ED096F000FAFD13 /* TapeBlocksViewController+Bond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E330F91ED096F000FAFD13 /* TapeBlocksViewController+Bond.swift */; };
+		73E330FC1ED0DC1700FAFD13 /* TapeBlockTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E330FB1ED0DC1700FAFD13 /* TapeBlockTableViewCell.swift */; };
+		73E331001ED21B8700FAFD13 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E330FF1ED21B8700FAFD13 /* Styles.swift */; };
+		73E331021ED220E500FAFD13 /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73E331011ED220E500FAFD13 /* Formatter.swift */; };
 		73EEA0351EA7B64300E65A21 /* String+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EEA0341EA7B64300E65A21 /* String+ZXSpectrum.swift */; };
 		73F5B0AA1EA9E44E005E8844 /* UserDefaults+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F5B0A91EA9E44E005E8844 /* UserDefaults+ZXSpectrum.swift */; };
 		73F5B0C41EA9E63C005E8844 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73F5B0C31EA9E63C005E8844 /* InputView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		736DD6E71ED5C37A00FE8424 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 737E99BA1E88401800128149 /* spectrum.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 737E99AD1E88401800128149;
+			remoteInfo = spectrum;
+		};
 		737B56AA1EA3CE6600A260B9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 737B56A01EA3CE6500A260B9 /* Bond.xcodeproj */;
@@ -407,6 +421,7 @@
 		7364933C1EA54B6E00EE697F /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		7364933F1EA5518200EE697F /* DependencyInjection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DependencyInjection.swift; sourceTree = "<group>"; };
 		736493401EA5518200EE697F /* PersistentContainerConsumer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentContainerConsumer.swift; sourceTree = "<group>"; };
+		736DD7111ED70C1800FE8424 /* VerticalProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VerticalProgressView.swift; sourceTree = "<group>"; };
 		7372366F1EBF9FD10053B5B5 /* JoystickBindingViewController+Bond.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "JoystickBindingViewController+Bond.swift"; sourceTree = "<group>"; };
 		737B56A01EA3CE6500A260B9 /* Bond.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Bond.xcodeproj; path = Carthage/Checkouts/Bond/Bond.xcodeproj; sourceTree = SOURCE_ROOT; };
 		737B56B51EA3CE6B00A260B9 /* GCDWebServer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GCDWebServer.xcodeproj; path = Carthage/Checkouts/GCDWebServer/GCDWebServer.xcodeproj; sourceTree = SOURCE_ROOT; };
@@ -480,6 +495,12 @@
 		73DF22F21E997501002FA042 /* SpectrumScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpectrumScreenView.swift; sourceTree = "<group>"; };
 		73DF22F41E997510002FA042 /* SpectrumPalette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpectrumPalette.swift; sourceTree = "<group>"; };
 		73DFB0611EB0D9470002F8F4 /* DelegatedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelegatedView.swift; sourceTree = "<group>"; };
+		73E330F51ED08DD000FAFD13 /* TapeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapeViewController.swift; sourceTree = "<group>"; };
+		73E330F71ED096C900FAFD13 /* TapeBlocksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapeBlocksViewController.swift; sourceTree = "<group>"; };
+		73E330F91ED096F000FAFD13 /* TapeBlocksViewController+Bond.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TapeBlocksViewController+Bond.swift"; sourceTree = "<group>"; };
+		73E330FB1ED0DC1700FAFD13 /* TapeBlockTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TapeBlockTableViewCell.swift; sourceTree = "<group>"; };
+		73E330FF1ED21B8700FAFD13 /* Styles.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
+		73E331011ED220E500FAFD13 /* Formatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
 		73EEA0341EA7B64300E65A21 /* String+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+ZXSpectrum.swift"; sourceTree = "<group>"; };
 		73F5B0A91EA9E44E005E8844 /* UserDefaults+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefaults+ZXSpectrum.swift"; sourceTree = "<group>"; };
 		73F5B0C31EA9E63C005E8844 /* InputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputView.swift; sourceTree = "<group>"; };
@@ -549,6 +570,7 @@
 				739CE94C1EBE693500071BF4 /* DelimiterView.swift */,
 				73DFB0611EB0D9470002F8F4 /* DelegatedView.swift */,
 				73D37FDF1EC1F59700335055 /* TouchableView.swift */,
+				736DD7111ED70C1800FE8424 /* VerticalProgressView.swift */,
 				73DA64FB1EA65162008832AA /* IconsStyleKit.swift */,
 			);
 			path = View;
@@ -713,6 +735,7 @@
 				737B57001EA411DA00A260B9 /* Application */,
 				737B57011EA411E400A260B9 /* Emulator */,
 				739A5F5E1EA8C95300CE6313 /* Settings */,
+				73E330E01ED08DBC00FAFD13 /* Tape */,
 				73B30C3D1EC4B78F002AD635 /* Keyboard */,
 				734DBF611EC0C84700587C98 /* Joystick */,
 				73255D191EB900C700F04908 /* Joystick Mapping */,
@@ -770,6 +793,8 @@
 				73255D241EB9330E00F04908 /* Direction.swift */,
 				739CE9541EBF845D00071BF4 /* KeyCode.swift */,
 				73B195751ECB15260036A85B /* Feedback.swift */,
+				73E331011ED220E500FAFD13 /* Formatter.swift */,
+				73E330FF1ED21B8700FAFD13 /* Styles.swift */,
 				739824831E93DB71005E6B14 /* BridgingHeader.h */,
 			);
 			path = Helpers;
@@ -916,6 +941,17 @@
 			path = Spectrum;
 			sourceTree = "<group>";
 		};
+		73E330E01ED08DBC00FAFD13 /* Tape */ = {
+			isa = PBXGroup;
+			children = (
+				73E330F51ED08DD000FAFD13 /* TapeViewController.swift */,
+				73E330F71ED096C900FAFD13 /* TapeBlocksViewController.swift */,
+				73E330F91ED096F000FAFD13 /* TapeBlocksViewController+Bond.swift */,
+				73E330FB1ED0DC1700FAFD13 /* TapeBlockTableViewCell.swift */,
+			);
+			name = Tape;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -932,6 +968,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				736DD6E81ED5C37A00FE8424 /* PBXTargetDependency */,
 				737B56E01EA3CE9F00A260B9 /* PBXTargetDependency */,
 				737B56E91EA3CEAB00A260B9 /* PBXTargetDependency */,
 				73DA65031EA66408008832AA /* PBXTargetDependency */,
@@ -1262,10 +1299,13 @@
 				733787571E9CE99300C5C363 /* SpectrumJoystickController.m in Sources */,
 				737B56FD1EA4009900A260B9 /* UIViewController+ZXSpectrum.swift in Sources */,
 				730890681EC10AF6002ECCD1 /* JoystickKeyCodeHandlerConsumer.swift in Sources */,
+				73E331001ED21B8700FAFD13 /* Styles.swift in Sources */,
 				7337874F1E9BE43F00C5C363 /* SpectrumDisplayController.m in Sources */,
 				734DBF771EC0C85A00587C98 /* JoystickViewController.swift in Sources */,
 				7364933B1EA54B2F00EE697F /* Logger.swift in Sources */,
 				73DA64F81EA613EF008832AA /* FileManager+ZXSpectrum.swift in Sources */,
+				73E330FA1ED096F000FAFD13 /* TapeBlocksViewController+Bond.swift in Sources */,
+				73E330FC1ED0DC1700FAFD13 /* TapeBlockTableViewCell.swift in Sources */,
 				73B195761ECB15260036A85B /* Feedback.swift in Sources */,
 				733787541E9CE36C00C5C363 /* ToolbarView.swift in Sources */,
 				73AFFED81EAFD7A500218DB7 /* CGSize+ZXSpectrum.swift in Sources */,
@@ -1288,6 +1328,7 @@
 				735471E51EC9DD790083355C /* SpectrumFileController.m in Sources */,
 				73D37FE01EC1F59700335055 /* TouchableView.swift in Sources */,
 				739CE94F1EBE793000071BF4 /* JoystickBindingViewController.swift in Sources */,
+				73E330F81ED096C900FAFD13 /* TapeBlocksViewController.swift in Sources */,
 				73DA64EE1EA5611E008832AA /* FileTableViewCell.swift in Sources */,
 				739A5F7E1EA8E82300CE6313 /* SettingsComputerViewController.swift in Sources */,
 				730458E31EAA3B9A00290A06 /* CGRect+ZXSpectrum.swift in Sources */,
@@ -1297,6 +1338,7 @@
 				739CE9551EBF845D00071BF4 /* KeyCode.swift in Sources */,
 				73DA64F61EA60627008832AA /* UIResponder+ZXSpectrum.swift in Sources */,
 				739CE94D1EBE693500071BF4 /* DelimiterView.swift in Sources */,
+				73E330F61ED08DD000FAFD13 /* TapeViewController.swift in Sources */,
 				739CE9301EBE595300071BF4 /* PopoverPresentationConsumer.swift in Sources */,
 				734DBF811EC1070A00587C98 /* UIDevice+ZXSpectrum.swift in Sources */,
 				736493391EA54B0D00EE697F /* Database.swift in Sources */,
@@ -1309,6 +1351,7 @@
 				73DF22F31E997501002FA042 /* SpectrumScreenView.swift in Sources */,
 				73B30C411EC4B80C002AD635 /* ZX48KeyboardStyleKit.swift in Sources */,
 				7384B88C1EA7A257005FC8DF /* UIViewController+Hierarchy.swift in Sources */,
+				73E331021ED220E500FAFD13 /* Formatter.swift in Sources */,
 				7343DD9F1EC62B3700915830 /* ZX128KeyboardView.swift in Sources */,
 				739CE9471EBE59A800071BF4 /* JoystickEditViewController.swift in Sources */,
 				73DA64EA1EA55E81008832AA /* FilesViewController+Bond.swift in Sources */,
@@ -1320,12 +1363,18 @@
 				7384B88E1EA7A35B005FC8DF /* NSManagedObjectContext+ZXSpectrum.swift in Sources */,
 				739A5F741EA8C96700CE6313 /* SettingsViewController.swift in Sources */,
 				73255D251EB9330E00F04908 /* Direction.swift in Sources */,
+				736DD7121ED70C1800FE8424 /* VerticalProgressView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		736DD6E81ED5C37A00FE8424 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = spectrum;
+			targetProxy = 736DD6E71ED5C37A00FE8424 /* PBXContainerItemProxy */;
+		};
 		737B56E01EA3CE9F00A260B9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = SwiftRichString;

@@ -13,11 +13,12 @@ final class InputView: UIView {
 	
 	fileprivate var persistentContainer: NSPersistentContainer!
 	
+	fileprivate var tapeViewController: TapeViewController!
 	fileprivate var joystickViewController: JoystickViewController!
 	fileprivate var keyboardViewController: KeyboardViewController!
 	
 	fileprivate var currentInputView: UIView? = nil
-	fileprivate var currentKeyboardTopConstraint: NSLayoutConstraint? = nil
+	fileprivate var currentInputViewTopConstraint: NSLayoutConstraint? = nil
 	
 	fileprivate var transitioningKeyboardView: UIView? = nil
 	fileprivate var transitioningKeyboardTopConstraint: NSLayoutConstraint? = nil
@@ -66,7 +67,9 @@ extension InputView: InjectionObservable {
 	
 	func injectionDidComplete() {
 		gdebug("Injection did complete")
+		inject(toController: tapeViewController)
 		inject(toController: joystickViewController)
+		inject(toController: keyboardViewController)
 	}
 }
 
@@ -98,7 +101,10 @@ extension InputView {
 		// Use same background color as subviews so animations appear less "jagged".
 		backgroundColor = ZX48KeyboardStyleKit.keyboardBackgroundColor
 		
-		// Prepare joystick view
+		// Prepare tape view.
+		tapeViewController = TapeViewController.instantiate()
+		
+		// Prepare joystick view.
 		joystickViewController = JoystickViewController.instantiate()
 		
 		// Prepare ZX 48K keyboard view.
@@ -108,21 +114,21 @@ extension InputView {
 		joystickController.handler = self
 		
 		// Setup visibility for keyboards based on current status.
-		prepareForKeyboardsChange()
-		completeKeyboardsChange()
+		prepareForInputViewChange()
+		completeInputViewChange()
 		
 		// Setup various observations.
-		setupInputMethodSettingSignal()
+		setupInputStateSettingSignal()
 	}
 	
-	private func setupInputMethodSettingSignal() {
+	private func setupInputStateSettingSignal() {
 		// When input method changes, swap the views.
-		Defaults.isInputJoystick.bind(to: self) { me, value in
+		Defaults.inputState.bind(to: self) { me, value in
 			gverbose("Joystick setting changed to \(value), swapping input method")
 			
-			me.prepareForKeyboardsChange()
+			me.prepareForInputViewChange()
 			
-			InputView.animate(me.layoutIfNeeded, completion: me.completeKeyboardsChange(complete:))
+			InputView.animate(me.layoutIfNeeded, completion: me.completeInputViewChange(complete:))
 		}
 	}
 	
@@ -134,10 +140,19 @@ extension InputView {
 		view.heightAnchor.constraint(equalToConstant: InputView.height).isActive = true
 	}
 	
-	private func prepareForKeyboardsChange() {
+	private func prepareForInputViewChange() {
 		// Prepare the view we want to show.
-		let isJoystick = Defaults.isInputJoystick.value
-		let newInputView = isJoystick ? joystickViewController.view! : keyboardViewController.view!
+		let newInputView: UIView
+		switch Defaults.inputState.value {
+		case .tape:
+			newInputView = tapeViewController.view!
+		case .joystick:
+			newInputView = joystickViewController.view!
+		case .keyboard:
+			newInputView = keyboardViewController.view!
+		default:
+			return
+		}
 		
 		// Ignore if we want to show the same view as we already are showing.
 		if newInputView.superview != nil {
@@ -150,7 +165,7 @@ extension InputView {
 		addSubviewAndSetupDefaultConstraints(for: newInputView)
 		
 		// If we don't have top contraint yet, this is the first time we're here, so just remember the view and exit (we'll setup top constraint in `cleanupKeyboardsAnimations(complete:)`)..
-		guard let view = currentInputView, let constraint = currentKeyboardTopConstraint else {
+		guard let view = currentInputView, let constraint = currentInputViewTopConstraint else {
 			currentInputView = newInputView
 			return
 		}
@@ -170,7 +185,7 @@ extension InputView {
 		constraint.constant = -InputView.height
 	}
 	
-	private func completeKeyboardsChange(complete: Bool = true) {
+	private func completeInputViewChange(complete: Bool = true) {
 		// After animations are complete, we should remove temporary constraints.
 		if complete {
 			// Remove previous keyboard view from hierarhcy.
@@ -178,20 +193,32 @@ extension InputView {
 			transitioningKeyboardTopConstraint = nil
 			
 			// Establish constraints so that current view is pinned to the top.
-			currentKeyboardTopConstraint = currentInputView?.topAnchor.constraint(equalTo: topAnchor)
-			currentKeyboardTopConstraint?.isActive = true
+			currentInputViewTopConstraint = currentInputView?.topAnchor.constraint(equalTo: topAnchor)
+			currentInputViewTopConstraint?.isActive = true
 		}
 	}
 }
 
-// MARK: - Shared functinoality
+// MARK: - Helper functions
 
 extension InputView {
 	
 	/**
+	Toggles visibility of the view.
+	*/
+	func toggle(visible: Bool) {
+		let shouldHide = !visible
+		if isHidden != shouldHide {
+			InputView.animate({
+				self.isHidden = shouldHide
+			})
+		}
+	}
+	
+	/**
 	Performs standard animation for keyboard views.
 	*/
-	static func animate(_ animations: @escaping () -> Void, completion: ((Bool) -> Void)?) {
+	static fileprivate func animate(_ animations: @escaping () -> Void, completion: ((Bool) -> Void)? = nil) {
 		UIView.animate(
 			withDuration: 0.4,
 			delay: 0.0,

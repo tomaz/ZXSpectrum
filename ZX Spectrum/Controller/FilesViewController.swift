@@ -42,7 +42,7 @@ final class FilesViewController: UITableViewController {
 		
 		gdebug("Binding data")
 		bond.initialize(tableView: tableView)
-		bond.didRequestInsert = insert(object:)
+		bond.didRequestInsert = insert(object:info:)
 		bond.didRequestDelete = delete(object:)
 		files.bind(to: tableView, using: bond)
 		
@@ -90,14 +90,15 @@ extension FilesViewController {
 	/**
 	Inserts the given object for playback.
 	*/
-	fileprivate func insert(object: FileObject) {
+	fileprivate func insert(object: FileObject, info: SpectrumFileInfo?) {
 		let name = object.url.path.toInt8Array
 
 		emulator.openFile(name)
 		
 		after(0.5) {
 			self.performSegue(withIdentifier: "UnwindToEmulatorScene", sender: self)
-			Defaults.currentObjectID.value = object.objectID
+			Defaults.currentFileInfo.value = info
+			Defaults.currentFile.value = object
 		}
 	}
 	

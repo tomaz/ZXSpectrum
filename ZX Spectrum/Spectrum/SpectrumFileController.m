@@ -9,7 +9,8 @@
 #include "utils.h"
 #import "SpectrumFileController.h"
 
-@implementation SpectrumFileInfo
+@interface SpectrumFileInfo (PrivateAPI)
+- (void)addBlock:(libspectrum_tape_block)block;
 @end
 
 #pragma mark -
@@ -72,14 +73,14 @@
 			case LIBSPECTRUM_TAPE_BLOCK_COMMENT: {
 				result.comment = [self stringFromCString:block->types.comment.text];
 			} break;
-					
+				
 			default: {
 			} break;
 		}
-		
-		// Increase blocks count.
-		result.blocksCount++;
-		
+
+		// Add the block.
+		[result addBlock:*block];
+
 		// Proceed with next block.
 		block = libspectrum_tape_iterator_next(&iterator);
 	}
@@ -125,6 +126,85 @@
 
 - (NSError *)errorWithCode:(NSInteger)code description:(NSString *)description {
 	return [NSError errorWithDomain:@"com.gentlebytes.ZXSpectrum.File" code:code userInfo:@{ NSLocalizedDescriptionKey: description }];
+}
+
+@end
+
+#pragma mark -
+
+@interface SpectrumFileInfo ()
+@property (nonatomic, strong) NSMutableArray <SpectrumFileBlock *> *blocksValue;
+@end
+
+@implementation SpectrumFileInfo
+
+- (void)addBlock:(libspectrum_tape_block)block {
+	SpectrumFileBlock *blockObject = [SpectrumFileBlock new];
+	blockObject.block = block;
+	blockObject.index = self.blocksValue.count;
+	[self.blocksValue addObject:blockObject];
+}
+
+- (NSArray *)blocks {
+	return _blocksValue;
+}
+
+- (NSMutableArray *)blocksValue {
+	if (_blocksValue) return _blocksValue;
+	_blocksValue = [NSMutableArray new];
+	return _blocksValue;
+}
+
+@end
+
+#pragma mark -
+
+@implementation SpectrumFileBlock
+
+- (NSString *)description {
+	return [NSString stringWithFormat:@"%@ %ld %@", super.description, self.index, self.localizedDescription];
+ }
+
+- (NSString *)localizedDescription {
+	return [self descriptionWithHandler:^(char *buffer, int size) {
+		libspectrum_tape_block_description(buffer, size, &self->_block);
+	}];
+}
+
+- (NSArray *)localizedDetails {
+	// Prepare text.
+	NSString *text = [self descriptionWithHandler:^(char *buffer, int size) {
+		tape_block_details(buffer, size, &self->_block);
+	}];
+	
+	// Return all components.
+	if (text.length > 0) {
+		return [text componentsSeparatedByString:@" "];
+	}
+	
+	// Return nil if there's no text.
+	return nil;
+}
+
+- (NSString *)descriptionWithHandler:(void(^)(char *buffer, int size))handler {
+	static int length = 256;
+	char buffer[length];
+	handler(buffer, length);
+	return [NSString stringWithCString:buffer encoding:NSASCIIStringEncoding];
+}
+
+- (BOOL)isDataBlock {
+	switch (self.block.type) {
+		case LIBSPECTRUM_TAPE_BLOCK_ROM:
+		case LIBSPECTRUM_TAPE_BLOCK_TURBO:
+		case LIBSPECTRUM_TAPE_BLOCK_PURE_TONE:
+		case LIBSPECTRUM_TAPE_BLOCK_PULSES:
+		case LIBSPECTRUM_TAPE_BLOCK_PURE_DATA:
+		case LIBSPECTRUM_TAPE_BLOCK_RAW_DATA:
+			return true;
+		default:
+			return false;
+	}
 }
 
 @end

@@ -12,19 +12,18 @@ class EmulatorViewController: UIViewController {
 	
 	@IBOutlet fileprivate weak var spectrumView: SpectrumScreenView!
 	@IBOutlet fileprivate weak var controlsContainerView: UIView!
-	@IBOutlet fileprivate weak var spectrumInputView: UIView!
+	@IBOutlet fileprivate weak var spectrumInputView: InputView!
 	
 	@IBOutlet fileprivate weak var settingsButton: UIButton!
 	@IBOutlet fileprivate weak var resetButton: UIButton!
 	@IBOutlet fileprivate weak var filesButton: UIButton!
+	@IBOutlet fileprivate weak var tapeButton: UIButton!
 	@IBOutlet fileprivate weak var joystickButton: UIButton!
 	@IBOutlet fileprivate weak var keyboardButton: UIButton!
 	
 	// MARK: - Data
 	
 	fileprivate var persistentContainer: NSPersistentContainer!
-	
-	fileprivate var isKeyboardVisible = false
 	
 	fileprivate var emulator: Emulator!
 	fileprivate let viewWillHideBag = DisposeBag()
@@ -39,29 +38,23 @@ class EmulatorViewController: UIViewController {
 		inject(toView: spectrumInputView)
 		
 		gdebug("Setting up emulator")
-		emulator = Emulator()!
-		settings_defaults(&settings_current);
-		read_config_file(&settings_current);
-		spectrumView.hookToFuse()
-		fuse_init(0, nil);
-		
-		let spectrum = SpectrumController()
-		if let selected = spectrum.selectedMachine {
-			Defaults.selectedMachine.value = spectrum.identifier(for: selected)
-		}
+		setupEmulator()
 		
 		gdebug("Setting up view")
 		settingsButton.image = IconsStyleKit.imageOfIconGear
 		resetButton.image = IconsStyleKit.imageOfIconReset
 		filesButton.image = IconsStyleKit.imageOfIconTape
-		updateJoystickButtonIcon()
-		updateKeyboardButtonIcon()
+		updateTapeButtonIcon(animated: false)
+		updateJoystickButtonIcon(animated: false)
+		updateKeyboardButtonIcon(animated: false)
 
 		setupEmulationStartedSignal()
-		setupResetButtonSignals()
-		setupJoystickButtonSignals()
-		setupKeyboardButtonSignals()
-		setupInputMethodSettingSignal()
+		setupCurrentObjectSignal()
+		setupResetButtonTapSignal()
+		setupTapeButtonTapSignal()
+		setupJoystickButtonTapSignal()
+		setupKeyboardButtonTapSignal()
+		setupInputStateSettingSignal()
 	}
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -123,18 +116,57 @@ extension EmulatorViewController {
 	@IBAction func unwindToEmulatorViewController(segue: UIStoryboardSegue) {
 		if let controller = segue.source as? SettingsViewController {
 			controller.updateSettings()
+			updateTapeButtonVisibility()
 		}
 		Defaults.isEmulationStarted.value = true
 	}
 	
+	fileprivate func updateTapeButtonIcon(animated: Bool = false) {
+		let image = Defaults.inputState.value == .tape ? IconsStyleKit.imageOfIconTapeHide : IconsStyleKit.imageOfIconTapeShow
+		tapeButton.update(image: image, animated: animated)
+	}
+	
 	fileprivate func updateJoystickButtonIcon(animated: Bool = false) {
-		let image = isKeyboardVisible && Defaults.isInputJoystick.value ? IconsStyleKit.imageOfIconJoystickHide : IconsStyleKit.imageOfIconJoystickShow
+		let image = Defaults.inputState.value == .joystick ? IconsStyleKit.imageOfIconJoystickHide : IconsStyleKit.imageOfIconJoystickShow
 		joystickButton.update(image: image, animated: animated)
 	}
 	
 	fileprivate func updateKeyboardButtonIcon(animated: Bool = false) {
-		let image = isKeyboardVisible && !Defaults.isInputJoystick.value ? IconsStyleKit.imageOfIconKeyboardHide : IconsStyleKit.imageOfIconKeyboardShow
+		let image = Defaults.inputState.value == .keyboard ? IconsStyleKit.imageOfIconKeyboardHide : IconsStyleKit.imageOfIconKeyboardShow
 		keyboardButton.update(image: image, animated: animated)
+	}
+	
+	fileprivate func updateTapeButtonVisibility() {
+		UIView.animate(withDuration: 0.2) {
+			let isAutoPlayEnabled = settings_current.auto_load == 1
+			let isTapeMissing = Defaults.currentFile.value == nil
+			self.tapeButton.isHidden = isAutoPlayEnabled || isTapeMissing
+		}
+	}
+}
+
+// MARK: - Helper functions
+
+extension EmulatorViewController {
+	
+	fileprivate func setupEmulator() {
+		emulator = Emulator()!
+		
+		// Read user defaults.
+		settings_defaults(&settings_current)
+		read_config_file(&settings_current)
+
+		// Hook spectrum view to fuse.
+		spectrumView.hookToFuse()
+		
+		// Initialize fuse.
+		fuse_init(0, nil)
+		
+		// Prepare initial computer.
+		let spectrum = SpectrumController()
+		if let selected = spectrum.selectedMachine {
+			Defaults.selectedMachine.value = spectrum.identifier(for: selected)
+		}
 	}
 }
 
@@ -145,7 +177,7 @@ extension EmulatorViewController {
 	fileprivate func setupEmulationStartedSignal() {
 		// Only handle the event if value is different from current one.
 		Defaults.isEmulationStarted.skip(first: 1).distinct().bind(to: self) { me, value in
-			ginfo("Updating emulation status")
+			gverbose("Updating emulation status")
 			if value {
 				me.emulator.unpause()
 			} else {
@@ -154,69 +186,60 @@ extension EmulatorViewController {
 		}
 	}
 	
-	fileprivate func setupResetButtonSignals() {
+	fileprivate func setupCurrentObjectSignal() {
+		Defaults.currentFile.bind(to: self) { me, _ in
+			gverbose("Updating views due to current object change")
+			me.updateTapeButtonVisibility()
+		}
+	}
+	
+	fileprivate func setupResetButtonTapSignal() {
 		resetButton.reactive.tap.bind(to: self) { me, _ in
 			ginfo("Resetting emulator")
-			Defaults.currentObjectID.value = nil
 			me.emulator.reset()
+			me.emulator.tapeRewind()
 		}
 	}
 	
-	fileprivate func setupJoystickButtonSignals() {
+	fileprivate func setupTapeButtonTapSignal() {
+		tapeButton.reactive.tap.bind(to: self) { me, _ in
+			ginfo("Toggling tape")
+			me.toggleInputState(to: .tape)
+		}
+	}
+	
+	fileprivate func setupJoystickButtonTapSignal() {
 		joystickButton.reactive.tap.bind(to: self) { me, _ in
 			ginfo("Toggling joystick")
-			me.toggleKeyboard(asJoystick: true)
+			me.toggleInputState(to: .joystick)
 		}
 	}
 	
-	fileprivate func setupKeyboardButtonSignals() {
+	fileprivate func setupKeyboardButtonTapSignal() {
 		keyboardButton.reactive.tap.bind(to: self) { me, _ in
 			ginfo("Toggling keyboard")
-			me.toggleKeyboard()
+			me.toggleInputState(to: .keyboard)
 		}
 	}
 	
-	fileprivate func setupInputMethodSettingSignal() {
+	fileprivate func setupInputStateSettingSignal() {
 		// When input method changes, update the icons.
-		Defaults.isInputJoystick.bind(to: self) { me, value in
-			gverbose("Joystick input changed to \(value), updating icons")
-			me.updateJoystickButtonIcon(animated: true)
-			me.updateKeyboardButtonIcon(animated: true)
+		Defaults.inputState.bind(to: self) { me, value in
+			gverbose("Input state changed to \(value), updating icons")
+			me.updateTapeButtonIcon()
+			me.updateJoystickButtonIcon()
+			me.updateKeyboardButtonIcon()
 		}
 	}
 	
-	private func toggleKeyboard(asJoystick: Bool = false) {
-		func shouldHide() -> Bool {
-			// If keyboard is not visible, we should show it.
-			if !isKeyboardVisible {
-				return false
-			}
-			
-			// If keyboard is already visible in keyboard mode and user wants to change to joystick, we should remain showing it.
-			if asJoystick && !Defaults.isInputJoystick.value {
-				return false
-			}
-			
-			// If keyboard is already visible in joystick mode and user wants to change to keyboard, we should remain showing it.
-			if !asJoystick && Defaults.isInputJoystick.value {
-				return false
-			}
-			
-			// In all other cases, allow hiding it.
-			return true
-		}
+	private func toggleInputState(to state: InputState) {
+		let shouldCloseInput = state == Defaults.inputState.value
+		let newState = shouldCloseInput ? .none : state
 		
-		func animations() {
-			spectrumInputView.isHidden = !isKeyboardVisible
-		}
-
-		// Update internal flag specifying whether keyboard is visible or not.
-		isKeyboardVisible = !shouldHide()
-
-		// Update user default specifying whether joystick or keyboard should be shown.
-		Defaults.isInputJoystick.value = asJoystick
-
-		// Animate keyboard in or out.
-		InputView.animate(animations, completion: nil)
+		// If we change to current state, then close input view.
+		spectrumInputView.toggle(visible: !shouldCloseInput)
+		
+		// Update current input state which will trigger observations where we update UI.
+		Defaults.inputState.value = newState
 	}
 }

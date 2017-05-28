@@ -1314,6 +1314,10 @@ libspectrum_tape_insert_block( libspectrum_tape *tape,
 			       libspectrum_tape_block *block,
 			       size_t position );
 
+
+libspectrum_tape_block_state *
+libspectrum_tape_block_get_state(libspectrum_tape *tape);
+
 /*** Routines for iterating through a tape ***/
 
 WIN32_DLL libspectrum_tape_block *
