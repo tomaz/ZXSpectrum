@@ -18,11 +18,11 @@ final class TapeBlockTableViewCell: UITableViewCell, Configurable {
 	
 	// MARK: - Configurable
 	
-	func configure(object: (index: Int, block: SpectrumFileBlock)) {
-		gdebug("Configuring with \(object.block) (file index \(object.index))")
-		representedBlock = object.block
+	func configure(object: SpectrumFileBlock) {
+		gdebug("Configuring with \(object)")
+		representedBlock = object
 		indexLabel.attributedText = description(forIndex: object.index)
-		descriptionLabel.attributedText = description(forBlock: object.block)
+		descriptionLabel.attributedText = description(forBlock: object)
 		progressView.progress = progress()
 	}
 	
@@ -96,7 +96,9 @@ extension TapeBlockTableViewCell {
 	fileprivate func description(forBlock block: SpectrumFileBlock) -> NSAttributedString? {
 		let description = block.localizedDescription
 		
-		if let details = block.localizedDetails {
+		if block.block.type == LIBSPECTRUM_TAPE_BLOCK_PAUSE {
+			return dataText(prefix: description, length: 0, pause: block.block.types.pause.length)
+		} else if let details = block.localizedDetails {
 			// If first details value is number, use it as value and remainder as unit.
 			if details.count >= 2, let size = Int(details[0]) {
 				return dataText(prefix: description, length: size)
@@ -119,13 +121,17 @@ extension TapeBlockTableViewCell {
 	private func dataText(prefix: String, length: Int, pause: libspectrum_dword = 0) -> NSAttributedString {
 		let result = NSMutableAttributedString()
 		
-		let size = Formatter.size(fromBytes: length)
-		result.append(TapeBlockTableViewCell.text(prefix: prefix, value: size.value, unit: size.unit)!)
-		
-		if pause > 0 {
+		if length > 0 {
+			let size = Formatter.size(fromBytes: length)
+			result.append(TapeBlockTableViewCell.text(prefix: prefix, value: size.value, unit: size.unit)!)
+			if pause > 0 {
+				let time = Formatter.time(fromMilliseconds: Int(pause))
+				result.append(", ".set(style: TapeBlockTableViewCell.textStyle))
+				result.append(TapeBlockTableViewCell.text(prefix: NSLocalizedString("pause"), value: time.value, unit: time.unit)!)
+			}
+		} else {
 			let time = Formatter.time(fromMilliseconds: Int(pause))
-			result.append(", ".set(style: TapeBlockTableViewCell.textStyle))
-			result.append(TapeBlockTableViewCell.text(prefix: NSLocalizedString("pause"), value: time.value, unit: time.unit)!)
+			result.append(TapeBlockTableViewCell.text(prefix: prefix, value: time.value, unit: time.unit)!)
 		}
 		
 		return result

@@ -8,7 +8,7 @@ import SwiftRichString
 import ReactiveKit
 import Bond
 
-extension TapeBlocksViewController {
+extension TapeViewController {
 	
 	/**
 	Bond for managing tape blocks table view.
@@ -25,6 +25,10 @@ extension TapeBlocksViewController {
 		func fetch(info: SpectrumFileInfo?) -> [Item] {
 			var result = [Item]()
 			
+			if let title = titleMessage() {
+				result.append(Item(message: title))
+			}
+			
 			if let info = info, !info.blocks.isEmpty {
 				result.append(contentsOf: info.blocks.map { Item(block: $0) })
 			}
@@ -33,6 +37,18 @@ extension TapeBlocksViewController {
 				result.append(Item(message: message))
 			}
 			
+			return result
+		}
+		
+		private func titleMessage() -> NSAttributedString? {
+			guard let object = Defaults.currentFile.value else {
+				return nil
+			}
+			
+			let result = NSMutableAttributedString()
+			result.append(object.url.deletingPathExtension().lastPathComponent.uppercased().set(style: Bond.titleEmphasizedStyle))
+			result.append(".".set(style: Bond.titleLightStyle))
+			result.append(object.url.pathExtension.set(style: Bond.titleLightStyle))
 			return result
 		}
 		
@@ -52,15 +68,18 @@ extension TapeBlocksViewController {
 			case LIBSPECTRUM_MACHINE_16: fallthrough
 			case LIBSPECTRUM_MACHINE_48: fallthrough
 			case LIBSPECTRUM_MACHINE_UNKNOWN:
-				return Styles.text(from: NSLocalizedString("<n>Type `</n><em>LOAD \"\"</em><n>` and press </n><em>ENTER</em>"), styles: Bond.styles)
+				return Styles.text(from: NSLocalizedString("<n>Type `</n><em>LOAD \"\"</em><n>` and press </n><em>ENTER</em>"), styles: Bond.messageStyles)
 			default:
-				return Styles.text(from: NSLocalizedString("<n>Select `</n><em>Tape Loader</em><n>` option and press </n><em>ENTER</em>"), styles: Bond.styles)
+				return Styles.text(from: NSLocalizedString("<n>Select `</n><em>Tape Loader</em><n>` option and press </n><em>ENTER</em>"), styles: Bond.messageStyles)
 			}
 		}
 		
+		private static let titleLightStyle = Styles.style(name: "n", appearance: [ .light, .inverted ], size: .title)
+		private static let titleEmphasizedStyle = Styles.style(name: "em", appearance: [ .emphasized, .inverted ], size: .title)
+		
 		private static let messageLightStyle = Styles.style(name: "n", appearance: [ .light, .inverted ], size: .info)
 		private static let messageEmphasizedStyle = Styles.style(name: "em", appearance: [ .emphasized, .inverted ], size: .info)
-		private static let styles: [Style] = [ messageLightStyle, messageEmphasizedStyle ]
+		private static let messageStyles: [Style] = [ messageLightStyle, messageEmphasizedStyle ]
 		
 		// MARK: - TableViewBond
 
@@ -70,8 +89,7 @@ extension TapeBlocksViewController {
 			gdebug("Dequeuing cell at \(indexPath) for \(object)")
 			if let block = object.block {
 				let result = tableView.dequeueReusableCell(withIdentifier: "BlockCell", for: indexPath) as! TapeBlockTableViewCell
-				let data = (indexPath.row, block)
-				result.configure(object: data)
+				result.configure(object: block)
 				return result
 			} else if let message = object.message {
 				let result = tableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath) as! TapeMessageTableViewCell
@@ -109,7 +127,7 @@ extension TapeBlocksViewController {
 	}
 }
 
-func == (lhs: TapeBlocksViewController.Item, rhs: TapeBlocksViewController.Item) -> Bool {
+func == (lhs: TapeViewController.Item, rhs: TapeViewController.Item) -> Bool {
 	if let lb = lhs.block, let rb = lhs.block {
 		// If both items represent blocks, compare blocks for equality.
 		return lb == rb

@@ -4,17 +4,21 @@
 //
 
 import UIKit
-import CoreData
-import ReactiveKit
 import Bond
 
 /**
-Manages tape.
+Manages the list of selected tape blocks.
 */
-final class TapeViewController: UIViewController {
+final class TapeViewController: UITableViewController {
 	
-	@IBOutlet fileprivate weak var titleLabel: UILabel!
+	fileprivate var info: SpectrumFileInfo?
 	
+	fileprivate lazy var blocks = MutableObservableArray<Item>([])
+	
+	// MARK: - Helpers
+	
+	fileprivate lazy var bond = Bond()
+
 	// MARK: - Initialization & disposal
 	
 	/**
@@ -24,28 +28,41 @@ final class TapeViewController: UIViewController {
 		let storyboard = UIViewController.current.storyboard!
 		return storyboard.instantiateViewController(withIdentifier: "TapeScene") as! TapeViewController
 	}
-	
+
 	// MARK: - Overriden functions
 	
 	override func viewDidLoad() {
 		gverbose("Loading")
-		
 		super.viewDidLoad()
 		
-		gdebug("Setting up view")
-		setupTitle()
-		
+		tableView.estimatedRowHeight = 44
+		tableView.rowHeight = UITableViewAutomaticDimension
+
+		gdebug("Binding data")
+		blocks.bind(to: tableView, using: bond)
+
 		gdebug("Setting up signals")
-		setupCurrentObjectSignal()
+		setupSelectedMachineSignal()
+		setupCurrentTapeSignal()
+		setupTapePlayingSignal()
+		
+		fetch(animated: false)
 	}
 }
 
-// MARK: - User interface
+// MARK: - Helper functions
 
 extension TapeViewController {
 	
-	fileprivate func setupTitle() {
-		titleLabel.attributedText = TapeViewController.titleText(object: Defaults.currentFile.value)
+	/**
+	Fetches data and updates `blocks` with results.
+	*/
+	fileprivate func fetch(animated: Bool = true) {
+		gdebug("Fetching blocks")
+		let newBlocks = bond.fetch(info: info)
+		
+		gdebug("Updating with \(newBlocks.count) blocks")
+		blocks.replace(with: newBlocks, performDiff: animated)
 	}
 }
 
@@ -53,30 +70,26 @@ extension TapeViewController {
 
 extension TapeViewController {
 	
-	fileprivate func setupCurrentObjectSignal() {
+	fileprivate func setupSelectedMachineSignal() {
+		Defaults.selectedMachine.bind(to: self) { me, value in
+			gverbose("Machine selection changed to \(value)")
+			me.fetch()
+		}
+	}
+	
+	fileprivate func setupCurrentTapeSignal() {
 		Defaults.currentFile.bind(to: self) { me, value in
-			gverbose("Updating for object ID \(String(describing: value))")
-			me.setupTitle()
+			gverbose("Current file changed to \(String(describing: value))")
+			me.info = Defaults.currentFileInfo.value
+			me.fetch()
 		}
 	}
-}
-
-// MARK: - Styling
-
-extension TapeViewController {
 	
-	fileprivate static func titleText(object: FileObject?) -> NSAttributedString? {
-		guard let object = object else {
-			return nil
+	fileprivate func setupTapePlayingSignal() {
+		// Note we need to skip initial signal sent after setting up observation!
+		Defaults.isTapePlaying.skip(first: 1).bind(to: self) { me, value in
+			gverbose("Tape playing status changed to \(value)")
+			me.fetch()
 		}
-		
-		let result = NSMutableAttributedString()
-		result.append(object.url.deletingPathExtension().lastPathComponent.uppercased().set(style: titleEmphasizedStyle))
-		result.append(".".set(style: titleLightStyle))
-		result.append(object.url.pathExtension.set(style: titleLightStyle))
-		return result
 	}
-	
-	private static let titleLightStyle = Styles.style(appearance: [ .light, .inverted ], size: .title)
-	private static let titleEmphasizedStyle = Styles.style(appearance: [ .emphasized, .inverted ], size: .title)
 }
