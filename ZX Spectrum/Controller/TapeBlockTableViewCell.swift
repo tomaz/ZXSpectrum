@@ -98,9 +98,8 @@ extension TapeBlockTableViewCell {
 		
 		if let details = block.localizedDetails {
 			// If first details value is number, use it as value and remainder as unit.
-			if details.count >= 2 && Int(details[0]) != nil {
-				let unit = details.dropFirst().joined(separator: " ")
-				return text(prefix: description, value: details[0], unit: unit)
+			if details.count >= 2, let size = Int(details[0]) {
+				return dataText(prefix: description, length: size)
 			}
 			
 			// If we have multiple components, take first as description and remaining ones as value.
@@ -117,7 +116,6 @@ extension TapeBlockTableViewCell {
 		return text(prefix: description)
 	}
 
-	
 	private func dataText(prefix: String, length: Int, pause: libspectrum_dword = 0) -> NSAttributedString {
 		let result = NSMutableAttributedString()
 		
