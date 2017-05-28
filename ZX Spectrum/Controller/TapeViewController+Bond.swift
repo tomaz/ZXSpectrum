@@ -130,7 +130,7 @@ extension TapeViewController {
 func == (lhs: TapeViewController.Item, rhs: TapeViewController.Item) -> Bool {
 	if let lb = lhs.block, let rb = lhs.block {
 		// If both items represent blocks, compare blocks for equality.
-		return lb == rb
+		return lb === rb
 	} else if let lm = lhs.message, let rm = rhs.message {
 		// If both items represent message, compare message for equality.
 		return lm.string == rm.string

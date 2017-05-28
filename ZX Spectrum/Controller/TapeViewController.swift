@@ -81,7 +81,7 @@ extension TapeViewController {
 		Defaults.currentFile.bind(to: self) { me, value in
 			gverbose("Current file changed to \(String(describing: value))")
 			me.info = Defaults.currentFileInfo.value
-			me.fetch()
+			me.fetch(animated: false)
 		}
 	}
 	
