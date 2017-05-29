@@ -649,6 +649,36 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="AD4-uB-LyC">
+                                        <rect key="frame" x="0.0" y="431.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="AD4-uB-LyC" id="Sig-Jb-TmG">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="J1N-95-rY2">
+                                                    <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fill Keyboard Drawing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IeN-qL-oZj">
+                                                            <rect key="frame" x="0.0" y="11.5" width="296" height="20.5"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EJe-sY-lDM">
+                                                            <rect key="frame" x="296" y="6.5" width="51" height="31"/>
+                                                        </switch>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="J1N-95-rY2" firstAttribute="leading" secondItem="Sig-Jb-TmG" secondAttribute="leadingMargin" id="FLZ-6H-9fK"/>
+                                                <constraint firstItem="J1N-95-rY2" firstAttribute="top" secondItem="Sig-Jb-TmG" secondAttribute="top" id="IL4-8f-aSo"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="J1N-95-rY2" secondAttribute="trailing" id="NSq-ZT-zKd"/>
+                                                <constraint firstAttribute="bottom" secondItem="J1N-95-rY2" secondAttribute="bottom" id="e4s-at-iSx"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -668,6 +698,7 @@
                         <outlet property="autoloadSwitch" destination="ER8-B5-bUn" id="fhd-6q-sWl"/>
                         <outlet property="computerLabel" destination="ny3-GH-WtV" id="Ge8-Nu-pd6"/>
                         <outlet property="fastloadSwitch" destination="4Mh-Nd-QBq" id="Wl7-Ts-2r4"/>
+                        <outlet property="fillKeyboardSwitch" destination="EJe-sY-lDM" id="jE6-IM-O4V"/>
                         <outlet property="hapticFeedbackSwitch" destination="8vT-t4-F9h" id="yah-vl-dMl"/>
                         <outlet property="joystickSensitivitySlider" destination="7B4-PT-Gpi" id="lyX-yM-Jdk"/>
                         <outlet property="screenSmoothingSwitch" destination="eag-M7-xGd" id="F2G-zy-OPR"/>

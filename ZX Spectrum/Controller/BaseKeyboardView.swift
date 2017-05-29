@@ -14,29 +14,57 @@ Note: subclass must override `drawKeyboard(_:)` to render the keyboard, not `dra
 */
 class BaseKeyboardView: UIView {
 	
-	/// Indicates whether the view shows frames around tappable areas or not (leave false for better performance).
+	/**
+	Rendering mode.
+	
+	Fit will render keyboard symmetrical based on its actual size, meaning it'll be centered on view. Fill will render is disproportionally to make it fit the view.
+	*/
+	var renderMode: KeyboardRenderMode = UserDefaults.standard.keyboardRenderingMode {
+		didSet {
+			updateScaledRects()
+			setNeedsDisplay()
+		}
+	}
+	
+	/**
+	Indicates whether the view shows frames around tappable areas or not (leave false for better performance).
+	
+	Note this is more or less useful for debugging and should be true for release builds!
+	*/
 	var isShowingFrames = false {
 		didSet {
 			setNeedsDisplay()
 		}
 	}
 	
-	/// Indicates whether the view shows user taps (leave false for better performance).
+	/**
+	Indicates whether the view shows user taps (leave false for better performance).
+	*/
 	var isShowingTaps = false
 	
-	/// Unscaled keyboard rect from subclass.
+	/**
+	Unscaled keyboard rect from subclass.
+	*/
 	fileprivate var unscaledKeyboardRect: CGRect!
 	
-	/// Map of unscaled rects with their corresponding key code.
+	/**
+	Map of unscaled rects with their corresponding key code.
+	*/
 	fileprivate var unscaledKeyRects: [CGRect: KeyCode]!
 	
-	/// Scaled rects for every key.
+	/**
+	Scaled rects for every key.
+	*/
 	fileprivate lazy var scaledRects = [CGRect: KeyCode]()
 	
-	/// Currently pressed key codes.
+	/**
+	Currently pressed key codes.
+	*/
 	fileprivate lazy var pressedKeyCodes = [KeyCode]()
 	
-	/// Currently pressed key rects.
+	/**
+	Currently pressed key rects.
+	*/
 	fileprivate lazy var pressedKeyRects = [CGRect]()
 	
 	// MARK: - Initialization & disposal
@@ -58,6 +86,7 @@ class BaseKeyboardView: UIView {
 	private func initializeView() {
 		contentMode = .redraw
 		isMultipleTouchEnabled = true
+		setupKeyboardModeUserDefaultSignal()
 	}
 	
 	// MARK: - Overriden functions
@@ -205,12 +234,24 @@ extension BaseKeyboardView {
 	Updates scaled rects dictionary.
 	*/
 	fileprivate func updateScaledRects() {
-		let scaler = CGRect.scaler(from: unscaledKeyboardRect, to: bounds)
+		let scaler = CGRect.scaler(from: unscaledKeyboardRect, to: bounds, mode: renderMode)
 		var rects = [CGRect: KeyCode]()
 		for (rect, code) in unscaledKeyRects {
 			let scaled = scaler.scaled(rect: rect)
 			rects[scaled] = code
 		}
 		scaledRects = rects
+	}
+}
+
+// MARK: - Signals handling
+
+extension BaseKeyboardView {
+	
+	fileprivate func setupKeyboardModeUserDefaultSignal() {
+		UserDefaults.standard.reactive.keyboardRenderingModeSignal.distinct().bind(to: self) { me, value in
+			gverbose("Updating rendering mode to \(value)")
+			me.renderMode = value
+		}
 	}
 }

@@ -16,8 +16,8 @@ extension CGRect {
 	@param target Target rectangle within which this instance needs to be scaled.
 	@return Scaled rectangle.
 	*/
-	func scaled(from source: CGRect, to target: CGRect) -> CGRect {
-		return Scaler(from: source, to: target).scaled(rect: self)
+	func scaled(from source: CGRect, to target: CGRect, mode: Scaler.Mode = .fit) -> CGRect {
+		return Scaler(from: source, to: target, mode: mode).scaled(rect: self)
 	}
 	
 	/**
@@ -29,35 +29,54 @@ extension CGRect {
 	@param target Target rectangle within which this instance needs to be scaled.
 	@return Scaler for scaling the rectangles.
 	*/
-	static func scaler(from source: CGRect, to target: CGRect) -> Scaler {
-		return Scaler(from: source, to: target)
+	static func scaler(from source: CGRect, to target: CGRect, mode: Scaler.Mode = .fit) -> Scaler {
+		return Scaler(from: source, to: target, mode: mode)
 	}
 	
 	class Scaler {
-		private let scale: CGFloat
-		private let offset: CGPoint
 		
-		fileprivate init(from source: CGRect, to target: CGRect) {
+		private let scale: CGPoint
+		private let offset: CGPoint
+		private let mode: Mode
+		
+		fileprivate init(from source: CGRect, to target: CGRect, mode scaleMode: Mode) {
 			let scales = CGSize(
 				width: abs(target.width / source.width),
 				height: abs(target.height / source.height))
 			
-			scale = min(scales.width, scales.height)
+			mode = scaleMode
+			
+			scale = CGPoint(
+				x: mode == .fit ? min(scales.width, scales.height) : scales.width,
+				y: mode == .fit ? min(scales.width, scales.height) : scales.height)
 			
 			offset = CGPoint(
-				x: target.minX + (target.width - source.width * scale) / 2,
-				y: target.minY + (target.height - source.height * scale) / 2)
+				x: target.minX + (target.width - source.width * scale.x) / 2,
+				y: target.minY + (target.height - source.height * scale.y) / 2)
 		}
 		
 		func scaled(rect: CGRect) -> CGRect {
-			let scaledWidth = rect.width * scale
-			let scaledHeight = rect.height * scale
+			let scaledWidth = rect.width * scale.x
+			let scaledHeight = rect.height * scale.y
 			
 			return CGRect(
-				x: offset.x + rect.minX * scale,
-				y: offset.y + rect.minY * scale,
+				x: offset.x + rect.minX * scale.x,
+				y: offset.y + rect.minY * scale.y,
 				width: scaledWidth,
 				height: scaledHeight)
+		}
+		
+		enum Mode: Int {
+			case fit
+			case fill
+			
+			static func mode(fill: Bool) -> Mode {
+				return fill ? .fill : .fit
+			}
+			
+			static var `default`: Mode {
+				return UIDevice.iPhone ? .fill : .fit
+			}
 		}
 	}
 }

@@ -19,6 +19,7 @@ class SettingsViewController: UITableViewController {
 	
 	@IBOutlet fileprivate weak var screenSmoothingSwitch: UISwitch!
 	@IBOutlet fileprivate weak var hapticFeedbackSwitch: UISwitch!
+	@IBOutlet fileprivate weak var fillKeyboardSwitch: UISwitch!
 	
 	// MARK: - Helpers
 	
@@ -48,6 +49,7 @@ class SettingsViewController: UITableViewController {
 		joystickSensitivitySlider.value = 1 - defaults.joystickSensitivityRatio
 		screenSmoothingSwitch.isOn = defaults.isScreenSmoothingActive
 		hapticFeedbackSwitch.isOn = defaults.isHapticFeedbackEnabled
+		fillKeyboardSwitch.isOn = defaults.keyboardRenderingMode == .fill
 	}
 }
 
@@ -69,6 +71,7 @@ extension SettingsViewController {
 		defaults.joystickSensitivityRatio = 1 - joystickSensitivitySlider.value
 		defaults.isScreenSmoothingActive = screenSmoothingSwitch.isOn
 		defaults.isHapticFeedbackEnabled = hapticFeedbackSwitch.isOn
+		defaults.keyboardRenderingMode = KeyboardRenderMode.mode(fill: fillKeyboardSwitch.isOn)
 		
 		// Update fuse based user defaults.
 		defaults.set(false, forKey: "tapetraps")

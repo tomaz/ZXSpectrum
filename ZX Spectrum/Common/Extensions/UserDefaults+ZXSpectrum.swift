@@ -6,6 +6,8 @@
 import UIKit
 import ReactiveKit
 
+typealias KeyboardRenderMode = CGRect.Scaler.Mode
+
 extension UserDefaults {
 	
 	/// If true, screen smoothing is enabled, otherwise not.
@@ -26,10 +28,17 @@ extension UserDefaults {
 		set { set(newValue, forKey: Keys.JoystickSensitivityRatio); joystickSensitivityRatioSubject.next(newValue) }
 	}
 	
+	/// Keyboard rendering mode.
+	var keyboardRenderingMode: KeyboardRenderMode {
+		get { return KeyboardRenderMode(rawValue: integer(forKey: Keys.KeyboardRenderingMode)) ?? .fit }
+		set { set(newValue.rawValue, forKey: Keys.KeyboardRenderingMode); keyboardRenderingModeSubject.next(newValue) }
+	}
+	
 	fileprivate struct Keys {
 		static var IsScreenSmoothingActive = "IsScreenSmoothingActive"
 		static var IsHapticFeedbackEnabled = "IsHapticFeedbackEnabled"
 		static var JoystickSensitivityRatio = "JoystickSensitivityRatio"
+		static var KeyboardRenderingMode = "KeyboardRenderingMode"
 	}
 }
 
@@ -41,7 +50,8 @@ extension UserDefaults {
 		UserDefaults.standard.register(defaults: [
 			Keys.IsScreenSmoothingActive: false,
 			Keys.IsHapticFeedbackEnabled: Feedback.isHapticFeedbackSupported,
-			Keys.JoystickSensitivityRatio: 0.3
+			Keys.JoystickSensitivityRatio: 0.3,
+			Keys.KeyboardRenderingMode: KeyboardRenderMode.default.rawValue,
 		])
 	}
 }
@@ -72,9 +82,21 @@ extension UserDefaults {
 		}
 	}
 	
+	/// Subject that sends event when `joystickSensitivityRatio` value changes.
+	fileprivate var keyboardRenderingModeSubject: PublishSubject<KeyboardRenderMode, NoError> {
+		if let existing = objc_getAssociatedObject(self, &AssociatedKeys.KeyboardRenderingModeSubject) as? PublishSubject<KeyboardRenderMode, NoError> {
+			return existing
+		} else {
+			let result = PublishSubject<KeyboardRenderMode, NoError>()
+			objc_setAssociatedObject(self, &AssociatedKeys.KeyboardRenderingModeSubject, result, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+			return result
+		}
+	}
+	
 	private struct AssociatedKeys {
-		static var IsScreenSmoothingActiveSubject = "IsScreenSmoothingActiveSubject"
-		static var JoystickSensitivityRatioSubject = "JoystickSensitivityRatioSubject"
+		static var IsScreenSmoothingActiveSubject: UInt8 = 0
+		static var JoystickSensitivityRatioSubject: UInt8 = 0
+		static var KeyboardRenderingModeSubject: UInt8 = 0
 	}
 }
 
@@ -88,5 +110,10 @@ extension ReactiveExtensions where Base: UserDefaults {
 	/// Signal that sends events when `joystickSensitivityRatio` value changes.
 	var joystickSensitivityRatioSignal: SafeSignal<Float> {
 		return base.joystickSensitivityRatioSubject.toSignal()
+	}
+	
+	/// Signal that sends events when `keyboardRenderingMode` value changes.
+	var keyboardRenderingModeSignal: SafeSignal<KeyboardRenderMode> {
+		return base.keyboardRenderingModeSubject.toSignal()
 	}
 }
