@@ -64,6 +64,7 @@ extension ZX128KeyboardView {
 		CGRect(x: 1822, y: 2, width: 218, height: 142): .brk,
 		
 		CGRect(x: 1, y: 154, width: 221, height: 142): .delete,
+		CGRect(x: 229, y: 154, width: 146, height: 142): .graphics,
 		CGRect(x: 381, y: 154, width: 146, height: 142): .q,
 		CGRect(x: 533, y: 154, width: 146, height: 142): .w,
 		CGRect(x: 685, y: 154, width: 146, height: 142): .e,
