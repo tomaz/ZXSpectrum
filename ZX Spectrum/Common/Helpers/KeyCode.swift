@@ -149,7 +149,7 @@ extension KeyCode {
 	var fuseKeys: [keyboard_key_name] {
 		switch self {
 		case .space: return [KEYBOARD_space]
-		case .brk: return [KEYBOARD_Caps, KEYBOARD_space]
+		case .brk: return [KEYBOARD_Symbol, KEYBOARD_space]
 			
 		case .num0: return [KEYBOARD_0]
 		case .num1: return [KEYBOARD_1]
