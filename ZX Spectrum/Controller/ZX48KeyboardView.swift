@@ -34,10 +34,8 @@ final class ZX48KeyboardView: BaseKeyboardView {
 	
 	// MARK: - Overriden functions
 	
-	override func draw(_ rect: CGRect) {
+	override func drawKeyboard(_ rect: CGRect) {
 		ZX48KeyboardStyleKit.drawKeyboard(frame: bounds, resizing: .aspectFit)
-		
-		super.draw(rect)
 	}
 }
 

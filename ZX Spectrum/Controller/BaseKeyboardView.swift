@@ -9,8 +9,17 @@ import UIKit
 Base functionality for keyboard views.
 
 This class manages most of the stuff needed for handling keyboard: scaling when view resizes, touches and reporting of pressed/released keys, optional rendering of pressed keys. All subclass must do is to provide unscaled frames and their corresponding keys as well as unscaled keyboard size (which is needed for proper scaling).
+
+Note: subclass must override `drawKeyboard(_:)` to render the keyboard, not `draw(_:)`.
 */
 class BaseKeyboardView: UIView {
+	
+	/// Indicates whether the view shows frames around tappable areas or not (leave false for better performance).
+	var isShowingFrames = false {
+		didSet {
+			setNeedsDisplay()
+		}
+	}
 	
 	/// Indicates whether the view shows user taps (leave false for better performance).
 	var isShowingTaps = false
@@ -59,6 +68,15 @@ class BaseKeyboardView: UIView {
 	}
 	
 	override func draw(_ rect: CGRect) {
+		drawKeyboard(rect)
+		
+		if isShowingFrames {
+			UIColor.yellow.setStroke()
+			for (rect, _) in scaledRects {
+				UIBezierPath(rect: rect).stroke()
+			}
+		}
+		
 		if isShowingTaps {
 			UIColor.pressedElementOverlay.setFill()
 			for rect in pressedKeyRects {
@@ -130,6 +148,12 @@ class BaseKeyboardView: UIView {
 			}
 		}
 	}
+	
+	// MARK: - Overidable functions
+	
+	func drawKeyboard(_ rect: CGRect) {
+		fatalError("Subclass must override to draw the keyboard!")
+	}
 }
 
 // MARK: - Subclass functions
@@ -155,6 +179,9 @@ extension BaseKeyboardView {
 
 extension BaseKeyboardView {
 	
+	/**
+	Injects the given key code to fuse.
+	*/
 	fileprivate func inject(code: KeyCode, pressed: Bool) {
 		if pressed {
 			Feedback.produce()

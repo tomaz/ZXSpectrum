@@ -34,10 +34,8 @@ final class ZX128KeyboardView: BaseKeyboardView {
 	
 	// MARK: - Overriden functions
 	
-	override func draw(_ rect: CGRect) {
+	override func drawKeyboard(_ rect: CGRect) {
 		ZX128KeyboardStyleKit.drawKeyboard(frame: bounds, resizing: .aspectFit)
-		
-		super.draw(rect)
 	}
 }
 
