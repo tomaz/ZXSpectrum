@@ -3,10 +3,6 @@
 //  Copyright © 2017 Gentle Bytes. All rights reserved.
 //
 
-#include "libspectrum.h"
-#include "tape_block.h"
-#include "tape.h"
-#include "utils.h"
 #import "SpectrumFileController.h"
 
 @interface SpectrumFileInfo (PrivateAPI)
@@ -43,6 +39,8 @@
 
 	// Prepare file and determine general info.
 	SpectrumFileInfo *result = [SpectrumFileInfo new];
+	result.file = &file;
+	result.tape = tape;
 	result.size = [self sizeForFileAtPath:path];
 
 	// Collect all interesting info from the file.
@@ -84,9 +82,6 @@
 		// Proceed with next block.
 		block = libspectrum_tape_iterator_next(&iterator);
 	}
-
-	libspectrum_tape_free(tape);
-	utils_close_file(&file);
 	
 	return result;
 }
@@ -137,6 +132,13 @@
 @end
 
 @implementation SpectrumFileInfo
+
+- (void)dealloc {
+	if (self.tape) {
+		libspectrum_tape_free(self.tape);
+		self.tape = NULL;
+	}
+}
 
 - (void)addBlock:(libspectrum_tape_block)block {
 	SpectrumFileBlock *blockObject = [SpectrumFileBlock new];

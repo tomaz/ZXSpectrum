@@ -5,6 +5,11 @@
 
 #import <Foundation/Foundation.h>
 
+#include "libspectrum.h"
+#include "tape_block.h"
+#include "tape.h"
+#include "utils.h"
+
 @class SpectrumFileInfo;
 @class SpectrumFileBlock;
 
@@ -26,6 +31,12 @@
  Information about the file.
  */
 @interface SpectrumFileInfo : NSObject
+
+/// Underlying file.
+@property (nonatomic, assign) utils_file  * _Nullable file;
+
+/// Underlying tape.
+@property (nonatomic, assign) libspectrum_tape * _Nullable tape;
 
 /// Size of the file in bytes.
 @property (assign, nonatomic) NSInteger size;

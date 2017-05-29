@@ -105,6 +105,11 @@ extension FileTableViewCell {
 			}
 		}
 		
+		// If unselecting, cleanup memory used by the file.
+		if !selected {
+			info = nil
+		}
+		
 		// Handle non-animated.
 		if !animated {
 			handler()
