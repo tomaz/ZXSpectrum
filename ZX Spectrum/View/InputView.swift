@@ -132,14 +132,6 @@ extension InputView {
 		}
 	}
 	
-	private func addSubviewAndSetupDefaultConstraints(for view: UIView) {
-		// Views always take full height, we want them sliding in and our, as default keyboard does, not getting stretched and squashed!
-		addSubview(view)
-		view.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-		view.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-		view.heightAnchor.constraint(equalToConstant: InputView.height).isActive = true
-	}
-	
 	private func prepareForInputViewChange() {
 		// Prepare the view we want to show.
 		let newInputView: UIView
@@ -197,6 +189,14 @@ extension InputView {
 			currentInputViewTopConstraint?.isActive = true
 		}
 	}
+	
+	private func addSubviewAndSetupDefaultConstraints(for view: UIView) {
+		// Views always take full height, we want them sliding in and our, as default keyboard does, not getting stretched and squashed!
+		addSubview(view)
+		view.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+		view.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+		view.heightAnchor.constraint(equalToConstant: InputView.height).isActive = true
+	}
 }
 
 // MARK: - Helper functions
@@ -213,6 +213,28 @@ extension InputView {
 				self.isHidden = shouldHide
 			})
 		}
+	}
+	
+	/**
+	Presents user with manual keyboard selection type and then updates UI according to their actions.
+	*/
+	func selectKeyboardType() {
+		let controller = UIAlertController(
+			title: NSLocalizedString("Select Keyboard"),
+			message: NSLocalizedString("Please select your desired keyboard type:"),
+			preferredStyle: .actionSheet)
+		
+		controller.addAction(UIAlertAction(title: NSLocalizedString("48K"), style: .default, handler: { action in
+			self.keyboardViewController.select(keyboard: .ZX48K)
+		}))
+		
+		controller.addAction(UIAlertAction(title: NSLocalizedString("128K"), style: .default, handler: { action in
+			self.keyboardViewController.select(keyboard: .ZX128K)
+		}))
+		
+		controller.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: nil))
+
+		UIViewController.current.present(controller, animated: true, completion: nil)
 	}
 	
 	/**

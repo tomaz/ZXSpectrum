@@ -220,6 +220,13 @@ extension EmulatorViewController {
 			ginfo("Toggling keyboard")
 			me.toggleInputState(to: .keyboard)
 		}
+		
+		keyboardButton.addGestureRecognizer(UILongPressGestureRecognizer { recognizer in
+			if recognizer.state == .ended {
+				ginfo("Showing keyboard selector")
+				self.spectrumInputView.selectKeyboardType()
+			}
+		})
 	}
 	
 	fileprivate func setupInputStateSettingSignal() {

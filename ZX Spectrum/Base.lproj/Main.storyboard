@@ -1080,29 +1080,11 @@
                     <view key="view" contentMode="scaleToFill" id="7kw-gE-NtP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nMB-RK-GNl">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="300"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="delegate" destination="3WI-Tu-2dD" id="4lc-Ad-alM"/>
-                                </connections>
-                            </scrollView>
-                        </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="nMB-RK-GNl" firstAttribute="leading" secondItem="7kw-gE-NtP" secondAttribute="leading" id="Adt-AC-efS"/>
-                            <constraint firstItem="nMB-RK-GNl" firstAttribute="top" secondItem="2qW-sj-hIo" secondAttribute="bottom" id="FCR-gf-WNB"/>
-                            <constraint firstAttribute="trailing" secondItem="nMB-RK-GNl" secondAttribute="trailing" id="Hi8-Pg-EK8"/>
-                            <constraint firstItem="7Zy-Qx-Cm3" firstAttribute="top" secondItem="nMB-RK-GNl" secondAttribute="bottom" id="qXn-7p-6sM"/>
-                        </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="300"/>
-                    <connections>
-                        <outlet property="scrollView" destination="nMB-RK-GNl" id="IhF-lY-mSX"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FLV-tN-dXn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

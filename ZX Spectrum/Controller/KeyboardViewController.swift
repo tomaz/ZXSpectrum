@@ -10,8 +10,6 @@ ZX 48K style keyboard.
 */
 final class KeyboardViewController: UIViewController {
 	
-	@IBOutlet fileprivate weak var scrollView: UIScrollView!
-	
 	// MARK: - Data
 	
 	/// Currently selected keyboard.
@@ -35,94 +33,84 @@ final class KeyboardViewController: UIViewController {
 		super.viewDidLoad()
 		
 		gdebug("Setting up views")
-		setupKeyboards()
-		selectKeyboardForCurrentMachine()
+		selectKeyboardForCurrentMachine(force: true, animated: false)
 		
 		gdebug("Setting up signals")
 		setupSelectedMachineSignal()
 	}
 }
 
-// MARK: - UIScrollViewDelegate
-
-extension KeyboardViewController: UIScrollViewDelegate {
-	
-	func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-		if !decelerate {
-			updateSelectedKeyboard()
-		}
-	}
-	
-	func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-		updateSelectedKeyboard()
-	}
-}
-
 // MARK: - Helper functions
 
 extension KeyboardViewController {
-	
-	fileprivate func setupKeyboards() {
-		var viewFrame = scrollView.bounds
-		var previousView: UIView? = nil
-		
-		for view in Keyboard.all.map({ $0.view }) {
-			// Prepare the view.
-			view.frame = viewFrame
-			view.translatesAutoresizingMaskIntoConstraints = false
 
-			// Add to scroll view.
-			scrollView.addSubview(view)
-			
-			// Prepare constraints. First view must be pinned to scroll view left edge, others to their previous view.
-			view.leadingAnchor.constraint(equalTo: previousView?.trailingAnchor ?? scrollView.leadingAnchor).isActive = true
-			view.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
-			view.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
-			view.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
-			view.heightAnchor.constraint(equalTo: scrollView.heightAnchor).isActive = true
-			
-			// Prepare for next iteration
-			previousView = view
-			viewFrame.origin.x += viewFrame.width
+	/**
+	Selects keyboard for currently selected machine.
+	*/
+	func selectKeyboardForCurrentMachine() {
+		selectKeyboardForCurrentMachine(force: false, animated: true)
+	}
+
+	/**
+	Selects given keyboard.
+	*/
+	func select(keyboard: Keyboard) {
+		select(keyboard: keyboard, animated: true)
+	}
+
+	/**
+	Underlying keyboard selection function for current machine type.
+	
+	Note: while this could easily be made public and replace need for public/internal function pair, the reason for splitting them is I don't want to open up force and animated parameters to public API. All changes arriving from outside must be non-forced and animated, it's only internal changes that can sometimes be forced or non-animated!
+	*/
+	fileprivate func selectKeyboardForCurrentMachine(force: Bool = false, animated: Bool = true) {
+		func keyboardForSelectedMachine() -> Keyboard {
+			switch SpectrumController().selectedMachineType {
+			case LIBSPECTRUM_MACHINE_16: fallthrough
+			case LIBSPECTRUM_MACHINE_48: fallthrough
+			case LIBSPECTRUM_MACHINE_UNKNOWN:
+				return .ZX48K
+			default:
+				return .ZX128K
+			}
+		}
+
+		// Prepare keyboard.
+		let newKeyboard = keyboardForSelectedMachine()
+		gverbose("Requesting \(newKeyboard) keyboard")
+
+		// If change is not forced, only do it if different type of keyboard is selected.
+		if !force && newKeyboard == selectedKeyboard {
+			gdebug("Keyboard already shown, ignoring")
+			return
 		}
 		
-		// Last view must be pinned to scroll view right edge.
-		if let lastView = previousView {
-			lastView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
-		}
+		// Change the keyboard.
+		select(keyboard: newKeyboard)
 	}
 	
-	fileprivate func updateSelectedKeyboard() {
-		if scrollView.contentOffset.x >= scrollView.frame.width {
-			selectedKeyboard = .ZX128K
-		} else {
-			selectedKeyboard = .ZX48K
-		}
-		
-		let keyboardView = scrollView.subviews[selectedKeyboard.rawValue]
-		view.backgroundColor = keyboardView.backgroundColor
-	}
+	/**
+	Underlying function for selecting arbitrary keyboard.
 	
-	fileprivate func selectKeyboardForCurrentMachine() {
-		switch SpectrumController().selectedMachineType {
-		case LIBSPECTRUM_MACHINE_16: fallthrough
-		case LIBSPECTRUM_MACHINE_48: fallthrough
-		case LIBSPECTRUM_MACHINE_UNKNOWN:
-			select(keyboard: .ZX48K)
-		default:
-			select(keyboard: .ZX128K)
-		}
-	}
-	
-	private func select(keyboard: Keyboard, animated: Bool = true) {
+	Note: while this could easily be made public and replace need for public/internal functions pair, the reason for splitting them is I don't want to open up `animated` parameter to public API. All changes arriving from outside must be animated, it's only internal changes that can sometimes be non animated.
+	*/
+	fileprivate func select(keyboard: Keyboard, animated: Bool = true) {
 		gdebug("Selecting \(keyboard)")
-		let bounds = scrollView.bounds
-		let rect = CGRect(
-			x: CGFloat(keyboard.rawValue) * bounds.width,
-			y: 0,
-			width: bounds.width,
-			height: bounds.height)
-		scrollView.scrollRectToVisible(rect, animated: animated)
+		
+		// Remove current view (if any).
+		view.subviews.forEach { $0.removeFromSuperview() }
+		
+		// Prepare correct view.
+		let keyboardView = keyboard.view
+		keyboardView.translatesAutoresizingMaskIntoConstraints = false
+		keyboardView.frame = view.bounds
+		view.addSubview(keyboardView)
+		
+		// Setup layout.
+		keyboardView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+		keyboardView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+		keyboardView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+		keyboardView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
 	}
 }
 
@@ -131,7 +119,7 @@ extension KeyboardViewController {
 extension KeyboardViewController {
 	
 	fileprivate func setupSelectedMachineSignal() {
-		Defaults.selectedMachine.distinct().bind(to: self) { me, value in
+		Defaults.selectedMachine.bind(to: self) { me, value in
 			gverbose("Selected machine changed to \(value)")
 			me.selectKeyboardForCurrentMachine()
 		}
