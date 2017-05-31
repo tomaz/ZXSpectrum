@@ -48,7 +48,7 @@ extension KeyboardViewController {
 	Selects keyboard for currently selected machine.
 	*/
 	func selectKeyboardForCurrentMachine() {
-		selectKeyboardForCurrentMachine(force: false, animated: true)
+		selectKeyboardForCurrentMachine(animated: true)
 	}
 
 	/**
@@ -86,7 +86,7 @@ extension KeyboardViewController {
 		}
 		
 		// Change the keyboard.
-		select(keyboard: newKeyboard)
+		select(keyboard: newKeyboard, animated: true)
 	}
 	
 	/**
@@ -96,6 +96,9 @@ extension KeyboardViewController {
 	*/
 	fileprivate func select(keyboard: Keyboard, animated: Bool = true) {
 		gdebug("Selecting \(keyboard)")
+		
+		// Update current selection.
+		selectedKeyboard = keyboard
 		
 		// Remove current view (if any).
 		view.subviews.forEach { $0.removeFromSuperview() }
