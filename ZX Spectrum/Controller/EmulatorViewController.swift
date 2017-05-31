@@ -222,7 +222,7 @@ extension EmulatorViewController {
 		}
 		
 		keyboardButton.addGestureRecognizer(UILongPressGestureRecognizer { recognizer in
-			if recognizer.state == .ended {
+			if recognizer.state == .began {
 				ginfo("Showing keyboard selector")
 				self.spectrumInputView.selectKeyboardType()
 			}
