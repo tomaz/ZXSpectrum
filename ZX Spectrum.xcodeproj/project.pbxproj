@@ -140,13 +140,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		736DD6E71ED5C37A00FE8424 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 737E99BA1E88401800128149 /* spectrum.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 737E99AD1E88401800128149;
-			remoteInfo = spectrum;
-		};
 		737B56AA1EA3CE6600A260B9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 737B56A01EA3CE6500A260B9 /* Bond.xcodeproj */;
@@ -259,20 +252,6 @@
 			remoteGlobalIDString = 081833091DF993FF0076E9EE;
 			remoteInfo = DemoApp;
 		};
-		737B56DF1EA3CE9F00A260B9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 737B56CE1EA3CE7400A260B9 /* SwiftRichString.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 084347821DF982B500D4AB24;
-			remoteInfo = SwiftRichString;
-		};
-		737B56E81EA3CEAB00A260B9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 737B56A01EA3CE6500A260B9 /* Bond.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 16210A3B1D3EC474004AEDF3;
-			remoteInfo = "Bond-iOS";
-		};
 		737E99BE1E88401900128149 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 737E99BA1E88401800128149 /* spectrum.xcodeproj */;
@@ -280,19 +259,33 @@
 			remoteGlobalIDString = 737E99AE1E88401800128149;
 			remoteInfo = spectrum;
 		};
-		7384B85D1EA771F9005FC8DF /* PBXContainerItemProxy */ = {
+		73A007CB1EE9371B0005F61F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 73DA651D1EA6653B008832AA /* Diff.xcodeproj */;
+			containerPortal = 737E99BA1E88401800128149 /* spectrum.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = C9EE87151CCFCA83006BD90E;
-			remoteInfo = Diff;
+			remoteGlobalIDString = 737E99AD1E88401800128149;
+			remoteInfo = spectrum;
 		};
-		73DA65021EA66408008832AA /* PBXContainerItemProxy */ = {
+		73A007CD1EE937200005F61F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 737B56CE1EA3CE7400A260B9 /* SwiftRichString.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 084347821DF982B500D4AB24;
+			remoteInfo = SwiftRichString;
+		};
+		73A007CF1EE937250005F61F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 737B56B51EA3CE6B00A260B9 /* GCDWebServer.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = CEE28CEE1AE0051F00F4023C;
 			remoteInfo = "GCDWebServers (iOS)";
+		};
+		73A007D31EE9372E0005F61F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 737B56A01EA3CE6500A260B9 /* Bond.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 16210A3B1D3EC474004AEDF3;
+			remoteInfo = "Bond-iOS";
 		};
 		73DA650F1EA664F9008832AA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -328,13 +321,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = ECBCCDDA1BEB6B9B00723476;
 			remoteInfo = "ReactiveKit-Tests";
-		};
-		73DA651B1EA66509008832AA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 73DA65071EA664F9008832AA /* ReactiveKit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = ECBCCDCF1BEB6B9A00723476;
-			remoteInfo = "ReactiveKit-iOS";
 		};
 		73DA65221EA6653B008832AA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -968,12 +954,10 @@
 			buildRules = (
 			);
 			dependencies = (
-				736DD6E81ED5C37A00FE8424 /* PBXTargetDependency */,
-				737B56E01EA3CE9F00A260B9 /* PBXTargetDependency */,
-				737B56E91EA3CEAB00A260B9 /* PBXTargetDependency */,
-				73DA65031EA66408008832AA /* PBXTargetDependency */,
-				73DA651C1EA66509008832AA /* PBXTargetDependency */,
-				7384B85E1EA771F9005FC8DF /* PBXTargetDependency */,
+				73A007CC1EE9371B0005F61F /* PBXTargetDependency */,
+				73A007CE1EE937200005F61F /* PBXTargetDependency */,
+				73A007D01EE937250005F61F /* PBXTargetDependency */,
+				73A007D41EE9372E0005F61F /* PBXTargetDependency */,
 			);
 			name = "ZX Spectrum";
 			productName = "ZX Spectrum";
@@ -1370,35 +1354,25 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		736DD6E81ED5C37A00FE8424 /* PBXTargetDependency */ = {
+		73A007CC1EE9371B0005F61F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = spectrum;
-			targetProxy = 736DD6E71ED5C37A00FE8424 /* PBXContainerItemProxy */;
+			targetProxy = 73A007CB1EE9371B0005F61F /* PBXContainerItemProxy */;
 		};
-		737B56E01EA3CE9F00A260B9 /* PBXTargetDependency */ = {
+		73A007CE1EE937200005F61F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = SwiftRichString;
-			targetProxy = 737B56DF1EA3CE9F00A260B9 /* PBXContainerItemProxy */;
+			targetProxy = 73A007CD1EE937200005F61F /* PBXContainerItemProxy */;
 		};
-		737B56E91EA3CEAB00A260B9 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Bond-iOS";
-			targetProxy = 737B56E81EA3CEAB00A260B9 /* PBXContainerItemProxy */;
-		};
-		7384B85E1EA771F9005FC8DF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Diff;
-			targetProxy = 7384B85D1EA771F9005FC8DF /* PBXContainerItemProxy */;
-		};
-		73DA65031EA66408008832AA /* PBXTargetDependency */ = {
+		73A007D01EE937250005F61F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "GCDWebServers (iOS)";
-			targetProxy = 73DA65021EA66408008832AA /* PBXContainerItemProxy */;
+			targetProxy = 73A007CF1EE937250005F61F /* PBXContainerItemProxy */;
 		};
-		73DA651C1EA66509008832AA /* PBXTargetDependency */ = {
+		73A007D41EE9372E0005F61F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = "ReactiveKit-iOS";
-			targetProxy = 73DA651B1EA66509008832AA /* PBXContainerItemProxy */;
+			name = "Bond-iOS";
+			targetProxy = 73A007D31EE9372E0005F61F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

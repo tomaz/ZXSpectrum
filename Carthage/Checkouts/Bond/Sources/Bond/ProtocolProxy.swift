@@ -42,7 +42,7 @@ fileprivate func arg<T>(_ extractor: ArgumentExtractor, _ pos: Int) -> T {
 public class ProtocolProxy: BNDProtocolProxyBase {
 
   private var invokers: [Selector: (ArgumentExtractor, ReturnValueSetter?) -> Void] = [:]
-  private var handlers: [Selector: AnyObject] = [:]
+  private var handlers: [Selector: Any] = [:]
   private weak var object: NSObject?
   private let setter: Selector
 
@@ -71,62 +71,92 @@ public class ProtocolProxy: BNDProtocolProxyBase {
     invoker(argumentExtractor, setReturnValue)
   }
 
-  private func registerInvoker<R>(for selector: Selector, block: @escaping () -> R) {
+  private func registerInvoker<R>(for selector: Selector, block: @escaping () -> R) -> Disposable {
     invokers[selector] = { _, setReturnValue in
       var r = block()
       if let setReturnValue = setReturnValue { setReturnValue(&r) }
     }
     registerDelegate()
+    return BlockDisposable { [weak self] in
+      self?.invokers[selector] = nil
+      self?.registerDelegate()
+    }
   }
 
-  private func registerInvoker<T, R>(for selector: Selector, block: @escaping (T) -> R) {
+  private func registerInvoker<T, R>(for selector: Selector, block: @escaping (T) -> R) -> Disposable {
     invokers[selector] = { extractor, setReturnValue in
       var r = block(arg(extractor, 2))
       if let setReturnValue = setReturnValue { setReturnValue(&r) }
     }
     registerDelegate()
+    return BlockDisposable { [weak self] in
+      self?.invokers[selector] = nil
+      self?.registerDelegate()
+    }
   }
 
-  private func registerInvoker<T, U, R>(for selector: Selector, block: @escaping (T, U) -> R) {
+  private func registerInvoker<T, U, R>(for selector: Selector, block: @escaping (T, U) -> R) -> Disposable {
     invokers[selector] = { extractor, setReturnValue in
       var r = block(arg(extractor, 2), arg(extractor, 3))
       if let setReturnValue = setReturnValue { setReturnValue(&r) }
     }
     registerDelegate()
+    return BlockDisposable { [weak self] in
+      self?.invokers[selector] = nil
+      self?.registerDelegate()
+    }
   }
 
-  private func registerInvoker<T, U, V, R>(for selector: Selector, block: @escaping (T, U, V) -> R) {
+  private func registerInvoker<T, U, V, R>(for selector: Selector, block: @escaping (T, U, V) -> R) -> Disposable {
     invokers[selector] = { extractor, setReturnValue in
       var r = block(arg(extractor, 2), arg(extractor, 3), arg(extractor, 4))
       if let setReturnValue = setReturnValue { setReturnValue(&r) }
     }
     registerDelegate()
+    return BlockDisposable { [weak self] in
+      self?.invokers[selector] = nil
+      self?.registerDelegate()
+    }
   }
 
-  private func registerInvoker<T, U, V, W, R>(for selector: Selector, block: @escaping (T, U, V, W) -> R) {
+  private func registerInvoker<T, U, V, W, R>(for selector: Selector, block: @escaping (T, U, V, W) -> R) -> Disposable {
     invokers[selector] = { extractor, setReturnValue in
       var r = block(arg(extractor, 2), arg(extractor, 3), arg(extractor, 4), arg(extractor, 5))
       if let setReturnValue = setReturnValue { setReturnValue(&r) }
     }
     registerDelegate()
+    return BlockDisposable { [weak self] in
+      self?.invokers[selector] = nil
+      self?.registerDelegate()
+    }
   }
 
-  private func registerInvoker<T, U, V, W, X, R>(for selector: Selector, block: @escaping (T, U, V, W, X) -> R) {
+  private func registerInvoker<T, U, V, W, X, R>(for selector: Selector, block: @escaping (T, U, V, W, X) -> R) -> Disposable {
     invokers[selector] = { extractor, setReturnValue in
       var r = block(arg(extractor, 2), arg(extractor, 3), arg(extractor, 4), arg(extractor, 5), arg(extractor, 6))
       if let setReturnValue = setReturnValue { setReturnValue(&r) }
     }
     registerDelegate()
+    return BlockDisposable { [weak self] in
+      self?.invokers[selector] = nil
+      self?.registerDelegate()
+    }
   }
 
-  private func _signal<S>(for selector: Selector, registerInvoker: (PublishSubject1<S>) -> Void) -> SafeSignal<S>{
+  private func _signal<S>(for selector: Selector, registerInvoker: @escaping (SafePublishSubject<S>) -> Disposable) -> SafeSignal<S>{
     if let signal = handlers[selector] {
-      return (signal as! PublishSubject1<S>).toSignal()
+      return signal as! SafeSignal<S>
     } else {
-      let subject = PublishSubject1<S>()
-      handlers[selector] = subject
-      registerInvoker(subject)
-      return subject.toSignal()
+      let signal = SafeSignal<S> { [weak self] observer in
+        let subject = SafePublishSubject<S>()
+        let disposable = CompositeDisposable()
+        disposable += registerInvoker(subject)
+        disposable += subject.observe(with: observer)
+        disposable += BlockDisposable { [weak self] in self?.handlers[selector] = nil }
+        return disposable
+      }.shareReplay(limit: 0)
+      handlers[selector] = signal
+      return signal
     }
   }
 
@@ -136,8 +166,9 @@ public class ProtocolProxy: BNDProtocolProxyBase {
   /// - parameter selector: Selector of the method to map.
   /// - parameter dispatch: A closure that dispatches calls to the given PublishSubject.
   public func signal<S, R>(for selector: Selector, dispatch: @escaping (PublishSubject<S, NoError>) -> R) -> SafeSignal<S> {
-    return _signal(for: selector) { subject in
-      registerInvoker(for: selector) { () -> R in
+    return _signal(for: selector) { [weak self] subject in
+      guard let me = self else { return NonDisposable.instance }
+      return me.registerInvoker(for: selector) { () -> R in
         return dispatch(subject)
       }
     }
@@ -152,8 +183,9 @@ public class ProtocolProxy: BNDProtocolProxyBase {
   /// - important: This is ObjC API so you have to use ObjC types like NSString instead of String
   /// in place of generic parameter A and R!
   public func signal<A, S, R>(for selector: Selector, dispatch: @escaping (PublishSubject<S, NoError>, A) -> R) -> SafeSignal<S> {
-    return _signal(for: selector) { subject in
-      registerInvoker(for: selector) { (a: A) -> R in
+    return _signal(for: selector) { [weak self] subject in
+      guard let me = self else { return NonDisposable.instance }
+      return me.registerInvoker(for: selector) { (a: A) -> R in
         return dispatch(subject, a)
       }
     }
@@ -168,8 +200,9 @@ public class ProtocolProxy: BNDProtocolProxyBase {
   /// - important: This is ObjC API so you have to use ObjC types like NSString instead of String
   /// in place of generic parameters A, B and R!
   public func signal<A, B, S, R>(for selector: Selector, dispatch: @escaping (PublishSubject<S, NoError>, A, B) -> R) -> SafeSignal<S> {
-    return _signal(for: selector) { subject in
-      registerInvoker(for: selector) { (a: A, b: B) -> R in
+    return _signal(for: selector) { [weak self] subject in
+      guard let me = self else { return NonDisposable.instance }
+      return me.registerInvoker(for: selector) { (a: A, b: B) -> R in
         return dispatch(subject, a, b)
       }
     }
@@ -184,8 +217,9 @@ public class ProtocolProxy: BNDProtocolProxyBase {
   /// - important: This is ObjC API so you have to use ObjC types like NSString instead of String
   /// in place of generic parameters A, B, C and R!
   public func signal<A, B, C, S, R>(for selector: Selector, dispatch: @escaping (PublishSubject<S, NoError>, A, B, C) -> R) -> SafeSignal<S> {
-    return _signal(for: selector) { subject in
-      registerInvoker(for: selector) { (a: A, b: B, c: C) -> R in
+    return _signal(for: selector) { [weak self] subject in
+      guard let me = self else { return NonDisposable.instance }
+      return me.registerInvoker(for: selector) { (a: A, b: B, c: C) -> R in
         return dispatch(subject, a, b, c)
       }
     }
@@ -200,8 +234,9 @@ public class ProtocolProxy: BNDProtocolProxyBase {
   /// - important: This is ObjC API so you have to use ObjC types like NSString instead of String
   /// in place of generic parameters A, B, C, D and R!
   public func signal<A, B, C, D, S, R>(for selector: Selector, dispatch: @escaping (PublishSubject<S, NoError>, A, B, C, D) -> R) -> SafeSignal<S> {
-    return _signal(for: selector) { subject in
-      registerInvoker(for: selector) { (a: A, b: B, c: C, d: D) -> R in
+    return _signal(for: selector) { [weak self] subject in
+      guard let me = self else { return NonDisposable.instance }
+      return me.registerInvoker(for: selector) { (a: A, b: B, c: C, d: D) -> R in
         return dispatch(subject, a, b, c, d)
       }
     }
@@ -216,8 +251,9 @@ public class ProtocolProxy: BNDProtocolProxyBase {
   /// - important: This is ObjC API so you have to use ObjC types like NSString instead of String
   /// in place of generic parameters A, B, C, D, E and R!
   public func signal<A, B, C, D, E, S, R>(for selector: Selector, dispatch: @escaping (PublishSubject<S, NoError>, A, B, C, D, E) -> R) -> SafeSignal<S> {
-    return _signal(for: selector) { subject in
-      registerInvoker(for: selector) { (a: A, b: B, c: C, d: D, e: E) -> R in
+    return _signal(for: selector) { [weak self] subject in
+      guard let me = self else { return NonDisposable.instance }
+      return me.registerInvoker(for: selector) { (a: A, b: B, c: C, d: D, e: E) -> R in
         return dispatch(subject, a, b, c, d, e)
       }
     }
@@ -232,7 +268,7 @@ public class ProtocolProxy: BNDProtocolProxyBase {
   }
 
   public override func responds(to aSelector: Selector!) -> Bool {
-    if handlers[aSelector] != nil {
+    if invokers[aSelector] != nil {
       return true
     } else if forwardTo?.responds(to: aSelector) ?? false {
       return true
@@ -295,45 +331,45 @@ extension ProtocolProxy {
   /// Provides a feed for specified protocol method.
   ///
   /// - important: This is ObjC API so you have to use ObjC types like NSString instead of String!
-  public func feed<S, A, R>(property: Property<S>, to selector: Selector, map: @escaping (S, A) -> R) {
-    let _ = signal(for: selector) { (_: PublishSubject<Void, NoError>, a1: A) -> R in
+  public func feed<S, A, R>(property: Property<S>, to selector: Selector, map: @escaping (S, A) -> R) -> Disposable {
+    return signal(for: selector) { (_: PublishSubject<Void, NoError>, a1: A) -> R in
       return map(property.value, a1)
-    }
+    }.observe { _ in }
   }
 
   /// Provides a feed for specified protocol method.
   ///
   /// - important: This is ObjC API so you have to use ObjC types like NSString instead of String!
-  public func feed<S, A, B, R>(property: Property<S>, to selector: Selector, map: @escaping (S, A, B) -> R) {
-    let _ = signal(for: selector) { (_: PublishSubject<Void, NoError>, a1: A, a2: B) -> R in
+  public func feed<S, A, B, R>(property: Property<S>, to selector: Selector, map: @escaping (S, A, B) -> R) -> Disposable {
+    return signal(for: selector) { (_: PublishSubject<Void, NoError>, a1: A, a2: B) -> R in
       return map(property.value, a1, a2)
-    }
+    }.observe { _ in }
   }
 
   /// Provides a feed for specified protocol method.
   ///
   /// - important: This is ObjC API so you have to use ObjC types like NSString instead of String!
-  public func feed<S, A, B, C, R>(property: Property<S>, to selector: Selector, map: @escaping (S, A, B, C) -> R) {
-    let _ = signal(for: selector) { (_: PublishSubject<Void, NoError>, a1: A, a2: B, a3: C) -> R in
+  public func feed<S, A, B, C, R>(property: Property<S>, to selector: Selector, map: @escaping (S, A, B, C) -> R) -> Disposable {
+    return signal(for: selector) { (_: PublishSubject<Void, NoError>, a1: A, a2: B, a3: C) -> R in
       return map(property.value, a1, a2, a3)
-    }
+    }.observe { _ in }
   }
 
   /// Provides a feed for specified protocol method.
   ///
   /// - important: This is ObjC API so you have to use ObjC types like NSString instead of String!
-  public func feed<S, A, B, C, D, R>(property: Property<S>, to selector: Selector, map: @escaping (S, A, B, C, D) -> R) {
-    let _ = signal(for: selector) { (_: PublishSubject<Void, NoError>, a1: A, a2: B, a3: C, a4: D) -> R in
+  public func feed<S, A, B, C, D, R>(property: Property<S>, to selector: Selector, map: @escaping (S, A, B, C, D) -> R) -> Disposable {
+    return signal(for: selector) { (_: PublishSubject<Void, NoError>, a1: A, a2: B, a3: C, a4: D) -> R in
       return map(property.value, a1, a2, a3, a4)
-    }
+    }.observe { _ in }
   }
 
   /// Provides a feed for specified protocol method.
   ///
   /// - important: This is ObjC API so you have to use ObjC types like NSString instead of String!
-  public func feed<S, A, B, C, D, E, R>(property: Property<S>, to selector: Selector, map: @escaping (S, A, B, C, D, E) -> R) {
-    let _ = signal(for: selector) { (_: PublishSubject<Void, NoError>, a1: A, a2: B, a3: C, a4: D, a5: E) -> R in
+  public func feed<S, A, B, C, D, E, R>(property: Property<S>, to selector: Selector, map: @escaping (S, A, B, C, D, E) -> R) -> Disposable {
+    return signal(for: selector) { (_: PublishSubject<Void, NoError>, a1: A, a2: B, a3: C, a4: D, a5: E) -> R in
       return map(property.value, a1, a2, a3, a4, a5)
-    }
+    }.observe { _ in }
   }
 }

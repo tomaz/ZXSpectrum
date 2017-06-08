@@ -75,7 +75,10 @@ public extension Array where Element: Style {
 			if case .default = $0.name { return true }
 			return false
 		})
-		return (defaultIndex != nil ? (defaultIndex!,self[defaultIndex!]) : (nil,nil))
+		if let defaultIndex = defaultIndex {
+			return (defaultIndex,self[defaultIndex])
+		}
+		return (nil,nil)
 	}
 	
 	/// Generate a new attributes dictionary, merge of the attributes from a list of Style

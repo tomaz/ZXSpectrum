@@ -1,4 +1,4 @@
-github "ReactiveKit/Bond"
+github "ReactiveKit/Bond" "swift-4"
 github "malcommac/SwiftRichString"
 github "swisspol/GCDWebServer"
 
