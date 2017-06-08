@@ -20,8 +20,8 @@ final class InputView: UIView {
 	fileprivate var currentInputView: UIView? = nil
 	fileprivate var currentInputViewTopConstraint: NSLayoutConstraint? = nil
 	
-	fileprivate var transitioningKeyboardView: UIView? = nil
-	fileprivate var transitioningKeyboardTopConstraint: NSLayoutConstraint? = nil
+	fileprivate var transitioningView: UIView? = nil
+	fileprivate var transitioningViewTopConstraint: NSLayoutConstraint? = nil
 	
 	fileprivate lazy var joystickController = SpectrumJoystickController()
 	
@@ -124,7 +124,7 @@ extension InputView {
 	private func setupInputStateSettingSignal() {
 		// When input method changes, swap the views.
 		Defaults.inputState.bind(to: self) { me, value in
-			gverbose("Joystick setting changed to \(value), swapping input method")
+			gverbose("Input setting changed to \(value), swapping input method")
 			
 			me.prepareForInputViewChange()
 			
@@ -166,11 +166,11 @@ extension InputView {
 		newInputView.frame = CGRect(x: 0, y: bounds.maxY, width: bounds.width, height: bounds.height)
 		
 		// We always slide new view from the bottom, so setup temporary constraint used for transition to pin new keyboard below current one.
-		transitioningKeyboardTopConstraint = newInputView.topAnchor.constraint(equalTo: view.bottomAnchor)
-		transitioningKeyboardTopConstraint?.isActive = true
+		transitioningViewTopConstraint = newInputView.topAnchor.constraint(equalTo: view.bottomAnchor)
+		transitioningViewTopConstraint?.isActive = true
 		
 		// Remember both views.
-		transitioningKeyboardView = view
+		transitioningView = view
 		currentInputView = newInputView
 		
 		// Now move current view towards the top; this will make it appear as if current view clides out and new view slides in.
@@ -180,9 +180,9 @@ extension InputView {
 	private func completeInputViewChange(complete: Bool = true) {
 		// After animations are complete, we should remove temporary constraints.
 		if complete {
-			// Remove previous keyboard view from hierarhcy.
-			transitioningKeyboardView?.removeFromSuperview()
-			transitioningKeyboardTopConstraint = nil
+			// Remove previous view from hierarhcy.
+			transitioningView?.removeFromSuperview()
+			transitioningViewTopConstraint = nil
 			
 			// Establish constraints so that current view is pinned to the top.
 			currentInputViewTopConstraint = currentInputView?.topAnchor.constraint(equalTo: topAnchor)
