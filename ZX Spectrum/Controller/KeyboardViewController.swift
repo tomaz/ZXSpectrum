@@ -97,23 +97,50 @@ extension KeyboardViewController {
 	fileprivate func select(keyboard: Keyboard, animated: Bool = true) {
 		gdebug("Selecting \(keyboard)")
 		
+		let currentKeyboard = view.subviews.first
+		
+		@discardableResult func addNewKeyboard() -> UIView {
+			// Prepare correct view.
+			let keyboardView = keyboard.view
+			keyboardView.translatesAutoresizingMaskIntoConstraints = false
+			keyboardView.frame = view.bounds
+			view.addSubview(keyboardView)
+			
+			// Setup layout.
+			keyboardView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+			keyboardView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+			keyboardView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+			keyboardView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+			
+			return keyboardView
+		}
+		
+		func removePreviousKeyboard() {
+			currentKeyboard?.removeFromSuperview()
+		}
+		
 		// Update current selection.
 		selectedKeyboard = keyboard
 		
-		// Remove current view (if any).
-		view.subviews.forEach { $0.removeFromSuperview() }
+		// For non animated change, simply swap the views. Also use non animated if this is initial setup.
+		if !animated || currentKeyboard == nil {
+			removePreviousKeyboard()
+			addNewKeyboard()
+			return
+		}
 		
-		// Prepare correct view.
-		let keyboardView = keyboard.view
-		keyboardView.translatesAutoresizingMaskIntoConstraints = false
-		keyboardView.frame = view.bounds
-		view.addSubview(keyboardView)
+		// When animating, we simultaneously fade old keyboard view out and new one in, then, when done, remove old view.
+		let newKeyboard = addNewKeyboard()
 		
-		// Setup layout.
-		keyboardView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-		keyboardView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-		keyboardView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-		keyboardView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+		newKeyboard.alpha = 0
+		currentKeyboard?.alpha = 1
+
+		UIView.animate(withDuration: 0.2, animations: {
+			newKeyboard.alpha = 1
+			currentKeyboard?.alpha = 0
+		}) { finished in
+			removePreviousKeyboard()
+		}
 	}
 }
 
