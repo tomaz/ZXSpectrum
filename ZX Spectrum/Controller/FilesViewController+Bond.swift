@@ -19,7 +19,6 @@ extension FilesViewController {
 		
 		private var tableView: UITableView!
 		
-		private let indexes = Property([String]())
 		private let indexPathForWillSelect = Property<NSIndexPath?>(nil)
 		
 		// MARK: - Callbacks
@@ -39,12 +38,6 @@ extension FilesViewController {
 			self.tableView = tableView
 			
 			tableView.reactive.delegate.forwardTo = self
-			
-			tableView.reactive.dataSource.feed(
-				property: indexes,
-				to: #selector(UITableViewDataSource.sectionIndexTitles(for:)),
-				map: { (value: [String], _: UITableView) -> [String] in return value }
-			)
 		}
 		
 		// MARK: - Fetching
@@ -77,8 +70,6 @@ extension FilesViewController {
 				result.appendSection(SectionType(metadata: letter, items: items))
 			}
 			
-			// Assign and return.
-			indexes.value = sorted.flatMap { $0.key }
 			return result
 		}
 		
