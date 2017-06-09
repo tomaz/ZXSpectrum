@@ -14,6 +14,8 @@ class Defaults {
 	
 	/**
 	If true, emulation should be running, otherwise not.
+	
+	Note: don't set this value directly, use `pauseEmulation()` and `unpauseEmulation()` instead.
 	*/
 	static let isEmulationStarted = Property<Bool>(false)
 	
@@ -26,6 +28,38 @@ class Defaults {
 	Currently selected machine.
 	*/
 	static let selectedMachine = Property<String>("")
+	
+	// MARK: - Helper functions
+	
+	/**
+	Pauses emulation and updates `isEmulationStarted` value if needed.
+	
+	The function can be called multiple times, but each call must be followed by `unpauseEmulation()` to rewind the pause "stack".
+	*/
+	static func pauseEmulation() {
+		gverbose("Pausing emulation (pause stack \(fuse_emulation_paused + 1))")
+		
+		fuse_emulation_pause()
+		
+		if isEmulationStarted.value {
+			isEmulationStarted.value = false
+		}
+	}
+	
+	/**
+	Unpauses emulation and updates `isEmulationStarted` value if needed.
+	
+	Each `pauseEmulation()` needs to be followed by this call to correctly rewind pause "stack".
+	*/
+	static func unpauseEmulation() {
+		gverbose("Unpausing emulation (pause stack \(fuse_emulation_paused - 1))")
+
+		fuse_emulation_unpause()
+		
+		if fuse_emulation_paused == 0 && !isEmulationStarted.value {
+			isEmulationStarted.value = true
+		}
+	}
 	
 	// MARK: - Initialization & disposal
 	

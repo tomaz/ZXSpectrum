@@ -76,7 +76,7 @@ class EmulatorViewController: UIViewController {
 	}
 	
 	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-		Defaults.isEmulationStarted.value = false
+		Defaults.pauseEmulation()
 		setupTapOnBackgroundInteraction()
 		inject(toController: segue.destination)
 	}
@@ -118,7 +118,7 @@ extension EmulatorViewController {
 			controller.updateSettings()
 			updateTapeButtonVisibility()
 		}
-		Defaults.isEmulationStarted.value = true
+		Defaults.unpauseEmulation()
 	}
 	
 	fileprivate func updateTapeButtonIcon(animated: Bool = false) {

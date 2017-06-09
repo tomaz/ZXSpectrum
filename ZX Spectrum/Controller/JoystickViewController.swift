@@ -127,12 +127,12 @@ extension JoystickViewController: PopoverPresentationStatusConsumer {
 	
 	func popoverWillPresent(controller: UIViewController) {
 		gverbose("Popover will present")
-		Defaults.isEmulationStarted.value = false
+		Defaults.pauseEmulation()
 	}
 	
 	func popoverDidDismiss(controller: UIViewController) {
 		gverbose("Popover did dismiss")
-		Defaults.isEmulationStarted.value = true
+		Defaults.unpauseEmulation()
 	}
 }
 
