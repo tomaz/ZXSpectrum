@@ -94,6 +94,13 @@ extension FileObject: Managed {
 		]
 	}
 	
+	static var usageSortDescriptors: [NSSortDescriptor] {
+		return [
+			NSSortDescriptor(key: #keyPath(used), ascending: false),
+			NSSortDescriptor(key: #keyPath(filename), ascending: true),
+		]
+	}
+	
 	/**
 	Array of properties used to describe object path.
 	*/

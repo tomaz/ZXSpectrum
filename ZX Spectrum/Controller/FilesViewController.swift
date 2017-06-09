@@ -40,6 +40,8 @@ final class FilesViewController: UITableViewController {
 		tableView.estimatedRowHeight = 44
 		tableView.rowHeight = UITableViewAutomaticDimension
 		
+		refreshControl = FilesSettingsView()
+		
 		gdebug("Binding data")
 		bond.initialize(tableView: tableView)
 		bond.didRequestInsert = insert(object:info:)
@@ -49,6 +51,7 @@ final class FilesViewController: UITableViewController {
 		gdebug("Setting up view")
 		setupUploadButtonTapSignal()
 		setupTableSelectionSignal()
+		setupFileSortOptionSignal()
 		
 		fetch(animated: false)
 	}
@@ -184,6 +187,13 @@ extension FilesViewController {
 		tableView.reactive.selectedRow.bind(to: self) { me, indexPath in
 			gverbose("Selected cell at \(indexPath)")
 			me.bond.selectCell(at: indexPath)
+		}
+	}
+	
+	fileprivate func setupFileSortOptionSignal() {
+		UserDefaults.standard.reactive.filesSortOptionSignal.bind(to: self) { me, value in
+			gverbose("File sorting changed to \(value)")
+			me.fetch()
 		}
 	}
 }

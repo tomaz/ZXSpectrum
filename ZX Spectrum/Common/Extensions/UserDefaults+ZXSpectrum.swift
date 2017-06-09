@@ -34,11 +34,18 @@ extension UserDefaults {
 		set { set(newValue.rawValue, forKey: Keys.KeyboardRenderingMode); keyboardRenderingModeSubject.next(newValue) }
 	}
 	
+	/// Files sort option.
+	var filesSortOption: FileSortOption {
+		get { return FileSortOption(rawValue: integer(forKey: Keys.FilesSortOption)) ?? .name }
+		set { set(newValue.rawValue, forKey: Keys.FilesSortOption); filesSortOptionSubject.next(newValue) }
+	}
+	
 	fileprivate struct Keys {
 		static var IsScreenSmoothingActive = "IsScreenSmoothingActive"
 		static var IsHapticFeedbackEnabled = "IsHapticFeedbackEnabled"
 		static var JoystickSensitivityRatio = "JoystickSensitivityRatio"
 		static var KeyboardRenderingMode = "KeyboardRenderingMode"
+		static var FilesSortOption = "FileSortOption"
 	}
 }
 
@@ -93,10 +100,22 @@ extension UserDefaults {
 		}
 	}
 	
+	/// Subject that sends event when `filesSortOption` value changes.
+	fileprivate var filesSortOptionSubject: PublishSubject<FileSortOption, NoError> {
+		if let existing = objc_getAssociatedObject(self, &AssociatedKeys.FilesSortOptionSubject) as? PublishSubject<FileSortOption, NoError> {
+			return existing
+		} else {
+			let result = PublishSubject<FileSortOption, NoError>()
+			objc_setAssociatedObject(self, &AssociatedKeys.FilesSortOptionSubject, result, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+			return result
+		}
+	}
+	
 	private struct AssociatedKeys {
 		static var IsScreenSmoothingActiveSubject: UInt8 = 0
 		static var JoystickSensitivityRatioSubject: UInt8 = 0
 		static var KeyboardRenderingModeSubject: UInt8 = 0
+		static var FilesSortOptionSubject: UInt8 = 0
 	}
 }
 
@@ -115,5 +134,40 @@ extension ReactiveExtensions where Base: UserDefaults {
 	/// Signal that sends events when `keyboardRenderingMode` value changes.
 	var keyboardRenderingModeSignal: SafeSignal<KeyboardRenderMode> {
 		return base.keyboardRenderingModeSubject.toSignal()
+	}
+	
+	/// Signal that sends events when `filesSortOption` value changes.
+	var filesSortOptionSignal: SafeSignal<FileSortOption> {
+		return base.filesSortOptionSubject.toSignal()
+	}
+}
+
+// MARK: - Declarations
+
+/**
+File sorting options.
+*/
+enum FileSortOption: Int, CustomStringConvertible {
+	/// Sort by name.
+	case name
+	
+	/// Sort by usage date.
+	case usage
+	
+	/// Return array of all sort options.
+	static var all: [FileSortOption] {
+		return [ .name, .usage ]
+	}
+	
+	/// Returns localized title of the option.
+	var title: String {
+		switch self {
+		case .name: return NSLocalizedString("Name")
+		case .usage: return NSLocalizedString("Usage")
+		}
+	}
+	
+	var description: String {
+		return title
 	}
 }

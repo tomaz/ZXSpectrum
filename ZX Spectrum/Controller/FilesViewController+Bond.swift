@@ -16,6 +16,7 @@ extension FilesViewController {
 	final class Bond: NSObject, TableViewBond, UITableViewDelegate {
 		
 		typealias DataSource = Observable2DArray<String, FileObject>
+		typealias SectionType = Observable2DArraySection<String, FileObject>
 		
 		private var tableView: UITableView!
 		
@@ -46,11 +47,18 @@ extension FilesViewController {
 		Fetches files from database and returns array.
 		*/
 		func fetch(in context: NSManagedObjectContext) -> DataSource {
-			typealias SectionType = Observable2DArraySection<String, FileObject>
-			var sections = [String: [FileObject]]()
-			
-			// Fetch and prepare dictionary of letters/objects.
+			switch UserDefaults.standard.filesSortOption {
+			case .name: return sectionsSortedByName(in: context)
+			case .usage: return sectionsSortedByUsage(in: context)
+			}
+		}
+		
+		private func sectionsSortedByName(in context: NSManagedObjectContext) -> DataSource {
+			// Fetch the objects.
 			let objects = FileObject.fetch(in: context)
+
+			// Prepare dictionary of letters/objects.
+			var sections = [String: [FileObject]]()
 			for object in objects {
 				let letter = object.letter
 				
@@ -70,6 +78,50 @@ extension FilesViewController {
 				result.appendSection(SectionType(metadata: letter, items: items))
 			}
 			
+			return result
+		}
+		
+		private func sectionsSortedByUsage(in context: NSManagedObjectContext) -> DataSource {
+			// Fetch the objects.
+			let objects = FileObject.fetch(in: context) { $0.sortDescriptors = FileObject.usageSortDescriptors }
+			
+			let result = MutableObservable2DArray<String, FileObject>()
+
+			// Group objects into range array based on their usage date.
+			let ranges = Date.standardRanges
+			var rangeIndex = ranges.startIndex
+			var range = ranges[rangeIndex]
+			var items = [FileObject]()
+			var unusedObjects = [FileObject]()
+
+			// Prepare array of used objects. Create new sections as soon as we reach next range.
+			for object in objects {
+				guard let lastUsed = object.used else {
+					unusedObjects.append(object)
+					continue
+				}
+				
+				while lastUsed < range.startDate {
+					if items.count > 0 {
+						result.appendSection(SectionType(metadata: range.name, items: items))
+						items = []
+					}
+					
+					rangeIndex += 1
+					range = ranges[rangeIndex]
+				}
+				
+				items.append(object)
+			}
+			
+			if items.count > 0 {
+				result.appendSection(SectionType(metadata: range.name, items: items))
+			}
+			
+			if unusedObjects.count > 0 {
+				result.appendSection(SectionType(metadata: NSLocalizedString("Never"), items: unusedObjects))
+			}
+
 			return result
 		}
 		

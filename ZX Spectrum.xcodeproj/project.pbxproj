@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		730458E31EAA3B9A00290A06 /* CGRect+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730458E21EAA3B9A00290A06 /* CGRect+ZXSpectrum.swift */; };
 		730890681EC10AF6002ECCD1 /* JoystickKeyCodeHandlerConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730890671EC10AF6002ECCD1 /* JoystickKeyCodeHandlerConsumer.swift */; };
+		7309595B1EEAA67B00BE83FA /* FilesSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7309595A1EEAA67A00BE83FA /* FilesSettingsView.swift */; };
+		730959721EEAB21C00BE83FA /* Date+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 730959711EEAB21C00BE83FA /* Date+ZXSpectrum.swift */; };
 		73255D211EB9156200F04908 /* Fuse+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73255D201EB9156200F04908 /* Fuse+ZXSpectrum.swift */; };
 		73255D231EB9192700F04908 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73255D221EB9192700F04908 /* Defaults.swift */; };
 		73255D251EB9330E00F04908 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73255D241EB9330E00F04908 /* Direction.swift */; };
@@ -359,6 +361,8 @@
 /* Begin PBXFileReference section */
 		730458E21EAA3B9A00290A06 /* CGRect+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGRect+ZXSpectrum.swift"; sourceTree = "<group>"; };
 		730890671EC10AF6002ECCD1 /* JoystickKeyCodeHandlerConsumer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoystickKeyCodeHandlerConsumer.swift; sourceTree = "<group>"; };
+		7309595A1EEAA67A00BE83FA /* FilesSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilesSettingsView.swift; sourceTree = "<group>"; };
+		730959711EEAB21C00BE83FA /* Date+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+ZXSpectrum.swift"; sourceTree = "<group>"; };
 		73255D201EB9156200F04908 /* Fuse+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Fuse+ZXSpectrum.swift"; sourceTree = "<group>"; };
 		73255D221EB9192700F04908 /* Defaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		73255D241EB9330E00F04908 /* Direction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
@@ -640,6 +644,7 @@
 				73DA64F71EA613EF008832AA /* FileManager+ZXSpectrum.swift */,
 				73EEA0341EA7B64300E65A21 /* String+ZXSpectrum.swift */,
 				73B529D41EA7BB1C002FB90B /* URL+ZXSpectrum.swift */,
+				730959711EEAB21C00BE83FA /* Date+ZXSpectrum.swift */,
 				73255D201EB9156200F04908 /* Fuse+ZXSpectrum.swift */,
 				73AFFED51EAFC62B00218DB7 /* CGPoint+ZXSpectrum.swift */,
 				73AFFED71EAFD7A500218DB7 /* CGSize+ZXSpectrum.swift */,
@@ -682,6 +687,7 @@
 				737B57031EA4122A00A260B9 /* FilesViewController.swift */,
 				73DA64E91EA55E81008832AA /* FilesViewController+Bond.swift */,
 				73DA64ED1EA5611E008832AA /* FileTableViewCell.swift */,
+				7309595A1EEAA67A00BE83FA /* FilesSettingsView.swift */,
 			);
 			name = Files;
 			sourceTree = "<group>";
@@ -1308,10 +1314,12 @@
 				73AFFEC01EAFC5BE00218DB7 /* UIColor+ZXSpectrum.swift in Sources */,
 				73DA64EC1EA56085008832AA /* Configurable.swift in Sources */,
 				7343DD9D1EC6280200915830 /* BaseKeyboardView.swift in Sources */,
+				730959721EEAB21C00BE83FA /* Date+ZXSpectrum.swift in Sources */,
 				736493421EA5518200EE697F /* PersistentContainerConsumer.swift in Sources */,
 				735471E51EC9DD790083355C /* SpectrumFileController.m in Sources */,
 				73D37FE01EC1F59700335055 /* TouchableView.swift in Sources */,
 				739CE94F1EBE793000071BF4 /* JoystickBindingViewController.swift in Sources */,
+				7309595B1EEAA67B00BE83FA /* FilesSettingsView.swift in Sources */,
 				73E330F81ED096C900FAFD13 /* TapeViewController.swift in Sources */,
 				73DA64EE1EA5611E008832AA /* FileTableViewCell.swift in Sources */,
 				739A5F7E1EA8E82300CE6313 /* SettingsComputerViewController.swift in Sources */,
