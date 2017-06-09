@@ -92,10 +92,16 @@ extension FilesViewController {
 	*/
 	fileprivate func insert(object: FileObject, info: SpectrumFileInfo?) {
 		let name = object.url.path.toInt8Array
+		
+		// Update last usage date for the object.
+		object.used = Date()
+		try? object.managedObjectContext?.save()
 
+		// Open the file in emulator.
 		emulator.openFile(name)
 		
-		after(0.5) {
+		// Wait a little bit then close files controller. This delay is needed so that emulator properly updates, at least it was unreliable without it during initial implementation - something to check in the future...
+		after(0.2) {
 			self.performSegue(withIdentifier: "UnwindToEmulatorScene", sender: self)
 			Defaults.currentFileInfo.value = info
 			Defaults.currentFile.value = object
