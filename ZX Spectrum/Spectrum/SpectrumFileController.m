@@ -161,7 +161,17 @@
 
 #pragma mark -
 
+@interface SpectrumFileBlock ()
+@property (strong, nonatomic, nullable) NSArray<NSString *> *localizedDetails;
+@end
+
 @implementation SpectrumFileBlock
+
+- (void)setBlock:(libspectrum_tape_block)block {
+	// When block is assigned, force `localizedDetails` calculation next time it's requested.
+	_block = block;
+	_localizedDetails = nil;
+}
 
 - (NSString *)description {
 	return [NSString stringWithFormat:@"%@ %ld %@", super.description, self.index, self.localizedDescription];
@@ -173,7 +183,9 @@
 	}];
 }
 
-- (NSArray *)localizedDetails {
+- (NSArray<NSString *> *)localizedDetails {
+	if (_localizedDetails) return _localizedDetails;
+	
 	// Prepare text.
 	NSString *text = [self descriptionWithHandler:^(char *buffer, int size) {
 		tape_block_details(buffer, size, &self->_block);
@@ -181,11 +193,53 @@
 	
 	// Return all components.
 	if (text.length > 0) {
-		return [text componentsSeparatedByString:@" "];
+		NSArray *components = [text componentsSeparatedByString:@" "];
+		
+		// Cleanup all components.
+		NSMutableArray *result = [NSMutableArray arrayWithCapacity:components.count];
+		for (NSString *component in components) {
+			NSString *cleanComponent = component;
+			
+			if ([cleanComponent hasPrefix:@"\""]) {
+				cleanComponent = [cleanComponent substringFromIndex:1];
+			}
+			
+			if ([cleanComponent hasSuffix:@"\""]) {
+				cleanComponent = [cleanComponent substringToIndex:cleanComponent.length - 1];
+			}
+			
+			cleanComponent = [cleanComponent stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+			
+			if (cleanComponent.length > 0) {
+				[result addObject:cleanComponent];
+			}
+		}
+		
+		// If resulting array has some components removed due to trimming, check if we instead need to show more generic representation.
+		if (components.count >= 2 && result.count == 1) {
+			NSNumber *length = nil;
+			
+			switch (_block.type) {
+				case LIBSPECTRUM_TAPE_BLOCK_ROM:
+					length = @(_block.types.rom.length);
+					break;
+				case LIBSPECTRUM_TAPE_BLOCK_DATA_BLOCK:
+					length = @(_block.types.data_block.length);
+					break;
+				default:
+					break;
+			}
+
+			if (length != nil) {
+				result = [@[[NSString stringWithFormat:@"%@", length], @"bytes"] mutableCopy];
+			}
+		}
+		
+		// Assign details.
+		_localizedDetails = [result copy];
 	}
 	
-	// Return nil if there's no text.
-	return nil;
+	return _localizedDetails;
 }
 
 - (NSString *)descriptionWithHandler:(void(^)(char *buffer, int size))handler {
