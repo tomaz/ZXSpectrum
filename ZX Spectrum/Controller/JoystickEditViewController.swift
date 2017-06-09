@@ -172,6 +172,7 @@ extension JoystickEditViewController {
 				mapping.delete()
 				context.savePresentingError()
 				me.setupAccordingCurrentObject()
+				me.selectionChangeHandler?(nil)
 			}
 		}
 	}
