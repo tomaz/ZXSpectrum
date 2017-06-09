@@ -1532,6 +1532,7 @@
 				DEVELOPMENT_TEAM = F7N66E384G;
 				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/ZX Spectrum/Common/spectrum/spectrum\"/**";
 				INFOPLIST_FILE = "ZX Spectrum/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-lbz2",
@@ -1554,6 +1555,7 @@
 				DEVELOPMENT_TEAM = F7N66E384G;
 				HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/ZX Spectrum/Common/spectrum/spectrum\"/**";
 				INFOPLIST_FILE = "ZX Spectrum/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-lbz2",
