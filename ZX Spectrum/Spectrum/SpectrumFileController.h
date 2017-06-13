@@ -11,6 +11,7 @@
 #include "utils.h"
 
 @class SpectrumFileInfo;
+@class SpectrumHardwareInfo;
 @class SpectrumFileBlock;
 
 /**
@@ -68,8 +69,36 @@
 /// File comment.
 @property (copy, nonatomic, nullable) NSString *comment;
 
+/// Hardware info.
+@property (strong, nonatomic, nonnull) NSArray<SpectrumHardwareInfo *> *hardwareInfo;
+
 /// Returns array of data blocks.
-@property (nonatomic, readonly, nonnull) NSArray <SpectrumFileBlock *> *blocks;
+@property (nonatomic, readonly, nonnull) NSArray<SpectrumFileBlock *> *blocks;
+
+@end
+
+#pragma mark -
+
+typedef NS_ENUM(NSUInteger, SpectrumHardwareUsage) {
+	SpectrumHardwareUsageRuns,
+	SpectrumHardwareUsageUsesSpecialFeatures,
+	SpectrumHardwareUsageRunsButDoesntUseSpecialFeatures,
+	SpectrumHardwareUsageDoesntRun,
+};
+
+@interface SpectrumHardwareInfo : NSObject
+
+/// Underlying hardware type.
+@property (assign, nonatomic) int type;
+
+/// Underyling hardware subtype.
+@property (assign, nonatomic) int subtype;
+
+/// Hardware usage info.
+@property (assign, nonatomic) SpectrumHardwareUsage usage;
+
+/// Hardware identifier string.
+@property (copy, nonatomic, nonnull) NSString *identifier;
 
 @end
 
@@ -93,3 +122,4 @@
 @property (readonly, nonatomic, nullable) NSArray<NSString *> *localizedDetails;
 
 @end
+

@@ -41,18 +41,21 @@ final class Styles {
 		
 		static let light = Appearance(rawValue: 1 << 0)
 		static let emphasized = Appearance(rawValue: 1 << 1)
-		static let inverted = Appearance(rawValue: 1 << 2)
+		static let semiEmphasized = Appearance(rawValue: 1 << 2)
+		static let inverted = Appearance(rawValue: 1 << 3)
 		
 		var styleName: String {
-			if self.contains(.emphasized) {
+			if contains(.emphasized) {
 				return "emphasized"
+			} else if contains(.semiEmphasized) {
+				return "semi-emphasized"
 			} else {
 				return "light"
 			}
 		}
 		
 		var fontWeight: CGFloat {
-			if self.contains(.emphasized) {
+			if contains(.emphasized) || contains(.semiEmphasized) {
 				return UIFontWeightMedium
 			} else {
 				return UIFontWeightUltraLight
@@ -60,14 +63,14 @@ final class Styles {
 		}
 		
 		var fontColor: UIColor {
-			if self.contains(.inverted) {
-				if self.contains(.emphasized) {
+			if contains(.inverted) {
+				if contains(.emphasized) || contains(.semiEmphasized) {
 					return UIColor.white
 				} else {
 					return UIColor.white.withAlphaComponent(0.6)
 				}
 			} else {
-				if self.contains(.emphasized) {
+				if contains(.emphasized) {
 					return UIColor.darkText
 				} else {
 					return UIColor.lightGray

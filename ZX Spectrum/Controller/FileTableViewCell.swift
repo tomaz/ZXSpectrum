@@ -11,6 +11,7 @@ class FileTableViewCell: UITableViewCell, Configurable {
 	@IBOutlet fileprivate weak var nameLabel: UILabel!
 	@IBOutlet fileprivate weak var basicInfoLabel: UILabel!
 	@IBOutlet fileprivate weak var detailedInfoLabel: UILabel!
+	@IBOutlet fileprivate weak var hardwareInfoLabel: UILabel!
 	@IBOutlet fileprivate weak var insertButton: UIButton!
 	@IBOutlet fileprivate weak var deleteButton: UIButton!
 	@IBOutlet fileprivate weak var actionsContainerView: UIView!
@@ -54,6 +55,7 @@ class FileTableViewCell: UITableViewCell, Configurable {
 		
 		basicInfoLabel.text = nil
 		detailedInfoLabel.isHidden = true
+		hardwareInfoLabel.isHidden = true
 		actionsContainerView.isHidden = true
 	}
 }
@@ -85,6 +87,7 @@ extension FileTableViewCell {
 		func handler() {
 			basicInfoLabel.isHidden = !selected || (basicInfoLabel.text?.isEmpty ?? true)
 			detailedInfoLabel.isHidden = !selected || (detailedInfoLabel.text?.isEmpty ?? true)
+			hardwareInfoLabel.isHidden = !selected || (hardwareInfoLabel.text?.isEmpty ?? true)
 			actionsContainerView.isHidden = !selected
 			actionsContainerView.alpha = selected ? 1 : 0
 		}
@@ -96,9 +99,11 @@ extension FileTableViewCell {
 				if let info = info {
 					basicInfoLabel.attributedText = FileTableViewCell.basicInfo(for: object, fileInfo: info)
 					detailedInfoLabel.attributedText = FileTableViewCell.detailedInfo(for: object, fileInfo: info)
+					hardwareInfoLabel.attributedText = FileTableViewCell.hardwareInfo(for: object, fileInfo: info)
 				} else {
 					basicInfoLabel.text = nil
 					detailedInfoLabel.text = nil
+					hardwareInfoLabel.text = nil
 				}
 			} catch {
 				gwarn("Failed reading info for \(object): \(error)")
@@ -223,6 +228,20 @@ extension FileTableViewCell {
 		return tabbed(string: result)
 	}
 	
+	/**
+	Prepares hardware info text for the given object.
+	*/
+	fileprivate static func hardwareInfo(for object: FileObject, fileInfo: SpectrumFileInfo) -> NSAttributedString {
+		let result = NSMutableAttributedString()
+		
+		for item in hardwareItems(for: fileInfo) {
+			let text = hardwareInfo(for: item)
+			result.appendLine(text)
+		}
+		
+		return result
+	}
+	
 	private static func tabbed(string: NSMutableAttributedString) -> NSAttributedString {
 		if string.string.contains("\t") {
 			let indent = CGFloat(UIDevice.iPhone ? 90 : 125)
@@ -306,8 +325,29 @@ extension FileTableViewCell {
 		return result
 	}
 	
+	private static func hardwareInfo(for item: (usage: String, hardware: String)) -> NSAttributedString {
+		return
+			item.usage.set(style: infoLightStyle) +
+			" ".set(style: infoLightStyle) +
+			item.hardware.set(style: infoSemiEmphasizedStyle)
+	}
+	
+	private static func hardwareItems(for info: SpectrumFileInfo) -> [(usage: String, hardware: String)] {
+		var result = [(String, String)]()
+		for info in info.hardwareInfo {
+			switch info.usage {
+			case .runs: result.append((NSLocalizedString("Runs on"), info.identifier))
+			case .runsButDoesntUseSpecialFeatures: result.append((NSLocalizedString("Runs on"), info.identifier))
+			case .usesSpecialFeatures: result.append((NSLocalizedString("Requires"), info.identifier))
+			case .doesntRun: result.append((NSLocalizedString("Doesn't run on"), info.identifier))
+			}
+		}
+		return result
+	}
+	
 	private static let infoLightStyle = lightStyle(size: .info)
 	private static let infoEmphasizedStyle = emphasizedStyle(size: .info)
+	private static let infoSemiEmphasizedStyle = style(appearance: .semiEmphasized, size: .info)
 }
 
 // MARK: - Common styling
