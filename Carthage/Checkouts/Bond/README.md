@@ -59,7 +59,7 @@ Handling `touchUpInside` event is used so frequently that Bond comes with the ex
 
 ```swift
 button.reactive.tap
-  .observe {
+  .observeNext {
     print("Button tapped.")
   }  
 ```
@@ -530,7 +530,7 @@ There are many other methods. Just look at the code reference or source.
 ## Requirements
 
 * iOS 8.0+ / macOS 10.9+ / tvOS 9.0+
-* Xcode 8
+* Xcode 9
 
 ## Communication
 
@@ -579,7 +579,7 @@ What that means for you? Well, nothing has changed conceptually so your migratio
 * `ObservableArray` is reimplemented. Mapping and filtering it is not supported any more.
 * `ObservableArray` is now immutable. Use `MutableObservableArray` instead.
 * Table view and collection view binding closure now has the data source as first argument and the index path as second argument.
-* KVO can now be established using the method `dynamic(keyPath:ofType:)` on any NSObject subclass.
+* KVO can now be established using the methods `keyPath(:ofType:)` / `keyPath(:ofExpectedType:)` on any NSObject subclass.
 * `Queue` is removed. Use `DispatchQueue` instead.
 
 

@@ -139,7 +139,7 @@ sound_lowlevel_end(void) {
 	OSStatus err;
 
 	if (audio_output_started) {
-		verify_noerr(AudioOutputUnitStop(gOutputUnit));
+//    verify_noerr(AudioOutputUnitStop(gOutputUnit));
 	}
 
 	err = AudioUnitUninitialize(gOutputUnit);

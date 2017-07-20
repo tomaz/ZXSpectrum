@@ -50,7 +50,22 @@ public protocol Observable2DArrayEventProtocol {
   var source: Observable2DArray<SectionMetadata, Item> { get }
 }
 
-public struct Observable2DArrayEvent<SectionMetadata, Item> {
+public struct Observable2DArrayEvent<SectionMetadata, Item>: Observable2DArrayEventProtocol {
+  public let change: Observable2DArrayChange
+  public let source: Observable2DArray<SectionMetadata, Item>
+
+  public init(change: Observable2DArrayChange, source: Observable2DArray<SectionMetadata, Item>) {
+    self.change = change
+    self.source = source
+  }
+
+  public init(change: Observable2DArrayChange, source: [Observable2DArraySection<SectionMetadata, Item>]) {
+    self.change = change
+    self.source = Observable2DArray(source)
+  }
+}
+
+public struct Observable2DArrayPatchEvent<SectionMetadata, Item>: Observable2DArrayEventProtocol {
   public let change: Observable2DArrayChange
   public let source: Observable2DArray<SectionMetadata, Item>
 
@@ -102,7 +117,7 @@ public struct Observable2DArraySection<Metadata, Item>: Collection {
       return items[index]
     }
   }
-  
+
 }
 
 public class Observable2DArray<SectionMetadata, Item>: SignalProtocol {
@@ -125,16 +140,16 @@ public class Observable2DArray<SectionMetadata, Item>: SignalProtocol {
   }
 
   public var startIndex: IndexPath {
-    return IndexPath(item: 0, section: 0)
+    guard sections.count > 0 else { return IndexPath(item: 0, section: 0) }
+    var section = 0
+    while section < sections.count && sections[section].count == 0 {
+      section += 1
+    }
+    return IndexPath(item: 0, section: section)
   }
 
   public var endIndex: IndexPath {
-    if numberOfSections == 0 {
-      return IndexPath(item: 0, section: 0)
-    } else {
-      let lastSection = sections[numberOfSections-1]
-      return IndexPath(item: lastSection.items.count, section: numberOfSections - 1)
-    }
+    return IndexPath(item: 0, section: numberOfSections)
   }
 
   public func index(after i: IndexPath) -> IndexPath {
@@ -143,11 +158,15 @@ public class Observable2DArray<SectionMetadata, Item>: SignalProtocol {
       if i.item + 1 < section.items.count {
         return IndexPath(item: i.item + 1, section: i.section)
       } else {
-        if i.section + 1 < sections.count {
-          return IndexPath(item: 0, section: i.section + 1)
-        } else {
-          return endIndex
+        var section = i.section + 1
+        while section < sections.count {
+          if sections[section].items.count > 0 {
+            return IndexPath(item: 0, section: section)
+          } else {
+            section += 1
+          }
         }
+        return endIndex
       }
     } else {
       return endIndex
@@ -313,14 +332,6 @@ public class MutableObservable2DArray<SectionMetadata, Item>: Observable2DArray<
     }
   }
 
-  /// Perform batched updates on the array.
-  public func batchUpdate(_ update: (MutableObservable2DArray<SectionMetadata, Item>) -> Void) {
-    lock.lock(); defer { lock.unlock() }
-    subject.next(Observable2DArrayEvent(change: .beginBatchEditing, source: self))
-    update(self)
-    subject.next(Observable2DArrayEvent(change: .endBatchEditing, source: self))
-  }
-
   /// Change the underlying value withouth notifying the observers.
   public func silentUpdate(_ update: (inout [Observable2DArraySection<SectionMetadata, Item>]) -> Void) {
     lock.lock(); defer { lock.unlock() }
@@ -343,10 +354,10 @@ extension MutableObservable2DArray: BindableProtocol {
 
 // MARK: DataSourceProtocol conformation
 
-extension Observable2DArrayEvent: DataSourceEventProtocol {
+extension Observable2DArrayChange {
 
-  public var kind: DataSourceEventKind {
-    switch change {
+  public var asDataSourceEventKind: DataSourceEventKind {
+    switch self {
     case .reset:
       return .reload
     case .insertItems(let indexPaths):
@@ -371,13 +382,33 @@ extension Observable2DArrayEvent: DataSourceEventProtocol {
       return .endUpdates
     }
   }
+}
+
+extension Observable2DArrayEvent: DataSourceEventProtocol {
+
+  public typealias BatchKind = BatchKindDiff
+
+  public var kind: DataSourceEventKind {
+    return change.asDataSourceEventKind
+  }
 
   public var dataSource: Observable2DArray<SectionMetadata, Item> {
     return source
   }
 }
 
-extension Observable2DArray: DataSourceProtocol {}
+extension Observable2DArrayPatchEvent: DataSourceEventProtocol {
+
+  public typealias BatchKind = BatchKindPatch
+
+  public var kind: DataSourceEventKind {
+    return change.asDataSourceEventKind
+  }
+
+  public var dataSource: Observable2DArray<SectionMetadata, Item> {
+    return source
+  }
+}
 
 extension Observable2DArray: QueryableDataSourceProtocol {
 
@@ -401,7 +432,6 @@ extension MutableObservable2DArray {
     sections = array.sections
     subject.next(Observable2DArrayEvent(change: .reset, source: self))
   }
-
 }
 
 extension MutableObservable2DArray where Item: Equatable {
@@ -452,6 +482,13 @@ extension MutableObservable2DArray where Item: Equatable {
 }
 
 extension MutableObservable2DArray where Item: Equatable, SectionMetadata: Equatable {
+
+  /// Perform batched updates on the array.
+  public func batchUpdate(_ update: (MutableObservable2DArray<SectionMetadata, Item>) -> Void) {
+    let copy = MutableObservable2DArray(sections)
+    update(copy)
+    replace(with: copy, performDiff: true)
+  }
 
   /// Replace the entire 2DArray performing nested diff (if preformDiff is true) on all
   /// sections and section's items resulting in a series of events (deleteSection,
@@ -544,5 +581,41 @@ fileprivate struct NestedBatchUpdate {
     self.sectionMoves = sectionMoves
     self.sectionInsertions = sectionInsertions
     self.sectionDeletions = sectionDeletions
+  }
+}
+
+public extension SignalProtocol where Element: Observable2DArrayEventProtocol {
+
+  /// Converts diff events into patch events by transforming batch updates into resets (i.e. disabling batch updates).
+  public func toPatchesByResettingBatch() -> Signal<Observable2DArrayPatchEvent<Element.SectionMetadata, Element.Item>, Error> {
+
+    var isBatching = false
+
+    return Signal { observer in
+      return self.observe { event in
+        switch event {
+        case .next(let observableArrayEvent):
+
+          let source = observableArrayEvent.source
+          switch observableArrayEvent.change {
+          case .beginBatchEditing:
+            isBatching = true
+          case .endBatchEditing:
+            isBatching = false
+            observer.next(.init(change: .reset, source: source))
+          default:
+            if !isBatching {
+              observer.next(.init(change: observableArrayEvent.change, source: source))
+            }
+          }
+
+        case .failed(let error):
+          observer.failed(error)
+
+        case .completed:
+          observer.completed()
+        }
+      }
+    }
   }
 }

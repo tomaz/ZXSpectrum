@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		070FE2741F0138180031B7BD /* NSLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C04D2A1E8F0B1D000077C8 /* NSLayoutConstraint.swift */; };
+		070FE2781F0138190031B7BD /* NSLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C04D2A1E8F0B1D000077C8 /* NSLayoutConstraint.swift */; };
 		16210A461D3EC474004AEDF3 /* Bond.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16210A3C1D3EC474004AEDF3 /* Bond.framework */; };
 		165217961D70593E00C9FAEE /* ReactiveKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1652178B1D70591E00C9FAEE /* ReactiveKit.framework */; };
 		165217991D70594D00C9FAEE /* ReactiveKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 165217911D70591E00C9FAEE /* ReactiveKit.framework */; };
@@ -72,11 +74,8 @@
 		90A4433A1E9055D800D611FE /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C04D551E8F0B1D000077C8 /* UIView.swift */; };
 		90A4435D1E90594000D611FE /* Diff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90A3FAC81E0C8D8B0086A7F1 /* Diff.framework */; };
 		90A4437A1E91390000D611FE /* BNDProtocolProxyBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C04D161E8F0B12000077C8 /* BNDProtocolProxyBase.m */; };
-		90A4437B1E91390900D611FE /* BNDProtocolProxyBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 90C04D181E8F0B12000077C8 /* BNDProtocolProxyBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		90A4437C1E91391800D611FE /* BNDProtocolProxyBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 90C04D181E8F0B12000077C8 /* BNDProtocolProxyBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		90A4437D1E91391B00D611FE /* BNDProtocolProxyBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C04D161E8F0B12000077C8 /* BNDProtocolProxyBase.m */; };
 		90A4437E1E91391D00D611FE /* BNDProtocolProxyBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C04D161E8F0B12000077C8 /* BNDProtocolProxyBase.m */; };
-		90A4437F1E91392100D611FE /* BNDProtocolProxyBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 90C04D181E8F0B12000077C8 /* BNDProtocolProxyBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		90C04D081E8F0AD4000077C8 /* Bond.h in Headers */ = {isa = PBXBuildFile; fileRef = 90C04D031E8F0A97000077C8 /* Bond.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		90C04D091E8F0AD5000077C8 /* Bond.h in Headers */ = {isa = PBXBuildFile; fileRef = 90C04D031E8F0A97000077C8 /* Bond.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		90C04D0A1E8F0AD5000077C8 /* Bond.h in Headers */ = {isa = PBXBuildFile; fileRef = 90C04D031E8F0A97000077C8 /* Bond.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -200,6 +199,9 @@
 		90C04DDC1E8F0BAF000077C8 /* UITableViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90C04DD11E8F0BA7000077C8 /* UITableViewTests.swift */; };
 		EC86E9AF1E9145CC008563B2 /* UIAccessibilityIdentification.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC86E9AE1E9145CC008563B2 /* UIAccessibilityIdentification.swift */; };
 		EC86E9B01E9145CC008563B2 /* UIAccessibilityIdentification.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC86E9AE1E9145CC008563B2 /* UIAccessibilityIdentification.swift */; };
+		EC893EC41F07A164007981EC /* BNDProtocolProxyBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 90C04D181E8F0B12000077C8 /* BNDProtocolProxyBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EC893EC51F07A164007981EC /* BNDProtocolProxyBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 90C04D181E8F0B12000077C8 /* BNDProtocolProxyBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EC893EC61F07A164007981EC /* BNDProtocolProxyBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 90C04D181E8F0B12000077C8 /* BNDProtocolProxyBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EC9693661D947243004EB5EE /* Bond.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16210A3C1D3EC474004AEDF3 /* Bond.framework */; };
 		EC9693671D94724C004EB5EE /* ReactiveKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1652178B1D70591E00C9FAEE /* ReactiveKit.framework */; };
 /* End PBXBuildFile section */
@@ -683,7 +685,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				90C04D081E8F0AD4000077C8 /* Bond.h in Headers */,
-				90A4437B1E91390900D611FE /* BNDProtocolProxyBase.h in Headers */,
+				EC893EC41F07A164007981EC /* BNDProtocolProxyBase.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -692,7 +694,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				90C04D091E8F0AD5000077C8 /* Bond.h in Headers */,
-				90A4437C1E91391800D611FE /* BNDProtocolProxyBase.h in Headers */,
+				EC893EC51F07A164007981EC /* BNDProtocolProxyBase.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -701,7 +703,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				90C04D0A1E8F0AD5000077C8 /* Bond.h in Headers */,
-				90A4437F1E91392100D611FE /* BNDProtocolProxyBase.h in Headers */,
+				EC893EC61F07A164007981EC /* BNDProtocolProxyBase.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -814,17 +816,18 @@
 				TargetAttributes = {
 					16210A3B1D3EC474004AEDF3 = {
 						CreatedOnToolsVersion = 8.0;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 					16210A441D3EC474004AEDF3 = {
 						CreatedOnToolsVersion = 8.0;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 16887E361D744ABB00EDA099;
 					};
 					16887E361D744ABB00EDA099 = {
 						CreatedOnToolsVersion = 8.0;
-						LastSwiftMigration = 0820;
+						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
 					};
 					16D30EAD1D6591D300C2435D = {
@@ -977,6 +980,7 @@
 				90C04DC31E8F0B97000077C8 /* UITextView.swift in Sources */,
 				90A443131E9055D200D611FE /* NSTextView.swift in Sources */,
 				90C04DB21E8F0B97000077C8 /* UIButton.swift in Sources */,
+				070FE2741F0138180031B7BD /* NSLayoutConstraint.swift in Sources */,
 				90C04DB61E8F0B97000077C8 /* UIGestureRecognizer.swift in Sources */,
 				90A4430B1E9055D100D611FE /* NSMenuItem.swift in Sources */,
 				90C04DB01E8F0B97000077C8 /* UIBarButtonItem.swift in Sources */,
@@ -1127,6 +1131,7 @@
 				90C04DAC1E8F0B96000077C8 /* UITextView.swift in Sources */,
 				90A443221E9055D200D611FE /* NSTextView.swift in Sources */,
 				90C04D9B1E8F0B96000077C8 /* UIButton.swift in Sources */,
+				070FE2781F0138190031B7BD /* NSLayoutConstraint.swift in Sources */,
 				90C04D9F1E8F0B96000077C8 /* UIGestureRecognizer.swift in Sources */,
 				90A4431A1E9055D200D611FE /* NSMenuItem.swift in Sources */,
 				90C04D991E8F0B96000077C8 /* UIBarButtonItem.swift in Sources */,
@@ -1269,7 +1274,10 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG BUILDING_WITH_XCODE";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -1321,7 +1329,10 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = BUILDING_WITH_XCODE;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = "";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -1348,7 +1359,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "\"${SRCROOT}/Sources/BNDProtocolProxyBase\"/**";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 			};
 			name = Debug;
 		};
@@ -1371,7 +1382,7 @@
 				PRODUCT_NAME = Bond;
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "\"${SRCROOT}/Sources/BNDProtocolProxyBase\"/**";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 			};
 			name = Release;
 		};
@@ -1383,7 +1394,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Swift-Bond.BondTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bond-App.app/Bond-App";
 			};
 			name = Debug;
@@ -1396,7 +1407,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Swift-Bond.BondTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Bond-App.app/Bond-App";
 			};
 			name = Release;
@@ -1413,7 +1424,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Bond.Bond-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 			};
 			name = Debug;
 		};
@@ -1428,7 +1439,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Bond.Bond-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 			};
 			name = Release;
 		};
@@ -1455,7 +1466,6 @@
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "\"${SRCROOT}/Sources/BNDProtocolProxyBase\"/**";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -1481,7 +1491,6 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "\"${SRCROOT}/Sources/BNDProtocolProxyBase\"/**";
-				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -1506,7 +1515,6 @@
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "\"${SRCROOT}/Sources/BNDProtocolProxyBase\"/**";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
@@ -1532,7 +1540,6 @@
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
 				SWIFT_INCLUDE_PATHS = "\"${SRCROOT}/Sources/BNDProtocolProxyBase\"/**";
-				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};

@@ -34,8 +34,9 @@ open class Subject<Element, Error: Swift.Error>: SubjectProtocol {
   private typealias Token = Int64
   private var nextToken: Token = 0
 
-  private var observers: [Token: Observer<Element, Error>] = [:]
-  private var terminated = false
+  private var observers: [(Token, Observer<Element, Error>)] = []
+
+  public private(set) var isTerminated = false
 
   public let lock = NSRecursiveLock(name: "com.reactivekit.subject")
   public let disposeBag = DisposeBag()
@@ -44,8 +45,8 @@ open class Subject<Element, Error: Swift.Error>: SubjectProtocol {
 
   public func on(_ event: Event<Element, Error>) {
     lock.lock(); defer { lock.unlock() }
-    guard !terminated else { return }
-    terminated = event.isTerminal
+    guard !isTerminated else { return }
+    isTerminated = event.isTerminal
     send(event)
   }
 
@@ -66,10 +67,12 @@ open class Subject<Element, Error: Swift.Error>: SubjectProtocol {
     let token = nextToken
     nextToken = nextToken + 1
 
-    observers[token] = observer
+    observers.append((token, observer))
 
     return BlockDisposable { [weak self] in
-      let _ = self?.observers.removeValue(forKey: token)
+      guard let me = self else { return }
+      guard let index = me.observers.index(where: { $0.0 == token }) else { return }
+      me.observers.remove(at: index)
     }
   }
 
