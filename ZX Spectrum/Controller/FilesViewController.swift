@@ -51,7 +51,7 @@ final class FilesViewController: UITableViewController {
 		files.bind(to: tableView, using: bond)
 		
 		gdebug("Setting up view")
-		setupUploadButtonTapSignal()
+		setupActionButtonTitle()
 		setupTableSelectionSignal()
 		setupFileSortOptionSignal()
 		
@@ -161,8 +161,25 @@ extension FilesViewController {
 
 extension FilesViewController {
 	
-	fileprivate func uploadFromComputer(action: UIAlertAction) {
+	fileprivate func setupActionButtonTitle(changeTo newAction: FileAction? = nil) {
+		let defaults = UserDefaults.standard
+		
+		if let newAction = newAction {
+			gverbose("Changing default file action to \(newAction)")
+			defaults.fileAction = newAction
+		}
+		
+		gdebug("Changing action button to \(defaults.fileAction)")
+		switch defaults.fileAction {
+		case .upload: uploadBarButtonItem.title = NSLocalizedString("Upload")
+		case .download: uploadBarButtonItem.title = NSLocalizedString("Download")
+		}
+	}
+	
+	fileprivate func uploadFromComputer() {
 		ginfo("Starting upload")
+		
+		setupActionButtonTitle(changeTo: .upload)
 		
 		// Start server.
 		do {
@@ -191,8 +208,10 @@ extension FilesViewController {
 		present(alert, animated: true, completion: nil)
 	}
 	
-	fileprivate func downloadFromInternet(action: UIAlertAction) {
+	fileprivate func downloadFromInternet() {
 		ginfo("Presenting donwload file")
+		
+		setupActionButtonTitle(changeTo: .download)
 		
 		guard let controller = storyboard?.instantiateViewController(withIdentifier: "DownloadFileScene") as? DownloadFileViewController else {
 			fatalError("Download file controller not found!")
@@ -209,25 +228,52 @@ extension FilesViewController {
 		
 		navigationController?.pushViewController(controller, animated: true)
 	}
+
+	fileprivate func executeCurrentlySelectedAction() {
+		let action = UserDefaults.standard.fileAction
+		
+		ginfo("Executing \(action)")
+		
+		switch action {
+		case .upload: uploadFromComputer()
+		case .download: downloadFromInternet()
+		}
+	}
+	
+	fileprivate func selectAction() {
+		ginfo("Showing actions")
+		
+		let title = NSLocalizedString("Actions")
+		let alert = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
+		
+		alert.addAction(UIAlertAction(title: NSLocalizedString("Upload from computer"), style: .default) { _ in
+			self.uploadFromComputer()
+		})
+		
+		alert.addAction(UIAlertAction(title: NSLocalizedString("Download from internet"), style: .default) { _ in
+			self.downloadFromInternet()
+		})
+		
+		alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: nil))
+		
+		present(alert, animated: true, completion: nil)
+	}
 }
 
 // MARK: - Signals handling
 
 extension FilesViewController {
 	
-	fileprivate func setupUploadButtonTapSignal() {
-		uploadBarButtonItem.reactive.tap.bind(to: self) { me, _ in
-			ginfo("Showing actions")
-			
-			let title = NSLocalizedString("Actions")
-			let alert = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
-			
-			alert.addAction(UIAlertAction(title: NSLocalizedString("Upload from computer"), style: .default, handler: me.uploadFromComputer(action:)))
-			alert.addAction(UIAlertAction(title: NSLocalizedString("Download from internet"), style: .default, handler: me.downloadFromInternet(action:)))
-			alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: nil))
-			
-			me.present(alert, animated: true, completion: nil)
+	@IBAction fileprivate func handleActionsTap(sender: Any, event: UIEvent) {
+		// We handle action for this button using standard way to be able to determine whether it's long or short tap...
+		if let touch = event.allTouches?.first, touch.tapCount == 0 {
+			// Long tap shows menu that allows user to select different action; selected action
+			selectAction()
+			return
 		}
+		
+		// Short tap executes previously selected action.
+		executeCurrentlySelectedAction()
 	}
 	
 	fileprivate func setupTableSelectionSignal() {

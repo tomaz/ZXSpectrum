@@ -14,12 +14,14 @@ class DownloadFileViewController: UIViewController {
 	
 	@IBOutlet fileprivate weak var urlTextField: UITextField!
 	@IBOutlet fileprivate weak var downloadProgress: UIProgressView!
+	@IBOutlet fileprivate weak var downloadStatusLabel: UILabel!
 	@IBOutlet fileprivate weak var downloadButton: UIButton!
 	@IBOutlet fileprivate weak var cancelButton: UIButton!
 
 	// MARK: - Signals
 	
 	fileprivate let url = Property<URL?>(nil)
+	fileprivate let status = Property<String?>(nil)
 	fileprivate let progress = Property<Float>(0.0)
 	fileprivate let isValidURL = Property(true)
 	fileprivate let isDownloading = Property(false)
@@ -89,12 +91,18 @@ extension DownloadFileViewController: URLSessionDownloadDelegate {
 		do {
 			gdebug("Moving downloaded file")
 			
-			try Database.moveDownloadedFile(from: location, source: url.value)
+			status.value = NSLocalizedString("Processing...")
+			
+			let savedULR = try Database.moveDownloadedFile(from: location, source: url.value)
+			
+			let filename = savedULR.deletingPathExtension().lastPathComponent
+			self.status.value = NSLocalizedString("Downloaded \(filename)!")
 		} catch {
 			gwarn("Failed moving downloaded file \(error)")
 			
 			DispatchQueue.main.async {
 				self.present(error: NSError.download(error: error))
+				self.status.value = nil
 				self.isDownloading.value = false
 			}
 			return
@@ -114,6 +122,7 @@ extension DownloadFileViewController: URLSessionDownloadDelegate {
 			
 			DispatchQueue.main.async {
 				self.present(error: NSError.download(error: error))
+				self.status.value = nil
 				self.isDownloading.value = false
 			}
 			return
@@ -160,6 +169,7 @@ extension DownloadFileViewController {
 		}
 		
 		progress.value = 0
+		status.value = NSLocalizedString("Downloading...")
 		isDownloading.value = true
 
 		task = session.downloadTask(with: website)
@@ -190,6 +200,7 @@ extension DownloadFileViewController {
 	
 	fileprivate func setupDownloadProgressSignal() {
 		progress.bind(to: downloadProgress.reactive.progress)
+		status.bind(to: downloadStatusLabel.reactive.text)
 	}
 	
 	fileprivate func setupActionSignals() {

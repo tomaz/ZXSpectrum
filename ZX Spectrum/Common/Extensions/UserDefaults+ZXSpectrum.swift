@@ -40,12 +40,18 @@ extension UserDefaults {
 		set { set(newValue.rawValue, forKey: Keys.FilesSortOption); filesSortOptionSubject.next(newValue) }
 	}
 	
+	var fileAction: FileAction {
+		get { return FileAction(rawValue: integer(forKey: Keys.FileAction)) ?? .upload }
+		set { set(newValue.rawValue, forKey: Keys.FileAction) }
+	}
+	
 	fileprivate struct Keys {
 		static var IsScreenSmoothingActive = "IsScreenSmoothingActive"
 		static var IsHapticFeedbackEnabled = "IsHapticFeedbackEnabled"
 		static var JoystickSensitivityRatio = "JoystickSensitivityRatio"
 		static var KeyboardRenderingMode = "KeyboardRenderingMode"
 		static var FilesSortOption = "FileSortOption"
+		static var FileAction = "FileAction"
 	}
 }
 
@@ -164,6 +170,29 @@ enum FileSortOption: Int, CustomStringConvertible {
 		switch self {
 		case .name: return NSLocalizedString("Name")
 		case .usage: return NSLocalizedString("Usage")
+		}
+	}
+	
+	var description: String {
+		return title
+	}
+}
+
+/**
+File action.
+*/
+enum FileAction: Int, CustomStringConvertible {
+	/// Upload from computer
+	case upload
+	
+	/// Download from internet.
+	case download
+	
+	/// Returns localized title of the option.
+	var title: String {
+		switch self {
+		case .upload: return NSLocalizedString("Upload")
+		case .download: return NSLocalizedString("Download")
 		}
 	}
 	

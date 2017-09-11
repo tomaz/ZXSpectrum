@@ -874,7 +874,11 @@
                                 <segue destination="SIk-VY-i5t" kind="unwind" identifier="UnwindToEmulatorScene" unwindAction="unwindToEmulatorViewControllerWithSegue:" id="4O6-8v-8P8"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Actions" id="a8y-0H-gWk"/>
+                        <barButtonItem key="rightBarButtonItem" title="Actions" id="a8y-0H-gWk">
+                            <connections>
+                                <action selector="handleActionsTapWithSender:event:" destination="SJM-Db-pQf" id="nTT-hx-t7A"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="uploadBarButtonItem" destination="a8y-0H-gWk" id="Lgs-M6-hp3"/>
@@ -920,44 +924,15 @@
                                             </progressView>
                                         </subviews>
                                     </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="STATUS" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1iW-ot-Bea">
+                                        <rect key="frame" x="0.0" y="96" width="335" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C4i-rG-ji4">
-                                        <rect key="frame" x="321" y="40.5" width="22" height="22"/>
+                                        <rect key="frame" x="321" y="40" width="22" height="22"/>
                                     </button>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="zmX-b8-QOz">
-                                        <rect key="frame" x="0.0" y="96" width="343" height="134.5"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Initializing..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1iW-ot-Bea">
-                                                <rect key="frame" x="0.0" y="0.0" width="343" height="20.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Downloading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5bH-nF-dMG">
-                                                <rect key="frame" x="0.0" y="28.5" width="343" height="20.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Verifying..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P0s-Nn-EkY">
-                                                <rect key="frame" x="0.0" y="57" width="343" height="20.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unzipping..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AAu-AC-ABJ">
-                                                <rect key="frame" x="0.0" y="85.5" width="343" height="20.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Done!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oCp-4z-Agc">
-                                                <rect key="frame" x="0.0" y="114" width="343" height="20.5"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                    </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GpK-Ru-yan">
                                         <rect key="frame" x="0.0" y="577" width="343" height="30"/>
                                         <state key="normal" title="Cancel"/>
@@ -969,17 +944,17 @@
                                     <constraint firstItem="C4i-rG-ji4" firstAttribute="leading" secondItem="dpR-Ac-CBI" secondAttribute="trailing" constant="10" id="18j-oT-kzJ"/>
                                     <constraint firstItem="dpR-Ac-CBI" firstAttribute="top" secondItem="mfX-iK-fdK" secondAttribute="bottom" constant="20" id="1AY-vD-W6d"/>
                                     <constraint firstItem="C4i-rG-ji4" firstAttribute="centerY" secondItem="lbw-cl-zzU" secondAttribute="centerY" id="6S5-bm-i02"/>
-                                    <constraint firstItem="zmX-b8-QOz" firstAttribute="top" secondItem="dpR-Ac-CBI" secondAttribute="bottom" constant="20" id="6xI-Ug-RZM"/>
                                     <constraint firstAttribute="trailing" secondItem="GpK-Ru-yan" secondAttribute="trailing" id="7QH-zY-9hk"/>
+                                    <constraint firstItem="1iW-ot-Bea" firstAttribute="top" secondItem="dpR-Ac-CBI" secondAttribute="bottom" constant="20" id="CB4-Ad-YG8"/>
                                     <constraint firstItem="GpK-Ru-yan" firstAttribute="leading" secondItem="ZBh-i8-069" secondAttribute="leading" id="CbV-5Z-yaI"/>
-                                    <constraint firstAttribute="trailing" secondItem="zmX-b8-QOz" secondAttribute="trailing" id="LXc-Re-EgN"/>
-                                    <constraint firstItem="zmX-b8-QOz" firstAttribute="leading" secondItem="ZBh-i8-069" secondAttribute="leading" id="LZI-28-Xdj"/>
                                     <constraint firstAttribute="bottom" secondItem="GpK-Ru-yan" secondAttribute="bottom" id="SoM-g8-Q68"/>
-                                    <constraint firstItem="GpK-Ru-yan" firstAttribute="top" relation="greaterThanOrEqual" secondItem="zmX-b8-QOz" secondAttribute="bottom" constant="20" id="TGN-VF-wIz"/>
                                     <constraint firstItem="dpR-Ac-CBI" firstAttribute="leading" secondItem="mfX-iK-fdK" secondAttribute="leading" id="TH0-d1-XBP"/>
                                     <constraint firstItem="mfX-iK-fdK" firstAttribute="top" secondItem="ZBh-i8-069" secondAttribute="top" id="VvJ-bg-d46"/>
                                     <constraint firstAttribute="trailing" secondItem="mfX-iK-fdK" secondAttribute="trailing" id="cYo-MT-Rnz"/>
                                     <constraint firstItem="C4i-rG-ji4" firstAttribute="trailing" secondItem="mfX-iK-fdK" secondAttribute="trailing" id="e9f-Kc-eTS"/>
+                                    <constraint firstItem="1iW-ot-Bea" firstAttribute="leading" secondItem="dpR-Ac-CBI" secondAttribute="leading" id="nJ5-tw-9Z1"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="1iW-ot-Bea" secondAttribute="trailing" id="onf-wf-maC"/>
+                                    <constraint firstItem="GpK-Ru-yan" firstAttribute="top" relation="greaterThanOrEqual" secondItem="1iW-ot-Bea" secondAttribute="bottom" constant="20" id="qCM-U8-3o7"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -995,6 +970,7 @@
                         <outlet property="cancelButton" destination="GpK-Ru-yan" id="ZNP-SH-wcy"/>
                         <outlet property="downloadButton" destination="C4i-rG-ji4" id="R80-xu-9B6"/>
                         <outlet property="downloadProgress" destination="D4I-Vs-HNn" id="L0n-AF-8Ed"/>
+                        <outlet property="downloadStatusLabel" destination="1iW-ot-Bea" id="nbQ-XL-jz6"/>
                         <outlet property="urlTextField" destination="lbw-cl-zzU" id="vSI-Ma-kzp"/>
                     </connections>
                 </viewController>
