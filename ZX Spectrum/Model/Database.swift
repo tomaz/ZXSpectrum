@@ -5,6 +5,7 @@
 
 import UIKit
 import CoreData
+import Zip
 
 class Database {
 	
@@ -113,6 +114,90 @@ extension Database {
 		}
 		
 		return failedFiles.isEmpty
+	}
+
+	/**
+	Moves downloaded file from given temporary URL to upload folder.
+	
+	If file is zip, it unzips it; if this fails, it'll bail out without further handling. Regardless, it checks for file validity; if it's unsupported file, it will bail out without moving.
+	*/
+	@discardableResult
+	static func moveDownloadedFile(from url: URL, source: URL? = nil) throws -> URL {
+		let manager = FileManager.default
+		
+		// Prepare default values.
+		var sourceURL = url
+		var filename = source?.lastPathComponent ?? url.lastPathComponent
+		let ext = source?.pathExtension ?? url.pathExtension
+
+		// Zip will fail if extension is not zip!
+		func rename() throws {
+			if ext.lowercased() == "zip" && url.pathExtension.lowercased() != "zip" {
+				let originalURL = sourceURL
+				sourceURL = sourceURL.deletingLastPathComponent().appendingPathComponent(filename)
+				
+				if manager.fileExists(atPath: sourceURL.path) {
+					gdebug("Removing existing renamed temporary file at \(sourceURL)")
+					try manager.removeItem(at: sourceURL)
+				}
+				
+				gdebug("Renaming temporary file from \(originalURL) to \(sourceURL)")
+				try manager.moveItem(at: originalURL, to: sourceURL)
+			}
+		}
+
+		// Unzipping
+		func unzip() throws {
+			if (ext.lowercased() == "zip") {
+				gdebug("Unzipping \(url)")
+				do {
+					sourceURL = try Zip.quickUnzipFile(sourceURL)
+					filename = sourceURL.lastPathComponent
+				} catch {
+					gwarn("Failed unzipping \(url) \(error)")
+					throw NSError.move(description: NSLocalizedString("Failed unzipping file."), error: error)
+				}
+			}
+		}
+		
+		func move() throws -> URL {
+			let destinationURL = filesURL.appendingPathComponent(filename)
+			
+			if manager.fileExists(atPath: destinationURL.path) {
+				gdebug("Removing existing file at \(destinationURL)")
+				try manager.removeItem(at: destinationURL)
+			}
+			
+			gdebug("Moving file from \(sourceURL) to \(destinationURL)")
+			try manager.moveItem(at: sourceURL, to: destinationURL)
+			
+			return destinationURL
+		}
+		
+		// Move the file.
+		do {
+			try createUploadFolder()
+			try rename()
+			try unzip()
+			return try move()
+		} catch {
+			gwarn("Failed creating upload folder \(error)")
+			throw NSError.move(description: NSLocalizedString("Failed moving downloaded file."), error: error)
+		}
+	}
+	
+	/**
+	Creates upload folder if it doesn't exist yet.
+	*/
+	@discardableResult
+	static func createUploadFolder() throws -> String {
+		let result = Database.filesURL.path
+		let manager = FileManager.default
+		if !manager.fileExists(atPath: result) {
+			gverbose("Creating files folder")
+			try manager.createDirectory(atPath: result, withIntermediateDirectories: true, attributes: nil)
+		}
+		return result
 	}
 }
 

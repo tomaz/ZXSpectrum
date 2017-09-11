@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.17" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="PNv-Zt-Z8Q">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13189.4" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="PNv-Zt-Z8Q">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13165.3"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Segues with Peek and Pop" minToolsVersion="7.1"/>
@@ -762,7 +762,7 @@
                 <navigationController id="tCf-yA-Y6G" sceneMemberID="viewController">
                     <modalFormSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="9u2-rc-Sfs">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -874,7 +874,7 @@
                                 <segue destination="SIk-VY-i5t" kind="unwind" identifier="UnwindToEmulatorScene" unwindAction="unwindToEmulatorViewControllerWithSegue:" id="4O6-8v-8P8"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Upload" id="a8y-0H-gWk"/>
+                        <barButtonItem key="rightBarButtonItem" title="Actions" id="a8y-0H-gWk"/>
                     </navigationItem>
                     <connections>
                         <outlet property="uploadBarButtonItem" destination="a8y-0H-gWk" id="Lgs-M6-hp3"/>
@@ -885,12 +885,129 @@
             </objects>
             <point key="canvasLocation" x="877.60000000000002" y="1013.3433283358322"/>
         </scene>
+        <!--Download-->
+        <scene sceneID="K2V-Df-8Fb">
+            <objects>
+                <viewController storyboardIdentifier="DownloadFileScene" title="Download" id="diQ-P5-Z8u" customClass="DownloadFileViewController" customModule="ZX_Spectrum" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="aml-mr-9YA"/>
+                        <viewControllerLayoutGuide type="bottom" id="w13-Dl-c6M"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="08G-QP-Hzx">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZBh-i8-069">
+                                <rect key="frame" x="16" y="40" width="343" height="607"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter or paste direct URL to tape file or zip:" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mfX-iK-fdK">
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="16"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="200" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="800" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="dpR-Ac-CBI">
+                                        <rect key="frame" x="0.0" y="36" width="311" height="40"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="URL" textAlignment="natural" adjustsFontForContentSizeCategory="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lbw-cl-zzU">
+                                                <rect key="frame" x="0.0" y="0.0" width="311" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="D4I-Vs-HNn">
+                                                <rect key="frame" x="0.0" y="38" width="311" height="2"/>
+                                            </progressView>
+                                        </subviews>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C4i-rG-ji4">
+                                        <rect key="frame" x="321" y="40.5" width="22" height="22"/>
+                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="zmX-b8-QOz">
+                                        <rect key="frame" x="0.0" y="96" width="343" height="134.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Initializing..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1iW-ot-Bea">
+                                                <rect key="frame" x="0.0" y="0.0" width="343" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Downloading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5bH-nF-dMG">
+                                                <rect key="frame" x="0.0" y="28.5" width="343" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Verifying..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P0s-Nn-EkY">
+                                                <rect key="frame" x="0.0" y="57" width="343" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unzipping..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AAu-AC-ABJ">
+                                                <rect key="frame" x="0.0" y="85.5" width="343" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Done!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oCp-4z-Agc">
+                                                <rect key="frame" x="0.0" y="114" width="343" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GpK-Ru-yan">
+                                        <rect key="frame" x="0.0" y="577" width="343" height="30"/>
+                                        <state key="normal" title="Cancel"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="mfX-iK-fdK" firstAttribute="leading" secondItem="ZBh-i8-069" secondAttribute="leading" id="04U-Fs-IhE"/>
+                                    <constraint firstItem="C4i-rG-ji4" firstAttribute="leading" secondItem="dpR-Ac-CBI" secondAttribute="trailing" constant="10" id="18j-oT-kzJ"/>
+                                    <constraint firstItem="dpR-Ac-CBI" firstAttribute="top" secondItem="mfX-iK-fdK" secondAttribute="bottom" constant="20" id="1AY-vD-W6d"/>
+                                    <constraint firstItem="C4i-rG-ji4" firstAttribute="centerY" secondItem="lbw-cl-zzU" secondAttribute="centerY" id="6S5-bm-i02"/>
+                                    <constraint firstItem="zmX-b8-QOz" firstAttribute="top" secondItem="dpR-Ac-CBI" secondAttribute="bottom" constant="20" id="6xI-Ug-RZM"/>
+                                    <constraint firstAttribute="trailing" secondItem="GpK-Ru-yan" secondAttribute="trailing" id="7QH-zY-9hk"/>
+                                    <constraint firstItem="GpK-Ru-yan" firstAttribute="leading" secondItem="ZBh-i8-069" secondAttribute="leading" id="CbV-5Z-yaI"/>
+                                    <constraint firstAttribute="trailing" secondItem="zmX-b8-QOz" secondAttribute="trailing" id="LXc-Re-EgN"/>
+                                    <constraint firstItem="zmX-b8-QOz" firstAttribute="leading" secondItem="ZBh-i8-069" secondAttribute="leading" id="LZI-28-Xdj"/>
+                                    <constraint firstAttribute="bottom" secondItem="GpK-Ru-yan" secondAttribute="bottom" id="SoM-g8-Q68"/>
+                                    <constraint firstItem="GpK-Ru-yan" firstAttribute="top" relation="greaterThanOrEqual" secondItem="zmX-b8-QOz" secondAttribute="bottom" constant="20" id="TGN-VF-wIz"/>
+                                    <constraint firstItem="dpR-Ac-CBI" firstAttribute="leading" secondItem="mfX-iK-fdK" secondAttribute="leading" id="TH0-d1-XBP"/>
+                                    <constraint firstItem="mfX-iK-fdK" firstAttribute="top" secondItem="ZBh-i8-069" secondAttribute="top" id="VvJ-bg-d46"/>
+                                    <constraint firstAttribute="trailing" secondItem="mfX-iK-fdK" secondAttribute="trailing" id="cYo-MT-Rnz"/>
+                                    <constraint firstItem="C4i-rG-ji4" firstAttribute="trailing" secondItem="mfX-iK-fdK" secondAttribute="trailing" id="e9f-Kc-eTS"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ZBh-i8-069" firstAttribute="leading" secondItem="08G-QP-Hzx" secondAttribute="leadingMargin" id="5VP-Om-ple"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ZBh-i8-069" secondAttribute="trailing" id="JD5-SL-Sjp"/>
+                            <constraint firstItem="w13-Dl-c6M" firstAttribute="top" secondItem="ZBh-i8-069" secondAttribute="bottom" constant="20" id="YBT-hs-ACd"/>
+                            <constraint firstItem="ZBh-i8-069" firstAttribute="top" secondItem="aml-mr-9YA" secondAttribute="bottom" constant="20" id="iq2-Ob-RKo"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="cancelButton" destination="GpK-Ru-yan" id="ZNP-SH-wcy"/>
+                        <outlet property="downloadButton" destination="C4i-rG-ji4" id="R80-xu-9B6"/>
+                        <outlet property="downloadProgress" destination="D4I-Vs-HNn" id="L0n-AF-8Ed"/>
+                        <outlet property="urlTextField" destination="lbw-cl-zzU" id="vSI-Ma-kzp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ATz-d5-7bs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1684" y="1012.4437781109445"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="pcq-0a-fOt">
             <objects>
                 <navigationController id="OWd-3c-rp4" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="bvc-m0-rte">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -909,7 +1026,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="344"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="puD-bc-jcH">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -1200,9 +1317,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="nj3-xb-OEd"/>
-        <segue reference="rBY-DB-EbA"/>
         <segue reference="Rqd-Ib-Z2E"/>
+        <segue reference="rBY-DB-EbA"/>
+        <segue reference="nj3-xb-OEd"/>
         <segue reference="4uw-FD-jvC"/>
     </inferredMetricsTieBreakers>
 </document>

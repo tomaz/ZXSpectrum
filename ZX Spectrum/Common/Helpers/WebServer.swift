@@ -23,12 +23,7 @@ extension WebServer {
 		}
 		
 		// Create files directory if it doesn't exist yet.
-		let filesPath = Database.filesURL.path
-		let manager = FileManager.default
-		if !manager.fileExists(atPath: filesPath) {
-			gverbose("Creating files folder")
-			try manager.createDirectory(atPath: filesPath, withIntermediateDirectories: true, attributes: nil)
-		}
+		let filesPath = try Database.createUploadFolder()
 		
 		gverbose("Starting server")
 		UIApplication.shared.isIdleTimerDisabled = true

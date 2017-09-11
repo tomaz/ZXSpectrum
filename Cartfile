@@ -1,4 +1,5 @@
 github "ReactiveKit/Bond" "swift-4"
 github "malcommac/SwiftRichString"
+github "marmelroy/Zip"
 github "swisspol/GCDWebServer"
 

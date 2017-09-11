@@ -1,3 +1,4 @@
+
 //
 //  Created by Tomaz Kragelj on 19.04.17.
 //  Copyright © 2017 Gentle Bytes. All rights reserved.
@@ -27,6 +28,26 @@ extension NSError {
 		let reason = String(paragraphs: first, String(lines: paths), last)
 		
 		return error(code: -1000, description: description, reason: reason)
+	}
+	
+	/**
+	Download failed error.
+	*/
+	static func download(error underlyingError: Error) -> NSError {
+		var reason = underlyingError.localizedDescription
+		
+		if let uynderlyingReason = (underlyingError as NSError).localizedFailureReason {
+			reason += "\n\n\(uynderlyingReason)"
+		}
+		
+		return error(code: -1001, description: NSLocalizedString("Download failed!"), reason: reason)
+	}
+	
+	/**
+	File move error.
+	*/
+	static func move(description: String, error underlyingError: Error) -> NSError {
+		return error(code: -1002, description: description, reason: underlyingError.localizedDescription)
 	}
 }
 

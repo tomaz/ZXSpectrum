@@ -81,6 +81,9 @@
 		739A5F781EA8D31500CE6313 /* SettingsComputerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739A5F771EA8D31500CE6313 /* SettingsComputerTableViewCell.swift */; };
 		739A5F7B1EA8D9F400CE6313 /* SpectrumController.m in Sources */ = {isa = PBXBuildFile; fileRef = 739A5F7A1EA8D9F400CE6313 /* SpectrumController.m */; };
 		739A5F7E1EA8E82300CE6313 /* SettingsComputerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739A5F7D1EA8E82300CE6313 /* SettingsComputerViewController.swift */; };
+		739BE9FA1F66D31600E7EF66 /* Zip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 730E2D751F66D2F5000896C8 /* Zip.framework */; };
+		739BE9FB1F66D31600E7EF66 /* Zip.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 730E2D751F66D2F5000896C8 /* Zip.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		739BEA141F66DFCD00E7EF66 /* FilesChangeHandlerConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739BEA131F66DFCD00E7EF66 /* FilesChangeHandlerConsumer.swift */; };
 		739CE9301EBE595300071BF4 /* PopoverPresentationConsumer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739CE92F1EBE595300071BF4 /* PopoverPresentationConsumer.swift */; };
 		739CE9471EBE59A800071BF4 /* JoystickEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739CE9461EBE59A800071BF4 /* JoystickEditViewController.swift */; };
 		739CE9491EBE65C900071BF4 /* JoystickEditNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739CE9481EBE65C900071BF4 /* JoystickEditNavigationController.swift */; };
@@ -114,6 +117,7 @@
 		73B52A081EA7D42D002FB90B /* tape_scorpion.szx in Resources */ = {isa = PBXBuildFile; fileRef = 73B529F91EA7D42D002FB90B /* tape_scorpion.szx */; };
 		73B52A091EA7D42D002FB90B /* tape_se.szx in Resources */ = {isa = PBXBuildFile; fileRef = 73B529FA1EA7D42D002FB90B /* tape_se.szx */; };
 		73B52A0A1EA7D42D002FB90B /* tape_ts2068.szx in Resources */ = {isa = PBXBuildFile; fileRef = 73B529FB1EA7D42D002FB90B /* tape_ts2068.szx */; };
+		73D280201F669644007086FD /* DownloadFileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D2801F1F669644007086FD /* DownloadFileViewController.swift */; };
 		73D37FE01EC1F59700335055 /* TouchableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73D37FDF1EC1F59700335055 /* TouchableView.swift */; };
 		73DA64E81EA559D3008832AA /* Safari.tzx in Resources */ = {isa = PBXBuildFile; fileRef = 73DA64E71EA559D3008832AA /* Safari.tzx */; };
 		73DA64EA1EA55E81008832AA /* FilesViewController+Bond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DA64E91EA55E81008832AA /* FilesViewController+Bond.swift */; };
@@ -142,6 +146,41 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		730E2D741F66D2F5000896C8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 730E2D571F66D2F4000896C8 /* Zip.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 347E3A741C1DFFB500A11FD3;
+			remoteInfo = Zip;
+		};
+		730E2D761F66D2F5000896C8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 730E2D571F66D2F4000896C8 /* Zip.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 347E3A7E1C1DFFB500A11FD3;
+			remoteInfo = ZipTests;
+		};
+		730E2D781F66D2F5000896C8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 730E2D571F66D2F4000896C8 /* Zip.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 343F50FF1C8DAEEC0028C434;
+			remoteInfo = "Zip OSX";
+		};
+		730E2D7A1F66D2F5000896C8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 730E2D571F66D2F4000896C8 /* Zip.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 343F51081C8DAEEC0028C434;
+			remoteInfo = "Zip OSXTests";
+		};
+		730E2D7C1F66D2F5000896C8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 730E2D571F66D2F4000896C8 /* Zip.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 342545B51CE525B200336074;
+			remoteInfo = "Zip tvOS";
+		};
 		737B56AA1EA3CE6600A260B9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 737B56A01EA3CE6500A260B9 /* Bond.xcodeproj */;
@@ -261,6 +300,13 @@
 			remoteGlobalIDString = 737E99AE1E88401800128149;
 			remoteInfo = spectrum;
 		};
+		739BE9FC1F66D31600E7EF66 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 730E2D571F66D2F4000896C8 /* Zip.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 347E3A731C1DFFB500A11FD3;
+			remoteInfo = Zip;
+		};
 		73A007CB1EE9371B0005F61F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 737E99BA1E88401800128149 /* spectrum.xcodeproj */;
@@ -351,6 +397,7 @@
 				73DA65011EA66408008832AA /* GCDWebServers.framework in Embed Frameworks */,
 				7384B85C1EA771F9005FC8DF /* Diff.framework in Embed Frameworks */,
 				737B56E71EA3CEAB00A260B9 /* Bond.framework in Embed Frameworks */,
+				739BE9FB1F66D31600E7EF66 /* Zip.framework in Embed Frameworks */,
 				737B56DE1EA3CE9F00A260B9 /* SwiftRichString.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -363,6 +410,7 @@
 		730890671EC10AF6002ECCD1 /* JoystickKeyCodeHandlerConsumer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoystickKeyCodeHandlerConsumer.swift; sourceTree = "<group>"; };
 		7309595A1EEAA67A00BE83FA /* FilesSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilesSettingsView.swift; sourceTree = "<group>"; };
 		730959711EEAB21C00BE83FA /* Date+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+ZXSpectrum.swift"; sourceTree = "<group>"; };
+		730E2D571F66D2F4000896C8 /* Zip.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Zip.xcodeproj; path = Carthage/Checkouts/Zip/Zip.xcodeproj; sourceTree = SOURCE_ROOT; };
 		73255D201EB9156200F04908 /* Fuse+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Fuse+ZXSpectrum.swift"; sourceTree = "<group>"; };
 		73255D221EB9192700F04908 /* Defaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
 		73255D241EB9330E00F04908 /* Direction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
@@ -438,6 +486,7 @@
 		739A5F791EA8D9F400CE6313 /* SpectrumController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpectrumController.h; sourceTree = "<group>"; };
 		739A5F7A1EA8D9F400CE6313 /* SpectrumController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpectrumController.m; sourceTree = "<group>"; };
 		739A5F7D1EA8E82300CE6313 /* SettingsComputerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsComputerViewController.swift; sourceTree = "<group>"; };
+		739BEA131F66DFCD00E7EF66 /* FilesChangeHandlerConsumer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilesChangeHandlerConsumer.swift; sourceTree = "<group>"; };
 		739CE92F1EBE595300071BF4 /* PopoverPresentationConsumer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverPresentationConsumer.swift; sourceTree = "<group>"; };
 		739CE9461EBE59A800071BF4 /* JoystickEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoystickEditViewController.swift; sourceTree = "<group>"; };
 		739CE9481EBE65C900071BF4 /* JoystickEditNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoystickEditNavigationController.swift; sourceTree = "<group>"; };
@@ -471,6 +520,7 @@
 		73B529F91EA7D42D002FB90B /* tape_scorpion.szx */ = {isa = PBXFileReference; lastKnownFileType = file; name = tape_scorpion.szx; path = "ZX Spectrum/Common/spectrum/spectrum/fuse/lib/compressed/tape_scorpion.szx"; sourceTree = SOURCE_ROOT; };
 		73B529FA1EA7D42D002FB90B /* tape_se.szx */ = {isa = PBXFileReference; lastKnownFileType = file; name = tape_se.szx; path = "ZX Spectrum/Common/spectrum/spectrum/fuse/lib/compressed/tape_se.szx"; sourceTree = SOURCE_ROOT; };
 		73B529FB1EA7D42D002FB90B /* tape_ts2068.szx */ = {isa = PBXFileReference; lastKnownFileType = file; name = tape_ts2068.szx; path = "ZX Spectrum/Common/spectrum/spectrum/fuse/lib/compressed/tape_ts2068.szx"; sourceTree = SOURCE_ROOT; };
+		73D2801F1F669644007086FD /* DownloadFileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadFileViewController.swift; sourceTree = "<group>"; };
 		73D37FDF1EC1F59700335055 /* TouchableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TouchableView.swift; sourceTree = "<group>"; };
 		73DA64E71EA559D3008832AA /* Safari.tzx */ = {isa = PBXFileReference; lastKnownFileType = file; path = Safari.tzx; sourceTree = "<group>"; };
 		73DA64E91EA55E81008832AA /* FilesViewController+Bond.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FilesViewController+Bond.swift"; sourceTree = "<group>"; };
@@ -506,6 +556,7 @@
 				73DA65191EA66509008832AA /* ReactiveKit.framework in Frameworks */,
 				737B56E61EA3CEAB00A260B9 /* Bond.framework in Frameworks */,
 				737B56DD1EA3CE9F00A260B9 /* SwiftRichString.framework in Frameworks */,
+				739BE9FA1F66D31600E7EF66 /* Zip.framework in Frameworks */,
 				73DA65001EA66408008832AA /* GCDWebServers.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -513,6 +564,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		730E2D581F66D2F4000896C8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				730E2D751F66D2F5000896C8 /* Zip.framework */,
+				730E2D771F66D2F5000896C8 /* ZipTests.xctest */,
+				730E2D791F66D2F5000896C8 /* Zip.framework */,
+				730E2D7B1F66D2F5000896C8 /* Zip OSXTests.xctest */,
+				730E2D7D1F66D2F5000896C8 /* Zip.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		73255D191EB900C700F04908 /* Joystick Mapping */ = {
 			isa = PBXGroup;
 			children = (
@@ -684,6 +747,7 @@
 		737B57021EA411F100A260B9 /* Files */ = {
 			isa = PBXGroup;
 			children = (
+				739BEA131F66DFCD00E7EF66 /* FilesChangeHandlerConsumer.swift */,
 				737B57031EA4122A00A260B9 /* FilesViewController.swift */,
 				73DA64E91EA55E81008832AA /* FilesViewController+Bond.swift */,
 				73DA64ED1EA5611E008832AA /* FileTableViewCell.swift */,
@@ -732,6 +796,7 @@
 				734DBF611EC0C84700587C98 /* Joystick */,
 				73255D191EB900C700F04908 /* Joystick Mapping */,
 				737B57021EA411F100A260B9 /* Files */,
+				73D280091F669607007086FD /* Download */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -770,6 +835,7 @@
 				73DA65071EA664F9008832AA /* ReactiveKit.xcodeproj */,
 				737B56A01EA3CE6500A260B9 /* Bond.xcodeproj */,
 				73DA651D1EA6653B008832AA /* Diff.xcodeproj */,
+				730E2D571F66D2F4000896C8 /* Zip.xcodeproj */,
 			);
 			name = "Third Party";
 			sourceTree = "<group>";
@@ -887,6 +953,14 @@
 			name = Snapshots;
 			sourceTree = "<group>";
 		};
+		73D280091F669607007086FD /* Download */ = {
+			isa = PBXGroup;
+			children = (
+				73D2801F1F669644007086FD /* DownloadFileViewController.swift */,
+			);
+			name = Download;
+			sourceTree = "<group>";
+		};
 		73DA64D71EA55998008832AA /* Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -964,6 +1038,7 @@
 				73A007CE1EE937200005F61F /* PBXTargetDependency */,
 				73A007D01EE937250005F61F /* PBXTargetDependency */,
 				73A007D41EE9372E0005F61F /* PBXTargetDependency */,
+				739BE9FD1F66D31600E7EF66 /* PBXTargetDependency */,
 			);
 			name = "ZX Spectrum";
 			productName = "ZX Spectrum";
@@ -1024,6 +1099,10 @@
 					ProductGroup = 737B56CF1EA3CE7400A260B9 /* Products */;
 					ProjectRef = 737B56CE1EA3CE7400A260B9 /* SwiftRichString.xcodeproj */;
 				},
+				{
+					ProductGroup = 730E2D581F66D2F4000896C8 /* Products */;
+					ProjectRef = 730E2D571F66D2F4000896C8 /* Zip.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -1033,6 +1112,41 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		730E2D751F66D2F5000896C8 /* Zip.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Zip.framework;
+			remoteRef = 730E2D741F66D2F5000896C8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		730E2D771F66D2F5000896C8 /* ZipTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ZipTests.xctest;
+			remoteRef = 730E2D761F66D2F5000896C8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		730E2D791F66D2F5000896C8 /* Zip.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Zip.framework;
+			remoteRef = 730E2D781F66D2F5000896C8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		730E2D7B1F66D2F5000896C8 /* Zip OSXTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Zip OSXTests.xctest";
+			remoteRef = 730E2D7A1F66D2F5000896C8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		730E2D7D1F66D2F5000896C8 /* Zip.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Zip.framework;
+			remoteRef = 730E2D7C1F66D2F5000896C8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		737B56AB1EA3CE6600A260B9 /* Bond.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -1286,6 +1400,7 @@
 				73B529D51EA7BB1C002FB90B /* URL+ZXSpectrum.swift in Sources */,
 				737B57041EA4122A00A260B9 /* FilesViewController.swift in Sources */,
 				73F5B0C41EA9E63C005E8844 /* InputView.swift in Sources */,
+				73D280201F669644007086FD /* DownloadFileViewController.swift in Sources */,
 				733787571E9CE99300C5C363 /* SpectrumJoystickController.m in Sources */,
 				737B56FD1EA4009900A260B9 /* UIViewController+ZXSpectrum.swift in Sources */,
 				730890681EC10AF6002ECCD1 /* JoystickKeyCodeHandlerConsumer.swift in Sources */,
@@ -1301,6 +1416,7 @@
 				73AFFED81EAFD7A500218DB7 /* CGSize+ZXSpectrum.swift in Sources */,
 				73B529EB1EA7CF73002FB90B /* EmulatorConsumer.swift in Sources */,
 				736493371EA4D02D00EE697F /* FileObject.swift in Sources */,
+				739BEA141F66DFCD00E7EF66 /* FilesChangeHandlerConsumer.swift in Sources */,
 				7384B8901EA7A46C005FC8DF /* NSError+ZXSpectrum.swift in Sources */,
 				73EEA0351EA7B64300E65A21 /* String+ZXSpectrum.swift in Sources */,
 				73B30C471EC4B8BC002AD635 /* ZX48KeyboardView.swift in Sources */,
@@ -1362,6 +1478,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		739BE9FD1F66D31600E7EF66 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Zip;
+			targetProxy = 739BE9FC1F66D31600E7EF66 /* PBXContainerItemProxy */;
+		};
 		73A007CC1EE9371B0005F61F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = spectrum;

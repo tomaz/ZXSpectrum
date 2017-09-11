@@ -25,6 +25,8 @@ final class FilesViewController: UITableViewController {
 	/// Array of files; use `fetch` to update.
 	fileprivate lazy var files = MutableObservable2DArray<String, FileObject>([])
 	
+	fileprivate var reloadOnAppearance = false
+	
 	// MARK: - Helpers
 	
 	fileprivate lazy var bond = Bond()
@@ -54,6 +56,19 @@ final class FilesViewController: UITableViewController {
 		setupFileSortOptionSignal()
 		
 		fetch(animated: false)
+	}
+	
+	override func viewWillAppear(_ animated: Bool) {
+		gdebug("Appearing")
+		
+		super.viewWillAppear(animated)
+		
+		if reloadOnAppearance {
+			if self.persistentContainer.viewContext.importUploadedFiles() {
+				self.fetch()
+			}
+			reloadOnAppearance = false
+		}
 	}
 }
 
@@ -142,37 +157,74 @@ extension FilesViewController {
 	}
 }
 
+// MARK: - Helper functions
+
+extension FilesViewController {
+	
+	fileprivate func uploadFromComputer(action: UIAlertAction) {
+		ginfo("Starting upload")
+		
+		// Start server.
+		do {
+			try server.start()
+		} catch {
+			gerror("Failed starting server: \(error)")
+			present(error: error as NSError)
+			return
+		}
+		
+		// Present alert for user.
+		let url = server.serverURL!
+		let title = NSLocalizedString("Upload Server Active!")
+		let message = NSLocalizedString("You can upload files by visiting\n\n\(url.absoluteString)\n\nin web browser on your computer. When done tap stop button below.")
+		let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+		
+		alert.addAction(UIAlertAction(title: NSLocalizedString("Stop"), style: .default) { action in
+			gdebug("Stopping upload server")
+			self.server.stop()
+			
+			if self.persistentContainer.viewContext.importUploadedFiles() {
+				self.fetch()
+			}
+		})
+		
+		present(alert, animated: true, completion: nil)
+	}
+	
+	fileprivate func downloadFromInternet(action: UIAlertAction) {
+		ginfo("Presenting donwload file")
+		
+		guard let controller = storyboard?.instantiateViewController(withIdentifier: "DownloadFileScene") as? DownloadFileViewController else {
+			fatalError("Download file controller not found!")
+		}
+		
+		inject(toController: controller) { me, destination in
+			if let downloadController = destination as? DownloadFileViewController {
+				downloadController.configure(fileChangeHandler: {
+					// Whenever child indicates changes to files, we should reload on next appearance.
+					self.reloadOnAppearance = true
+				})
+			}
+		}
+		
+		navigationController?.pushViewController(controller, animated: true)
+	}
+}
+
 // MARK: - Signals handling
 
 extension FilesViewController {
 	
 	fileprivate func setupUploadButtonTapSignal() {
 		uploadBarButtonItem.reactive.tap.bind(to: self) { me, _ in
-			ginfo("Starting upload")
+			ginfo("Showing actions")
 			
-			// Start server.
-			do {
-				try me.server.start()
-			} catch {
-				gerror("Failed starting server: \(error)")
-				me.present(error: error as NSError)
-				return
-			}
+			let title = NSLocalizedString("Actions")
+			let alert = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
 			
-			// Present alert for user.
-			let url = me.server.serverURL!
-			let title = NSLocalizedString("Upload Server Active!")
-			let message = NSLocalizedString("You can upload files by visiting\n\n\(url.absoluteString)\n\nin web browser on your computer. When done tap stop button below.")
-			let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-			
-			alert.addAction(UIAlertAction(title: NSLocalizedString("Stop"), style: .default) { action in
-				gdebug("Stopping upload server")
-				me.server.stop()
-				
-				if me.persistentContainer.viewContext.importUploadedFiles() {
-					me.fetch()
-				}
-			})
+			alert.addAction(UIAlertAction(title: NSLocalizedString("Upload from computer"), style: .default, handler: me.uploadFromComputer(action:)))
+			alert.addAction(UIAlertAction(title: NSLocalizedString("Download from internet"), style: .default, handler: me.downloadFromInternet(action:)))
+			alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: nil))
 			
 			me.present(alert, animated: true, completion: nil)
 		}
