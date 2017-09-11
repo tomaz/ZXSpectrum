@@ -46,8 +46,8 @@ extension NSError {
 	/**
 	File move error.
 	*/
-	static func move(description: String, error underlyingError: Error) -> NSError {
-		return error(code: -1002, description: description, reason: underlyingError.localizedDescription)
+	static func move(description: String, error underlyingError: Error? = nil) -> NSError {
+		return error(code: -1002, description: description, reason: underlyingError?.localizedDescription)
 	}
 }
 

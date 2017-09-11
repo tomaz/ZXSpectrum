@@ -53,6 +53,13 @@ class Database {
 	static let documentsURL: URL = {
 		return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
 	}()
+	
+	/**
+	All recognized file extensions.
+	*/
+	static let allowedFileExtensions: [String] = {
+		return ["tzx", "tap"]
+	}()
 }
 
 // MARK: - Uploaded files handling
@@ -146,7 +153,6 @@ extension Database {
 			}
 		}
 
-		// Unzipping
 		func unzip() throws {
 			if (ext.lowercased() == "zip") {
 				gdebug("Unzipping \(url)")
@@ -161,17 +167,31 @@ extension Database {
 		}
 		
 		func move() throws -> URL {
-			let destinationURL = filesURL.appendingPathComponent(filename)
-			
-			if manager.fileExists(atPath: destinationURL.path) {
-				gdebug("Removing existing file at \(destinationURL)")
-				try manager.removeItem(at: destinationURL)
+			// Determine files at source path. If single file, just copy that one directly, otherwise, create subfolder and copy all files in there.
+			let fileURLs = try knownFileURLs(at: sourceURL)
+			let destinationFolderURL = try destinationURL(at: filesURL, source: sourceURL, for: fileURLs)
+
+			// Create destination folder.
+			if !manager.fileExists(atPath: destinationFolderURL.path) {
+				gdebug("Creating directory \(destinationFolderURL)")
+				try manager.createDirectory(at: destinationFolderURL, withIntermediateDirectories: true, attributes: nil)
 			}
 			
-			gdebug("Moving file from \(sourceURL) to \(destinationURL)")
-			try manager.moveItem(at: sourceURL, to: destinationURL)
+			// Copy all files.
+			for fileURL in fileURLs {
+				let filename = fileURL.lastPathComponent
+				let destinationFileURL = destinationFolderURL.appendingPathComponent(filename)
+				
+				if manager.fileExists(atPath: destinationFileURL.path) {
+					gdebug("Removing existing file at \(destinationFileURL)")
+					try manager.removeItem(at: destinationFileURL)
+				}
+				
+				gdebug("Moving \(fileURL) to \(destinationFileURL)")
+				try manager.moveItem(at: fileURL, to: destinationFileURL)
+			}
 			
-			return destinationURL
+			return fileURLs.count == 1 ? fileURLs.first! : destinationFolderURL
 		}
 		
 		// Move the file.
@@ -198,6 +218,33 @@ extension Database {
 			try manager.createDirectory(atPath: result, withIntermediateDirectories: true, attributes: nil)
 		}
 		return result
+	}
+
+	private static func knownFileURLs(at url: URL) throws -> [URL] {
+		return try FileManager.default.contentsOfDirectory(atPath: url.path).filter { filename in
+			let ext = (filename as NSString).pathExtension
+			return allowedFileExtensions.contains(ext)
+		}.map {
+			return url.appendingPathComponent($0)
+		}
+	}
+	
+	private static func destinationURL(at baseURL: URL, source sourceURL: URL, for files: [URL]) throws -> URL {
+		if files.count == 0 {
+			gwarn("No known file found")
+			throw NSError.move(description: NSLocalizedString("URL doesn't contain known file types!"))
+		}
+		
+		let firstLetter = String(files.first!.lastPathComponent.characters.first!)
+		
+		// For single file use base path.
+		if files.count == 1 {
+			return baseURL.appendingPathComponent(firstLetter)
+		}
+		
+		// For multiple files, use filename on top of base path so they are all grouped together. Note we use sourceURL as it's the "common" name in our use case.
+		let filename = sourceURL.deletingPathExtension().lastPathComponent
+		return baseURL.appendingPathComponent(firstLetter).appendingPathComponent(filename)
 	}
 }
 
