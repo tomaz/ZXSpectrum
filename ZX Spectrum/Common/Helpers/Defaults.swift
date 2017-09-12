@@ -54,7 +54,9 @@ class Defaults {
 	static func unpauseEmulation() {
 		gverbose("Unpausing emulation (pause stack \(fuse_emulation_paused - 1))")
 
-		fuse_emulation_unpause()
+		if (fuse_emulation_paused > 0) {
+			fuse_emulation_unpause()
+		}
 		
 		if fuse_emulation_paused == 0 && !isEmulationStarted.value {
 			isEmulationStarted.value = true
