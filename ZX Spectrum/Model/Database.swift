@@ -160,10 +160,24 @@ extension Database {
 extension Database {
 	
 	/**
+	Deletes all files and snapshots for the given object.
+	*/
+	@discardableResult
+	static func deleteAllFiles(for object: FileObject) -> Bool {
+		do {
+			try deleteSnapshot(for: object)
+		} catch {
+			return false
+		}
+		
+		return deleteFiles(at: object.url)
+	}
+	
+	/**
 	Deletes the file at the given url as well as all files that share the same name but different extension.
 	*/
 	@discardableResult
-	static func deleteUploadedFiles(at url: URL) -> Bool {
+	static func deleteFiles(at url: URL) -> Bool {
 		let manager = FileManager.default
 		var failedFiles = [String]()
 		

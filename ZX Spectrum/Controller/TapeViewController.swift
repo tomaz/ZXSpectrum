@@ -148,27 +148,13 @@ extension TapeViewController {
 	fileprivate func setupDeleteSnapshotButtonTapSignal() {
 		deleteSnapshotButton.reactive.tap.bind(to: self) { me, _ in
 			ginfo("Asking for snapshot delete confirmation")
-			
-			let object = Defaults.currentFile.value!
-			let bytes = Database.snapshotSize(for: object)
-			let size = Formatter.size(fromBytes: bytes)
-			
-			let message = NSLocalizedString("This will free \(size.value) \(size.unit) but cannot be undone.\nAre you sure?")
-			let alert = UIAlertController(title: NSLocalizedString("Delete Snapshop?"), message: message, preferredStyle: .actionSheet)
-			
-			alert.addAction(UIAlertAction(title: NSLocalizedString("Delete"), style: .destructive) { action in
-				ginfo("Deleting snapshot")
-				do {
-					try Database.deleteSnapshot(for: object)
-				} catch {
-					gwarn("Failed deleting snapshot \(error)")
+			Alert.deleteSnapshot(for: Defaults.currentFile.value!) { error in
+				if let error = error {
+					me.present(error: error)
+					return
 				}
 				me.updateAvailableProperty()
-			})
-			
-			alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: nil))
-			
-			me.present(alert, animated: true, completion: nil)
+			}
 		}
 	}
 }

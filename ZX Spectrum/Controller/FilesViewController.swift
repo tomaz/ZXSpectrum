@@ -127,7 +127,7 @@ extension FilesViewController {
 	}
 	
 	/**
-	Deletes the given object.
+	Deletes all files, including snapshots for the given object.
 	*/
 	fileprivate func delete(object: FileObject) {
 		if let context = object.managedObjectContext {

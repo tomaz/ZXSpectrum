@@ -846,7 +846,7 @@
                                                     <rect key="frame" x="0.0" y="131" width="343" height="42"/>
                                                     <subviews>
                                                         <stackView opaque="NO" contentMode="scaleToFill" spacing="44" translatesAutoresizingMaskIntoConstraints="NO" id="5lB-V2-G1U">
-                                                            <rect key="frame" x="96" y="12" width="151" height="30"/>
+                                                            <rect key="frame" x="46.5" y="12" width="250" height="30"/>
                                                             <subviews>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Als-ED-9Fz">
                                                                     <rect key="frame" x="0.0" y="0.0" width="52" height="30"/>
@@ -854,6 +854,11 @@
                                                                 </button>
                                                                 <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AGC-nv-BLy">
                                                                     <rect key="frame" x="96" y="0.0" width="55" height="30"/>
+                                                                    <color key="tintColor" red="1" green="0.0" blue="0.20679030879999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                    <state key="normal" title="DELETE"/>
+                                                                </button>
+                                                                <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="66F-oT-pGU">
+                                                                    <rect key="frame" x="195" y="0.0" width="55" height="30"/>
                                                                     <color key="tintColor" red="1" green="0.0" blue="0.20679030879999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                     <state key="normal" title="DELETE"/>
                                                                 </button>
@@ -882,6 +887,7 @@
                                     <outlet property="actionsContainerView" destination="fnJ-PF-xMX" id="IXe-CS-zsx"/>
                                     <outlet property="basicInfoLabel" destination="QiR-jf-9cs" id="166-Wn-gvr"/>
                                     <outlet property="deleteButton" destination="AGC-nv-BLy" id="C8n-tm-T0r"/>
+                                    <outlet property="deleteSnapshotButton" destination="66F-oT-pGU" id="dhn-eu-9Og"/>
                                     <outlet property="detailedInfoLabel" destination="cPw-Hh-U5I" id="HxK-S1-dRM"/>
                                     <outlet property="hardwareInfoLabel" destination="URj-EV-Pmw" id="6vj-7x-nCw"/>
                                     <outlet property="insertButton" destination="Als-ED-9Fz" id="IJc-Q0-42b"/>

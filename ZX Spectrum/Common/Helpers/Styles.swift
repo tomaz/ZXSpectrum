@@ -43,6 +43,7 @@ final class Styles {
 		static let emphasized = Appearance(rawValue: 1 << 1)
 		static let semiEmphasized = Appearance(rawValue: 1 << 2)
 		static let inverted = Appearance(rawValue: 1 << 3)
+		static let warning = Appearance(rawValue: 1 << 4)
 		
 		var styleName: String {
 			if contains(.emphasized) {
@@ -64,13 +65,17 @@ final class Styles {
 		
 		var fontColor: UIColor {
 			if contains(.inverted) {
-				if contains(.emphasized) || contains(.semiEmphasized) {
+				if contains(.warning) {
+					return UIColor.yellow
+				} else if contains(.emphasized) || contains(.semiEmphasized) {
 					return UIColor.white
 				} else {
 					return UIColor.white.withAlphaComponent(0.6)
 				}
 			} else {
-				if contains(.emphasized) {
+				if contains(.warning) {
+					return UIColor.red
+				} else if contains(.emphasized) {
 					return UIColor.darkText
 				} else {
 					return UIColor.lightGray

@@ -14,19 +14,21 @@ class FileTableViewCell: UITableViewCell, Configurable {
 	@IBOutlet fileprivate weak var hardwareInfoLabel: UILabel!
 	@IBOutlet fileprivate weak var insertButton: UIButton!
 	@IBOutlet fileprivate weak var deleteButton: UIButton!
+	@IBOutlet fileprivate weak var deleteSnapshotButton: UIButton!
 	@IBOutlet fileprivate weak var actionsContainerView: UIView!
 	
 	fileprivate lazy var controller = SpectrumFileController()
 	
 	fileprivate var object: FileObject? = nil
 	fileprivate var info: SpectrumFileInfo? = nil
+	fileprivate var snapshotSize: Int = 0
 	
 	// MARK: - Callbacks
 
 	/// Called when user selects to insert the object for playback.
 	var didRequestInsert: ((FileObject, SpectrumFileInfo?) -> Void)? = nil
 	
-	/// Called when user wants to delete the object
+	/// Called when user wants to delete all files associated with the object.
 	var didRequestDelete: ((FileObject) -> Void)? = nil
 	
 	// MARK: - Overriden functions
@@ -36,12 +38,14 @@ class FileTableViewCell: UITableViewCell, Configurable {
 		
 		insertButton.image = IconsStyleKit.imageOfIconInsert
 		deleteButton.image = IconsStyleKit.imageOfIconTrash
+		deleteSnapshotButton.image = IconsStyleKit.imageOfIconTrash
 		
 		actionsContainerView.isHidden = true
 		actionsContainerView.alpha = 0
 		
 		setupInsertButtonSignals()
 		setupDeleteButtonSignals()
+		setupDeleteSnapshotButtonSignals()
 	}
 	
 	override func prepareForReuse() {
@@ -49,6 +53,7 @@ class FileTableViewCell: UITableViewCell, Configurable {
 		
 		object = nil
 		info = nil
+		snapshotSize = 0
 		
 		didRequestInsert = nil
 		didRequestDelete = nil
@@ -84,26 +89,36 @@ extension FileTableViewCell {
 	Selects on unselects the cell.
 	*/
 	func select(selected: Bool = true, animated: Bool = true) {
+		updateDetails(selected: selected, animated: animated, forced: false)
+	}
+	
+	fileprivate func updateDetails(selected: Bool = true, animated: Bool = true, forced: Bool = false) {
 		func handler() {
 			basicInfoLabel.isHidden = !selected || (basicInfoLabel.text?.isEmpty ?? true)
 			detailedInfoLabel.isHidden = !selected || (detailedInfoLabel.text?.isEmpty ?? true)
 			hardwareInfoLabel.isHidden = !selected || (hardwareInfoLabel.text?.isEmpty ?? true)
+			deleteSnapshotButton.isHidden = snapshotSize == 0
 			actionsContainerView.isHidden = !selected
 			actionsContainerView.alpha = selected ? 1 : 0
 		}
 		
 		// If selected and info isn't prepared yet, do it now.
-		if selected, info == nil, let object = object {
+		if selected, forced || info == nil, let object = object {
 			do {
 				info = try controller.informationForFile(atPath: object.url.path)
+				snapshotSize = Database.snapshotSize(for: object)
 				if let info = info {
-					basicInfoLabel.attributedText = FileTableViewCell.basicInfo(for: object, fileInfo: info)
+					basicInfoLabel.attributedText = FileTableViewCell.basicInfo(for: object, fileInfo: info, snapshotSize: snapshotSize)
 					detailedInfoLabel.attributedText = FileTableViewCell.detailedInfo(for: object, fileInfo: info)
 					hardwareInfoLabel.attributedText = FileTableViewCell.hardwareInfo(for: object, fileInfo: info)
+					deleteButton.attributedTitle = FileTableViewCell.deleteAllText(for: object, fileInfo: info, snapshotSize: snapshotSize)
+					deleteSnapshotButton.attributedTitle = FileTableViewCell.deleteSnapshotText(for: object, fileInfo: info, snapshotSize: snapshotSize)
 				} else {
 					basicInfoLabel.text = nil
 					detailedInfoLabel.text = nil
 					hardwareInfoLabel.text = nil
+					deleteButton.attributedTitle = nil
+					deleteSnapshotButton.attributedTitle = nil
 				}
 			} catch {
 				gwarn("Failed reading info for \(object): \(error)")
@@ -153,6 +168,24 @@ extension FileTableViewCell {
 			}
 		}
 	}
+	
+	fileprivate func setupDeleteSnapshotButtonSignals() {
+		deleteSnapshotButton.reactive.tap.bind(to: self) { me, sender in
+			if let object = me.object {
+				ginfo("Deleting snapshots for \(object)")
+				Alert.deleteSnapshot(for: object) { error in
+					if let error = error {
+						UIViewController.current.present(error: error)
+						return
+					}
+					UIView.animate(withDuration: 0.25) {
+						me.updateDetails(forced: true)
+						me.deleteSnapshotButton.isHidden = true
+					}
+				}
+			}
+		}
+	}
 }
 
 // MARK: - Name styling
@@ -197,12 +230,18 @@ extension FileTableViewCell {
 	/**
 	Prepares basic info text for the given object.
 	*/
-	fileprivate static func basicInfo(for object: FileObject, fileInfo: SpectrumFileInfo) -> NSAttributedString {
+	fileprivate static func basicInfo(for object: FileObject, fileInfo: SpectrumFileInfo, snapshotSize: Int) -> NSAttributedString {
 		let result = NSMutableAttributedString()
 		
 		if fileInfo.size > 0 {
 			let values = Formatter.size(fromBytes: fileInfo.size)
 			let text = info(title: NSLocalizedString("Size"), values: [values.value], suffix: values.unit)
+			result.appendLine(text)
+		}
+		
+		if snapshotSize > 0 {
+			let values = Formatter.size(fromBytes: snapshotSize)
+			let text = info(title: NSLocalizedString("Snapshot"), values: [values.value], suffix: values.unit)
 			result.appendLine(text)
 		}
 		
@@ -348,6 +387,45 @@ extension FileTableViewCell {
 	private static let infoLightStyle = lightStyle(size: .info)
 	private static let infoEmphasizedStyle = emphasizedStyle(size: .info)
 	private static let infoSemiEmphasizedStyle = style(appearance: .semiEmphasized, size: .info)
+}
+
+// MARK: - Actions styling
+
+extension FileTableViewCell {
+	
+	fileprivate static func deleteAllText(for object: FileObject, fileInfo: SpectrumFileInfo, snapshotSize: Int) -> NSAttributedString? {
+		// If there's no snapshot, only show icon.
+		if snapshotSize == 0 {
+			return nil
+		}
+		
+		let totalSize = fileInfo.size + snapshotSize
+		let value = Formatter.size(fromBytes: totalSize)
+		
+		let result = NSMutableAttributedString()
+		result.append(value.value.set(style: FileTableViewCell.buttonValueStyle))
+		result.append(value.unit.set(style: FileTableViewCell.buttonStyle))
+		return result
+	}
+	
+	/**
+	Prepares delete snapshot title.
+	*/
+	fileprivate static func deleteSnapshotText(for object: FileObject, fileInfo: SpectrumFileInfo, snapshotSize: Int) -> NSAttributedString? {
+		if snapshotSize == 0 {
+			return nil
+		}
+		
+		let value = Formatter.size(fromBytes: snapshotSize)
+		
+		let result = NSMutableAttributedString()
+		result.append(value.value.set(style: FileTableViewCell.buttonValueStyle))
+		result.append(value.unit.set(style: FileTableViewCell.buttonStyle))
+		return result
+	}
+	
+	private static let buttonStyle = style(appearance: [.light, .warning], size: .main)
+	private static let buttonValueStyle = style(appearance: [.emphasized, .warning], size: .main)
 }
 
 // MARK: - Common styling
