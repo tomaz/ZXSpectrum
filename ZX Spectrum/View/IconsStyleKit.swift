@@ -57,6 +57,8 @@ public class IconsStyleKit : NSObject {
         static var iconUploadTargets: [AnyObject]?
         static var imageOfIconDownload: UIImage?
         static var iconDownloadTargets: [AnyObject]?
+        static var imageOfIconTrashSnapshot: UIImage?
+        static var iconTrashSnapshotTargets: [AnyObject]?
     }
 
     //// Colors
@@ -1122,6 +1124,154 @@ public class IconsStyleKit : NSObject {
 
     }
 
+    @objc dynamic public class func drawIconTrashSnapshot(frame targetFrame: CGRect = CGRect(x: 0, y: 0, width: 22, height: 22), resizing: ResizingBehavior = .aspectFit) {
+        //// General Declarations
+        let context = UIGraphicsGetCurrentContext()!
+        
+        //// Resize to Target Frame
+        context.saveGState()
+        let resizedFrame: CGRect = resizing.apply(rect: CGRect(x: 0, y: 0, width: 22, height: 22), target: targetFrame)
+        context.translateBy(x: resizedFrame.minX, y: resizedFrame.minY)
+        context.scaleBy(x: resizedFrame.width / 22, y: resizedFrame.height / 22)
+
+
+        //// Group 2
+        //// Bezier Drawing
+        let bezierPath = UIBezierPath()
+        bezierPath.move(to: CGPoint(x: 2.5, y: 3.13))
+        bezierPath.addCurve(to: CGPoint(x: 19.5, y: 3.13), controlPoint1: CGPoint(x: 17.8, y: 3.13), controlPoint2: CGPoint(x: 19.5, y: 3.13))
+        UIColor.black.setStroke()
+        bezierPath.lineWidth = 1
+        bezierPath.stroke()
+
+
+        //// Canister Drawing
+        let canisterPath = UIBezierPath()
+        canisterPath.move(to: CGPoint(x: 3.64, y: 3.13))
+        canisterPath.addCurve(to: CGPoint(x: 4.56, y: 20.65), controlPoint1: CGPoint(x: 3.64, y: 3.13), controlPoint2: CGPoint(x: 4.54, y: 19.67))
+        canisterPath.addCurve(to: CGPoint(x: 5.47, y: 21.52), controlPoint1: CGPoint(x: 4.57, y: 21.62), controlPoint2: CGPoint(x: 5.47, y: 21.52))
+        canisterPath.addLine(to: CGPoint(x: 9.5, y: 21.5))
+        canisterPath.move(to: CGPoint(x: 17.82, y: 10.96))
+        canisterPath.addCurve(to: CGPoint(x: 18.24, y: 3.13), controlPoint1: CGPoint(x: 18.04, y: 6.91), controlPoint2: CGPoint(x: 18.24, y: 3.13))
+        UIColor.black.setStroke()
+        canisterPath.lineWidth = 1
+        canisterPath.stroke()
+
+
+        //// Cover Drawing
+        let coverPath = UIBezierPath()
+        coverPath.move(to: CGPoint(x: 7.29, y: 3.13))
+        coverPath.addLine(to: CGPoint(x: 7.29, y: 1.38))
+        coverPath.addCurve(to: CGPoint(x: 8.21, y: 0.5), controlPoint1: CGPoint(x: 7.29, y: 1.38), controlPoint2: CGPoint(x: 7.23, y: 0.5))
+        coverPath.addCurve(to: CGPoint(x: 13.68, y: 0.5), controlPoint1: CGPoint(x: 9.19, y: 0.5), controlPoint2: CGPoint(x: 12.7, y: 0.5))
+        coverPath.addCurve(to: CGPoint(x: 14.59, y: 1.38), controlPoint1: CGPoint(x: 14.66, y: 0.5), controlPoint2: CGPoint(x: 14.59, y: 1.38))
+        coverPath.addLine(to: CGPoint(x: 14.59, y: 3.13))
+        UIColor.black.setStroke()
+        coverPath.lineWidth = 1
+        coverPath.stroke()
+
+
+        //// Inner Lines
+        //// Bezier 3 Drawing
+        let bezier3Path = UIBezierPath()
+        bezier3Path.move(to: CGPoint(x: 11, y: 5))
+        bezier3Path.addLine(to: CGPoint(x: 11, y: 11.5))
+        UIColor.black.setStroke()
+        bezier3Path.lineWidth = 1
+        bezier3Path.stroke()
+
+
+        //// Bezier 4 Drawing
+        let bezier4Path = UIBezierPath()
+        bezier4Path.move(to: CGPoint(x: 7.45, y: 13.64))
+        bezier4Path.addLine(to: CGPoint(x: 7.2, y: 5))
+        UIColor.black.setStroke()
+        bezier4Path.lineWidth = 1
+        bezier4Path.stroke()
+
+
+        //// Bezier 11 Drawing
+        let bezier11Path = UIBezierPath()
+        bezier11Path.move(to: CGPoint(x: 14.8, y: 5))
+        bezier11Path.addCurve(to: CGPoint(x: 14.67, y: 9.5), controlPoint1: CGPoint(x: 14.8, y: 5), controlPoint2: CGPoint(x: 14.74, y: 6.99))
+        bezier11Path.addCurve(to: CGPoint(x: 14.8, y: 5), controlPoint1: CGPoint(x: 14.74, y: 6.99), controlPoint2: CGPoint(x: 14.8, y: 5))
+        bezier11Path.addLine(to: CGPoint(x: 14.8, y: 5))
+        bezier11Path.close()
+        UIColor.white.setFill()
+        bezier11Path.fill()
+        UIColor.black.setStroke()
+        bezier11Path.lineWidth = 1
+        bezier11Path.stroke()
+
+
+
+
+
+
+        //// Group
+        //// Bezier 2 Drawing
+        let bezier2Path = UIBezierPath()
+        bezier2Path.move(to: CGPoint(x: 18, y: 11.68))
+        bezier2Path.addLine(to: CGPoint(x: 19.72, y: 11.68))
+        bezier2Path.addCurve(to: CGPoint(x: 20.72, y: 11.75), controlPoint1: CGPoint(x: 20.23, y: 11.68), controlPoint2: CGPoint(x: 20.49, y: 11.68))
+        bezier2Path.addLine(to: CGPoint(x: 20.76, y: 11.76))
+        bezier2Path.addCurve(to: CGPoint(x: 21.41, y: 12.37), controlPoint1: CGPoint(x: 21.07, y: 11.87), controlPoint2: CGPoint(x: 21.3, y: 12.09))
+        bezier2Path.addCurve(to: CGPoint(x: 21.5, y: 13.35), controlPoint1: CGPoint(x: 21.5, y: 12.63), controlPoint2: CGPoint(x: 21.5, y: 12.87))
+        bezier2Path.addLine(to: CGPoint(x: 21.5, y: 19.83))
+        bezier2Path.addCurve(to: CGPoint(x: 21.42, y: 20.77), controlPoint1: CGPoint(x: 21.5, y: 20.31), controlPoint2: CGPoint(x: 21.5, y: 20.55))
+        bezier2Path.addLine(to: CGPoint(x: 21.41, y: 20.81))
+        bezier2Path.addCurve(to: CGPoint(x: 20.76, y: 21.42), controlPoint1: CGPoint(x: 21.3, y: 21.09), controlPoint2: CGPoint(x: 21.07, y: 21.32))
+        bezier2Path.addCurve(to: CGPoint(x: 19.72, y: 21.5), controlPoint1: CGPoint(x: 20.49, y: 21.5), controlPoint2: CGPoint(x: 20.23, y: 21.5))
+        bezier2Path.addLine(to: CGPoint(x: 9.28, y: 21.5))
+        bezier2Path.addCurve(to: CGPoint(x: 8.28, y: 21.43), controlPoint1: CGPoint(x: 8.77, y: 21.5), controlPoint2: CGPoint(x: 8.51, y: 21.5))
+        bezier2Path.addLine(to: CGPoint(x: 8.24, y: 21.42))
+        bezier2Path.addCurve(to: CGPoint(x: 7.59, y: 20.81), controlPoint1: CGPoint(x: 7.93, y: 21.32), controlPoint2: CGPoint(x: 7.7, y: 21.09))
+        bezier2Path.addCurve(to: CGPoint(x: 7.5, y: 19.83), controlPoint1: CGPoint(x: 7.5, y: 20.55), controlPoint2: CGPoint(x: 7.5, y: 20.31))
+        bezier2Path.addLine(to: CGPoint(x: 7.5, y: 13.35))
+        bezier2Path.addCurve(to: CGPoint(x: 7.58, y: 12.41), controlPoint1: CGPoint(x: 7.5, y: 12.87), controlPoint2: CGPoint(x: 7.5, y: 12.63))
+        bezier2Path.addLine(to: CGPoint(x: 7.59, y: 12.37))
+        bezier2Path.addCurve(to: CGPoint(x: 8.24, y: 11.76), controlPoint1: CGPoint(x: 7.7, y: 12.09), controlPoint2: CGPoint(x: 7.93, y: 11.87))
+        bezier2Path.addCurve(to: CGPoint(x: 9.28, y: 11.68), controlPoint1: CGPoint(x: 8.51, y: 11.68), controlPoint2: CGPoint(x: 8.77, y: 11.68))
+        bezier2Path.addLine(to: CGPoint(x: 11, y: 11.68))
+        bezier2Path.move(to: CGPoint(x: 18, y: 11.68))
+        bezier2Path.addLine(to: CGPoint(x: 16.83, y: 9.5))
+        bezier2Path.addLine(to: CGPoint(x: 12.17, y: 9.5))
+        bezier2Path.addLine(to: CGPoint(x: 11, y: 11.68))
+        UIColor.black.setStroke()
+        bezier2Path.lineWidth = 1
+        bezier2Path.lineCapStyle = .round
+        bezier2Path.lineJoinStyle = .round
+        bezier2Path.stroke()
+
+
+        //// Oval Drawing
+        let ovalPath = UIBezierPath()
+        ovalPath.move(to: CGPoint(x: 17.42, y: 16.41))
+        ovalPath.addCurve(to: CGPoint(x: 14.5, y: 19.32), controlPoint1: CGPoint(x: 17.42, y: 18.02), controlPoint2: CGPoint(x: 16.11, y: 19.32))
+        ovalPath.addCurve(to: CGPoint(x: 11.58, y: 16.41), controlPoint1: CGPoint(x: 12.89, y: 19.32), controlPoint2: CGPoint(x: 11.58, y: 18.02))
+        ovalPath.addCurve(to: CGPoint(x: 14.5, y: 13.5), controlPoint1: CGPoint(x: 11.58, y: 14.8), controlPoint2: CGPoint(x: 12.89, y: 13.5))
+        ovalPath.addCurve(to: CGPoint(x: 17.42, y: 16.41), controlPoint1: CGPoint(x: 16.11, y: 13.5), controlPoint2: CGPoint(x: 17.42, y: 14.8))
+        ovalPath.close()
+        UIColor.black.setStroke()
+        ovalPath.lineWidth = 1
+        ovalPath.stroke()
+
+
+        //// Oval 2 Drawing
+        let oval2Path = UIBezierPath()
+        oval2Path.move(to: CGPoint(x: 19.75, y: 13.86))
+        oval2Path.addCurve(to: CGPoint(x: 19.17, y: 14.41), controlPoint1: CGPoint(x: 19.75, y: 14.16), controlPoint2: CGPoint(x: 19.49, y: 14.41))
+        oval2Path.addCurve(to: CGPoint(x: 18.58, y: 13.86), controlPoint1: CGPoint(x: 18.84, y: 14.41), controlPoint2: CGPoint(x: 18.58, y: 14.16))
+        oval2Path.addCurve(to: CGPoint(x: 19.17, y: 13.32), controlPoint1: CGPoint(x: 18.58, y: 13.56), controlPoint2: CGPoint(x: 18.84, y: 13.32))
+        oval2Path.addCurve(to: CGPoint(x: 19.75, y: 13.86), controlPoint1: CGPoint(x: 19.49, y: 13.32), controlPoint2: CGPoint(x: 19.75, y: 13.56))
+        oval2Path.close()
+        UIColor.black.setFill()
+        oval2Path.fill()
+        
+        context.restoreGState()
+
+    }
+
     //// Generated Images
 
     @objc dynamic public class var imageOfIcon: UIImage {
@@ -1362,6 +1512,20 @@ public class IconsStyleKit : NSObject {
         return Cache.imageOfIconDownload!
     }
 
+    @objc dynamic public class var imageOfIconTrashSnapshot: UIImage {
+        if Cache.imageOfIconTrashSnapshot != nil {
+            return Cache.imageOfIconTrashSnapshot!
+        }
+
+        UIGraphicsBeginImageContextWithOptions(CGSize(width: 22, height: 22), false, 0)
+            IconsStyleKit.drawIconTrashSnapshot()
+
+        Cache.imageOfIconTrashSnapshot = UIGraphicsGetImageFromCurrentImageContext()!.withRenderingMode(.alwaysTemplate)
+        UIGraphicsEndImageContext()
+
+        return Cache.imageOfIconTrashSnapshot!
+    }
+
     //// Customization Infrastructure
 
     @objc @IBOutlet dynamic var iconTargets: [AnyObject]! {
@@ -1530,6 +1694,16 @@ public class IconsStyleKit : NSObject {
             Cache.iconDownloadTargets = newValue
             for target: AnyObject in newValue {
                 let _ = target.perform(NSSelectorFromString("setImage:"), with: IconsStyleKit.imageOfIconDownload)
+            }
+        }
+    }
+
+    @objc @IBOutlet dynamic var iconTrashSnapshotTargets: [AnyObject]! {
+        get { return Cache.iconTrashSnapshotTargets }
+        set {
+            Cache.iconTrashSnapshotTargets = newValue
+            for target: AnyObject in newValue {
+                let _ = target.perform(NSSelectorFromString("setImage:"), with: IconsStyleKit.imageOfIconTrashSnapshot)
             }
         }
     }
