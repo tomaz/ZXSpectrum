@@ -15,7 +15,6 @@ class EmulatorViewController: UIViewController {
 	@IBOutlet fileprivate weak var spectrumInputView: InputView!
 	
 	@IBOutlet fileprivate weak var settingsButton: UIButton!
-	@IBOutlet fileprivate weak var resetButton: UIButton!
 	@IBOutlet fileprivate weak var filesButton: UIButton!
 	@IBOutlet fileprivate weak var tapeButton: UIButton!
 	@IBOutlet fileprivate weak var joystickButton: UIButton!
@@ -42,7 +41,6 @@ class EmulatorViewController: UIViewController {
 		
 		gdebug("Setting up view")
 		settingsButton.image = IconsStyleKit.imageOfIconGear
-		resetButton.image = IconsStyleKit.imageOfIconReset
 		filesButton.image = IconsStyleKit.imageOfIconTape
 		updateTapeButtonIcon(animated: false)
 		updateJoystickButtonIcon(animated: false)
@@ -50,7 +48,6 @@ class EmulatorViewController: UIViewController {
 
 		setupEmulationStartedSignal()
 		setupCurrentObjectSignal()
-		setupResetButtonTapSignal()
 		setupTapeButtonTapSignal()
 		setupJoystickButtonTapSignal()
 		setupKeyboardButtonTapSignal()
@@ -138,9 +135,8 @@ extension EmulatorViewController {
 	
 	fileprivate func updateTapeButtonVisibility() {
 		UIView.animate(withDuration: 0.2) {
-			let isAutoPlayEnabled = settings_current.auto_load == 1
 			let isTapeMissing = Defaults.currentFile.value == nil
-			self.tapeButton.isHidden = isAutoPlayEnabled || isTapeMissing
+			self.tapeButton.isHidden = isTapeMissing
 		}
 	}
 }
@@ -190,14 +186,6 @@ extension EmulatorViewController {
 		Defaults.currentFile.bind(to: self) { me, _ in
 			gverbose("Updating views due to current object change")
 			me.updateTapeButtonVisibility()
-		}
-	}
-	
-	fileprivate func setupResetButtonTapSignal() {
-		resetButton.reactive.tap.bind(to: self) { me, _ in
-			ginfo("Resetting emulator")
-			me.emulator.reset()
-			me.emulator.tapeRewind()
 		}
 	}
 	

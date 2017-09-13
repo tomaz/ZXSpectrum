@@ -21,6 +21,12 @@ class SettingsViewController: UITableViewController {
 	@IBOutlet fileprivate weak var hapticFeedbackSwitch: UISwitch!
 	@IBOutlet fileprivate weak var fillKeyboardSwitch: UISwitch!
 	
+	@IBOutlet fileprivate weak var resetButton: UIButton!
+	
+	// MARK: - Data
+	
+	fileprivate var emulator: Emulator!
+	
 	// MARK: - Helpers
 	
 	fileprivate lazy var defaults = UserDefaults.standard
@@ -50,6 +56,18 @@ class SettingsViewController: UITableViewController {
 		screenSmoothingSwitch.isOn = defaults.isScreenSmoothingActive
 		hapticFeedbackSwitch.isOn = defaults.isHapticFeedbackEnabled
 		fillKeyboardSwitch.isOn = defaults.keyboardRenderingMode == .fill
+		
+		gdebug("Setting up signals")
+		setupResetButtonTapSignal()
+	}
+}
+
+// MARK: - Dependencies
+
+extension SettingsViewController: EmulatorConsumer {
+	
+	func configure(emulator: Emulator) {
+		self.emulator = emulator
 	}
 }
 
@@ -106,6 +124,19 @@ extension SettingsViewController {
 		if let controller = segue.source as? SettingsComputerViewController, let machine = controller.selected {
 			selectedMachine = machine
 			computerLabel.text = machine.name
+		}
+	}
+}
+
+// MARK: - Signals handling
+
+extension SettingsViewController {
+	
+	fileprivate func setupResetButtonTapSignal() {
+		resetButton.reactive.tap.bind(to: self) { me, _ in
+			ginfo("Resetting emulator")
+			me.emulator.reset()
+			me.emulator.tapeRewind()
 		}
 	}
 }

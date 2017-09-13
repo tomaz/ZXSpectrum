@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13189.4" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="PNv-Zt-Z8Q">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="PNv-Zt-Z8Q">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13165.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Segues with Peek and Pop" minToolsVersion="7.1"/>
@@ -52,7 +52,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="2ay-GZ-zIg">
-                                                <rect key="frame" x="20" y="0.0" width="134" height="44"/>
+                                                <rect key="frame" x="20" y="0.0" width="82" height="44"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cbU-fz-DJ0">
                                                         <rect key="frame" x="0.0" y="0.0" width="30" height="44"/>
@@ -73,10 +73,6 @@
                                                                 <segue key="preview" inheritsFrom="commit" id="rBY-DB-EbA"/>
                                                             </segue>
                                                         </connections>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XSS-zl-c5M">
-                                                        <rect key="frame" x="104" y="0.0" width="30" height="44"/>
-                                                        <state key="normal" title="res"/>
                                                     </button>
                                                 </subviews>
                                             </stackView>
@@ -112,7 +108,6 @@
                         <outlet property="filesButton" destination="f5d-Nv-YS9" id="pSb-XL-EmY"/>
                         <outlet property="joystickButton" destination="1J6-VI-uiw" id="a2O-xj-oEQ"/>
                         <outlet property="keyboardButton" destination="OSr-o9-M55" id="zNc-ev-Z9t"/>
-                        <outlet property="resetButton" destination="XSS-zl-c5M" id="Z5G-KN-y10"/>
                         <outlet property="settingsButton" destination="cbU-fz-DJ0" id="adr-zv-5kh"/>
                         <outlet property="spectrumInputView" destination="fC8-y7-uJO" id="DOF-YJ-CCO"/>
                         <outlet property="spectrumView" destination="v01-ct-F5k" id="7B0-7s-iNl"/>
@@ -681,6 +676,36 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="ACTIONS" id="Zof-KY-gbf">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="WoA-7S-2O5">
+                                        <rect key="frame" x="0.0" y="531.5" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="WoA-7S-2O5" id="lOs-o7-yM6">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="nZG-RR-lcF">
+                                                    <rect key="frame" x="16" y="12" width="343" height="19.5"/>
+                                                    <subviews>
+                                                        <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="1000" verticalCompressionResistancePriority="1000" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yBG-iO-LfL">
+                                                            <rect key="frame" x="0.0" y="0.0" width="343" height="19.5"/>
+                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                            <state key="normal" title="Reset"/>
+                                                        </button>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="nZG-RR-lcF" secondAttribute="trailing" id="2d9-dL-Eip"/>
+                                                <constraint firstItem="nZG-RR-lcF" firstAttribute="leading" secondItem="lOs-o7-yM6" secondAttribute="leadingMargin" id="5qe-Eu-Ds0"/>
+                                                <constraint firstAttribute="bottom" secondItem="nZG-RR-lcF" secondAttribute="bottom" constant="12" id="MGe-vg-MNy"/>
+                                                <constraint firstItem="nZG-RR-lcF" firstAttribute="top" secondItem="lOs-o7-yM6" secondAttribute="top" constant="12" id="QZy-hK-jrU"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="1sO-vV-mNd" id="GFh-sI-L5J"/>
@@ -701,6 +726,7 @@
                         <outlet property="fillKeyboardSwitch" destination="EJe-sY-lDM" id="jE6-IM-O4V"/>
                         <outlet property="hapticFeedbackSwitch" destination="8vT-t4-F9h" id="yah-vl-dMl"/>
                         <outlet property="joystickSensitivitySlider" destination="7B4-PT-Gpi" id="lyX-yM-Jdk"/>
+                        <outlet property="resetButton" destination="yBG-iO-LfL" id="quY-fN-mnr"/>
                         <outlet property="screenSmoothingSwitch" destination="eag-M7-xGd" id="F2G-zy-OPR"/>
                     </connections>
                 </tableViewController>
