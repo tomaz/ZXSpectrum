@@ -48,6 +48,13 @@ class Database {
 	}()
 	
 	/**
+	URL for snapshots base folder..
+	*/
+	static let snapshotsURL: URL = {
+		return documentsURL.appendingPathComponent("Snapshots")
+	}()
+	
+	/**
 	URL for documents base folder.
 	*/
 	static let documentsURL: URL = {
@@ -60,6 +67,54 @@ class Database {
 	static let allowedFileExtensions: [String] = {
 		return ["tzx", "tap"]
 	}()
+}
+
+// MARK: - Snapshots handling
+
+extension Database {
+	
+	/**
+	Opens the snapshot for the given object.
+	*/
+	static func openSnapshot(for object: FileObject) {
+		let url = snapshotURL(for: object)
+		
+		gverbose("Loading snapshot for \(object)")
+		
+		// No need to load anything if snapshot doesn't exist.
+		if !FileManager.default.fileExists(atPath: url.path) {
+			gdebug("Snapshot doesn't exist")
+			return
+		}
+		
+		gdebug("Rading snapshot")
+		snapshot_read(url.path.cString(using: .ascii))
+		display_refresh_all()
+	}
+	
+	/**
+	Saves snapshot for the given object.
+	*/
+	static func saveSnapshot(for object: FileObject) throws {
+		let url = snapshotURL(for: object)
+		let manager = FileManager.default
+		
+		gverbose("Saving snaphost for \(object)")
+		
+		if manager.fileExists(atPath: url.path) {
+			try manager.removeItem(at: url)
+		}
+		
+		try manager.createDirectory(at: snapshotsURL, withIntermediateDirectories: true, attributes: nil)
+		
+		snapshot_write(url.path.cString(using: .ascii))
+	}
+	
+	private static func snapshotURL(for object: FileObject) -> URL {
+		// Snapshots are saved as flat list of files within snapshots folder.
+		let filename = object.url.deletingPathExtension().lastPathComponent
+		return snapshotsURL.appendingPathComponent(filename).appendingPathExtension("szx")
+	}
 }
 
 // MARK: - Uploaded files handling

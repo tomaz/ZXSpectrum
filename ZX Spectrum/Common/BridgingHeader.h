@@ -20,6 +20,7 @@
 #include "settings.h"
 #include "tape.h"
 #include "tape_block.h"
+#include "snapshot.h"
 #include "cocoadisplay.h"
 #include "cocoatape.h"
 
