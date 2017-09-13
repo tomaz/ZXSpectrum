@@ -51,7 +51,7 @@ final class FilesViewController: UITableViewController {
 		files.bind(to: tableView, using: bond)
 		
 		gdebug("Setting up view")
-		setupActionButtonTitle()
+		setupActionButtonImage()
 		setupTableSelectionSignal()
 		setupFileSortOptionSignal()
 		
@@ -161,7 +161,7 @@ extension FilesViewController {
 
 extension FilesViewController {
 	
-	fileprivate func setupActionButtonTitle(changeTo newAction: FileAction? = nil) {
+	fileprivate func setupActionButtonImage(changeTo newAction: FileAction? = nil) {
 		let defaults = UserDefaults.standard
 		
 		if let newAction = newAction {
@@ -171,15 +171,15 @@ extension FilesViewController {
 		
 		gdebug("Changing action button to \(defaults.fileAction)")
 		switch defaults.fileAction {
-		case .upload: uploadBarButtonItem.title = NSLocalizedString("Upload")
-		case .download: uploadBarButtonItem.title = NSLocalizedString("Download")
+		case .upload: uploadBarButtonItem.image = IconsStyleKit.imageOfIconUpload
+		case .download: uploadBarButtonItem.image = IconsStyleKit.imageOfIconDownload
 		}
 	}
 	
 	fileprivate func uploadFromComputer() {
 		ginfo("Starting upload")
 		
-		setupActionButtonTitle(changeTo: .upload)
+		setupActionButtonImage(changeTo: .upload)
 		
 		// Start server.
 		do {
@@ -211,7 +211,7 @@ extension FilesViewController {
 	fileprivate func downloadFromInternet() {
 		ginfo("Presenting donwload file")
 		
-		setupActionButtonTitle(changeTo: .download)
+		setupActionButtonImage(changeTo: .download)
 		
 		guard let controller = storyboard?.instantiateViewController(withIdentifier: "DownloadFileScene") as? DownloadFileViewController else {
 			fatalError("Download file controller not found!")
