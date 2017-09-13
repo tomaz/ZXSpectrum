@@ -5,9 +5,38 @@
 
 import UIKit
 import CoreData
+import ReactiveKit
 import Zip
 
 class Database {
+	
+	/**
+	URL for files base folder.
+	*/
+	static let filesURL: URL = {
+		return documentsURL.appendingPathComponent("Files")
+	}()
+	
+	/**
+	URL for snapshots base folder..
+	*/
+	static let snapshotsURL: URL = {
+		return documentsURL.appendingPathComponent("Snapshots")
+	}()
+	
+	/**
+	URL for documents base folder.
+	*/
+	static let documentsURL: URL = {
+		return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+	}()
+	
+	/**
+	All recognized file extensions.
+	*/
+	static let allowedFileExtensions: [String] = {
+		return ["tzx", "tap"]
+	}()
 	
 	/**
 	Creates persistent container and sends it to the completion block.
@@ -38,35 +67,9 @@ class Database {
 				}
 			}
 		}
+		
+		Database.updateSnapshotsSize()
 	}
-	
-	/**
-	URL for files base folder.
-	*/
-	static let filesURL: URL = {
-		return documentsURL.appendingPathComponent("Files")
-	}()
-	
-	/**
-	URL for snapshots base folder..
-	*/
-	static let snapshotsURL: URL = {
-		return documentsURL.appendingPathComponent("Snapshots")
-	}()
-	
-	/**
-	URL for documents base folder.
-	*/
-	static let documentsURL: URL = {
-		return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-	}()
-	
-	/**
-	All recognized file extensions.
-	*/
-	static let allowedFileExtensions: [String] = {
-		return ["tzx", "tap"]
-	}()
 }
 
 // MARK: - Snapshots handling
@@ -74,7 +77,14 @@ class Database {
 extension Database {
 	
 	/**
-	Opens the snapshot for the given object.
+	Total snapshots size in bytes.
+	
+	Any manipulation with snapshots will automatically update this value and post events.
+	*/
+	static let totalSnapshotsSize = Property(0)
+	
+	/**
+	Opens the snapshot for the given object and updates `totalSnapshotSize`.
 	*/
 	static func openSnapshot(for object: FileObject) {
 		let url = snapshotURL(for: object)
@@ -93,7 +103,7 @@ extension Database {
 	}
 	
 	/**
-	Saves snapshot for the given object.
+	Saves snapshot for the given object and updates `totalSnapshotSize`.
 	*/
 	static func saveSnapshot(for object: FileObject) throws {
 		let url = snapshotURL(for: object)
@@ -108,10 +118,12 @@ extension Database {
 		try manager.createDirectory(at: snapshotsURL, withIntermediateDirectories: true, attributes: nil)
 		
 		snapshot_write(url.path.cString(using: .ascii))
+
+		updateSnapshotsSize()
 	}
 	
 	/**
-	Deletes snapshot for the given object, if it exists.
+	Deletes snapshot for the given object, if it exists and updates `totalSnapshotSize`.
 	*/
 	static func deleteSnapshot(for object: FileObject) throws {
 		let url = snapshotURL(for: object)
@@ -122,6 +134,27 @@ extension Database {
 		}
 		
 		try manager.removeItem(at: url)
+		
+		updateSnapshotsSize()
+	}
+	
+	/**
+	Deletes all snapshots and updates `totalSnapshotSize`.
+	*/
+	static func deleteAllSnapshots() throws {
+		let manager = FileManager.default
+		let url = snapshotsURL
+
+		gverbose("Removing snapshots at \(url)")
+
+		if !manager.fileExists(atPath: url.path) {
+			gdebug("Snapshots path not present")
+			return
+		}
+		
+		try manager.removeItem(at: url)
+		
+		updateSnapshotsSize()
 	}
 	
 	/**
@@ -153,12 +186,77 @@ extension Database {
 		let filename = object.url.deletingPathExtension().lastPathComponent
 		return snapshotsURL.appendingPathComponent(filename).appendingPathExtension("szx")
 	}
+
+	fileprivate static func updateSnapshotsSize() {
+		if let item = snapshotCalculationWorkItem {
+			gdebug("Cancelling ongoing calculation")
+			item.cancel()
+		}
+		
+		let item = DispatchWorkItem {
+			let manager = FileManager.default
+			var result = 0
+			
+			defer {
+				gverbose("Total snapshot size is \(result)")
+				DispatchQueue.main.async {
+					totalSnapshotsSize.value = result
+				}
+			}
+			
+			if !manager.fileExists(atPath: snapshotsURL.path) {
+				gdebug("Snapshots folder doesn't exist")
+				return
+			}
+			
+			do {
+				let files = try manager.contentsOfDirectory(atPath: snapshotsURL.path)
+				for file in files {
+					let url = snapshotsURL.appendingPathComponent(file)
+					if url.pathExtension != "szx" {
+						continue
+					}
+					
+					do {
+						let attributes = try manager.attributesOfItem(atPath: url.path)
+						if let size = attributes[FileAttributeKey.size] as? Int {
+							result += size
+						}
+					}
+				}
+				
+			} catch {
+				gwarn("Failed determining snapshots size \(error)")
+			}
+		}
+		
+		gdebug("Starting snapshot calculation")
+		snapshotCalculationWorkItem = item
+		snapshotCalculationQueue.async(execute: item)
+	}
+	
+	private static var snapshotCalculationWorkItem: DispatchWorkItem? = nil
+	private static let snapshotCalculationQueue = DispatchQueue(label: "com.gentlebytes.ZXSpectrum.Snapshots")
 }
 
 // MARK: - Uploaded files handling
 
 extension Database {
 	
+	/**
+	Creates upload folder if it doesn't exist yet.
+	*/
+	@discardableResult
+	static func createUploadFolder() throws -> String {
+		let result = Database.filesURL.path
+		let manager = FileManager.default
+		if !manager.fileExists(atPath: result) {
+			gverbose("Creating files folder")
+			try manager.createDirectory(atPath: result, withIntermediateDirectories: true, attributes: nil)
+		}
+		return result
+	}
+
 	/**
 	Deletes all files and snapshots for the given object.
 	*/
@@ -171,63 +269,6 @@ extension Database {
 		}
 		
 		return deleteFiles(at: object.url)
-	}
-	
-	/**
-	Deletes the file at the given url as well as all files that share the same name but different extension.
-	*/
-	@discardableResult
-	static func deleteFiles(at url: URL) -> Bool {
-		let manager = FileManager.default
-		var failedFiles = [String]()
-		
-		// Get all files with the same name at the folder in which our file resides.
-		let filename = url.deletingPathExtension().lastPathComponent
-		let baseURL = url.deletingLastPathComponent()
-		
-		// If we can't enumerate files for some reason, lot and attempt to only remove the main file itself.
-		var files = [String]()
-		do {
-			files = try manager.contentsOfDirectory(atPath: baseURL.path).filter { $0.hasPrefix(filename) }
-		} catch {
-			gwarn("Failed enumerating contents of \(baseURL): \(error)")
-			files = [ url.lastPathComponent ]
-		}
-		
-		// Delete all files associated with this object.
-		gdebug("Deleting \(files.count) associated file(s) at \(baseURL)")
-		for file in files {
-			let absoluteURL = baseURL.appendingPathComponent(file)
-			if manager.fileExists(atPath: absoluteURL.path) {
-				do {
-					gdebug("- \(file)")
-					try manager.removeItem(atPath: absoluteURL.path)
-				} catch {
-					gerror("Failed deleting \(absoluteURL): \(error)")
-					failedFiles.append(absoluteURL.differentSuffix(with: Database.filesURL))
-				}
-			}
-		}
-		
-		// If the folder becomes empty, delete it too. Note in this case we don't report the error as it would likely only confuse the user.
-		if failedFiles.isEmpty {
-			do {
-				let remainingFiles = try manager.contentsOfDirectory(atPath: baseURL.path).filter { !$0.hasPrefix(".") }
-				if remainingFiles.isEmpty {
-					gdebug("Deleting now empty folder at \(baseURL)")
-					try manager.removeItem(at: baseURL)
-				}
-			} catch {
-				gwarn("Failed checking or deleting folder \(baseURL): \(error)")
-			}
-		}
-		
-		// If there were any errors, present them now.
-		if !failedFiles.isEmpty {
-			UIViewController.current.present(error: NSError.delete(paths: failedFiles))
-		}
-		
-		return failedFiles.isEmpty
 	}
 
 	/**
@@ -313,18 +354,57 @@ extension Database {
 		}
 	}
 	
-	/**
-	Creates upload folder if it doesn't exist yet.
-	*/
-	@discardableResult
-	static func createUploadFolder() throws -> String {
-		let result = Database.filesURL.path
+	static private func deleteFiles(at url: URL) -> Bool {
 		let manager = FileManager.default
-		if !manager.fileExists(atPath: result) {
-			gverbose("Creating files folder")
-			try manager.createDirectory(atPath: result, withIntermediateDirectories: true, attributes: nil)
+		var failedFiles = [String]()
+		
+		// Get all files with the same name at the folder in which our file resides.
+		let filename = url.deletingPathExtension().lastPathComponent
+		let baseURL = url.deletingLastPathComponent()
+		
+		// If we can't enumerate files for some reason, lot and attempt to only remove the main file itself.
+		var files = [String]()
+		do {
+			files = try manager.contentsOfDirectory(atPath: baseURL.path).filter { $0.hasPrefix(filename) }
+		} catch {
+			gwarn("Failed enumerating contents of \(baseURL): \(error)")
+			files = [ url.lastPathComponent ]
 		}
-		return result
+		
+		// Delete all files associated with this object.
+		gdebug("Deleting \(files.count) associated file(s) at \(baseURL)")
+		for file in files {
+			let absoluteURL = baseURL.appendingPathComponent(file)
+			if manager.fileExists(atPath: absoluteURL.path) {
+				do {
+					gdebug("- \(file)")
+					try manager.removeItem(atPath: absoluteURL.path)
+				} catch {
+					gerror("Failed deleting \(absoluteURL): \(error)")
+					failedFiles.append(absoluteURL.differentSuffix(with: Database.filesURL))
+				}
+			}
+		}
+		
+		// If the folder becomes empty, delete it too. Note in this case we don't report the error as it would likely only confuse the user.
+		if failedFiles.isEmpty {
+			do {
+				let remainingFiles = try manager.contentsOfDirectory(atPath: baseURL.path).filter { !$0.hasPrefix(".") }
+				if remainingFiles.isEmpty {
+					gdebug("Deleting now empty folder at \(baseURL)")
+					try manager.removeItem(at: baseURL)
+				}
+			} catch {
+				gwarn("Failed checking or deleting folder \(baseURL): \(error)")
+			}
+		}
+		
+		// If there were any errors, present them now.
+		if !failedFiles.isEmpty {
+			UIViewController.current.present(error: NSError.delete(paths: failedFiles))
+		}
+		
+		return failedFiles.isEmpty
 	}
 
 	private static func knownFileURLs(at url: URL) throws -> [URL] {
@@ -354,6 +434,8 @@ extension Database {
 		return baseURL.appendingPathComponent(firstLetter).appendingPathComponent(filename)
 	}
 }
+
+// MARK: - Importing to database
 
 extension NSManagedObjectContext {
 	
@@ -439,11 +521,6 @@ extension NSManagedObjectContext {
 		
 		return result
 	}
-}
-
-// MARK: - Stock files handling
-
-extension NSManagedObjectContext {
 
 	/**
 	Imports stock files into database.

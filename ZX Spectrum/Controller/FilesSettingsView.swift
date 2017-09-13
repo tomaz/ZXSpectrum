@@ -12,6 +12,8 @@ Note this view subclasses `UIRefreshControl` so we can insert it into table view
 */
 final class FilesSettingsView: UIRefreshControl {
 	
+	fileprivate var deleteSnapshotsButton: UIButton!
+	
 	// MARK: - Initialization & disposal
 	
 	override convenience init() {
@@ -37,6 +39,12 @@ final class FilesSettingsView: UIRefreshControl {
 		let stackView = setupContainerStackView()
 		setupSortLabel(in: stackView)
 		setupSortSegmentedControl(in: stackView)
+		setupDelimiterView(in: stackView)
+		deleteSnapshotsButton = setupDeleteAllSnapshotsButton(in: stackView)
+		
+		// Setup signals.
+		setupTotalSnapshotSizeSignal()
+		setupTotalSignalsButtonTapSignal()
 	}
 }
 
@@ -88,4 +96,80 @@ extension FilesSettingsView {
 		
 		return result
 	}
+	
+	@discardableResult
+	fileprivate func setupDelimiterView(in stackView: UIStackView) -> UIView {
+		let result = UIView()
+		
+		stackView.addArrangedSubview(result)
+		
+		result.widthAnchor.constraint(equalToConstant: 20).isActive = true
+		
+		return result
+	}
+	
+	@discardableResult
+	fileprivate func setupDeleteAllSnapshotsButton(in stackView: UIStackView) -> UIButton {
+		let result = UIButton()
+		result.attributedTitle = deleteSnapshotsText()
+		result.isHidden = result.attributedTitle == nil
+		result.image = IconsStyleKit.imageOfIconTrashSnapshot
+		result.tintColor = Styles.Appearance.warning.fontColor
+		
+		stackView.addArrangedSubview(result)
+		
+		return result
+	}
+}
+
+// MARK: - Signals handling
+
+extension FilesSettingsView {
+	
+	fileprivate func setupTotalSnapshotSizeSignal() {
+		Database.totalSnapshotsSize.bind(to: self) { me, value in
+			gdebug("Total snapshot size changed to \(value)")
+			UIView.animate(withDuration: 0.25) {
+				me.deleteSnapshotsButton.isHidden = value == 0
+				me.deleteSnapshotsButton.attributedTitle = me.deleteSnapshotsText()
+			}
+		}
+	}
+	
+	fileprivate func setupTotalSignalsButtonTapSignal() {
+		deleteSnapshotsButton.reactive.tap.bind(to: self) { me, _ in
+			ginfo("Deleting all snapshots")
+			Alert.deleteAllSnapshots { error in
+				if let error = error {
+					UIViewController.current.present(error: error)
+				}
+			}
+		}
+	}
+}
+
+// MARK: - Styling
+
+extension FilesSettingsView {
+	
+	/**
+	Prepares text for delete snapshot button.
+	*/
+	fileprivate func deleteSnapshotsText() -> NSAttributedString? {
+		let size = Database.totalSnapshotsSize.value
+		
+		if size == 0 {
+			return nil
+		}
+		
+		let value = Formatter.size(fromBytes: size)
+
+		let result = NSMutableAttributedString()
+		result.append(value.value.set(style: FilesSettingsView.buttonValueStyle))
+		result.append(value.unit.set(style: FilesSettingsView.buttonStyle))
+		return result
+	}
+
+	private static let buttonStyle = Styles.style(appearance: [.light, .warning], size: .main)
+	private static let buttonValueStyle = Styles.style(appearance: [.emphasized, .warning], size: .main)
 }

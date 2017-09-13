@@ -38,7 +38,7 @@ class FileTableViewCell: UITableViewCell, Configurable {
 		
 		insertButton.image = IconsStyleKit.imageOfIconInsert
 		deleteButton.image = IconsStyleKit.imageOfIconTrash
-		deleteSnapshotButton.image = IconsStyleKit.imageOfIconTrash
+		deleteSnapshotButton.image = IconsStyleKit.imageOfIconTrashSnapshot
 		
 		actionsContainerView.isHidden = true
 		actionsContainerView.alpha = 0
@@ -393,6 +393,9 @@ extension FileTableViewCell {
 
 extension FileTableViewCell {
 	
+	/**
+	Prepares delete all files text.
+	*/
 	fileprivate static func deleteAllText(for object: FileObject, fileInfo: SpectrumFileInfo, snapshotSize: Int) -> NSAttributedString? {
 		// If there's no snapshot, only show icon.
 		if snapshotSize == 0 {
