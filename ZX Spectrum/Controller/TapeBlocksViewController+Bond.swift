@@ -8,7 +8,7 @@ import SwiftRichString
 import ReactiveKit
 import Bond
 
-extension TapeViewController {
+extension TapeBlocksViewController {
 	
 	/**
 	Bond for managing tape blocks table view.
@@ -63,15 +63,19 @@ extension TapeViewController {
 				return NSLocalizedString("Playing, reset to cancel").set(style: Bond.messageLightStyle)
 			}
 			
-			// Tape is not playing, inform user how they can start playback.
-			switch SpectrumController().selectedMachineType {
-			case LIBSPECTRUM_MACHINE_16: fallthrough
-			case LIBSPECTRUM_MACHINE_48: fallthrough
-			case LIBSPECTRUM_MACHINE_UNKNOWN:
-				return Styles.text(from: NSLocalizedString("<n>Type `</n><em>LOAD \"\"</em><n>` and press </n><em>ENTER</em>"), styles: Bond.messageStyles)
-			default:
-				return Styles.text(from: NSLocalizedString("<n>Select `</n><em>Tape Loader</em><n>` option and press </n><em>ENTER</em>"), styles: Bond.messageStyles)
+			// Tape is not playing, inform user how they can start playback. But only if we don't have auto play enabled.
+			if settings_current.auto_load == 0 {
+				switch SpectrumController().selectedMachineType {
+				case LIBSPECTRUM_MACHINE_16: fallthrough
+				case LIBSPECTRUM_MACHINE_48: fallthrough
+				case LIBSPECTRUM_MACHINE_UNKNOWN:
+					return Styles.text(from: NSLocalizedString("<n>Type `</n><em>LOAD \"\"</em><n>` and press </n><em>ENTER</em>"), styles: Bond.messageStyles)
+				default:
+					return Styles.text(from: NSLocalizedString("<n>Select `</n><em>Tape Loader</em><n>` option and press </n><em>ENTER</em>"), styles: Bond.messageStyles)
+				}
 			}
+			
+			return nil
 		}
 		
 		private static let titleLightStyle = Styles.style(name: "n", appearance: [ .light, .inverted ], size: .title)
@@ -127,7 +131,7 @@ extension TapeViewController {
 	}
 }
 
-func == (lhs: TapeViewController.Item, rhs: TapeViewController.Item) -> Bool {
+func == (lhs: TapeBlocksViewController.Item, rhs: TapeBlocksViewController.Item) -> Bool {
 	if let lb = lhs.block, let rb = lhs.block {
 		// If both items represent blocks, compare blocks for equality.
 		return lb === rb

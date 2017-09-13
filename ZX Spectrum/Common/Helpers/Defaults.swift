@@ -29,8 +29,6 @@ class Defaults {
 	*/
 	static let selectedMachine = Property<String>("")
 	
-	fileprivate static let bag = DisposeBag()
-	
 	// MARK: - Helper functions
 	
 	/**
@@ -41,7 +39,6 @@ class Defaults {
 	static func pauseEmulation() {
 		gverbose("Pausing emulation (pause stack \(fuse_emulation_paused + 1))")
 		
-		saveSnapshotIfNeeded()
 		fuse_emulation_pause()
 		
 		if isEmulationStarted.value {
@@ -70,17 +67,6 @@ class Defaults {
 	
 	static func initialize() {
 		setupPlaybackSignals()
-		setupFileSignals()
-	}
-	
-	private static func saveSnapshotIfNeeded() {
-		if let object = currentFile.value {
-			do {
-				try Database.saveSnapshot(for: object)
-			} catch {
-				gwarn("Error saving snapshot for \(object)")
-			}
-		}
 	}
 }
 
@@ -101,23 +87,6 @@ extension Defaults {
 	Also note this value may be nil even if `currentFile` isn't nil; this there was something wrong reading the info and so isn't available.
 	*/
 	static let currentFileInfo = Property<SpectrumFileInfo?>(nil)
-	
-	fileprivate static func setupFileSignals() {
-		// Whenever file changes, save snapshot for previous object and load snapshot for new one.
-		currentFile.zipPrevious().observeNext { old, new in
-			if let oldOptional = old, let oldObject = oldOptional {
-				do {
-					try Database.saveSnapshot(for: oldObject)
-				} catch {
-					gwarn("Failed saving snapshot \(error)")
-				}
-			}
-			
-			if let newObject = new {
-				Database.openSnapshot(for: newObject)
-			}
-		}.dispose(in: bag)
-	}
 }
 
 // MARK: - Playback

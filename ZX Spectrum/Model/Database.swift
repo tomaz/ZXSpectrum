@@ -110,6 +110,44 @@ extension Database {
 		snapshot_write(url.path.cString(using: .ascii))
 	}
 	
+	/**
+	Deletes snapshot for the given object, if it exists.
+	*/
+	static func deleteSnapshot(for object: FileObject) throws {
+		let url = snapshotURL(for: object)
+		let manager = FileManager.default
+		
+		if !manager.fileExists(atPath: url.path) {
+			return
+		}
+		
+		try manager.removeItem(at: url)
+	}
+	
+	/**
+	Determines the size of the snapshot.
+	
+	Returns 0 if snapshot is not present.
+	*/
+	static func snapshotSize(for object: FileObject) -> Int {
+		let url = snapshotURL(for: object)
+		let manager = FileManager.default
+		
+		if !manager.fileExists(atPath: url.path) {
+			return 0
+		}
+		
+		do {
+			let attributes = try manager.attributesOfItem(atPath: url.path)
+			if let size = attributes[FileAttributeKey.size] as? Int {
+				return size
+			}
+		} catch {
+		}
+		
+		return 0
+	}
+	
 	private static func snapshotURL(for object: FileObject) -> URL {
 		// Snapshots are saved as flat list of files within snapshots folder.
 		let filename = object.url.deletingPathExtension().lastPathComponent
