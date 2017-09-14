@@ -397,38 +397,15 @@ extension FileTableViewCell {
 	Prepares delete all files text.
 	*/
 	fileprivate static func deleteAllText(for object: FileObject, fileInfo: SpectrumFileInfo, snapshotSize: Int) -> NSAttributedString? {
-		// If there's no snapshot, only show icon.
-		if snapshotSize == 0 {
-			return nil
-		}
-		
-		let totalSize = fileInfo.size + snapshotSize
-		let value = Formatter.size(fromBytes: totalSize)
-		
-		let result = NSMutableAttributedString()
-		result.append(value.value.set(style: FileTableViewCell.buttonValueStyle))
-		result.append(value.unit.set(style: FileTableViewCell.buttonStyle))
-		return result
+		return Styles.deleteButtonText(size: snapshotSize)
 	}
 	
 	/**
 	Prepares delete snapshot title.
 	*/
 	fileprivate static func deleteSnapshotText(for object: FileObject, fileInfo: SpectrumFileInfo, snapshotSize: Int) -> NSAttributedString? {
-		if snapshotSize == 0 {
-			return nil
-		}
-		
-		let value = Formatter.size(fromBytes: snapshotSize)
-		
-		let result = NSMutableAttributedString()
-		result.append(value.value.set(style: FileTableViewCell.buttonValueStyle))
-		result.append(value.unit.set(style: FileTableViewCell.buttonStyle))
-		return result
+		return Styles.deleteButtonText(size: snapshotSize)
 	}
-	
-	private static let buttonStyle = style(appearance: [.light, .warning], size: .main)
-	private static let buttonValueStyle = style(appearance: [.emphasized, .warning], size: .main)
 }
 
 // MARK: - Common styling

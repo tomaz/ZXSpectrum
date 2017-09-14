@@ -101,3 +101,30 @@ final class Styles {
 		}
 	}
 }
+
+// MARK: - Common styling
+
+extension Styles {
+
+	/**
+	Prepares attributed string for delete buttons.
+	*/
+	static func deleteButtonText(size: Int, valueStyle: Style? = nil, unitStyle: Style? = nil) -> NSAttributedString? {
+		if size == 0 {
+			return nil
+		}
+		
+		let value = Formatter.size(fromBytes: size)
+		
+		let usedValueStyle = valueStyle ?? Styles.deleteButtonValueStyle
+		let usedUnitStyle = unitStyle ?? Styles.deleteButtonUnitStyle
+		
+		let result = NSMutableAttributedString()
+		result.append(value.value.set(style: usedValueStyle))
+		result.append(value.unit.set(style: usedUnitStyle))
+		return result
+	}
+
+	private static let deleteButtonValueStyle = Styles.style(appearance: [.emphasized, .warning], size: .main)
+	private static let deleteButtonUnitStyle = Styles.style(appearance: [.light, .warning], size: .main)
+}

@@ -157,19 +157,6 @@ extension FilesSettingsView {
 	*/
 	fileprivate func deleteSnapshotsText() -> NSAttributedString? {
 		let size = Database.totalSnapshotsSize.value
-		
-		if size == 0 {
-			return nil
-		}
-		
-		let value = Formatter.size(fromBytes: size)
-
-		let result = NSMutableAttributedString()
-		result.append(value.value.set(style: FilesSettingsView.buttonValueStyle))
-		result.append(value.unit.set(style: FilesSettingsView.buttonStyle))
-		return result
+		return Styles.deleteButtonText(size: size)
 	}
-
-	private static let buttonStyle = Styles.style(appearance: [.light, .warning], size: .main)
-	private static let buttonValueStyle = Styles.style(appearance: [.emphasized, .warning], size: .main)
 }

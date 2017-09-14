@@ -48,7 +48,7 @@ class TapeViewController: UIViewController {
 		setupSaveSnapshotButtonTapSignal()
 		setupDeleteSnapshotButtonTapSignal()
 		
-		updateAvailableProperty()
+		updateSnapshotAvailableProperty()
 	}
 }
 
@@ -71,8 +71,9 @@ extension TapeViewController {
 	fileprivate func setup(deleteButton: UIButton) {
 		let appearance: Styles.Appearance = [ .inverted, .emphasized ]
 		deleteButton.title = nil
-		deleteButton.image = IconsStyleKit.imageOfIconTrash
+		deleteButton.image = IconsStyleKit.imageOfIconTrashSnapshot
 		deleteButton.tintColor = appearance.fontColor
+		updateDeleteSnapshotButton()
 	}
 	
 	private func setupFont(for label: UILabel?, appearance: Styles.Appearance) {
@@ -82,11 +83,14 @@ extension TapeViewController {
 	}
 }
 
-// MARK: - Signals handling
+// MARK: - Helper functions
 
 extension TapeViewController {
 	
-	fileprivate func updateAvailableProperty() {
+	/**
+	Updates the value of `isSnapshotAvailable` property so that all views depending on its signal are updated.
+	*/
+	fileprivate func updateSnapshotAvailableProperty() {
 		gverbose("Determining snapshot availability")
 		
 		guard let object = Defaults.currentFile.value else {
@@ -99,6 +103,27 @@ extension TapeViewController {
 		gdebug("Snapshot size is \(size)")
 		isSnapshotAvailable.value = size > 0
 	}
+	
+	/**
+	Updates delete snapshot button to show actual usage.
+	*/
+	fileprivate func updateDeleteSnapshotButton() {
+		guard let object = Defaults.currentFile.value else {
+			deleteSnapshotButton.attributedTitle = nil
+			return
+		}
+		
+		let size = Database.snapshotSize(for: object)
+		deleteSnapshotButton.attributedTitle = Styles.deleteButtonText(size: size, valueStyle: TapeViewController.deleteButtonValueStyle, unitStyle: TapeViewController.deleteButtonUnitStyle)
+	}
+
+	private static let deleteButtonValueStyle = Styles.style(appearance: [.emphasized, .inverted], size: .main)
+	private static let deleteButtonUnitStyle = Styles.style(appearance: [.light, .inverted], size: .main)
+}
+
+// MARK: - Signals handling
+
+extension TapeViewController {
 	
 	fileprivate func setupStatusSignals() {
 		// We only allow interacting with snapshots when we have file inserted and tape isn't playing.
@@ -141,7 +166,8 @@ extension TapeViewController {
 			} catch {
 				gwarn("Snapshot failed saving \(error)")
 			}
-			me.updateAvailableProperty()
+			me.updateSnapshotAvailableProperty()
+			me.updateDeleteSnapshotButton()
 		}
 	}
 	
@@ -153,7 +179,8 @@ extension TapeViewController {
 					me.present(error: error)
 					return
 				}
-				me.updateAvailableProperty()
+				me.updateSnapshotAvailableProperty()
+				me.updateDeleteSnapshotButton()
 			}
 		}
 	}
