@@ -93,6 +93,7 @@
 		739CE94F1EBE793000071BF4 /* JoystickBindingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739CE94E1EBE793000071BF4 /* JoystickBindingViewController.swift */; };
 		739CE9531EBF733500071BF4 /* JoystickMappingObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739CE9521EBF733500071BF4 /* JoystickMappingObject.swift */; };
 		739CE9551EBF845D00071BF4 /* KeyCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739CE9541EBF845D00071BF4 /* KeyCode.swift */; };
+		739D167F1F6A986E0086B3D1 /* UIImage+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739D167E1F6A986E0086B3D1 /* UIImage+ZXSpectrum.swift */; };
 		73ACE1161EC25A240073A99C /* JoystickStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73ACE1151EC25A240073A99C /* JoystickStyleKit.swift */; };
 		73AFFEC01EAFC5BE00218DB7 /* UIColor+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AFFEBF1EAFC5BE00218DB7 /* UIColor+ZXSpectrum.swift */; };
 		73AFFED61EAFC62B00218DB7 /* CGPoint+ZXSpectrum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73AFFED51EAFC62B00218DB7 /* CGPoint+ZXSpectrum.swift */; };
@@ -498,6 +499,7 @@
 		739CE94E1EBE793000071BF4 /* JoystickBindingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoystickBindingViewController.swift; sourceTree = "<group>"; };
 		739CE9521EBF733500071BF4 /* JoystickMappingObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoystickMappingObject.swift; sourceTree = "<group>"; };
 		739CE9541EBF845D00071BF4 /* KeyCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyCode.swift; sourceTree = "<group>"; };
+		739D167E1F6A986E0086B3D1 /* UIImage+ZXSpectrum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+ZXSpectrum.swift"; sourceTree = "<group>"; };
 		73ACE1151EC25A240073A99C /* JoystickStyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JoystickStyleKit.swift; sourceTree = "<group>"; };
 		73AFFEBF1EAFC5BE00218DB7 /* UIColor+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+ZXSpectrum.swift"; sourceTree = "<group>"; };
 		73AFFED51EAFC62B00218DB7 /* CGPoint+ZXSpectrum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+ZXSpectrum.swift"; sourceTree = "<group>"; };
@@ -720,6 +722,7 @@
 				7343688E1EC9F988001C08CB /* NSAttributedString+ZXSpectrum.swift */,
 				7384B88D1EA7A35B005FC8DF /* NSManagedObjectContext+ZXSpectrum.swift */,
 				73AFFEBF1EAFC5BE00218DB7 /* UIColor+ZXSpectrum.swift */,
+				739D167E1F6A986E0086B3D1 /* UIImage+ZXSpectrum.swift */,
 				734DBF801EC1070A00587C98 /* UIDevice+ZXSpectrum.swift */,
 				7384B88B1EA7A257005FC8DF /* UIViewController+Hierarchy.swift */,
 				737B56FC1EA4009900A260B9 /* UIViewController+ZXSpectrum.swift */,
@@ -1442,6 +1445,7 @@
 				735471E51EC9DD790083355C /* SpectrumFileController.m in Sources */,
 				73D37FE01EC1F59700335055 /* TouchableView.swift in Sources */,
 				739CE94F1EBE793000071BF4 /* JoystickBindingViewController.swift in Sources */,
+				739D167F1F6A986E0086B3D1 /* UIImage+ZXSpectrum.swift in Sources */,
 				7309595B1EEAA67B00BE83FA /* FilesSettingsView.swift in Sources */,
 				73E330F81ED096C900FAFD13 /* TapeBlocksViewController.swift in Sources */,
 				73DA64EE1EA5611E008832AA /* FileTableViewCell.swift in Sources */,

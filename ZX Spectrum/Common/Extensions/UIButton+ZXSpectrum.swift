@@ -61,4 +61,29 @@ extension UIButton {
 			self.image = image
 		}
 	}
+	
+	/**
+	Performs animation of the button from the current image, to given one and after the given amount of seconds animates back to original.
+	*/
+	func animate(image temporaryImage: UIImage?, for time: Double, completion: (() -> Void)? = nil) {
+		let originalImage = image
+		let fadeTime = 0.25
+		let delay = max(time - 2 * fadeTime, 0.25)
+
+		func animate(from: UIImage?, to: UIImage?, name: String) {
+			let animation = CABasicAnimation(keyPath:"contents")
+			animation.duration = fadeTime
+			animation.fromValue = from?.cgImage
+			animation.toValue = to?.cgImage
+			animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+			animation.isRemovedOnCompletion = true
+			imageView?.layer.add(animation, forKey: name)
+			setImage(to, for: .normal)
+		}
+		
+		animate(from: originalImage, to: temporaryImage, name: "animateContentsIn")
+		DispatchQueue.main.asyncAfter(deadline: .now() + delay) {
+			animate(from: temporaryImage, to: originalImage, name: "animateContentsOut")
+		}
+	}
 }

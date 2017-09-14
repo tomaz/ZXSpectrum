@@ -161,13 +161,18 @@ extension TapeViewController {
 	fileprivate func setupSaveSnapshotButtonTapSignal() {
 		saveSnapshotButton.reactive.tap.bind(to: self) { me, _ in
 			ginfo("Saving snapshot")
+			
 			do {
 				try Database.saveSnapshot(for: Defaults.currentFile.value!)
 			} catch {
-				gwarn("Snapshot failed saving \(error)")
+				me.present(error: error as NSError)
 			}
+			
 			me.updateSnapshotAvailableProperty()
 			me.updateDeleteSnapshotButton()
+			
+			let image = IconsStyleKit.imageOfIconCheck.tinted(UIColor.green)
+			me.saveSnapshotButton.animate(image: image, for: 1.5)
 		}
 	}
 	
