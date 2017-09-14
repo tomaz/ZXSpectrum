@@ -43,6 +43,10 @@ class FileTableViewCell: UITableViewCell, Configurable {
 		actionsContainerView.isHidden = true
 		actionsContainerView.alpha = 0
 		
+		// This just prevents accidental taps on actions container so cell doesn't unselect.
+		actionsContainerView.isUserInteractionEnabled = true
+		actionsContainerView.addGestureRecognizer(UITapGestureRecognizer { _ in })
+		
 		setupInsertButtonSignals()
 		setupDeleteButtonSignals()
 		setupDeleteSnapshotButtonSignals()
