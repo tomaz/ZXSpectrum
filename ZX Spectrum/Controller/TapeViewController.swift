@@ -44,6 +44,7 @@ class TapeViewController: UIViewController {
 		
 		gdebug("Setting up signals")
 		setupStatusSignals()
+		setupCurrentFileSignal()
 		setupLoadSnapshotButtonTapSignal()
 		setupSaveSnapshotButtonTapSignal()
 		setupDeleteSnapshotButtonTapSignal()
@@ -139,6 +140,13 @@ extension TapeViewController {
 		canManageSnapshots.bind(to: saveSnapshotButton.reactive.isEnabled)
 		canLoadSnapshots.bind(to: loadSnapshotButton.reactive.isEnabled)
 		canLoadSnapshots.bind(to: deleteSnapshotButton.reactive.isEnabled)
+	}
+	
+	fileprivate func setupCurrentFileSignal() {
+		Defaults.currentFile.bind(to: self) { me, _ in
+			gdebug("File changed, updating delete button")
+			me.updateDeleteSnapshotButton()
+		}
 	}
 	
 	fileprivate func setupLoadSnapshotButtonTapSignal() {
