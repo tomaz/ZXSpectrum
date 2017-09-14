@@ -86,7 +86,8 @@ extension Database {
 	/**
 	Opens the snapshot for the given object and updates `totalSnapshotSize`.
 	*/
-	static func openSnapshot(for object: FileObject) {
+	@discardableResult
+	static func openSnapshot(for object: FileObject) -> Bool {
 		let url = snapshotURL(for: object)
 		
 		gverbose("Loading snapshot for \(object)")
@@ -94,12 +95,16 @@ extension Database {
 		// No need to load anything if snapshot doesn't exist.
 		if !FileManager.default.fileExists(atPath: url.path) {
 			gdebug("Snapshot doesn't exist")
-			return
+			return false
 		}
 		
 		gdebug("Rading snapshot")
-		snapshot_read(url.path.cString(using: .ascii))
+		if snapshot_read(url.path.cString(using: .ascii)) != 0 {
+			return false
+		}
+		
 		display_refresh_all()
+		return true
 	}
 	
 	/**

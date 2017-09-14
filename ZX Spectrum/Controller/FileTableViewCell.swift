@@ -159,7 +159,7 @@ extension FileTableViewCell {
 			}
 		}
 	}
-	
+
 	fileprivate func setupDeleteButtonSignals() {
 		deleteButton.reactive.tap.bind(to: self) { me, sender in
 			if let object = me.object {
