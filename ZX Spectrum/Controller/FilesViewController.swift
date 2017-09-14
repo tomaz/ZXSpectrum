@@ -109,14 +109,15 @@ extension FilesViewController {
 	Inserts the given object for playback.
 	*/
 	fileprivate func insert(object: FileObject, info: SpectrumFileInfo?) {
-		let name = object.url.path.toInt8Array
-		
 		// Update last usage date for the object.
 		object.used = Date()
 		try? object.managedObjectContext?.save()
 
-		// Open the file in emulator.
-		emulator.openFile(name)
+		// If we have snapshot, use that, otherwise open the file in emulator.
+		if !Database.openSnapshot(for: object) {
+			let name = object.url.path.toInt8Array
+			emulator.openFile(name)
+		}
 		
 		// Wait a little bit then close files controller. This delay is needed so that emulator properly updates, at least it was unreliable without it during initial implementation - something to check in the future...
 		after(0.2) {
@@ -127,7 +128,7 @@ extension FilesViewController {
 	}
 	
 	/**
-	Deletes the given object.
+	Deletes all files, including snapshots for the given object.
 	*/
 	fileprivate func delete(object: FileObject) {
 		if let context = object.managedObjectContext {

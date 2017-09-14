@@ -40,8 +40,9 @@ final class FileObject: NSManagedObject {
 	}
 
 	override func prepareForDeletion() {
+		didUploadedFilesDelete = Database.deleteAllFiles(for: self)
+		
 		super.prepareForDeletion()
-		didUploadedFilesDelete = Database.deleteUploadedFiles(at: url)
 	}
 }
 

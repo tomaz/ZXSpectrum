@@ -545,7 +545,7 @@
 }
 
 - (NSUInteger)hash {
-	return [super hash] ^ self.type ^ self.subtype & self.usage;
+	return [super hash] ^ self.type ^ self.subtype ^ self.usage;
 }
 
 - (NSString *)description {
