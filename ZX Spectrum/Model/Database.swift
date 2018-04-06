@@ -98,7 +98,7 @@ extension Database {
 			return false
 		}
 		
-		gdebug("Rading snapshot")
+		gdebug("Reading snapshot")
 		if snapshot_read(url.path.cString(using: .ascii)) != 0 {
 			return false
 		}
